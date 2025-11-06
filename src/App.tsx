@@ -21,9 +21,18 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/case-study/educational-bots" element={<CaseStudyEducational />} />
-          <Route path="/case-study/role-prompting" element={<CaseStudyRolePrompting />} />
-          <Route path="/case-study/emotional-ai" element={<CaseStudyEmotionalAI />} />
+          <Route
+            path="/case-study/educational-bots"
+            element={<CaseStudyEducational />}
+          />
+          <Route
+            path="/case-study/role-prompting"
+            element={<CaseStudyRolePrompting />}
+          />
+          <Route
+            path="/case-study/emotional-ai"
+            element={<CaseStudyEmotionalAI />}
+          />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
