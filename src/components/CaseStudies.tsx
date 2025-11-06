@@ -1,6 +1,7 @@
 import { Card } from "./ui/card";
 import { Button } from "./ui/button";
 import { ArrowRight, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const caseStudies = [
   {
@@ -57,9 +58,9 @@ export const CaseStudies = () => {
                 className="text-primary hover:text-primary hover:bg-primary/10 p-0 h-auto font-semibold group-hover:translate-x-1 transition-transform duration-300"
                 asChild
               >
-                <a href={study.link} target="_blank" rel="noopener noreferrer">
+                <Link to={study.link}>
                   Read More <ArrowRight className="w-4 h-4 ml-1" />
-                </a>
+                </Link>
               </Button>
             </Card>
           ))}
