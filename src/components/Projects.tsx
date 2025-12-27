@@ -16,7 +16,7 @@ const projects = [
     outcome:
       "Reduced teachers' writing time by 60% and improved message consistency across classes.",
     tools: ["GPT-4", "OpenAI API", "Google Sheets Integration", "Streamlit"],
-    link: "https://ai-teaching-assistants.streamlit.app/",
+    link: "https://teacher-ai-assistant-cr.streamlit.app/",
   },
   {
     icon: ShoppingCart,
