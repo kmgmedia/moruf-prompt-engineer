@@ -15,7 +15,7 @@ const projects = [
     ],
     outcome:
       "Reduced teachers' writing time by 60% and improved message consistency across classes.",
-    tools: ["GPT-4", "OpenAI API", "Google Sheets Integration", "Streamlit"],
+    tools: ["Python", "Gemini API", "Google Sheets Integration", "Streamlit"],
     link: "https://teacher-ai-assistant-cr.streamlit.app/",
   },
   {
@@ -30,7 +30,7 @@ const projects = [
     ],
     outcome:
       "Increased conversion rate by 22% within the first month of pilot testing.",
-    tools: ["GPT-4 Turbo", "LangChain", "Telegram API"],
+    tools: ["Gemini API", "Python", "LangChain", "Telegram API"],
     link: "https://saleschatbotfile.vercel.app/",
   },
   {
