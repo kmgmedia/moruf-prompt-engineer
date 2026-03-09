@@ -42,20 +42,6 @@ const projects = [
     link: "https://saleschatbotfile.vercel.app/",
   },
   {
-    icon: Palette,
-    title: "Creative Storytelling Prompts",
-    client: "Brand Campaign (Midjourney + GPT)",
-    goal: "Generate brand stories and visuals that capture 'vintage luxury' for a client campaign.",
-    strategy: [
-      "Layered prompts connecting brand tone with imagery concepts",
-      "Consistent keyword and aesthetic framing",
-    ],
-    outcome:
-      "Created 15+ original story + image pairs that were used across digital campaigns and social media assets.",
-    tools: ["GPT-4", "Midjourney", "Notion AI"],
-    link: "",
-  },
-  {
     icon: Database,
     title: "Byway Backend API",
     client: "End-to-End REST API Development",
@@ -144,6 +130,20 @@ const projects = [
       "Sonner",
     ],
     link: "https://dashboard-auth-full-stack.vercel.app/",
+  },
+  {
+    icon: Palette,
+    title: "Creative Storytelling Prompts",
+    client: "Brand Campaign (Midjourney + GPT)",
+    goal: "Generate brand stories and visuals that capture 'vintage luxury' for a client campaign.",
+    strategy: [
+      "Layered prompts connecting brand tone with imagery concepts",
+      "Consistent keyword and aesthetic framing",
+    ],
+    outcome:
+      "Created 15+ original story + image pairs that were used across digital campaigns and social media assets.",
+    tools: ["GPT-4", "Midjourney", "Notion AI"],
+    link: "",
   },
 ];
 
