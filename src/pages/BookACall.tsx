@@ -66,7 +66,7 @@ const BookACall = () => {
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
                 I've received your information and I'm already thinking about
-                your automation challenge.
+                your project.
               </p>
             </div>
 
@@ -82,9 +82,7 @@ const BookACall = () => {
                     <span className="text-primary font-bold flex-shrink-0">
                       1.
                     </span>
-                    <span>
-                      I'll review your workflow details and automation goals
-                    </span>
+                    <span>I'll review your project details and goals</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <span className="text-primary font-bold flex-shrink-0">
@@ -100,8 +98,8 @@ const BookACall = () => {
                       3.
                     </span>
                     <span>
-                      We'll talk through exactly what you want to automate and
-                      explore solutions
+                      We'll talk through exactly what you're building and
+                      explore the best solution
                     </span>
                   </li>
                 </ul>
@@ -156,12 +154,13 @@ const BookACall = () => {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              Tell me what you want to
-              <span className="text-primary"> automate</span>
+              Tell me about your
+              <span className="text-primary"> project</span>
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Share what you're currently doing manually in your business or
-              workflow, and I'll explore how automation systems can improve it.
+              Share what you're building, improving, or struggling with, and
+              I'll explore how AI, automation, or custom software can help solve
+              it.
             </p>
           </div>
 
@@ -234,7 +233,7 @@ const BookACall = () => {
               {/* Project Type */}
               <div>
                 <label className="block text-sm font-semibold mb-3">
-                  What do you want to automate? *
+                  What do you need help with? *
                 </label>
                 <select
                   name="projectType"
@@ -260,13 +259,13 @@ const BookACall = () => {
               {/* Description */}
               <div>
                 <label className="block text-sm font-semibold mb-3">
-                  Tell me more about your workflow
+                  Tell me more about your project
                 </label>
                 <textarea
                   name="description"
                   value={formData.description}
                   onChange={handleInputChange}
-                  placeholder="Describe what you're currently doing manually, the challenges you face, and what success looks like..."
+                  placeholder="Describe your current process, challenges, and what you're trying to achieve..."
                   rows={5}
                   className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none transition-colors resize-none"
                 />
@@ -275,10 +274,9 @@ const BookACall = () => {
               {/* Trust Message */}
               <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  I focus on building real automation systems — not just
-                  prototypes or ideas. Every solution I build is designed to
-                  reduce manual work, connect your tools, and improve how your
-                  business actually operates.
+                  I design and build systems, from AI-powered tools and
+                  automation workflows to full-stack applications, focused on
+                  solving real business problems and improving how things work.
                 </p>
               </div>
 
@@ -296,7 +294,7 @@ const BookACall = () => {
                   type="submit"
                   className="flex-1 bg-primary hover:bg-primary/90 shadow-glow"
                 >
-                  Book a Call
+                  Discuss Your Project
                 </Button>
               </div>
             </form>

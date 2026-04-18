@@ -35,11 +35,10 @@ const CaseStudyEducational = () => {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              Designing AI Prompts That Teach: My Approach to Educational Bots
+              Building Teachable AI: Conversational Learning Systems
             </h1>
             <p className="text-xl text-muted-foreground">
-              A deep dive into creating conversational AI that genuinely
-              educates rather than just responds.
+              Designing AI systems that genuinely educate rather than just respond. How structured prompting creates engaging learning interactions.
             </p>
           </header>
 
@@ -50,7 +49,7 @@ const CaseStudyEducational = () => {
               <div className="flex items-start gap-4">
                 <Target className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">The Challenge</h2>
+                  <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed">
                     Traditional chatbots often feel robotic and impersonal,
                     especially in educational contexts. The challenge was to
@@ -62,10 +61,29 @@ const CaseStudyEducational = () => {
               </div>
             </Card>
 
+            {/* Solution */}
+            <Card className="p-6 bg-primary/5 border-primary/20">
+              <div className="flex items-start gap-4">
+                <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h2 className="text-2xl font-bold mb-3">The Solution</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">
+                    I built an AI system designed to behave like an attentive educator, not just an information retriever. The system uses carefully crafted prompts to:
+                  </p>
+                  <ul className="list-disc list-inside space-y-2 text-foreground/90">
+                    <li>Ask guiding questions rather than provide immediate answers</li>
+                    <li>Adapt explanations to the learner's apparent level of understanding</li>
+                    <li>Encourage critical thinking and exploration</li>
+                    <li>Maintain consistent pedagogical approach across interactions</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
+
             <div className="space-y-4">
               <h2 className="text-3xl font-bold flex items-center gap-3">
                 <Lightbulb className="w-8 h-8 text-primary" />
-                My Approach
+                How It Works: Structured Prompt Engineering
               </h2>
 
               <div className="space-y-6 pl-4 border-l-4 border-primary/30">

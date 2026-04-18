@@ -6,21 +6,21 @@ import { Link } from "react-router-dom";
 const caseStudies = [
   {
     title:
-      "AI Assistant for Teachers: Empowering Education Through Intelligent Prompting",
+      "AI-Powered Educational Assistant System",
     description:
-      "How I built an AI assistant that reduced teacher workload by 60% through strategic prompt engineering.",
+      "Automating consistent, scaled responses for educators using structured AI workflows. Reduced teacher workload by 60%.",
     link: "/case-study/teacher-ai",
   },
   {
-    title: "Designing AI Prompts That Teach: My Approach to Educational Bots",
+    title: "Breaking Down Data Silos: AI-Powered Multi-System Integration",
     description:
-      "A deep dive into creating conversational AI that genuinely educates rather than just responds.",
-    link: "/case-study/educational-bots",
+      "Intelligent API orchestration that eliminated manual data entry across 5+ systems. 40 hours/week saved with real-time sync.",
+    link: "/case-study/api-integration",
   },
   {
-    title: "The Secret Sauce to Humanlike Chatbots: Role Prompting Done Right",
+    title: "Creating Authentic AI Conversations: Role-Based System Design",
     description:
-      "How strategic role assignment transforms generic AI responses into authentic conversations.",
+      "How system architecture and role prompting transform generic AI into reliable, contextual conversation partners.",
     link: "/case-study/role-prompting",
   },
 ];
@@ -33,11 +33,11 @@ export const CaseStudies = () => {
           <div className="inline-flex items-center gap-2 mb-4">
             <BookOpen className="w-6 h-6 text-primary" />
             <h2 className="text-4xl md:text-5xl font-bold">
-              Case Studies & <span className="text-primary">Write-Ups</span>
+              <span className="text-primary">AI Systems & Automation Solutions</span>
             </h2>
           </div>
           <p className="text-muted-foreground text-lg">
-            Deep insights into the craft of prompt engineering
+            How I solve real business problems using AI, automation, and system design
           </p>
         </div>
 

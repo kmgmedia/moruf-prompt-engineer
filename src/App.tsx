@@ -11,6 +11,7 @@ import BookACall from "./pages/BookACall";
 import CaseStudyEducational from "./pages/CaseStudyEducational";
 import CaseStudyRolePrompting from "./pages/CaseStudyRolePrompting";
 import CaseStudyEmotionalAI from "./pages/CaseStudyEmotionalAI";
+import CaseStudyAPIIntegration from "./pages/CaseStudyAPIIntegration";
 import CaseStudyTeacherAI from "./pages/CaseStudyTeacherAI";
 import CaseStudyEcommerceChatbot from "./pages/CaseStudyEcommerceChatbot";
 import CaseStudyDashboard from "./pages/CaseStudyDashboard";
@@ -38,6 +39,10 @@ const App = () => (
           <Route
             path="/case-study/role-prompting"
             element={<CaseStudyRolePrompting />}
+          />
+          <Route
+            path="/case-study/api-integration"
+            element={<CaseStudyAPIIntegration />}
           />
           <Route
             path="/case-study/emotional-ai"

@@ -42,12 +42,10 @@ const CaseStudyTeacherAI = () => {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              AI Assistant for Teachers: Empowering Education Through
-              Intelligent Prompting
+              AI-Powered Educational Assistant System
             </h1>
             <p className="text-xl text-muted-foreground">
-              How I built an AI assistant that reduced teacher workload by 60%
-              through strategic prompt engineering
+              Automating consistent, scaled responses for educators using structured AI workflows. Reduced teacher workload by 60%.
             </p>
           </header>
 
@@ -161,7 +159,7 @@ const CaseStudyTeacherAI = () => {
               <div className="flex items-start gap-4">
                 <Target className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">The Challenge</h2>
+              <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed">
                     Teachers at Sandton Prep were spending 4-6 hours weekly on
                     administrative tasks: writing personalized lesson notes,
@@ -175,11 +173,32 @@ const CaseStudyTeacherAI = () => {
               </div>
             </Card>
 
+            {/* Solution */}
+            <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
+              <div className="flex items-start gap-4">
+                <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h2 className="text-2xl font-bold mb-3">The Solution</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">
+                    I designed an AI-powered conversational system that acts as a structured teaching assistant. Rather than generic chatbot responses, this system uses carefully designed prompts, contextual instruction, and role-based behavior to deliver consistent, high-quality outputs.
+                  </p>
+                  <p className="text-foreground/90 leading-relaxed">
+                    The system automates three core workflows:
+                  </p>
+                  <ul className="list-disc list-inside space-y-2 mt-3 text-foreground/90">
+                    <li>Generating personalized lesson plans with learning objectives</li>
+                    <li>Writing authentic student progress reports</li>
+                    <li>Composing parent communication that maintains teacher voice</li>
+                  </ul>
+                </div>
+              </div>
+            </Card>
+
             {/* Approach */}
             <div className="space-y-4">
               <h2 className="text-3xl font-bold flex items-center gap-3">
                 <Lightbulb className="w-8 h-8 text-primary" />
-                My Prompt Engineering Approach
+                How It Works: Structured Prompt Engineering
               </h2>
 
               <div className="space-y-6 pl-4 border-l-4 border-primary/30">

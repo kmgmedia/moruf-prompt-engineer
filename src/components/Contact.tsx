@@ -7,11 +7,11 @@ export const Contact = () => {
       <div className="container mx-auto max-w-4xl">
         <div className="text-center space-y-8 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold">
-            Let's build AI experiences that <span className="text-primary">talk, sell, and tell stories</span> like humans do
+            Stop doing <span className="text-primary">repetitive work manually</span>
           </h2>
           
           <p className="text-xl text-muted-foreground">
-            Ready to collaborate on your next AI project?
+            Let's build a system that handles it for you
           </p>
           
           <div className="flex flex-wrap gap-4 justify-center pt-4">

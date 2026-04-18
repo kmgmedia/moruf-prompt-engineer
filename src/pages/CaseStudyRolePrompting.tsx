@@ -2,6 +2,7 @@ import { ArrowLeft, Users, MessageSquare, Zap, Award } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 const CaseStudyRolePrompting = () => {
   const navigate = useNavigate();
@@ -28,11 +29,10 @@ const CaseStudyRolePrompting = () => {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              The Secret Sauce to Humanlike Chatbots: Role Prompting Done Right
+              Building Authentic AI Conversations: Role-Based System Design
             </h1>
             <p className="text-xl text-muted-foreground">
-              How strategic role assignment transforms generic AI responses into
-              authentic conversations.
+              How system architecture and role prompting transform generic chatbots into personality-driven conversation partners. 22% increase in conversion rate.
             </p>
           </header>
 
@@ -44,7 +44,7 @@ const CaseStudyRolePrompting = () => {
                 <MessageSquare className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-3">
-                    The Problem with Generic AI
+                    The Problem
                   </h2>
                   <p className="text-foreground/90 leading-relaxed">
                     Most chatbots sound the same: polite, helpful, but
@@ -57,10 +57,32 @@ const CaseStudyRolePrompting = () => {
               </div>
             </Card>
 
+            {/* Solution */}
+            <Card className="p-6 bg-primary/5 border-primary/20">
+              <div className="flex items-start gap-4">
+                <Zap className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h2 className="text-2xl font-bold mb-3">The Solution</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">
+                    I designed a role-based system architecture that assigns a detailed, consistent identity to the AI. Rather than generic responses, the system uses:
+                  </p>
+                  <ul className="list-disc list-inside space-y-2 text-foreground/90">
+                    <li>Comprehensive character definitions with personality traits</li>
+                    <li>Communication style guidelines and tone specifications</li>
+                    <li>Contextual knowledge and background information</li>
+                    <li>Behavioral constraints and relationship dynamics</li>
+                  </ul>
+                  <p className="text-foreground/90 leading-relaxed mt-4">
+                    This creates conversations that feel natural, engaging, and purpose-driven.
+                  </p>
+                </div>
+              </div>
+            </Card>
+
             <div className="space-y-4">
               <h2 className="text-3xl font-bold flex items-center gap-3">
                 <Zap className="w-8 h-8 text-primary" />
-                The Role Prompting Framework
+                How It Works: Role Prompting Framework
               </h2>
 
               <p className="text-foreground/90 leading-relaxed">
@@ -218,7 +240,7 @@ const CaseStudyRolePrompting = () => {
                 <Award className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-3">
-                    Real-World Results
+                    Results & Impact
                   </h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     I implemented this role prompting framework for a
@@ -264,7 +286,7 @@ const CaseStudyRolePrompting = () => {
             </Card>
 
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold">Key Lessons Learned</h2>
+              <h2 className="text-3xl font-bold">Key Takeaways</h2>
               <Card className="p-6 bg-muted/30">
                 <div className="space-y-4">
                   <div>

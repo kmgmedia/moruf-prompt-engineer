@@ -19,7 +19,7 @@ export const Hero = () => {
         <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
           <div className="inline-block">
             <span className="text-primary text-xs md:text-sm font-semibold tracking-wider uppercase px-3 md:px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              Prompt Engineering Portfolio
+              AI Automation & Systems Portfolio
             </span>
           </div>
 
