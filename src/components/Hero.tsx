@@ -32,11 +32,13 @@ export const Hero = () => {
 
           <div className="space-y-4 max-w-3xl mx-auto">
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Applied AI Engineer building intelligent automation systems & AI workflows
+              Applied AI Engineer building intelligent automation systems & AI
+              workflows
             </p>
 
             <p className="text-base md:text-lg text-foreground/75">
-              I design and build AI-powered systems that automate conversations, connect APIs, and streamline business workflows.
+              I design and build AI-powered systems that automate conversations,
+              connect APIs, and streamline business workflows.
             </p>
           </div>
 
