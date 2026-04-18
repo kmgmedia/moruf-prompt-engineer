@@ -56,7 +56,7 @@ export const Hero = () => {
               className="border-primary/30 hover:bg-primary/10 hover:border-primary hover:text-white transition-all duration-300"
               asChild
             >
-              <a href="#contact">Let's Collaborate</a>
+              <a href="/book-call">Book a Call</a>
             </Button>
           </div>
 

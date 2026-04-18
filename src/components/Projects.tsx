@@ -1,6 +1,7 @@
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { useNavigate } from "react-router-dom";
+import React from "react";
 import {
   GraduationCap,
   ShoppingCart,
@@ -100,9 +101,9 @@ const projects = [
     client: "Educational Institution",
     goal: "Design and develop a comprehensive school website to showcase programs, enable online bookings, and engage parents with educational content.",
     strategy: [
-      "AI-generated compelling copy for core values, curriculum, and program descriptions",
-      "Prompt-engineered content strategy for blog posts and parenting insights",
-      "UX copywriting optimized for parent trust and enrollment conversions",
+      "Crafted compelling narratives for core values, curriculum, and program benefits",
+      "Developed strategic blog content and parenting resources",
+      "Optimized UX copy for parent trust and enrollment conversions",
     ],
     outcome:
       "Launched a complete school website serving 100+ students with class booking, events calendar, blog section, and multi-age curriculum showcase, achieving 95% parent satisfaction.",
@@ -161,6 +162,9 @@ const projects = [
 
 export const Projects = () => {
   const navigate = useNavigate();
+  const [imageStates, setImageStates] = React.useState<Record<number, boolean>>(
+    {},
+  );
 
   const handleCaseStudyClick = (caseStudyPath: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -172,6 +176,18 @@ export const Projects = () => {
     if (link) {
       window.open(link, "_blank");
     }
+  };
+
+  const handleImageLoad = (index: number) => {
+    setImageStates((prev) => ({ ...prev, [index]: true }));
+  };
+
+  const handleImageError = (
+    index: number,
+    e: React.SyntheticEvent<HTMLImageElement>,
+  ) => {
+    setImageStates((prev) => ({ ...prev, [index]: false }));
+    e.currentTarget.style.display = "none";
   };
 
   return (
@@ -199,14 +215,15 @@ export const Projects = () => {
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    e.currentTarget.style.display = "none";
-                  }}
+                  onLoad={() => handleImageLoad(index)}
+                  onError={(e) => handleImageError(index, e)}
                 />
                 {/* Fallback icon if image fails to load */}
-                <div className="absolute inset-0 bg-gradient-primary flex items-center justify-center pointer-events-none">
-                  <project.icon className="w-12 h-12 md:w-16 md:h-16 text-primary-foreground opacity-50" />
-                </div>
+                {imageStates[index] === false && (
+                  <div className="absolute inset-0 bg-gradient-primary flex items-center justify-center pointer-events-none">
+                    <project.icon className="w-12 h-12 md:w-16 md:h-16 text-primary-foreground opacity-50" />
+                  </div>
+                )}
               </div>
 
               {/* Content */}

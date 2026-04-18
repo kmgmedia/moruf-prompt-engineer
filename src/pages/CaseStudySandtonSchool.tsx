@@ -22,7 +22,7 @@ const CaseStudySandtonSchool = () => {
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
-          className="mb-8 hover:bg-primary/10"
+          className="mb-8 hover:text-white hover:bg-primary/20 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home

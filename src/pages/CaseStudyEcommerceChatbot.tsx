@@ -5,6 +5,10 @@ import {
   Lightbulb,
   TrendingUp,
   Zap,
+  MessageCircle,
+  ShoppingCart,
+  TrendingUp as TrendingUpIcon,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -22,7 +26,7 @@ const CaseStudyEcommerceChatbot = () => {
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
-          className="mb-8 hover:bg-primary/10"
+          className="mb-8 hover:text-white hover:bg-primary/20 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
@@ -60,6 +64,101 @@ const CaseStudyEcommerceChatbot = () => {
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
 
           <section className="space-y-6">
+            {/* Features */}
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold">Key Features</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <Card className="p-6 bg-primary/5 border-primary/20 hover:bg-primary/10 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <MessageCircle className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold mb-2">
+                        Emotion-Aware Responses
+                      </h3>
+                      <p className="text-sm text-foreground/80">
+                        Generate personalized product recommendations with
+                        emotional intelligence that builds customer trust
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-primary/5 border-primary/20 hover:bg-primary/10 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <ShoppingCart className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold mb-2">
+                        Smart Product Upselling
+                      </h3>
+                      <p className="text-sm text-foreground/80">
+                        Few-shot prompting strategies that suggest complementary
+                        products naturally without being pushy
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-primary/5 border-primary/20 hover:bg-primary/10 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <MessageSquare className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold mb-2">
+                        Conversation Memory
+                      </h3>
+                      <p className="text-sm text-foreground/80">
+                        Maintain context across conversations to provide
+                        relevant follow-ups and reduce customer friction
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-primary/5 border-primary/20 hover:bg-primary/10 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <TrendingUpIcon className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold mb-2">
+                        Conversion Optimization
+                      </h3>
+                      <p className="text-sm text-foreground/80">
+                        AI-powered decision-making that influences purchasing
+                        behavior through strategic communication patterns
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">Quick Stats</h2>
+              <div className="grid grid-cols-3 gap-4">
+                <Card className="p-6 bg-primary/5 border-primary/20 text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                    22%
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    Conversion Rate Increase
+                  </p>
+                </Card>
+                <Card className="p-6 bg-primary/5 border-primary/20 text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                    24/7
+                  </p>
+                  <p className="text-sm text-foreground/80">Customer Support</p>
+                </Card>
+                <Card className="p-6 bg-primary/5 border-primary/20 text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                    98%
+                  </p>
+                  <p className="text-sm text-foreground/80">
+                    Customer Satisfaction
+                  </p>
+                </Card>
+              </div>
+            </div>
+
             {/* Challenge */}
             <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
               <div className="flex items-start gap-4">

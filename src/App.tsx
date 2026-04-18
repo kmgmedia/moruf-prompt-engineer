@@ -7,6 +7,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import BookACall from "./pages/BookACall";
 import CaseStudyEducational from "./pages/CaseStudyEducational";
 import CaseStudyRolePrompting from "./pages/CaseStudyRolePrompting";
 import CaseStudyEmotionalAI from "./pages/CaseStudyEmotionalAI";
@@ -29,6 +30,7 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/book-call" element={<BookACall />} />
           <Route
             path="/case-study/educational-bots"
             element={<CaseStudyEducational />}

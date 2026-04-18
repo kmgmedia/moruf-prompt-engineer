@@ -6,6 +6,10 @@ import {
   TrendingUp,
   Clock,
   Users,
+  BookOpen,
+  FileText,
+  Mail,
+  BarChart3,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -23,7 +27,7 @@ const CaseStudyTeacherAI = () => {
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
-          className="mb-8 hover:bg-primary/10"
+          className="mb-8 hover:text-white hover:bg-primary/20 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
@@ -62,6 +66,96 @@ const CaseStudyTeacherAI = () => {
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
 
           <section className="space-y-6">
+            {/* Features */}
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold">Key Features</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <Card className="p-6 bg-primary/5 border-primary/20 hover:bg-primary/10 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <BookOpen className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold mb-2">
+                        Generate Lesson Notes
+                      </h3>
+                      <p className="text-sm text-foreground/80">
+                        Create structured, engaging lesson plans with learning
+                        objectives and examples tailored to each grade level
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-primary/5 border-primary/20 hover:bg-primary/10 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <FileText className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold mb-2">
+                        Write Student Reports
+                      </h3>
+                      <p className="text-sm text-foreground/80">
+                        Generate professional progress reports that highlight
+                        achievements, areas for growth, and personalized
+                        encouragement
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-primary/5 border-primary/20 hover:bg-primary/10 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <Mail className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold mb-2">
+                        Draft Parent Messages
+                      </h3>
+                      <p className="text-sm text-foreground/80">
+                        Compose personalized communication templates that
+                        maintain your unique voice while saving hours of writing
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+
+                <Card className="p-6 bg-primary/5 border-primary/20 hover:bg-primary/10 transition-colors">
+                  <div className="flex items-start gap-3">
+                    <BarChart3 className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
+                    <div>
+                      <h3 className="font-semibold mb-2">Manage Students</h3>
+                      <p className="text-sm text-foreground/80">
+                        View and access student data from Google Sheets with
+                        analytics on performance and engagement
+                      </p>
+                    </div>
+                  </div>
+                </Card>
+              </div>
+            </div>
+
+            {/* Quick Stats */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">Quick Stats</h2>
+              <div className="grid grid-cols-3 gap-4">
+                <Card className="p-6 bg-primary/5 border-primary/20 text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                    12
+                  </p>
+                  <p className="text-sm text-foreground/80">Total Students</p>
+                </Card>
+                <Card className="p-6 bg-primary/5 border-primary/20 text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                    82.5
+                  </p>
+                  <p className="text-sm text-foreground/80">Average Score</p>
+                </Card>
+                <Card className="p-6 bg-primary/5 border-primary/20 text-center">
+                  <p className="text-3xl md:text-4xl font-bold text-primary mb-2">
+                    11
+                  </p>
+                  <p className="text-sm text-foreground/80">Subjects</p>
+                </Card>
+              </div>
+            </div>
+
             {/* Challenge */}
             <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
               <div className="flex items-start gap-4">

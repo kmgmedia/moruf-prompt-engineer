@@ -5,6 +5,13 @@ import { Link } from "react-router-dom";
 
 const caseStudies = [
   {
+    title:
+      "AI Assistant for Teachers: Empowering Education Through Intelligent Prompting",
+    description:
+      "How I built an AI assistant that reduced teacher workload by 60% through strategic prompt engineering.",
+    link: "/case-study/teacher-ai",
+  },
+  {
     title: "Designing AI Prompts That Teach: My Approach to Educational Bots",
     description:
       "A deep dive into creating conversational AI that genuinely educates rather than just responds.",
@@ -15,12 +22,6 @@ const caseStudies = [
     description:
       "How strategic role assignment transforms generic AI responses into authentic conversations.",
     link: "/case-study/role-prompting",
-  },
-  {
-    title: "How AI Can Write With Emotion — Not Just Syntax",
-    description:
-      "Exploring prompt techniques that inject genuine emotional intelligence into AI-generated content.",
-    link: "/case-study/emotional-ai",
   },
 ];
 
