@@ -9,14 +9,16 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 const CaseStudyEcommerceChatbot = () => {
   const navigate = useNavigate();
   const projectLink = "https://saleschatbotfile.vercel.app/";
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+    <div className="relative min-h-screen bg-background overflow-hidden">
+      <AnimatedBackground opacity={0.6} subtle={true} />
+      <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
         <Button
           variant="ghost"
           onClick={() => navigate("/")}

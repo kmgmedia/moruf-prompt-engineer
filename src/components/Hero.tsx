@@ -1,20 +1,19 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { Button } from "./ui/button";
-import heroBg from "@/assets/hero-bg.jpg";
+import { AnimatedBackground } from "./AnimatedBackground";
 
 export const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <AnimatedBackground opacity={1} subtle={false} />
       <div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          backgroundImage: `url(${heroBg})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.15,
+          zIndex: 1,
+          background:
+            "linear-gradient(to bottom, rgba(13, 17, 28, 0.7), rgba(13, 17, 28, 0.6), rgba(13, 17, 28, 1))",
         }}
       />
-      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background z-0" />
 
       <div className="container mx-auto px-4 z-10 animate-fade-in">
         <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">

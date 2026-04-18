@@ -7,8 +7,9 @@ const CaseStudyRolePrompting = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+    <div className="relative min-h-screen bg-background overflow-hidden">
+      <AnimatedBackground opacity={0.6} subtle={true} />
+      <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
         <Button 
           variant="ghost" 
           onClick={() => navigate('/')}

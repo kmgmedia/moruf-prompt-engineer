@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import CaseStudyEducational from "./pages/CaseStudyEducational";
@@ -21,6 +22,9 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <div className="fixed inset-0 -z-50 pointer-events-none">
+        <AnimatedBackground opacity={0.5} subtle={true} />
+      </div>
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
