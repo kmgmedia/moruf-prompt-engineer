@@ -45,7 +45,8 @@ const CaseStudyTeacherAI = () => {
               AI-Powered Educational Assistant System
             </h1>
             <p className="text-xl text-muted-foreground">
-              Automating consistent, scaled responses for educators using structured AI workflows. Reduced teacher workload by 60%.
+              Automating consistent, scaled responses for educators using
+              structured AI workflows. Reduced teacher workload by 60%.
             </p>
           </header>
 
@@ -159,7 +160,7 @@ const CaseStudyTeacherAI = () => {
               <div className="flex items-start gap-4">
                 <Target className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-              <h2 className="text-2xl font-bold mb-3">The Problem</h2>
+                  <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed">
                     Teachers at Sandton Prep were spending 4-6 hours weekly on
                     administrative tasks: writing personalized lesson notes,
@@ -180,15 +181,25 @@ const CaseStudyTeacherAI = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Solution</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    I designed an AI-powered conversational system that acts as a structured teaching assistant. Rather than generic chatbot responses, this system uses carefully designed prompts, contextual instruction, and role-based behavior to deliver consistent, high-quality outputs.
+                    I designed an AI-powered conversational system that acts as
+                    a structured teaching assistant. Rather than generic chatbot
+                    responses, this system uses carefully designed prompts,
+                    contextual instruction, and role-based behavior to deliver
+                    consistent, high-quality outputs.
                   </p>
                   <p className="text-foreground/90 leading-relaxed">
                     The system automates three core workflows:
                   </p>
                   <ul className="list-disc list-inside space-y-2 mt-3 text-foreground/90">
-                    <li>Generating personalized lesson plans with learning objectives</li>
+                    <li>
+                      Generating personalized lesson plans with learning
+                      objectives
+                    </li>
                     <li>Writing authentic student progress reports</li>
-                    <li>Composing parent communication that maintains teacher voice</li>
+                    <li>
+                      Composing parent communication that maintains teacher
+                      voice
+                    </li>
                   </ul>
                 </div>
               </div>

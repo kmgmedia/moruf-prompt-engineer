@@ -32,7 +32,9 @@ const CaseStudyRolePrompting = () => {
               Building Authentic AI Conversations: Role-Based System Design
             </h1>
             <p className="text-xl text-muted-foreground">
-              How system architecture and role prompting transform generic chatbots into personality-driven conversation partners. 22% increase in conversion rate.
+              How system architecture and role prompting transform generic
+              chatbots into personality-driven conversation partners. 22%
+              increase in conversion rate.
             </p>
           </header>
 
@@ -43,9 +45,7 @@ const CaseStudyRolePrompting = () => {
               <div className="flex items-start gap-4">
                 <MessageSquare className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">
-                    The Problem
-                  </h2>
+                  <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed">
                     Most chatbots sound the same: polite, helpful, but
                     ultimately forgettable. They lack personality, context
@@ -64,16 +64,24 @@ const CaseStudyRolePrompting = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Solution</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    I designed a role-based system architecture that assigns a detailed, consistent identity to the AI. Rather than generic responses, the system uses:
+                    I designed a role-based system architecture that assigns a
+                    detailed, consistent identity to the AI. Rather than generic
+                    responses, the system uses:
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-foreground/90">
-                    <li>Comprehensive character definitions with personality traits</li>
-                    <li>Communication style guidelines and tone specifications</li>
+                    <li>
+                      Comprehensive character definitions with personality
+                      traits
+                    </li>
+                    <li>
+                      Communication style guidelines and tone specifications
+                    </li>
                     <li>Contextual knowledge and background information</li>
                     <li>Behavioral constraints and relationship dynamics</li>
                   </ul>
                   <p className="text-foreground/90 leading-relaxed mt-4">
-                    This creates conversations that feel natural, engaging, and purpose-driven.
+                    This creates conversations that feel natural, engaging, and
+                    purpose-driven.
                   </p>
                 </div>
               </div>
@@ -239,9 +247,7 @@ const CaseStudyRolePrompting = () => {
               <div className="flex items-start gap-4">
                 <Award className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">
-                    Results & Impact
-                  </h2>
+                  <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     I implemented this role prompting framework for a
                     dropshipping business's sales chatbot. The transformation

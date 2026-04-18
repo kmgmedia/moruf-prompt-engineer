@@ -5,8 +5,7 @@ import { Link } from "react-router-dom";
 
 const caseStudies = [
   {
-    title:
-      "AI-Powered Educational Assistant System",
+    title: "AI-Powered Educational Assistant System",
     description:
       "Automating consistent, scaled responses for educators using structured AI workflows. Reduced teacher workload by 60%.",
     link: "/case-study/teacher-ai",
@@ -33,11 +32,14 @@ export const CaseStudies = () => {
           <div className="inline-flex items-center gap-2 mb-4">
             <BookOpen className="w-6 h-6 text-primary" />
             <h2 className="text-4xl md:text-5xl font-bold">
-              <span className="text-primary">AI Systems & Automation Solutions</span>
+              <span className="text-primary">
+                AI Systems & Automation Solutions
+              </span>
             </h2>
           </div>
           <p className="text-muted-foreground text-lg">
-            How I solve real business problems using AI, automation, and system design
+            How I solve real business problems using AI, automation, and system
+            design
           </p>
         </div>
 

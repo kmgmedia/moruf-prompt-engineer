@@ -38,7 +38,9 @@ const CaseStudyEducational = () => {
               Building Teachable AI: Conversational Learning Systems
             </h1>
             <p className="text-xl text-muted-foreground">
-              Designing AI systems that genuinely educate rather than just respond. How structured prompting creates engaging learning interactions.
+              Designing AI systems that genuinely educate rather than just
+              respond. How structured prompting creates engaging learning
+              interactions.
             </p>
           </header>
 
@@ -68,13 +70,24 @@ const CaseStudyEducational = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Solution</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    I built an AI system designed to behave like an attentive educator, not just an information retriever. The system uses carefully crafted prompts to:
+                    I built an AI system designed to behave like an attentive
+                    educator, not just an information retriever. The system uses
+                    carefully crafted prompts to:
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-foreground/90">
-                    <li>Ask guiding questions rather than provide immediate answers</li>
-                    <li>Adapt explanations to the learner's apparent level of understanding</li>
+                    <li>
+                      Ask guiding questions rather than provide immediate
+                      answers
+                    </li>
+                    <li>
+                      Adapt explanations to the learner's apparent level of
+                      understanding
+                    </li>
                     <li>Encourage critical thinking and exploration</li>
-                    <li>Maintain consistent pedagogical approach across interactions</li>
+                    <li>
+                      Maintain consistent pedagogical approach across
+                      interactions
+                    </li>
                   </ul>
                 </div>
               </div>
