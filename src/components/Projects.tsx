@@ -1,5 +1,6 @@
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
+import { useNavigate } from "react-router-dom";
 import {
   GraduationCap,
   ShoppingCart,
@@ -13,6 +14,7 @@ import {
 const projects = [
   {
     icon: GraduationCap,
+    image: "/projects/teacher-ai.png",
     title: "AI Assistant for Teachers",
     client: "Sandton Prep",
     goal: "Create an assistant to help teachers generate personalized lesson notes, student reports, and parent communication templates.",
@@ -25,9 +27,11 @@ const projects = [
       "Reduced teachers' writing time by 60% and improved message consistency across classes.",
     tools: ["Python", "Gemini API", "Google Sheets Integration", "Streamlit"],
     link: "https://teacher-ai-assistant-cr.streamlit.app/",
+    caseStudy: "/case-study/teacher-ai",
   },
   {
     icon: ShoppingCart,
+    image: "/projects/ecommerce-chatbot.png",
     title: "E-Commerce Sales Chatbot",
     client: "Dropshipping Business",
     goal: "Build a 24/7 chatbot that answers customer inquiries, recommends products, and manages order flow.",
@@ -40,9 +44,11 @@ const projects = [
       "Increased conversion rate by 22% within the first month of pilot testing.",
     tools: ["Gemini API", "Python", "LangChain", "Telegram API"],
     link: "https://saleschatbotfile.vercel.app/",
+    caseStudy: "/case-study/ecommerce-chatbot",
   },
   {
     icon: Database,
+    image: "/projects/byway-api.png",
     title: "Byway Backend API",
     client: "End-to-End REST API Development",
     goal: "Build a complete backend solution for a web product review platform with review management, user roles, and access control.",
@@ -66,6 +72,7 @@ const projects = [
   },
   {
     icon: Store,
+    image: "/projects/byc-ecommerce.png",
     title: "Byc eCommerce Platform",
     client: "Reimagining Online Retail",
     goal: "Create a complete shopping experience with seamless product discovery, secure checkout, and real-time inventory visibility.",
@@ -88,6 +95,7 @@ const projects = [
   },
   {
     icon: School,
+    image: "/projects/sandton-school.png",
     title: "Sandton Preparatory School Website",
     client: "Educational Institution",
     goal: "Design and develop a comprehensive school website to showcase programs, enable online bookings, and engage parents with educational content.",
@@ -107,9 +115,11 @@ const projects = [
       "SEO Optimization",
     ],
     link: "https://www.sandtonprepschool.com.ng/",
+    caseStudy: "/case-study/sandton-school",
   },
   {
     icon: LayoutDashboard,
+    image: "/projects/dashboard.png",
     title: "Project Tracker Dashboard",
     client: "Live Data & Workflow Management",
     goal: "Build a sleek, fully responsive dashboard with secure authentication, lightning-fast performance, and real-time data syncing.",
@@ -130,9 +140,11 @@ const projects = [
       "Sonner",
     ],
     link: "https://dashboard-auth-full-stack.vercel.app/",
+    caseStudy: "/case-study/dashboard",
   },
   {
     icon: Palette,
+    image: "/projects/storytelling-prompts.png",
     title: "Creative Storytelling Prompts",
     client: "Brand Campaign (Midjourney + GPT)",
     goal: "Generate brand stories and visuals that capture 'vintage luxury' for a client campaign.",
@@ -148,8 +160,22 @@ const projects = [
 ];
 
 export const Projects = () => {
+  const navigate = useNavigate();
+
+  const handleCaseStudyClick = (caseStudyPath: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    navigate(caseStudyPath);
+  };
+
+  const handleProjectLinkClick = (link: string, e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (link) {
+      window.open(link, "_blank");
+    }
+  };
+
   return (
-    <section id="projects" className="py-24 px-4">
+    <section id="projects" className="py-24 px-2 md:px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -160,79 +186,109 @@ export const Projects = () => {
           </p>
         </div>
 
-        <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
           {projects.map((project, index) => (
             <Card
               key={index}
-              className="p-8 md:p-10 bg-card hover:bg-card/80 border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow animate-slide-up cursor-pointer"
+              className="overflow-hidden bg-card hover:bg-card/80 border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow animate-slide-up flex flex-col h-full"
               style={{ animationDelay: `${index * 0.1}s` }}
-              onClick={() =>
-                project.link
-                  ? window.open(project.link, "_blank")
-                  : (window.location.href = "mailto:morufbadebola@gmail.com")
-              }
             >
-              <div className="flex flex-col md:flex-row gap-6">
-                <div className="flex-shrink-0">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-primary flex items-center justify-center">
-                    <project.icon className="w-10 h-10 text-primary-foreground" />
-                  </div>
+              {/* Project Image */}
+              <div className="relative h-32 md:h-40 bg-gradient-primary overflow-hidden flex items-center justify-center group">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+                {/* Fallback icon if image fails to load */}
+                <div className="absolute inset-0 bg-gradient-primary flex items-center justify-center pointer-events-none">
+                  <project.icon className="w-12 h-12 md:w-16 md:h-16 text-primary-foreground opacity-50" />
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-4 md:p-6 flex-1 flex flex-col space-y-2 md:space-y-3">
+                <div>
+                  <h3 className="text-lg md:text-2xl font-bold mb-1 text-foreground">
+                    {project.title}
+                  </h3>
+                  <p className="text-primary text-xs md:text-sm font-medium">
+                    {project.client}
+                  </p>
                 </div>
 
-                <div className="flex-1 space-y-4">
-                  <div>
-                    <h3 className="text-2xl font-bold mb-2 text-foreground">
-                      {project.title}
-                    </h3>
-                    <p className="text-primary text-sm font-medium">
-                      {project.client}
-                    </p>
-                  </div>
+                <div>
+                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
+                    Goal
+                  </h4>
+                  <p className="text-foreground/90 text-xs md:text-sm">
+                    {project.goal}
+                  </p>
+                </div>
 
-                  <div>
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                      Goal
-                    </h4>
-                    <p className="text-foreground/90">{project.goal}</p>
-                  </div>
-
-                  <div>
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                      Prompt Strategy
-                    </h4>
-                    <ul className="space-y-1">
-                      {project.strategy.map((item, i) => (
-                        <li
-                          key={i}
-                          className="text-foreground/90 flex items-start"
-                        >
-                          <span className="text-primary mr-2">•</span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  <div>
-                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                      Outcome
-                    </h4>
-                    <p className="text-foreground font-medium">
-                      {project.outcome}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 pt-2">
-                    {project.tools.map((tool, i) => (
-                      <Badge
+                <div>
+                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
+                    Prompt Strategy
+                  </h4>
+                  <ul className="space-y-0.5 md:space-y-1">
+                    {project.strategy.map((item, i) => (
+                      <li
                         key={i}
-                        variant="secondary"
-                        className="bg-primary/10 text-primary border-primary/20"
+                        className="text-foreground/90 text-xs md:text-sm flex items-start"
                       >
-                        {tool}
-                      </Badge>
+                        <span className="text-primary mr-2 flex-shrink-0">
+                          •
+                        </span>
+                        <span>{item}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
+                    Outcome
+                  </h4>
+                  <p className="text-foreground/90 text-xs md:text-sm font-medium">
+                    {project.outcome}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-1 md:gap-2 pt-1 md:pt-2">
+                  {project.tools.map((tool, i) => (
+                    <Badge
+                      key={i}
+                      variant="secondary"
+                      className="bg-primary/10 text-primary border-primary/20 text-xs"
+                    >
+                      {tool}
+                    </Badge>
+                  ))}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex gap-2 mt-3 md:mt-4 pt-2 md:pt-3 border-t border-border/30">
+                  {project.caseStudy && (
+                    <button
+                      onClick={(e) =>
+                        handleCaseStudyClick(project.caseStudy, e)
+                      }
+                      className="flex-1 px-3 py-2 md:px-4 md:py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-xs md:text-sm font-medium rounded-md transition-colors"
+                    >
+                      Read Case Study
+                    </button>
+                  )}
+                  {project.link && (
+                    <button
+                      onClick={(e) => handleProjectLinkClick(project.link, e)}
+                      className="flex-1 px-3 py-2 md:px-4 md:py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs md:text-sm font-medium rounded-md border border-primary/20 transition-colors"
+                    >
+                      View Project
+                    </button>
+                  )}
                 </div>
               </div>
             </Card>

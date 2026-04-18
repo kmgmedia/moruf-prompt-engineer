@@ -9,6 +9,10 @@ import NotFound from "./pages/NotFound";
 import CaseStudyEducational from "./pages/CaseStudyEducational";
 import CaseStudyRolePrompting from "./pages/CaseStudyRolePrompting";
 import CaseStudyEmotionalAI from "./pages/CaseStudyEmotionalAI";
+import CaseStudyTeacherAI from "./pages/CaseStudyTeacherAI";
+import CaseStudyEcommerceChatbot from "./pages/CaseStudyEcommerceChatbot";
+import CaseStudyDashboard from "./pages/CaseStudyDashboard";
+import CaseStudySandtonSchool from "./pages/CaseStudySandtonSchool";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +36,22 @@ const App = () => (
           <Route
             path="/case-study/emotional-ai"
             element={<CaseStudyEmotionalAI />}
+          />
+          <Route
+            path="/case-study/teacher-ai"
+            element={<CaseStudyTeacherAI />}
+          />
+          <Route
+            path="/case-study/ecommerce-chatbot"
+            element={<CaseStudyEcommerceChatbot />}
+          />
+          <Route
+            path="/case-study/dashboard"
+            element={<CaseStudyDashboard />}
+          />
+          <Route
+            path="/case-study/sandton-school"
+            element={<CaseStudySandtonSchool />}
           />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
