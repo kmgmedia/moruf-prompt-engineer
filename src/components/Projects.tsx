@@ -202,7 +202,8 @@ export const Projects = () => {
             Selected <span className="text-primary">Projects</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real-world systems built with AI, automation, and software engineering
+            Real-world systems built with AI, automation, and software
+            engineering
           </p>
         </div>
 

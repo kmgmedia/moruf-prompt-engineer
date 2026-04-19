@@ -34,7 +34,12 @@ const BookACall = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.phone || !formData.projectType) {
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.projectType
+    ) {
       setError("Please fill in all required fields");
       return;
     }

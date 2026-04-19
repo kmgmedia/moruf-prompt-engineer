@@ -40,7 +40,8 @@ const CaseStudyEducational = () => {
               AI Teaching Assistant & Workflow System
             </h1>
             <p className="text-xl text-muted-foreground">
-              Reducing administrative workload and improving communication consistency for educators at scale.
+              Reducing administrative workload and improving communication
+              consistency for educators at scale.
             </p>
           </header>
 
@@ -51,7 +52,9 @@ const CaseStudyEducational = () => {
             <div className="space-y-4">
               <h2 className="text-3xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
-                Teachers at Sandton Preparatory School needed a way to reduce repetitive administrative tasks while maintaining high-quality, personalized communication with students and parents.
+                Teachers at Sandton Preparatory School needed a way to reduce
+                repetitive administrative tasks while maintaining high-quality,
+                personalized communication with students and parents.
               </p>
             </div>
 
@@ -62,7 +65,10 @@ const CaseStudyEducational = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed">
-                    Teachers were spending 4–6 hours weekly on tasks such as writing lesson notes, student reports, and parent communication. This reduced time available for actual teaching and student engagement.
+                    Teachers were spending 4–6 hours weekly on tasks such as
+                    writing lesson notes, student reports, and parent
+                    communication. This reduced time available for actual
+                    teaching and student engagement.
                   </p>
                 </div>
               </div>
@@ -75,15 +81,26 @@ const CaseStudyEducational = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Solution</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    I designed and implemented an AI-powered system that automates key teaching workflows while preserving each teacher's unique voice and communication style.
+                    I designed and implemented an AI-powered system that
+                    automates key teaching workflows while preserving each
+                    teacher's unique voice and communication style.
                   </p>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     The system enables teachers to:
                   </p>
                   <ul className="list-disc list-inside space-y-2 text-foreground/90">
-                    <li>Generate structured lesson notes tailored to each grade level</li>
-                    <li>Create consistent and professional student progress reports</li>
-                    <li>Draft personalized parent communication quickly and efficiently</li>
+                    <li>
+                      Generate structured lesson notes tailored to each grade
+                      level
+                    </li>
+                    <li>
+                      Create consistent and professional student progress
+                      reports
+                    </li>
+                    <li>
+                      Draft personalized parent communication quickly and
+                      efficiently
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -99,25 +116,37 @@ const CaseStudyEducational = () => {
                 <div className="flex gap-3">
                   <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-foreground">Automated lesson note generation with structured learning objectives</p>
+                    <p className="font-semibold text-foreground">
+                      Automated lesson note generation with structured learning
+                      objectives
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-foreground">Consistent student report creation with personalized insights</p>
+                    <p className="font-semibold text-foreground">
+                      Consistent student report creation with personalized
+                      insights
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-foreground">Streamlined parent communication with tone-controlled outputs</p>
+                    <p className="font-semibold text-foreground">
+                      Streamlined parent communication with tone-controlled
+                      outputs
+                    </p>
                   </div>
                 </div>
                 <div className="flex gap-3">
                   <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                   <div>
-                    <p className="font-semibold text-foreground">Integration with Google Sheets for student data access and tracking</p>
+                    <p className="font-semibold text-foreground">
+                      Integration with Google Sheets for student data access and
+                      tracking
+                    </p>
                   </div>
                 </div>
               </div>
@@ -127,10 +156,14 @@ const CaseStudyEducational = () => {
             <Card className="p-6 bg-muted/30 border-primary/10">
               <h2 className="text-2xl font-bold mb-4">System Design</h2>
               <p className="text-foreground/90 leading-relaxed mb-4">
-                The solution combines AI processing, structured workflows, and a simple user interface to ensure ease of use and scalability.
+                The solution combines AI processing, structured workflows, and a
+                simple user interface to ensure ease of use and scalability.
               </p>
               <p className="text-foreground/90 leading-relaxed">
-                Teachers interact with the system through a Streamlit-based interface, where inputs are processed and transformed into structured outputs using controlled AI logic and predefined templates.
+                Teachers interact with the system through a Streamlit-based
+                interface, where inputs are processed and transformed into
+                structured outputs using controlled AI logic and predefined
+                templates.
               </p>
             </Card>
 
@@ -141,14 +174,16 @@ const CaseStudyEducational = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-4">Results & Impact</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The system delivered measurable improvements within 3 months:
+                    The system delivered measurable improvements within 3
+                    months:
                   </p>
                   <div className="space-y-3">
                     <div className="flex gap-3">
                       <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="text-foreground/90">
-                          <strong>60% reduction</strong> in administrative writing time
+                          <strong>60% reduction</strong> in administrative
+                          writing time
                         </p>
                       </div>
                     </div>
@@ -156,7 +191,8 @@ const CaseStudyEducational = () => {
                       <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="text-foreground/90">
-                          <strong>40% increase</strong> in parent communication frequency
+                          <strong>40% increase</strong> in parent communication
+                          frequency
                         </p>
                       </div>
                     </div>
@@ -164,7 +200,8 @@ const CaseStudyEducational = () => {
                       <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                       <div>
                         <p className="text-foreground/90">
-                          <strong>Consistent tone and quality</strong> across all generated content
+                          <strong>Consistent tone and quality</strong> across
+                          all generated content
                         </p>
                       </div>
                     </div>
@@ -185,7 +222,8 @@ const CaseStudyEducational = () => {
             <div className="space-y-4">
               <h2 className="text-3xl font-bold">Technical Implementation</h2>
               <p className="text-foreground/90 leading-relaxed">
-                At the core of the system is a structured AI workflow that ensures reliable and context-aware outputs.
+                At the core of the system is a structured AI workflow that
+                ensures reliable and context-aware outputs.
               </p>
               <Card className="p-6 bg-muted/30 border-primary/10">
                 <p className="text-foreground/90 leading-relaxed mb-4">
@@ -194,19 +232,31 @@ const CaseStudyEducational = () => {
                 <ul className="space-y-2">
                   <li className="flex gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span className="text-foreground/90">Context-aware input handling for lesson, student, and communication data</span>
+                    <span className="text-foreground/90">
+                      Context-aware input handling for lesson, student, and
+                      communication data
+                    </span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span className="text-foreground/90">Role-based behavior design to maintain consistent tone and style</span>
+                    <span className="text-foreground/90">
+                      Role-based behavior design to maintain consistent tone and
+                      style
+                    </span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span className="text-foreground/90">Multi-step processing to generate accurate and structured responses</span>
+                    <span className="text-foreground/90">
+                      Multi-step processing to generate accurate and structured
+                      responses
+                    </span>
                   </li>
                   <li className="flex gap-3">
                     <span className="text-primary mt-1">•</span>
-                    <span className="text-foreground/90">Template-driven output formatting for usability and clarity</span>
+                    <span className="text-foreground/90">
+                      Template-driven output formatting for usability and
+                      clarity
+                    </span>
                   </li>
                 </ul>
               </Card>
@@ -228,19 +278,29 @@ const CaseStudyEducational = () => {
                   <li className="flex gap-3">
                     <span className="font-bold text-primary text-lg">1.</span>
                     <p className="text-foreground/90 leading-relaxed">
-                      <strong>AI systems solve real problems:</strong> This project demonstrates how AI can be integrated into real-world workflows to reduce manual effort, improve consistency, and scale operations without sacrificing quality.
+                      <strong>AI systems solve real problems:</strong> This
+                      project demonstrates how AI can be integrated into
+                      real-world workflows to reduce manual effort, improve
+                      consistency, and scale operations without sacrificing
+                      quality.
                     </p>
                   </li>
                   <li className="flex gap-3">
                     <span className="font-bold text-primary text-lg">2.</span>
                     <p className="text-foreground/90 leading-relaxed">
-                      <strong>System design matters:</strong> The combination of system design, user experience, and controlled AI behavior is critical to delivering reliable and practical solutions.
+                      <strong>System design matters:</strong> The combination of
+                      system design, user experience, and controlled AI behavior
+                      is critical to delivering reliable and practical
+                      solutions.
                     </p>
                   </li>
                   <li className="flex gap-3">
                     <span className="font-bold text-primary text-lg">3.</span>
                     <p className="text-foreground/90 leading-relaxed">
-                      <strong>Workflow automation scales impact:</strong> By automating repetitive processes, we free teams to focus on higher-value work while maintaining quality and consistency.
+                      <strong>Workflow automation scales impact:</strong> By
+                      automating repetitive processes, we free teams to focus on
+                      higher-value work while maintaining quality and
+                      consistency.
                     </p>
                   </li>
                 </ol>
