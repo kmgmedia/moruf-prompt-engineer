@@ -9,6 +9,8 @@ import { Footer } from "@/components/Footer";
 const BookACall = () => {
   const navigate = useNavigate();
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -26,16 +28,42 @@ const BookACall = () => {
       ...prev,
       [name]: value,
     }));
+    setError(""); // Clear error when user types
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.name && formData.email && formData.projectType) {
-      // Log form data for potential backend integration
-      console.log("Form submitted:", formData);
+    if (!formData.name || !formData.email || !formData.projectType) {
+      setError("Please fill in all required fields");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+
+    try {
+      const response = await fetch("http://localhost:3001/api/book-call", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
 
       // Show success state
       setSubmitted(true);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Failed to submit. Please try again.",
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -280,6 +308,13 @@ const BookACall = () => {
                 </p>
               </div>
 
+              {/* Error Message */}
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/30 rounded-lg p-4">
+                  <p className="text-sm text-red-500">{error}</p>
+                </div>
+              )}
+
               {/* Submit Button */}
               <div className="flex gap-4 pt-4">
                 <Button
@@ -287,14 +322,16 @@ const BookACall = () => {
                   variant="outline"
                   onClick={() => navigate("/")}
                   className="flex-1"
+                  disabled={loading}
                 >
                   Cancel
                 </Button>
                 <Button
                   type="submit"
                   className="flex-1 bg-primary hover:bg-primary/90 shadow-glow"
+                  disabled={loading}
                 >
-                  Discuss Your Project
+                  {loading ? "Submitting..." : "Discuss Your Project"}
                 </Button>
               </div>
             </form>
