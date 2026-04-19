@@ -1,25 +1,25 @@
-import { Target, Layers, RefreshCw, Zap } from "lucide-react";
+import { Target, Lightbulb, Code, CheckCircle } from "lucide-react";
 
 const steps = [
   {
     icon: Target,
-    title: "Understand the Goal",
-    description: "Define what success looks like for the user or business.",
+    title: "Understand the Problem",
+    description: "Identify the workflow, bottlenecks, and what needs to be improved or automated.",
   },
   {
-    icon: Layers,
-    title: "Design the Prompt Flow",
-    description: "Use frameworks like role-based prompting, context stacking, and instruction tuning.",
+    icon: Lightbulb,
+    title: "Design the System",
+    description: "Plan how AI, APIs, and automation will work together to solve the problem.",
   },
   {
-    icon: RefreshCw,
-    title: "Iterate & Refine",
-    description: "Test variations, analyze output quality, and optimize for tone and intent.",
+    icon: Code,
+    title: "Build & Integrate",
+    description: "Develop the solution and connect it with existing tools and workflows.",
   },
   {
-    icon: Zap,
-    title: "Integrate & Automate",
-    description: "Embed prompts into systems via APIs, front-end apps, or chat flows.",
+    icon: CheckCircle,
+    title: "Test & Optimize",
+    description: "Refine performance, improve outputs, and ensure the system works reliably in real use.",
   },
 ];
 
@@ -29,10 +29,10 @@ export const Process = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            My <span className="text-primary">Prompting</span> Process
+            My <span className="text-primary">Approach</span> to Building AI Systems
           </h2>
           <p className="text-muted-foreground text-lg">
-            A systematic approach to crafting intelligent AI experiences
+            A structured approach to designing AI, automation, and scalable software systems
           </p>
         </div>
         
@@ -47,9 +47,6 @@ export const Process = () => {
                 <div className="mb-6">
                   <div className="w-16 h-16 rounded-full bg-primary/10 border-2 border-primary flex items-center justify-center mx-auto group hover:scale-110 transition-transform duration-300">
                     <step.icon className="w-8 h-8 text-primary" />
-                  </div>
-                  <div className="absolute top-8 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-background border-2 border-primary/20 flex items-center justify-center text-xs font-bold text-primary">
-                    {index + 1}
                   </div>
                 </div>
                 

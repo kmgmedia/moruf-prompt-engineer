@@ -1,21 +1,21 @@
-import { Bot, PenTool, Sparkles } from "lucide-react";
+import { Cog, Zap, Layers } from "lucide-react";
 import { Card } from "./ui/card";
 
 const areas = [
   {
-    icon: Bot,
-    title: "Chatbot Design & Automation",
-    description: "Building intelligent, goal-driven assistants for sales, education, and customer engagement.",
+    icon: Cog,
+    title: "AI Systems & Automation",
+    description: "Designing and building intelligent systems that automate workflows, handle complex tasks, and improve business operations.",
   },
   {
-    icon: PenTool,
-    title: "Creative AI Writing",
-    description: "Crafting structured prompts for storytelling, brand voice, and marketing copy that feels authentic.",
+    icon: Zap,
+    title: "API Integration & Workflow Engineering",
+    description: "Connecting tools and services through APIs to create seamless, efficient, and scalable systems.",
   },
   {
-    icon: Sparkles,
-    title: "System Integration",
-    description: "Embedding AI seamlessly into workflows via APIs, front-end apps, and automated chat flows.",
+    icon: Layers,
+    title: "AI-Powered Applications",
+    description: "Building full-stack applications that integrate AI to solve real-world problems and enhance user experience.",
   },
 ];
 
@@ -28,7 +28,7 @@ export const FocusAreas = () => {
             <span className="text-primary">Focus</span> Areas
           </h2>
           <p className="text-muted-foreground text-lg">
-            Where creativity meets conversational AI
+            Building intelligent systems with AI, automation, and software engineering
           </p>
         </div>
         

@@ -14,6 +14,7 @@ const BookACall = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     projectType: "",
     description: "",
   });
@@ -33,7 +34,7 @@ const BookACall = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.projectType) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.projectType) {
       setError("Please fill in all required fields");
       return;
     }
@@ -77,6 +78,7 @@ const BookACall = () => {
     setFormData({
       name: "",
       email: "",
+      phone: "",
       projectType: "",
       description: "",
     });
@@ -241,7 +243,7 @@ const BookACall = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleInputChange}
-                  placeholder="John Doe"
+                  placeholder="Your name"
                   required
                   className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none transition-colors"
                 />
@@ -257,7 +259,23 @@ const BookACall = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  placeholder="you@example.com"
+                  placeholder="your email"
+                  required
+                  className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none transition-colors"
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="block text-sm font-semibold mb-3">
+                  Your Phone Number *
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  placeholder="+234 123 456 7890"
                   required
                   className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none transition-colors"
                 />
@@ -302,15 +320,6 @@ const BookACall = () => {
                   rows={5}
                   className="w-full px-4 py-3 rounded-lg bg-background border border-border focus:border-primary focus:outline-none transition-colors resize-none"
                 />
-              </div>
-
-              {/* Trust Message */}
-              <div className="bg-primary/5 border border-primary/20 rounded-lg p-6">
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  I design and build systems, from AI-powered tools and
-                  automation workflows to full-stack applications, focused on
-                  solving real business problems and improving how things work.
-                </p>
               </div>
 
               {/* Error Message */}

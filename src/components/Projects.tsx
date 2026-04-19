@@ -16,16 +16,16 @@ const projects = [
   {
     icon: GraduationCap,
     image: "/projects/teacher-ai.png",
-    title: "AI Assistant for Teachers",
-    client: "Sandton Prep",
-    goal: "Create an assistant to help teachers generate personalized lesson notes, student reports, and parent communication templates.",
+    title: "AI Teaching Assistant System",
+    client: "Sandton Preparatory School",
+    goal: "Develop a system to help teachers generate lesson notes, student reports, and parent communication more efficiently.",
     strategy: [
-      "Multi-step prompting for context awareness",
-      "Persona-based prompting ('You are a primary school educator...')",
-      "Style-tuning to match friendly, professional tone",
+      "Automated generation of lesson notes and teaching materials",
+      "Consistent and structured student report creation",
+      "Simplified parent communication with tone-controlled messaging",
     ],
     outcome:
-      "Reduced teachers' writing time by 60% and improved message consistency across classes.",
+      "Reduced teachers' writing time by 60% and improved consistency across classes.",
     tools: ["Python", "Gemini API", "Google Sheets Integration", "Streamlit"],
     link: "https://teacher-ai-assistant-cr.streamlit.app/",
     caseStudy: "/case-study/teacher-ai",
@@ -33,13 +33,13 @@ const projects = [
   {
     icon: ShoppingCart,
     image: "/projects/ecommerce-chatbot.png",
-    title: "E-Commerce Sales Chatbot",
+    title: "E-Commerce Sales Automation System",
     client: "Dropshipping Business",
-    goal: "Build a 24/7 chatbot that answers customer inquiries, recommends products, and manages order flow.",
+    goal: "Build a 24/7 system that handles customer inquiries, recommends products, and streamlines the order process.",
     strategy: [
-      "Few-shot examples for product upselling",
-      "Conversation memory for smooth context flow",
-      "Emotion-aware responses for better engagement",
+      "Intelligent product recommendations based on user intent",
+      "Context-aware conversations for smooth user experience",
+      "Automated response handling for customer inquiries",
     ],
     outcome:
       "Increased conversion rate by 22% within the first month of pilot testing.",
@@ -50,16 +50,17 @@ const projects = [
   {
     icon: Database,
     image: "/projects/byway-api.png",
-    title: "Byway Backend API",
+    title: "Byway Backend API System",
     client: "End-to-End REST API Development",
-    goal: "Build a complete backend solution for a web product review platform with review management, user roles, and access control.",
+    goal: "Build a scalable backend system for a product review platform with user management, role-based access control, and secure data handling.",
     strategy: [
-      "AI-assisted API endpoint design and validation logic",
-      "Prompt-driven code generation for Mongoose schemas and controllers",
-      "Automated documentation generation and error handling patterns",
+      "Full CRUD operations for product reviews and user data",
+      "Role-based access control and authentication middleware",
+      "Structured API architecture for scalability and maintainability",
+      "Seamless integration with MongoDB for data persistence",
     ],
     outcome:
-      "Delivered a production-ready REST API with full CRUD operations, authentication middleware, and seamless MongoDB integration deployed on Vercel.",
+      "Delivered a production-ready backend system with secure authentication, efficient data handling, and deployment-ready infrastructure.",
     tools: [
       "Node.js",
       "Express.js",
@@ -74,16 +75,17 @@ const projects = [
   {
     icon: Store,
     image: "/projects/byc-ecommerce.png",
-    title: "Byc eCommerce Platform",
-    client: "Reimagining Online Retail",
-    goal: "Create a complete shopping experience with seamless product discovery, secure checkout, and real-time inventory visibility.",
+    title: "BYC eCommerce Platform",
+    client: "Full-Stack eCommerce Application",
+    goal: "Build a modern eCommerce platform with seamless product discovery, secure checkout, and real-time inventory handling.",
     strategy: [
-      "AI-generated user flow optimization for intuitive navigation",
-      "Prompt-engineered content for product descriptions and categories",
-      "Conversion-focused UX patterns using AI-assisted design decisions",
+      "Intuitive product browsing and category navigation",
+      "Shopping cart and secure checkout flow",
+      "Order tracking and user account management",
+      "Real-time inventory updates and product management",
     ],
     outcome:
-      "Built a robust eCommerce frontend with smooth cart management, order tracking, and payment integration, delivering trust and performance across all devices.",
+      "Delivered a scalable and user-friendly eCommerce platform that improves shopping experience and supports reliable transaction handling.",
     tools: [
       "HTML",
       "CSS/Sass",
@@ -98,15 +100,16 @@ const projects = [
     icon: School,
     image: "/projects/sandton-school.png",
     title: "Sandton Preparatory School Website",
-    client: "Educational Institution",
-    goal: "Design and develop a comprehensive school website to showcase programs, enable online bookings, and engage parents with educational content.",
+    client: "Educational Platform & School Management Interface",
+    goal: "Design and develop a comprehensive website to showcase school programs, enable online bookings, and improve parent engagement.",
     strategy: [
-      "Crafted compelling narratives for core values, curriculum, and program benefits",
-      "Developed strategic blog content and parenting resources",
-      "Optimized UX copy for parent trust and enrollment conversions",
+      "Program showcase with structured curriculum presentation",
+      "Online class booking and event scheduling system",
+      "Blog and content management for parent engagement",
+      "Fully responsive design optimized for all devices",
     ],
     outcome:
-      "Launched a complete school website serving 100+ students with class booking, events calendar, blog section, and multi-age curriculum showcase, achieving 95% parent satisfaction.",
+      "Delivered a complete digital platform supporting over 100+ students, improving parent interaction and simplifying school communication and bookings.",
     tools: [
       "Next.js",
       "React",
@@ -122,15 +125,16 @@ const projects = [
     icon: LayoutDashboard,
     image: "/projects/dashboard.png",
     title: "Project Tracker Dashboard",
-    client: "Live Data & Workflow Management",
-    goal: "Build a sleek, fully responsive dashboard with secure authentication, lightning-fast performance, and real-time data syncing.",
+    client: "Real-Time Data & Workflow Management System",
+    goal: "Build a high-performance dashboard for tracking projects, managing workflows, and visualizing real-time data securely.",
     strategy: [
-      "AI-powered component architecture design for optimal performance",
-      "Prompt-driven UI/UX decisions for clean, modern interface patterns",
-      "AI-assisted authentication flow and data model optimization",
+      "Real-time data updates and live project tracking",
+      "Secure authentication using Supabase",
+      "Clean and responsive UI optimized for usability",
+      "Scalable component structure for maintainability",
     ],
     outcome:
-      "Delivered a production-ready dashboard with real-time data syncing, secure Supabase authentication, and seamless responsive design across all devices with live insights.",
+      "Delivered a production-ready dashboard that provides live insights, improves workflow visibility, and ensures reliable performance across devices.",
     tools: [
       "React.js",
       "TypeScript",
@@ -195,10 +199,10 @@ export const Projects = () => {
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Featured <span className="text-primary">Projects</span>
+            Selected <span className="text-primary">Projects</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real-world solutions powered by strategic prompt engineering
+            Real-world systems built with AI, automation, and software engineering
           </p>
         </div>
 
@@ -248,7 +252,16 @@ export const Projects = () => {
 
                 <div>
                   <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
-                    Prompt Strategy
+                    Solution
+                  </h4>
+                  <p className="text-foreground/90 text-xs md:text-sm">
+                    {project.strategy[0] || project.outcome}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
+                    Key Features
                   </h4>
                   <ul className="space-y-0.5 md:space-y-1">
                     {project.strategy.map((item, i) => (
@@ -267,7 +280,7 @@ export const Projects = () => {
 
                 <div>
                   <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
-                    Outcome
+                    Impact
                   </h4>
                   <p className="text-foreground/90 text-xs md:text-sm font-medium">
                     {project.outcome}
