@@ -16,6 +16,12 @@ const caseStudies = [
       "Increasing conversion rates and automating customer engagement for a high-volume dropshipping business. 22% conversion increase.",
     link: "/case-study/ecommerce-sales-automation",
   },
+  {
+    title: "Crafting Emotionally Intelligent AI: Making Content Resonate",
+    description:
+      "How prompt engineering transforms generic AI writing into emotionally resonant content. 156% increase in email engagement and conversion.",
+    link: "/case-study/emotional-ai",
+  },
 ];
 
 export const CaseStudies = () => {

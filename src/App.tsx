@@ -14,6 +14,7 @@ import CaseStudySandtonSchool from "./pages/CaseStudySandtonSchool";
 import CaseStudyDashboard from "./pages/CaseStudyDashboard";
 import CaseStudyBywayBackendAPI from "./pages/CaseStudyBywayBackendAPI";
 import CaseStudyBYCEcommerce from "./pages/CaseStudyBYCEcommerce";
+import CaseStudyEmotionalAI from "./pages/CaseStudyEmotionalAI";
 
 const queryClient = new QueryClient();
 
@@ -52,6 +53,10 @@ const App = () => (
           <Route
             path="/case-study/byc-ecommerce"
             element={<CaseStudyBYCEcommerce />}
+          />
+          <Route
+            path="/case-study/emotional-ai"
+            element={<CaseStudyEmotionalAI />}
           />
           {/* Catch-all route for 404 */}
           <Route path="*" element={<NotFound />} />
