@@ -1,9 +1,23 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { toast } from "sonner";
+import {
+  ConversationState,
+  Message,
+  LeadData,
+  INITIAL_CONVERSATION_STATE,
+  STORAGE_KEY,
+  MESSAGES_STORAGE_KEY,
+} from "@/lib/chatbot/types";
+import {
+  analyzeMessage,
+  shouldTriggerCTA,
+  determineNextStage,
+} from "@/lib/chatbot/intents";
+import { generateBotResponse, getCTAVariation } from "@/lib/chatbot/flows";
 
-// Custom Pen Icon Component - Bold & Solid
 const PenIcon = ({ className }: { className?: string }) => (
   <svg
     viewBox="0 0 24 24"
@@ -11,11 +25,8 @@ const PenIcon = ({ className }: { className?: string }) => (
     fill="currentColor"
     xmlns="http://www.w3.org/2000/svg"
   >
-    {/* Solid pen nib shape */}
     <path d="M 12 2 L 15 10 L 12 12 L 9 10 Z" fill="currentColor" />
-    {/* Pen shaft - thick vertical bar */}
     <rect x="10.5" y="12" width="3" height="10" fill="currentColor" />
-    {/* Pen tip - thick triangle */}
     <path d="M 9 22 L 15 22 L 12 20 Z" fill="currentColor" />
   </svg>
 );
@@ -24,24 +35,85 @@ const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [showPromoCard, setShowPromoCard] = useState(false);
   const [promoCardClosed, setPromoCardClosed] = useState(false);
-  const [messages, setMessages] = useState<
-    Array<{ role: "user" | "bot"; text: string }>
-  >([
-    {
-      role: "bot",
-      text: "Hi! I'm Moruf. I help design AI automation systems, build intelligent workflows, and create custom solutions that scale. What project can I help you with?",
-    },
-  ]);
+
+  // Load state from localStorage with fallback
+  const [state, setState] = useState<ConversationState>(() => {
+    if (typeof window === "undefined") return INITIAL_CONVERSATION_STATE;
+
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return {
+          ...INITIAL_CONVERSATION_STATE,
+          ...parsed,
+          lastActivityAt: new Date(),
+        };
+      }
+    } catch (error) {
+      console.error("Failed to load chatbot state:", error);
+    }
+    return INITIAL_CONVERSATION_STATE;
+  });
+
+  // Load messages from localStorage
+  const [messages, setMessages] = useState<Message[]>(() => {
+    if (typeof window === "undefined") return [];
+
+    try {
+      const saved = localStorage.getItem(MESSAGES_STORAGE_KEY);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        return parsed.map((msg: any) => ({
+          ...msg,
+          timestamp: new Date(msg.timestamp),
+        }));
+      }
+    } catch (error) {
+      console.error("Failed to load messages:", error);
+    }
+
+    return [
+      {
+        role: "bot",
+        text: "Hey! 👋 I'm Moruf.\n\nI build AI systems, automation workflows, and full-stack solutions that help businesses run more efficiently.\n\nWhat are you looking to do right now?",
+        timestamp: new Date(),
+        messageId: `msg_${Date.now()}`,
+      },
+    ];
+  });
+
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [quickReplies, setQuickReplies] = useState<string[]>([
+    "Build or automate something",
+    "Learn more about my work",
+    "Hiring / job opportunity",
+    "Just exploring",
+  ]);
+  const [showQuickReplies, setShowQuickReplies] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Auto-scroll to bottom when new messages arrive
+  // Persist state to localStorage
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    if (typeof window !== "undefined") {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    }
+  }, [state]);
+
+  // Persist messages to localStorage
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(messages));
+    }
   }, [messages]);
 
-  // Show promotional card after 3 seconds initially
+  // Auto-scroll to bottom
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isTyping]);
+
+  // Show promo card
   useEffect(() => {
     const timer = setTimeout(() => {
       if (!isOpen) {
@@ -49,18 +121,16 @@ const ChatBot = () => {
         setPromoCardClosed(false);
       }
     }, 3000);
-
     return () => clearTimeout(timer);
   }, [isOpen]);
 
-  // Reshow promo card every 20 seconds after it's closed
+  // Reshow promo
   useEffect(() => {
     if (promoCardClosed && !isOpen) {
       const timer = setTimeout(() => {
         setShowPromoCard(true);
         setPromoCardClosed(false);
       }, 20000);
-
       return () => clearTimeout(timer);
     }
   }, [promoCardClosed, isOpen]);
@@ -68,7 +138,6 @@ const ChatBot = () => {
   const handleOpenChat = () => {
     setIsOpen(true);
     setShowPromoCard(false);
-    setPromoCardClosed(false);
   };
 
   const handleClosePromo = (e: React.MouseEvent) => {
@@ -77,32 +146,166 @@ const ChatBot = () => {
     setPromoCardClosed(true);
   };
 
-  const handleSend = () => {
-    if (!input.trim()) return;
+  // Send lead data to API
+  const sendLeadToAPI = useCallback(async (leadData: LeadData) => {
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(leadData),
+      });
+
+      if (response.ok) {
+        toast.success("✅ Details captured! Check your email for next steps.");
+        setState((prev) => ({
+          ...prev,
+          leadCaptured: true,
+        }));
+        return true;
+      } else {
+        toast.error("Failed to capture details");
+        return false;
+      }
+    } catch (error) {
+      console.error("Error sending lead data:", error);
+      toast.error("Failed to capture details");
+      return false;
+    }
+  }, []);
+
+  // Handle message send
+  const handleSend = async (msgText?: string) => {
+    const textToSend = msgText || input;
+    if (!textToSend.trim()) return;
+
+    // Create message object with timestamp
+    const userMessage: Message = {
+      role: "user",
+      text: textToSend,
+      timestamp: new Date(),
+      messageId: `msg_${Date.now()}_user`,
+    };
 
     // Add user message
-    setMessages((prev) => [...prev, { role: "user", text: input }]);
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setInput("");
+    setShowQuickReplies(false);
 
-    // Show typing indicator
+    // Analyze message
+    const analysis = analyzeMessage(textToSend);
+
+    // Update state
+    const newState: ConversationState = {
+      ...state,
+      userType: analysis.userType,
+      intent: analysis.intent as any,
+      messageCount: state.messageCount + 1,
+      capturedData: {
+        ...state.capturedData,
+        ...analysis.extractedData,
+      },
+      stage: determineNextStage(
+        state.stage,
+        analysis.userType,
+        state.messageCount + 1
+      ) as any,
+      ctaTriggered:
+        state.ctaTriggered ||
+        shouldTriggerCTA(
+          state.messageCount + 1,
+          analysis.userType,
+          !!state.capturedData.problem
+        ),
+      lastActivityAt: new Date(),
+    };
+
+    setState(newState);
+
+    // Show typing
     setIsTyping(true);
 
-    // Simulate bot response after 3 seconds (typing effect)
-    setTimeout(() => {
+    // Generate response
+    setTimeout(async () => {
       setIsTyping(false);
-      setMessages((prev) => [
-        ...prev,
-        {
-          role: "bot",
-          text: "Thanks for your message! Feel free to share more details about your project, and I'll get back to you soon.",
-        },
-      ]);
-    }, 3000);
+
+      const botResponse = generateBotResponse(
+        textToSend,
+        analysis.userType,
+        newState.messageCount,
+        newState.capturedData
+      );
+
+      const botMessage: Message = {
+        role: "bot",
+        text: botResponse.text,
+        timestamp: new Date(),
+        messageId: `msg_${Date.now()}_bot`,
+      };
+
+      setMessages((prev) => [...prev, botMessage]);
+
+      if (botResponse.quickReplies) {
+        setQuickReplies(botResponse.quickReplies);
+        setShowQuickReplies(true);
+      }
+
+      // Capture lead if conditions met
+      if (
+        botResponse.shouldCaptureLead &&
+        newState.capturedData.name &&
+        newState.capturedData.email
+      ) {
+        const leadData: LeadData = {
+          name: newState.capturedData.name,
+          email: newState.capturedData.email,
+          projectType: newState.capturedData.projectType || "not_sure",
+          description:
+            newState.capturedData.problem || "To be discussed on call",
+          intent:
+            newState.userType === "recruiter"
+              ? "recruiter"
+              : newState.userType === "client"
+                ? "client"
+                : "browsing",
+          source: "chatbot",
+          sessionId: newState.sessionId,
+          conversationDuration: Math.round(
+            (new Date().getTime() - newState.startedAt.getTime()) / 1000
+          ),
+          messageCount: newState.messageCount,
+          messages: newMessages.map((m) => ({
+            role: m.role,
+            text: m.text,
+            timestamp: m.timestamp,
+          })),
+        };
+
+        await sendLeadToAPI(leadData);
+      }
+
+      // Show CTA if triggered
+      if (newState.ctaTriggered && !state.ctaTriggered) {
+        setTimeout(() => {
+          const ctaIndex = Math.floor(Math.random() * 5);
+          const cta = getCTAVariation(ctaIndex);
+
+          const ctaMessage: Message = {
+            role: "bot",
+            text: cta,
+            timestamp: new Date(),
+            messageId: `msg_${Date.now()}_cta`,
+          };
+
+          setMessages((prev) => [...prev, ctaMessage]);
+        }, 1500);
+      }
+    }, 1200);
   };
 
   return (
     <div className="fixed bottom-6 right-6 z-40 flex items-end gap-3">
-      {/* Promotional Message Card - Small and Clickable */}
+      {/* Promotional Message Card */}
       {showPromoCard && !isOpen && (
         <div
           onClick={handleOpenChat}
@@ -120,7 +323,7 @@ const ChatBot = () => {
         </div>
       )}
 
-      {/* Chat Widget Container */}
+      {/* Chat Widget */}
       <div className="relative">
         {isOpen ? (
           <Card className="w-80 h-96 bg-card border-primary/20 shadow-lg flex flex-col">
@@ -139,25 +342,27 @@ const ChatBot = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3">
               {messages.map((msg, idx) => (
                 <div
-                  key={idx}
+                  key={msg.messageId || idx}
                   className={`flex ${
                     msg.role === "user" ? "justify-end" : "justify-start"
                   }`}
                 >
                   <div
-                    className={`max-w-xs px-3 py-2 rounded-lg text-sm ${
+                    className={`max-w-xs px-3 py-2 rounded-lg text-sm whitespace-pre-wrap ${
                       msg.role === "user"
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted text-foreground"
                     }`}
+                    title={msg.timestamp.toLocaleTimeString()}
                   >
                     {msg.text}
                   </div>
                 </div>
               ))}
+
               {isTyping && (
                 <div className="flex justify-start">
                   <div className="bg-muted text-foreground px-3 py-2 rounded-lg">
@@ -169,6 +374,21 @@ const ChatBot = () => {
                   </div>
                 </div>
               )}
+
+              {showQuickReplies && quickReplies.length > 0 && !isTyping && (
+                <div className="flex flex-col gap-2 mt-2">
+                  {quickReplies.map((reply, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleSend(reply)}
+                      className="text-left px-3 py-2 rounded-lg bg-muted hover:bg-primary/20 text-sm transition-colors text-foreground hover:text-primary"
+                    >
+                      {reply}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               <div ref={messagesEndRef} />
             </div>
 
@@ -183,7 +403,7 @@ const ChatBot = () => {
                 className="flex-1 px-3 py-2 rounded-lg bg-background border border-border focus:border-primary focus:outline-none text-sm"
               />
               <Button
-                onClick={handleSend}
+                onClick={() => handleSend()}
                 size="sm"
                 className="bg-primary hover:bg-primary/90"
               >
@@ -192,21 +412,18 @@ const ChatBot = () => {
             </div>
           </Card>
         ) : (
-          <>
-            <Button
-              onClick={handleOpenChat}
-              size="lg"
-              className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 shadow-lg flex items-center justify-center relative"
-            >
-              <PenIcon className="w-8 h-8" />
-              {/* Red Badge with "1" */}
-              {(showPromoCard || promoCardClosed) && (
-                <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
-                  <span className="text-xs font-bold text-white">1</span>
-                </div>
-              )}
-            </Button>
-          </>
+          <Button
+            onClick={handleOpenChat}
+            size="lg"
+            className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 shadow-lg flex items-center justify-center"
+          >
+            <PenIcon className="w-8 h-8" />
+            {(showPromoCard || promoCardClosed) && (
+              <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
+                <span className="text-xs font-bold text-white">1</span>
+              </div>
+            )}
+          </Button>
         )}
       </div>
     </div>
