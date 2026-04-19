@@ -1,10 +1,4 @@
-import {
-  ArrowLeft,
-  Code,
-  Target,
-  Lightbulb,
-  TrendingUp,
-} from "lucide-react";
+import { ArrowLeft, Code, Target, Lightbulb, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
@@ -62,7 +56,9 @@ const CaseStudyBywayBackendAPI = () => {
             <div className="space-y-3">
               <h2 className="text-2xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
-                A backend API system designed to manage product reviews, user authentication, and role-based access for a scalable web platform.
+                A backend API system designed to manage product reviews, user
+                authentication, and role-based access for a scalable web
+                platform.
               </p>
             </div>
 
@@ -73,7 +69,9 @@ const CaseStudyBywayBackendAPI = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Challenge</h2>
                   <p className="text-foreground/90 leading-relaxed mb-3">
-                    Building a backend system required handling authentication, structured data management, and secure access control while maintaining scalability and performance.
+                    Building a backend system required handling authentication,
+                    structured data management, and secure access control while
+                    maintaining scalability and performance.
                   </p>
                   <p className="text-foreground/90 leading-relaxed font-semibold">
                     The goal was to create an API that is:
@@ -81,19 +79,27 @@ const CaseStudyBywayBackendAPI = () => {
                   <ul className="space-y-2 pl-4 mt-3">
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">Secure and reliable</span>
+                      <span className="text-foreground/90">
+                        Secure and reliable
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">Easy to maintain and extend</span>
+                      <span className="text-foreground/90">
+                        Easy to maintain and extend
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">Efficient in handling data operations</span>
+                      <span className="text-foreground/90">
+                        Efficient in handling data operations
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">Ready for production use</span>
+                      <span className="text-foreground/90">
+                        Ready for production use
+                      </span>
                     </li>
                   </ul>
                 </div>
@@ -107,7 +113,9 @@ const CaseStudyBywayBackendAPI = () => {
                 The Solution
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                I designed and implemented a RESTful API that supports user management, product reviews, and role-based permissions using a modular architecture.
+                I designed and implemented a RESTful API that supports user
+                management, product reviews, and role-based permissions using a
+                modular architecture.
               </p>
             </div>
 
@@ -117,7 +125,9 @@ const CaseStudyBywayBackendAPI = () => {
               <div className="space-y-3">
                 <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
                   <span className="text-primary">•</span>
-                  <span>Full CRUD operations for product reviews and users</span>
+                  <span>
+                    Full CRUD operations for product reviews and users
+                  </span>
                 </p>
                 <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
                   <span className="text-primary">•</span>
@@ -133,7 +143,9 @@ const CaseStudyBywayBackendAPI = () => {
                 </p>
                 <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
                   <span className="text-primary">•</span>
-                  <span>MongoDB integration for efficient data persistence</span>
+                  <span>
+                    MongoDB integration for efficient data persistence
+                  </span>
                 </p>
               </div>
             </div>
@@ -145,7 +157,8 @@ const CaseStudyBywayBackendAPI = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">System Design</h2>
                   <p className="text-foreground/90 leading-relaxed mb-3">
-                    The API follows a modular structure with separation of concerns across routes, controllers, and data models.
+                    The API follows a modular structure with separation of
+                    concerns across routes, controllers, and data models.
                   </p>
                   <p className="text-foreground/90 leading-relaxed font-semibold mb-3">
                     Key design considerations include:
@@ -153,19 +166,28 @@ const CaseStudyBywayBackendAPI = () => {
                   <ul className="space-y-2">
                     <li className="flex items-start gap-2">
                       <span className="text-primary">•</span>
-                      <span className="text-foreground/90">Middleware-based authentication and authorization</span>
+                      <span className="text-foreground/90">
+                        Middleware-based authentication and authorization
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary">•</span>
-                      <span className="text-foreground/90">Schema validation using Mongoose</span>
+                      <span className="text-foreground/90">
+                        Schema validation using Mongoose
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary">•</span>
-                      <span className="text-foreground/90">Clean routing structure for maintainability</span>
+                      <span className="text-foreground/90">
+                        Clean routing structure for maintainability
+                      </span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-primary">•</span>
-                      <span className="text-foreground/90">Scalable architecture aligned with clean design principles</span>
+                      <span className="text-foreground/90">
+                        Scalable architecture aligned with clean design
+                        principles
+                      </span>
                     </li>
                   </ul>
                 </div>
@@ -184,19 +206,27 @@ const CaseStudyBywayBackendAPI = () => {
                   <ul className="space-y-3">
                     <li className="flex items-start gap-3">
                       <span className="text-primary font-bold">✓</span>
-                      <span className="text-foreground/90">Secure authentication and protected endpoints</span>
+                      <span className="text-foreground/90">
+                        Secure authentication and protected endpoints
+                      </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-primary font-bold">✓</span>
-                      <span className="text-foreground/90">Efficient database operations and query handling</span>
+                      <span className="text-foreground/90">
+                        Efficient database operations and query handling
+                      </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-primary font-bold">✓</span>
-                      <span className="text-foreground/90">Scalable structure for future expansion</span>
+                      <span className="text-foreground/90">
+                        Scalable structure for future expansion
+                      </span>
                     </li>
                     <li className="flex items-start gap-3">
                       <span className="text-primary font-bold">✓</span>
-                      <span className="text-foreground/90">Production-ready API deployment</span>
+                      <span className="text-foreground/90">
+                        Production-ready API deployment
+                      </span>
                     </li>
                   </ul>
                 </div>
@@ -210,7 +240,8 @@ const CaseStudyBywayBackendAPI = () => {
                 Technical Implementation
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Built using Node.js and Express, the API integrates MongoDB for data storage and uses middleware for validation and security.
+                Built using Node.js and Express, the API integrates MongoDB for
+                data storage and uses middleware for validation and security.
               </p>
               <p className="text-foreground/90 leading-relaxed font-semibold">
                 Core implementation includes:
@@ -218,23 +249,33 @@ const CaseStudyBywayBackendAPI = () => {
               <ul className="space-y-2 pl-4">
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">JWT-based authentication</span>
+                  <span className="text-foreground/90">
+                    JWT-based authentication
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">Request validation and error handling</span>
+                  <span className="text-foreground/90">
+                    Request validation and error handling
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">Mongoose schemas for structured data</span>
+                  <span className="text-foreground/90">
+                    Mongoose schemas for structured data
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">API testing with Postman</span>
+                  <span className="text-foreground/90">
+                    API testing with Postman
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">CI/CD setup for deployment readiness</span>
+                  <span className="text-foreground/90">
+                    CI/CD setup for deployment readiness
+                  </span>
                 </li>
               </ul>
             </div>
@@ -274,7 +315,9 @@ const CaseStudyBywayBackendAPI = () => {
                       Clean Architecture Improves Maintainability
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Proper separation of concerns across routes, controllers, and models makes APIs easier to maintain and extend over time.
+                      Proper separation of concerns across routes, controllers,
+                      and models makes APIs easier to maintain and extend over
+                      time.
                     </p>
                   </div>
                   <div>
@@ -282,7 +325,8 @@ const CaseStudyBywayBackendAPI = () => {
                       Security Must Be Built Early
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Integrating authentication and access control from the start prevents security vulnerabilities and rework later.
+                      Integrating authentication and access control from the
+                      start prevents security vulnerabilities and rework later.
                     </p>
                   </div>
                   <div>
@@ -290,15 +334,20 @@ const CaseStudyBywayBackendAPI = () => {
                       Well-Structured APIs Simplify Integration
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Clear API design with consistent patterns and proper documentation makes frontend integration straightforward and efficient.
+                      Clear API design with consistent patterns and proper
+                      documentation makes frontend integration straightforward
+                      and efficient.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Production Readiness Requires Testing and Deployment Strategy
+                      Production Readiness Requires Testing and Deployment
+                      Strategy
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      API testing, validation, and CI/CD pipelines are essential for ensuring reliability and smooth deployment to production.
+                      API testing, validation, and CI/CD pipelines are essential
+                      for ensuring reliability and smooth deployment to
+                      production.
                     </p>
                   </div>
                 </div>
