@@ -43,7 +43,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
           {/* Project Image */}
           <div className="rounded-lg overflow-hidden border border-primary/20 shadow-lg">
             <img
-              src="/projects/ecommerce-chatbot.jpg"
+              src="/Rectangle-1.png"
               alt="E-Commerce Sales Automation System"
               className="w-full h-auto object-cover"
             />
