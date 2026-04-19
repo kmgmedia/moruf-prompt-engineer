@@ -5,21 +5,21 @@ import { Link } from "react-router-dom";
 
 const caseStudies = [
   {
-    title: "AI-Powered Educational Assistant System",
+    title: "Intelligent Workflow Systems",
     description:
-      "Automating consistent, scaled responses for educators using structured AI workflows. Reduced teacher workload by 60%.",
+      "Automate repetitive processes and structure operations with AI-powered workflows.",
     link: "/case-study/teacher-ai",
   },
   {
-    title: "E-Commerce Sales Automation System",
+    title: "Connected Systems & API Integration",
     description:
-      "Increasing conversion rates and automating customer engagement for a high-volume dropshipping business. 22% conversion increase.",
+      "Connect tools, sync data, and eliminate manual handoffs across your systems.",
     link: "/case-study/ecommerce-sales-automation",
   },
   {
-    title: "Crafting Emotionally Intelligent AI: Making Content Resonate",
+    title: "Conversational & Decision Systems",
     description:
-      "How prompt engineering transforms generic AI writing into emotionally resonant content. 156% increase in email engagement and conversion.",
+      "Build AI systems that handle conversations and support smarter, faster decisions.",
     link: "/case-study/emotional-ai",
   },
 ];
