@@ -9,18 +9,20 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 const CaseStudySandtonSchool = () => {
   const navigate = useNavigate();
   const projectLink = "https://www.sandtonprepschool.com.ng/";
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+    <div className="relative min-h-screen bg-background overflow-hidden">
+      <AnimatedBackground opacity={0.6} subtle={true} />
+      <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
-          className="mb-8 hover:bg-primary/10"
+          className="mb-8 hover:text-white hover:bg-primary/20 transition-colors"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
@@ -35,12 +37,11 @@ const CaseStudySandtonSchool = () => {
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              Sandton Preparatory School Website: Building Digital Trust Through
-              Strategic Content
+              Sandton Preparatory School Digital Platform
             </h1>
             <p className="text-xl text-muted-foreground">
-              How AI-generated copy and prompt engineering achieved 95% parent
-              satisfaction for a growing school
+              Building a high-conversion website that drives enrollment,
+              engagement, and parent trust.
             </p>
           </header>
 
@@ -58,7 +59,18 @@ const CaseStudySandtonSchool = () => {
 
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
 
-          <section className="space-y-6">
+          <section className="space-y-8">
+            {/* Overview */}
+            <div className="space-y-3">
+              <h2 className="text-2xl font-bold">Overview</h2>
+              <p className="text-foreground/90 leading-relaxed">
+                Sandton Preparatory School needed more than a basic website —
+                they required a digital platform that could showcase their
+                programs, build trust with parents, and support student
+                enrollment.
+              </p>
+            </div>
+
             {/* Challenge */}
             <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
               <div className="flex items-start gap-4">
@@ -66,142 +78,106 @@ const CaseStudySandtonSchool = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Challenge</h2>
                   <p className="text-foreground/90 leading-relaxed">
-                    Sandton Preparatory School needed more than just a brochure
-                    website—they needed a digital presence that would build
-                    trust with parents, showcase their educational philosophy,
-                    enable enrollment, and serve as a hub for the school
-                    community. The challenge was creating content that felt
-                    authentic to the school's voice while being engaging,
-                    persuasive, and SEO-optimized. With limited marketing
-                    resources, they needed an efficient way to produce
-                    high-quality copy at scale.
+                    The school lacked a centralized digital presence that
+                    effectively communicated its values, curriculum, and
+                    offerings. This made it difficult to attract new families,
+                    engage existing parents, and manage consistent
+                    communication.
                   </p>
                 </div>
               </div>
             </Card>
 
-            {/* Approach */}
+            {/* Solution */}
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold flex items-center gap-3">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
                 <Lightbulb className="w-8 h-8 text-primary" />
-                My Prompt Engineering Approach
+                The Solution
               </h2>
+              <p className="text-foreground/90 leading-relaxed">
+                I designed and developed a modern, responsive web platform that
+                combines structured content, intuitive navigation, and
+                conversion-focused user experience to support both engagement
+                and enrollment.
+              </p>
+              <p className="text-foreground/90 leading-relaxed font-semibold">
+                The platform enables:
+              </p>
+              <ul className="space-y-2 pl-4">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span className="text-foreground/90">
+                    Clear presentation of curriculum and programs
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span className="text-foreground/90">
+                    Easy access to school information and resources
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span className="text-foreground/90">
+                    Seamless inquiry and enrollment experience
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span className="text-foreground/90">
+                    Ongoing engagement through content and updates
+                  </span>
+                </li>
+              </ul>
+            </div>
 
-              <div className="space-y-6 pl-4 border-l-4 border-primary/30">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">
-                    1. AI-Generated Compelling Copy for Core Values
-                  </h3>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    I created detailed prompts that captured the school's
-                    mission and values, then generated copy that resonates
-                    emotionally with parents. Rather than generic institutional
-                    language, the prompts were designed to create warm,
-                    human-centered narratives about education.
-                  </p>
-                  <Card className="p-4 bg-muted/50">
-                    <code className="text-sm whitespace-pre-wrap">
-                      {`Prompt: "Write about our curriculum philosophy for parents. 
-Key points: balance between academic rigor and creativity, 
-individual attention, development of critical thinking.
-Tone: Warm, professional, aspirational but realistic.
-Audience: Concerned parents looking for quality education."`}
-                    </code>
-                  </Card>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">
-                    2. Prompt-Engineered Content Strategy for Blog & Insights
-                  </h3>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    I designed a systematic approach to generate timely,
-                    relevant blog content about parenting, education trends, and
-                    learning strategies. This positioned the school as a thought
-                    leader and drove organic traffic.
-                  </p>
-                  <ul className="space-y-2 mt-3">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        <strong>Blog strategy:</strong> 2 articles monthly on
-                        parenting and education
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        <strong>SEO optimization:</strong> Keyword research
-                        integrated into prompts
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        <strong>Evergreen content:</strong> Resources parents
-                        return to repeatedly
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">
-                    3. Conversion-Focused UX Copywriting
-                  </h3>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    Every word on the site was crafted to guide parents toward
-                    enrollment. I used specific prompts to generate persuasive
-                    yet honest copy for landing pages, CTAs, and testimonials
-                    that address parent concerns and highlight school
-                    differentiators.
-                  </p>
-                  <Card className="p-4 bg-muted/50 mt-3">
-                    <p className="text-sm mb-2">
-                      <strong>Example - Enrollment CTA:</strong>
-                    </p>
-                    <code className="text-sm whitespace-pre-wrap">
-                      {`Instead of generic: "Enroll Now"
-Generated: "Join Our Community of Learners"
-This addresses the emotional need for belonging while 
-emphasizing the school's values.`}
-                    </code>
-                  </Card>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">
-                    4. SEO & Trust-Building Optimization
-                  </h3>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    Strategic prompts helped identify high-value keywords and
-                    topic clusters. I generated comprehensive, authoritative
-                    content that ranks well while building credibility with
-                    parents and search engines.
-                  </p>
-                  <ul className="space-y-2 mt-3">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        Curriculum pages with detailed program descriptions
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        Teacher bios emphasizing qualifications and philosophies
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        FAQ sections addressing common parent concerns
-                      </span>
-                    </li>
-                  </ul>
-                </div>
+            {/* Key Features */}
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">Key Features</h2>
+              <div className="space-y-3">
+                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>
+                    Curriculum and program showcase with structured layout
+                  </span>
+                </p>
+                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>Online class booking and event scheduling</span>
+                </p>
+                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>Blog and resource hub for parent engagement</span>
+                </p>
+                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>Teacher profiles and testimonials to build trust</span>
+                </p>
+                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
+                  <span className="text-primary">•</span>
+                  <span>Optimized user flows for inquiries and enrollment</span>
+                </p>
               </div>
             </div>
+
+            {/* System Design */}
+            <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
+              <div className="flex items-start gap-4">
+                <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h2 className="text-2xl font-bold mb-3">System Design</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-3">
+                    The platform was built to function as both an information
+                    hub and a conversion tool.
+                  </p>
+                  <p className="text-foreground/90 leading-relaxed">
+                    Content structure, navigation, and page flow were designed
+                    to guide parents from discovery to inquiry, while
+                    maintaining clarity and trust throughout the experience.
+                  </p>
+                </div>
+              </div>
+            </Card>
 
             {/* Results */}
             <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
@@ -209,117 +185,84 @@ emphasizing the school's values.`}
                 <TrendingUp className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
-                  <div className="space-y-3">
-                    <p className="text-foreground/90 leading-relaxed">
-                      Since launch, the website has become a central hub for the
-                      school community and a powerful enrollment tool:
-                    </p>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          ✓
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            95% parent satisfaction rating
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            Post-visit surveys show exceptional approval for
-                            website professionalism and content
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          ✓
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            40% increase in inquiries
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            Within 6 months of launch, enrollment inquiries
-                            increased significantly
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          ✓
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            Top 3 search rankings
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            Ranks in top 3 for key local search terms like "best
-                            schools near Sandton"
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          ✓
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            Serving 100+ enrolled students
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            Website is primary channel for new family discovery
-                            and enrollment
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          ✓
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            Consistent content updates
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            AI-assisted system enables easy blog updates and
-                            curriculum content refresh
-                          </p>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
+                  <p className="text-foreground/90 leading-relaxed mb-4">
+                    The platform delivered measurable results within the first 6
+                    months:
+                  </p>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-3">
+                      <span className="text-primary font-bold">✓</span>
+                      <span className="text-foreground/90">
+                        95% parent satisfaction rating
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-primary font-bold">✓</span>
+                      <span className="text-foreground/90">
+                        40% increase in enrollment inquiries
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-primary font-bold">✓</span>
+                      <span className="text-foreground/90">
+                        Top 3 search rankings for key local education terms
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-primary font-bold">✓</span>
+                      <span className="text-foreground/90">
+                        Supporting 100+ enrolled students through the platform
+                      </span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </Card>
 
-            {/* Features Built */}
+            {/* Technical Implementation */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold">
-                Website Features & Sections
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Lightbulb className="w-8 h-8 text-primary" />
+                Technical Implementation
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                {[
-                  "Curriculum Showcase",
-                  "Online Class Booking",
-                  "Events Calendar",
-                  "Blog & Resources",
-                  "Teacher Profiles",
-                  "Parent Testimonials",
-                  "Enrollment Portal",
-                  "Contact Forms",
-                ].map((feature, i) => (
-                  <Card key={i} className="p-4 bg-primary/5 border-primary/20">
-                    <div className="flex items-center gap-2">
-                      <span className="text-primary font-bold">✓</span>
-                      <p className="font-semibold text-foreground">{feature}</p>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+              <p className="text-foreground/90 leading-relaxed">
+                The system was developed using a modern frontend architecture
+                with performance, scalability, and SEO in mind.
+              </p>
+              <p className="text-foreground/90 leading-relaxed font-semibold">
+                This includes:
+              </p>
+              <ul className="space-y-2 pl-4">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span className="text-foreground/90">
+                    Optimized page structure for search visibility
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span className="text-foreground/90">
+                    Responsive design for mobile and desktop users
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span className="text-foreground/90">
+                    Efficient media handling and content delivery
+                  </span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary mt-1">•</span>
+                  <span className="text-foreground/90">
+                    Scalable component-based architecture
+                  </span>
+                </li>
+              </ul>
             </div>
 
             {/* Tech Stack */}
             <div className="space-y-4">
-              <h2 className="text-2xl font-bold">Tech Stack & Tools</h2>
+              <h2 className="text-2xl font-bold">Tech Stack</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {[
                   "Next.js",
@@ -328,8 +271,6 @@ emphasizing the school's values.`}
                   "Cloudinary",
                   "Tailwind CSS",
                   "SEO Optimization",
-                  "Responsive Design",
-                  "Content Strategy",
                 ].map((tech, i) => (
                   <Card
                     key={i}
@@ -343,55 +284,52 @@ emphasizing the school's values.`}
               </div>
             </div>
 
-            {/* Takeaways */}
+            {/* Key Takeaways */}
             <div className="space-y-4">
               <h2 className="text-3xl font-bold">Key Takeaways</h2>
-              <Card className="p-6 md:p-8 bg-muted/30">
-                <ol className="space-y-4">
-                  <li className="flex gap-3">
-                    <span className="font-bold text-primary text-lg">1.</span>
-                    <p className="text-foreground/90 leading-relaxed">
-                      <strong>
-                        Strategic content builds institutional credibility:
-                      </strong>{" "}
-                      High-quality copy about values, curriculum, and pedagogy
-                      creates trust and differentiates educational institutions
-                      in competitive markets.
+              <Card className="p-6 bg-muted/30">
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Digital Platform as Growth Engine
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      A well-designed digital platform can serve as a primary
+                      growth engine for an institution, driving enrollment,
+                      engagement, and operational efficiency.
                     </p>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-primary text-lg">2.</span>
-                    <p className="text-foreground/90 leading-relaxed">
-                      <strong>
-                        Emotion-driven copywriting drives conversions:
-                      </strong>{" "}
-                      Content addressing parent concerns and aspirations
-                      outperforms feature-heavy marketing in education
-                      verticals.
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      System Design + UX + Content = Trust
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Combining thoughtful system design, intuitive user
+                      experience, and structured content creates a foundation
+                      for building trust and credibility with your audience.
                     </p>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-primary text-lg">3.</span>
-                    <p className="text-foreground/90 leading-relaxed">
-                      <strong>
-                        AI enables consistent, scalable content production:
-                      </strong>{" "}
-                      With proper prompts, you can maintain authentic voice
-                      while scaling blog posts, testimonials, and marketing
-                      materials.
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Conversion Comes From Clarity
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Clear information architecture and conversion-focused
+                      navigation remove friction from the buyer's journey,
+                      turning a website into a functional business tool.
                     </p>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-primary text-lg">4.</span>
-                    <p className="text-foreground/90 leading-relaxed">
-                      <strong>
-                        Website is a distribution channel, not just a brochure:
-                      </strong>{" "}
-                      Treating it as a hub for resources, community, and
-                      continuous engagement drives long-term enrollment success.
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Measurable Impact Matters
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Success should be measured through business metrics
+                      (satisfaction, inquiries, rankings, enrollment) rather
+                      than just technical performance metrics.
                     </p>
-                  </li>
-                </ol>
+                  </div>
+                </div>
               </Card>
             </div>
           </section>

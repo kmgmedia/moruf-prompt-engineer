@@ -9,6 +9,11 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import BookACall from "./pages/BookACall";
 import CaseStudyTeacherAI from "./pages/CaseStudyTeacherAI";
+import CaseStudyEcommerceSalesAutomation from "./pages/CaseStudyEcommerceSalesAutomation";
+import CaseStudySandtonSchool from "./pages/CaseStudySandtonSchool";
+import CaseStudyDashboard from "./pages/CaseStudyDashboard";
+import CaseStudyBywayBackendAPI from "./pages/CaseStudyBywayBackendAPI";
+import CaseStudyBYCEcommerce from "./pages/CaseStudyBYCEcommerce";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +32,26 @@ const App = () => (
           <Route
             path="/case-study/teacher-ai"
             element={<CaseStudyTeacherAI />}
+          />
+          <Route
+            path="/case-study/ecommerce-sales-automation"
+            element={<CaseStudyEcommerceSalesAutomation />}
+          />
+          <Route
+            path="/case-study/sandton-school"
+            element={<CaseStudySandtonSchool />}
+          />
+          <Route
+            path="/case-study/dashboard"
+            element={<CaseStudyDashboard />}
+          />
+          <Route
+            path="/case-study/byway-backend-api"
+            element={<CaseStudyBywayBackendAPI />}
+          />
+          <Route
+            path="/case-study/byc-ecommerce"
+            element={<CaseStudyBYCEcommerce />}
           />
           {/* Catch-all route for 404 */}
           <Route path="*" element={<NotFound />} />

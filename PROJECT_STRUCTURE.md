@@ -1,6 +1,7 @@
 # Project Structure Guide
 
 ## Overview
+
 Moruf Adebola's AI Automation & Systems Portfolio - A modern React + TypeScript portfolio showcasing AI automation projects with an interactive chatbot.
 
 ## Directory Structure
@@ -83,11 +84,13 @@ moruf-prompt-engineer-portfolio-main/
 ## Key Features
 
 ### 1. **Responsive Portfolio**
+
 - Mobile-first design
 - Fully responsive on all devices
 - Touch-friendly interactions
 
 ### 2. **Interactive Chatbot (Moruf)**
+
 - Floating chat widget in bottom-right corner
 - Animated typing indicator
 - 3-second response delay for realism
@@ -97,17 +100,20 @@ moruf-prompt-engineer-portfolio-main/
 - Ultra-thin cyan scrollbar
 
 ### 3. **Lead Capture**
+
 - "Book a Call" form with validation
 - Email notifications via Resend
 - Fields: Name, Email, Phone, Project Type, Description
 - International phone support
 
 ### 4. **Case Studies**
+
 - Detailed case study pages
 - Structured content (Problem, Solution, Implementation, Results)
 - Professional design system
 
 ### 5. **Design System**
+
 - Tailwind CSS for styling
 - shadcn/ui component library
 - Consistent color scheme (Cyan primary: #00D9FF)
@@ -141,6 +147,7 @@ App
 ## Technology Stack
 
 ### Frontend
+
 - **React 18** - UI library
 - **TypeScript** - Type safety
 - **Vite** - Build tool
@@ -153,11 +160,13 @@ App
 - **Sonner** - Toast notifications
 
 ### Backend/Deployment
+
 - **Vercel** - Hosting & deployment
 - **Resend** - Email service
 - **Express** - API (local dev only)
 
 ### Development
+
 - **TypeScript** - Type checking
 - **ESLint** - Linting
 - **PostCSS** - CSS processing
@@ -166,6 +175,7 @@ App
 ## Development Workflow
 
 ### Local Development
+
 ```bash
 npm install
 npm run dev
@@ -173,17 +183,20 @@ npm run dev
 ```
 
 ### Build for Production
+
 ```bash
 npm run build
 npm run preview
 ```
 
 ### Linting
+
 ```bash
 npm run lint
 ```
 
 ### Deployment to Vercel
+
 ```bash
 git push origin main
 # Vercel automatically deploys
@@ -192,6 +205,7 @@ git push origin main
 ## Environment Variables
 
 Create `.env.local`:
+
 ```
 VITE_RESEND_API_KEY=your_resend_key
 RESEND_API_KEY=your_resend_key
@@ -200,6 +214,7 @@ RESEND_API_KEY=your_resend_key
 ## Styling Convention
 
 ### Color Palette
+
 - **Primary**: Cyan (#00D9FF / hsl(188 94% 55%))
 - **Secondary**: Dark Cyan (#0FA5A8 / hsl(193 82% 31%))
 - **Background**: Dark (#1A1A23 / hsl(220 18% 8%))
@@ -208,6 +223,7 @@ RESEND_API_KEY=your_resend_key
 - **Destructive**: Red (#E74C3C / hsl(0 84.2% 60.2%))
 
 ### Typography
+
 - Body: Inter (default)
 - Headings: Bold weights
 - Line Heights: 1.6 (body), 1.2 (headings)
@@ -244,12 +260,14 @@ RESEND_API_KEY=your_resend_key
 ## Maintenance
 
 ### Regular Tasks
+
 - Update dependencies monthly
 - Run ESLint checks
 - Test on multiple devices
 - Monitor Vercel deployment logs
 
 ### Code Quality
+
 - Keep components focused and single-purpose
 - Use TypeScript strictly
 - Write meaningful comments for complex logic

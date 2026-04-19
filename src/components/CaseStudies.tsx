@@ -11,16 +11,10 @@ const caseStudies = [
     link: "/case-study/teacher-ai",
   },
   {
-    title: "Breaking Down Data Silos: AI-Powered Multi-System Integration",
+    title: "E-Commerce Sales Automation System",
     description:
-      "Intelligent API orchestration that eliminated manual data entry across 5+ systems. 40 hours/week saved with real-time sync.",
-    link: "/case-study/api-integration",
-  },
-  {
-    title: "Creating Authentic AI Conversations: Role-Based System Design",
-    description:
-      "How system architecture and role prompting transform generic AI into reliable, contextual conversation partners.",
-    link: "/case-study/role-prompting",
+      "Increasing conversion rates and automating customer engagement for a high-volume dropshipping business. 22% conversion increase.",
+    link: "/case-study/ecommerce-sales-automation",
   },
 ];
 

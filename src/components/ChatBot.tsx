@@ -1,7 +1,24 @@
 import { useState, useEffect, useRef } from "react";
-import { MessageSquare, X, Send } from "lucide-react";
+import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+
+// Custom Pen Icon Component - Bold & Solid
+const PenIcon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    className={className}
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    {/* Solid pen nib shape */}
+    <path d="M 12 2 L 15 10 L 12 12 L 9 10 Z" fill="currentColor" />
+    {/* Pen shaft - thick vertical bar */}
+    <rect x="10.5" y="12" width="3" height="10" fill="currentColor" />
+    {/* Pen tip - thick triangle */}
+    <path d="M 9 22 L 15 22 L 12 20 Z" fill="currentColor" />
+  </svg>
+);
 
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -110,7 +127,7 @@ const ChatBot = () => {
             {/* Header */}
             <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <MessageSquare className="w-5 h-5" />
+                <PenIcon className="w-5 h-5" />
                 <span className="font-semibold">Moruf</span>
               </div>
               <button
@@ -179,12 +196,12 @@ const ChatBot = () => {
             <Button
               onClick={handleOpenChat}
               size="lg"
-              className="rounded-full w-14 h-14 bg-primary hover:bg-primary/90 shadow-lg flex items-center justify-center relative"
+              className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 shadow-lg flex items-center justify-center relative"
             >
-              <MessageSquare className="w-6 h-6" />
+              <PenIcon className="w-8 h-8" />
               {/* Red Badge with "1" */}
               {(showPromoCard || promoCardClosed) && (
-                <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center">
+                <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
                   <span className="text-xs font-bold text-white">1</span>
                 </div>
               )}

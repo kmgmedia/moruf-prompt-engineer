@@ -1,4 +1,11 @@
-import { ArrowLeft, ShoppingCart, Zap, TrendingUp, Award, Code } from "lucide-react";
+import {
+  ArrowLeft,
+  ShoppingCart,
+  Zap,
+  TrendingUp,
+  Award,
+  Code,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
@@ -82,9 +89,15 @@ const CaseStudyEcommerceSalesAutomation = () => {
                   <ul className="list-disc list-inside space-y-2 text-foreground/90">
                     <li>Support team couldn't scale to meet demand</li>
                     <li>Slow response times led to cart abandonment</li>
-                    <li>No 24/7 availability for customers in different zones</li>
-                    <li>Inconsistent customer experience across interactions</li>
-                    <li>Missed sales opportunities due to delayed engagement</li>
+                    <li>
+                      No 24/7 availability for customers in different zones
+                    </li>
+                    <li>
+                      Inconsistent customer experience across interactions
+                    </li>
+                    <li>
+                      Missed sales opportunities due to delayed engagement
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -112,7 +125,9 @@ const CaseStudyEcommerceSalesAutomation = () => {
                       Context-aware conversations that reduce friction in the
                       buying journey
                     </li>
-                    <li>Automated engagement across the entire customer lifecycle</li>
+                    <li>
+                      Automated engagement across the entire customer lifecycle
+                    </li>
                   </ul>
                 </div>
               </div>
@@ -219,8 +234,9 @@ const CaseStudyEcommerceSalesAutomation = () => {
                       4. Behavior-Driven Logic
                     </h3>
                     <p className="text-sm text-foreground/90">
-                      Implements product recommendations and upselling strategies
-                      based on user behavior patterns and intent signals.
+                      Implements product recommendations and upselling
+                      strategies based on user behavior patterns and intent
+                      signals.
                     </p>
                   </div>
 
@@ -320,8 +336,8 @@ const CaseStudyEcommerceSalesAutomation = () => {
                   <li className="flex items-start gap-3">
                     <span className="text-primary font-bold">•</span>
                     <span className="text-foreground/90">
-                      <strong>Conversation memory</strong> - Maintains continuity
-                      across interactions
+                      <strong>Conversation memory</strong> - Maintains
+                      continuity across interactions
                     </span>
                   </li>
                   <li className="flex items-start gap-3">
@@ -336,27 +352,21 @@ const CaseStudyEcommerceSalesAutomation = () => {
             </div>
 
             {/* Tech Stack */}
-            <Card className="p-6 border-primary/30 bg-primary/5">
-              <h2 className="text-2xl font-bold mb-4 text-primary">Tech Stack</h2>
-              <div className="grid md:grid-cols-2 gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/90">Gemini API</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/90">Python</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/90">LangChain</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/90">Telegram API</span>
-                </div>
+            <div className="space-y-4">
+              <h2 className="text-2xl font-bold">Tech Stack</h2>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                {["Gemini API", "Python", "LangChain", "Telegram API"].map(
+                  (tech, i) => (
+                    <Card
+                      key={i}
+                      className="p-3 bg-primary/5 border-primary/20 text-center"
+                    >
+                      <p className="font-semibold text-foreground">{tech}</p>
+                    </Card>
+                  ),
+                )}
               </div>
-            </Card>
+            </div>
 
             {/* Key Takeaways */}
             <div className="space-y-4">
@@ -370,7 +380,8 @@ const CaseStudyEcommerceSalesAutomation = () => {
                     <p className="text-foreground/90 text-sm leading-relaxed">
                       This project demonstrates how AI can be used to build
                       revenue-generating systems, not just chat interfaces. When
-                      designed strategically, AI becomes a direct business lever.
+                      designed strategically, AI becomes a direct business
+                      lever.
                     </p>
                   </div>
                   <div>
@@ -379,8 +390,8 @@ const CaseStudyEcommerceSalesAutomation = () => {
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
                       The architecture supporting the AI is as important as the
-                      AI itself. Proper context management, intent detection, and
-                      conversation flow create the framework for success.
+                      AI itself. Proper context management, intent detection,
+                      and conversation flow create the framework for success.
                     </p>
                   </div>
                   <div>
@@ -388,9 +399,9 @@ const CaseStudyEcommerceSalesAutomation = () => {
                       Behavioral Understanding Drives Results
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Understanding customer behavior patterns and journey stages
-                      allows for targeted, effective engagement that feels
-                      natural rather than manipulative.
+                      Understanding customer behavior patterns and journey
+                      stages allows for targeted, effective engagement that
+                      feels natural rather than manipulative.
                     </p>
                   </div>
                   <div>

@@ -45,7 +45,7 @@ const projects = [
       "Increased conversion rate by 22% within the first month of pilot testing.",
     tools: ["Gemini API", "Python", "LangChain", "Telegram API"],
     link: "https://saleschatbotfile.vercel.app/",
-    caseStudy: "/case-study/ecommerce-chatbot",
+    caseStudy: "/case-study/ecommerce-sales-automation",
   },
   {
     icon: Database,
@@ -71,6 +71,7 @@ const projects = [
       "Vercel",
     ],
     link: "https://github.com/kmgmedia/byway_backend",
+    caseStudy: "/case-study/byway-backend-api",
   },
   {
     icon: Store,
@@ -95,6 +96,7 @@ const projects = [
       "Bootstrap",
     ],
     link: "https://byc-website-pi.vercel.app/",
+    caseStudy: "/case-study/byc-ecommerce",
   },
   {
     icon: School,
