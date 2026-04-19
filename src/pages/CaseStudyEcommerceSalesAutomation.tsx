@@ -1,427 +1,110 @@
-﻿import { ArrowLeft, ShoppingCart, Zap, TrendingUp, Award, Code } from "lucide-react";
+﻿import { ArrowLeft, Zap, AlertCircle, CheckCircle, Lightbulb, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-import { AnimatedBackground } from "@/components/AnimatedBackground";
-
 const CaseStudyEcommerceSalesAutomation = () => {
   const navigate = useNavigate();
-
   return (
-    <div className="relative min-h-screen bg-background overflow-hidden">
-      <AnimatedBackground opacity={0.6} subtle={true} />
-      <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
-        <Button
-          variant="ghost"
-          onClick={() => navigate("/")}
-          className="mb-8 hover:text-white hover:bg-primary/20 transition-colors"
-        >
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4 py-12 max-w-4xl">
+        <Button variant="ghost" onClick={() => navigate("/")} className="mb-8 hover:bg-primary/10">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Button>
-
         <article className="space-y-8 animate-fade-in">
           <header className="space-y-4">
             <div className="flex items-center gap-2 text-primary">
-              <ShoppingCart className="w-6 h-6" />
-              <span className="text-sm font-semibold uppercase tracking-wider">
-                Case Study
-              </span>
+              <Zap className="w-6 h-6" />
+              <span className="text-sm font-semibold uppercase tracking-wider">Case Study</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              E-Commerce Sales Automation System
+              Connecting Your Tools into One Intelligent System
             </h1>
             <p className="text-xl text-muted-foreground">
-              Increasing conversion rates and automating customer engagement for
-              a high-volume dropshipping business. 22% conversion rate increase
-              with 24/7 customer engagement.
+              Eliminate manual handoffs and sync data across your entire operation
             </p>
           </header>
-
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
-
-          {/* Project Image */}
-          <div className="rounded-lg overflow-hidden border border-primary/20 shadow-lg">
-            <img
-              src="/projects/ecommerce-chatbot.jpg"
-              alt="E-Commerce Sales Automation System"
-              className="w-full h-auto object-cover"
-            />
-          </div>
-
           <section className="space-y-6">
-            {/* Overview */}
+            <Card className="p-6 bg-destructive/10 border-destructive/30">
+              <div className="flex items-start gap-4">
+                <AlertCircle className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">The Problem: Disconnected Tools and Systems</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">Most businesses use multiple tools:</p>
+                  <ul className="space-y-2 text-foreground/90 ml-4">
+                    <li className="flex gap-2"><span className="text-destructive">•</span><span>CRM systems</span></li>
+                    <li className="flex gap-2"><span className="text-destructive">•</span><span>Analytics dashboards</span></li>
+                    <li className="flex gap-2"><span className="text-destructive">•</span><span>Messaging platforms</span></li>
+                    <li className="flex gap-2"><span className="text-destructive">•</span><span>Spreadsheets and databases</span></li>
+                  </ul>
+                  <div className="mt-6 space-y-2 border-l-4 border-destructive/50 pl-4">
+                    <p className="text-foreground/90 font-semibold">But they don't talk to each other.</p>
+                    <p className="text-foreground/90 mt-3 font-semibold">Result:</p>
+                    <ul className="space-y-2 text-foreground/90">
+                      <li className="flex gap-2"><span className="text-destructive">○</span><span>Manual data entry</span></li>
+                      <li className="flex gap-2"><span className="text-destructive">○</span><span>Duplicated work</span></li>
+                      <li className="flex gap-2"><span className="text-destructive">○</span><span>Disconnected systems with no visibility</span></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </Card>
             <Card className="p-6 bg-primary/5 border-primary/20">
               <div className="flex items-start gap-4">
-                <ShoppingCart className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">Overview</h2>
-                  <p className="text-foreground/90 leading-relaxed">
-                    A fast-growing dropshipping business was losing potential
-                    revenue due to slow response times, abandoned carts, and
-                    lack of 24/7 customer engagement. The company needed a
-                    solution that could scale support operations while
-                    maintaining personalized interactions across thousands of
-                    concurrent customers.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            {/* The Challenge */}
-            <Card className="p-6 bg-destructive/5 border-destructive/20">
-              <div className="flex items-start gap-4">
-                <TrendingUp className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-3">The Challenge</h2>
-                  <p className="text-foreground/90 leading-relaxed mb-4">
-                    Customers frequently left without completing purchases
-                    because their questions weren't answered in time. The core
-                    problems were:
-                  </p>
-                  <ul className="list-disc list-inside space-y-2 text-foreground/90">
-                    <li>Support team couldn't scale to meet demand</li>
-                    <li>Slow response times led to cart abandonment</li>
-                    <li>No 24/7 availability for customers in different zones</li>
-                    <li>Inconsistent customer experience across interactions</li>
-                    <li>Missed sales opportunities due to delayed engagement</li>
+                  <h2 className="text-2xl font-bold mb-4">The Solution: Connected System Architecture</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">I build systems that:</p>
+                  <ul className="space-y-3 text-foreground/90">
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span>Connect your tools through APIs</span></li>
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span>Automate data flow between platforms</span></li>
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span>Eliminate manual handoffs completely</span></li>
                   </ul>
+                  <p className="text-foreground/90 leading-relaxed mt-4 font-semibold">Everything becomes one connected system instead of scattered tools.</p>
                 </div>
               </div>
             </Card>
-
-            {/* The Solution */}
-            <Card className="p-6 bg-primary/5 border-primary/20">
-              <div className="flex items-start gap-4">
-                <Zap className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-3">The Solution</h2>
-                  <p className="text-foreground/90 leading-relaxed mb-4">
-                    I designed and implemented an AI-powered sales system that
-                    engages customers in real time, answers product questions,
-                    and guides them toward purchase decisions through structured
-                    conversational flows.
-                  </p>
-                  <p className="text-foreground/90 leading-relaxed mb-4">
-                    The system focuses on:
-                  </p>
-                  <ul className="list-disc list-inside space-y-2 text-foreground/90">
-                    <li>Real-time customer interaction and support</li>
-                    <li>Intelligent product recommendations</li>
-                    <li>
-                      Context-aware conversations that reduce friction in the
-                      buying journey
-                    </li>
-                    <li>Automated engagement across the entire customer lifecycle</li>
-                  </ul>
-                </div>
-              </div>
-            </Card>
-
-            {/* Key Features */}
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold flex items-center gap-3">
-                <Zap className="w-8 h-8 text-primary" />
-                Key Features
-              </h2>
-
+              <h2 className="text-3xl font-bold flex items-center gap-3"><GitBranch className="w-8 h-8 text-primary" />What This Looks Like</h2>
+              <Card className="p-6 bg-muted/30 space-y-3">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" /><p className="text-foreground/90">API integrations between all platforms</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" /><p className="text-foreground/90">Automated data syncing in real-time</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" /><p className="text-foreground/90">Backend systems that orchestrate workflows</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" /><p className="text-foreground/90">Real-time updates across all tools</p></div>
+                </div>
+              </Card>
+            </div>
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold">Impact</h2>
               <div className="grid md:grid-cols-2 gap-4">
-                <Card className="p-4 border-primary/30 bg-primary/5">
-                  <h3 className="font-semibold text-lg mb-2 text-primary">
-                    Personalized Recommendations
-                  </h3>
-                  <p className="text-sm text-foreground/90">
-                    AI analyzes user intent and browsing patterns to suggest
-                    products that match customer needs and preferences.
-                  </p>
-                </Card>
-
-                <Card className="p-4 border-primary/30 bg-primary/5">
-                  <h3 className="font-semibold text-lg mb-2 text-primary">
-                    Context-Aware Conversations
-                  </h3>
-                  <p className="text-sm text-foreground/90">
-                    System maintains conversation state and user context,
-                    enabling seamless, natural interactions without friction.
-                  </p>
-                </Card>
-
-                <Card className="p-4 border-primary/30 bg-primary/5">
-                  <h3 className="font-semibold text-lg mb-2 text-primary">
-                    24/7 Customer Support
-                  </h3>
-                  <p className="text-sm text-foreground/90">
-                    Continuous availability across all time zones, eliminating
-                    wait times and response delays.
-                  </p>
-                </Card>
-
-                <Card className="p-4 border-primary/30 bg-primary/5">
-                  <h3 className="font-semibold text-lg mb-2 text-primary">
-                    Behavioral Optimization
-                  </h3>
-                  <p className="text-sm text-foreground/90">
-                    Subtle conversion optimization through behavioral cues that
-                    guide users naturally toward purchase completion.
-                  </p>
-                </Card>
+                <Card className="p-4 bg-primary/5 border-primary/20"><p className="font-semibold text-foreground mb-2">Eliminate repetitive data entry</p><p className="text-sm text-muted-foreground">Data syncs automatically across systems</p></Card>
+                <Card className="p-4 bg-primary/5 border-primary/20"><p className="font-semibold text-foreground mb-2">Save hours of manual work weekly</p><p className="text-sm text-muted-foreground">No more manual data transfers or updates</p></Card>
+                <Card className="p-4 bg-primary/5 border-primary/20"><p className="font-semibold text-foreground mb-2">Improve data accuracy</p><p className="text-sm text-muted-foreground">Single source of truth across all tools</p></Card>
+                <Card className="p-4 bg-primary/5 border-primary/20"><p className="font-semibold text-foreground mb-2">Create real-time visibility</p><p className="text-sm text-muted-foreground">See your entire operation at a glance</p></Card>
               </div>
             </div>
-
-            {/* System Design */}
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold flex items-center gap-3">
-                <Code className="w-8 h-8 text-primary" />
-                System Design
-              </h2>
-
-              <p className="text-foreground/90 leading-relaxed">
-                The system combines AI-driven conversation handling with
-                structured workflows to influence purchasing behavior without
-                feeling intrusive.
-              </p>
-
-              <Card className="p-6 bg-muted/30">
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-primary">
-                      1. Intent Detection Layer
-                    </h3>
-                    <p className="text-sm text-foreground/90">
-                      Analyzes user input to understand their current stage in
-                      the buying journey (browsing, comparing, deciding,
-                      purchasing).
-                    </p>
+            <Card className="p-6 bg-muted/50">
+              <h2 className="text-2xl font-bold mb-4">How I Build It</h2>
+              <div className="space-y-4">
+                {[{num: 1, title: "Analyze your current tools and stack", desc: "Understand what you're currently using"}, {num: 2, title: "Identify integration gaps", desc: "Find where manual work and disconnections exist"}, {num: 3, title: "Design system architecture", desc: "Build a blueprint for your connected system"}, {num: 4, title: "Build and connect APIs", desc: "Implement integrations and data flows"}, {num: 5, title: "Deploy and monitor", desc: "Launch system and ensure continuous operation"}].map((step) => (
+                  <div key={step.num} className="flex gap-4">
+                    <div className="flex-shrink-0"><div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-background font-bold text-sm">{step.num}</div></div>
+                    <div><p className="font-semibold text-foreground">{step.title}</p><p className="text-sm text-muted-foreground">{step.desc}</p></div>
                   </div>
-
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-primary">
-                      2. Context Management
-                    </h3>
-                    <p className="text-sm text-foreground/90">
-                      Maintains conversation history, product browsing data, and
-                      user preferences across all interactions.
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-primary">
-                      3. Dynamic Response Generation
-                    </h3>
-                    <p className="text-sm text-foreground/90">
-                      Generates contextual, personalized responses that balance
-                      persuasion with natural, engaging conversation.
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-primary">
-                      4. Behavior-Driven Logic
-                    </h3>
-                    <p className="text-sm text-foreground/90">
-                      Implements product recommendations and upselling strategies
-                      based on user behavior patterns and intent signals.
-                    </p>
-                  </div>
-
-                  <div>
-                    <h3 className="text-lg font-semibold mb-2 text-primary">
-                      5. Conversation Memory
-                    </h3>
-                    <p className="text-sm text-foreground/90">
-                      Maintains continuity across interactions, remembering user
-                      preferences, previous questions, and conversation context.
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </div>
-
-            {/* Results & Impact */}
-            <Card className="p-6 bg-primary/5 border-primary/20">
-              <div className="flex items-start gap-4">
-                <Award className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-4">Results & Impact</h2>
-                  <p className="text-foreground/90 leading-relaxed mb-6">
-                    The system delivered measurable business results within the
-                    first month of implementation:
-                  </p>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <Card className="p-4 bg-background/50 border-primary/20">
-                      <p className="text-3xl font-bold text-primary mb-1">
-                        22%
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Increase in conversion rate
-                      </p>
-                    </Card>
-                    <Card className="p-4 bg-background/50 border-primary/20">
-                      <p className="text-3xl font-bold text-primary mb-1">
-                        35%
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Increase in average order value
-                      </p>
-                    </Card>
-                    <Card className="p-4 bg-background/50 border-primary/20">
-                      <p className="text-3xl font-bold text-primary mb-1">
-                        50%
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Reduction in support tickets
-                      </p>
-                    </Card>
-                    <Card className="p-4 bg-background/50 border-primary/20">
-                      <p className="text-3xl font-bold text-primary mb-1">
-                        24/7
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Continuous customer engagement
-                      </p>
-                    </Card>
-                  </div>
-                </div>
+                ))}
               </div>
             </Card>
-
-            {/* Technical Implementation */}
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold flex items-center gap-3">
-                <Code className="w-8 h-8 text-primary" />
-                Technical Implementation
-              </h2>
-
-              <p className="text-foreground/90 leading-relaxed">
-                At the core of the system is a structured conversational
-                workflow that ensures consistent and effective interactions
-                across all customer touchpoints.
-              </p>
-
-              <Card className="p-6 bg-muted/30">
-                <p className="text-foreground/90 leading-relaxed mb-4">
-                  This includes:
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">ΓÇó</span>
-                    <span className="text-foreground/90">
-                      <strong>Context-aware response generation</strong> - Based
-                      on user intent, conversation history, and product data
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">ΓÇó</span>
-                    <span className="text-foreground/90">
-                      <strong>Behavior-driven logic</strong> - For product
-                      recommendations and strategic upselling
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">ΓÇó</span>
-                    <span className="text-foreground/90">
-                      <strong>Conversation memory</strong> - Maintains continuity
-                      across interactions
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <span className="text-primary font-bold">ΓÇó</span>
-                    <span className="text-foreground/90">
-                      <strong>Dynamic response structuring</strong> - Balances
-                      persuasion with natural, engaging conversation
-                    </span>
-                  </li>
-                </ul>
-              </Card>
-            </div>
-
-            {/* Tech Stack */}
-            <Card className="p-6 border-primary/30 bg-primary/5">
-              <h2 className="text-2xl font-bold mb-4 text-primary">Tech Stack</h2>
-              <div className="grid md:grid-cols-2 gap-3">
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/90">Gemini API</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/90">Python</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/90">LangChain</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-2 h-2 bg-primary rounded-full" />
-                  <span className="text-foreground/90">Telegram API</span>
-                </div>
-              </div>
-            </Card>
-
-            {/* Key Takeaways */}
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold">Key Takeaways</h2>
-              <Card className="p-6 bg-muted/30">
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      AI is More Than Chat
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      This project demonstrates how AI can be used to build
-                      revenue-generating systems, not just chat interfaces. When
-                      designed strategically, AI becomes a direct business lever.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      System Design Matters
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      The architecture supporting the AI is as important as the
-                      AI itself. Proper context management, intent detection, and
-                      conversation flow create the framework for success.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Behavioral Understanding Drives Results
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Understanding customer behavior patterns and journey stages
-                      allows for targeted, effective engagement that feels
-                      natural rather than manipulative.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Measurable Impact Requires Clear Metrics
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Success should be tracked through business metrics
-                      (conversion rate, AOV, support tickets) rather than just
-                      technical metrics (response time, accuracy).
-                    </p>
-                  </div>
-                </div>
-              </Card>
+            <div className="pt-8 border-t border-border">
+              <h2 className="text-2xl font-bold mb-4">Tired of Switching Between Tools?</h2>
+              <p className="text-foreground/90 leading-relaxed mb-6">Tired of switching between tools and doing things manually? Let's connect your systems properly.</p>
+              <Button size="lg" className="bg-primary hover:bg-primary/90">Book a Call</Button>
             </div>
           </section>
-
-          <div className="pt-8 border-t border-border">
-            <Button
-              onClick={() => navigate("/")}
-              size="lg"
-              className="bg-primary hover:bg-primary/90"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to All Case Studies
-            </Button>
-          </div>
         </article>
       </div>
     </div>
   );
 };
-
 export default CaseStudyEcommerceSalesAutomation;

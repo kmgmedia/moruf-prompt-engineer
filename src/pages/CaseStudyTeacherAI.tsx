@@ -1,335 +1,108 @@
-﻿import {
-  ArrowLeft,
-  Zap,
-  Target,
-  Lightbulb,
-  TrendingUp,
-  Clock,
-  Users,
-} from "lucide-react";
+﻿import { ArrowLeft, Zap, Clock, AlertCircle, CheckCircle, Lightbulb, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
-
 const CaseStudyTeacherAI = () => {
   const navigate = useNavigate();
-  const projectLink = "https://teacher-ai-assistant-cr.streamlit.app/";
-
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <Button
-          variant="ghost"
-          onClick={() => navigate("/")}
-          className="mb-8 hover:bg-primary/10"
-        >
+        <Button variant="ghost" onClick={() => navigate("/")} className="mb-8 hover:bg-primary/10">
           <ArrowLeft className="w-4 h-4 mr-2" />
           Back to Home
         </Button>
-
         <article className="space-y-8 animate-fade-in">
           <header className="space-y-4">
             <div className="flex items-center gap-2 text-primary">
               <Zap className="w-6 h-6" />
-              <span className="text-sm font-semibold uppercase tracking-wider">
-                Case Study
-              </span>
+              <span className="text-sm font-semibold uppercase tracking-wider">Case Study</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              AI Assistant for Teachers: Empowering Education Through
-              Intelligent Prompting
+              Automating Repetitive Work with Intelligent Workflow Systems
             </h1>
             <p className="text-xl text-muted-foreground">
-              How I built an AI assistant that reduced teacher workload by 60%
-              through strategic prompt engineering
+              How to replace manual effort with structured AI automation
             </p>
           </header>
-
-          {/* Hero Image */}
-          <div className="w-full h-64 md:h-80 bg-gradient-primary rounded-2xl overflow-hidden flex items-center justify-center group">
-            <img
-              src="/projects/teacher-ai.png"
-              alt="AI Assistant for Teachers Interface"
-              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
-            />
-          </div>
-
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
-
           <section className="space-y-6">
-            {/* Challenge */}
-            <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
+            <Card className="p-6 bg-destructive/10 border-destructive/30">
               <div className="flex items-start gap-4">
-                <Target className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <AlertCircle className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">The Challenge</h2>
-                  <p className="text-foreground/90 leading-relaxed">
-                    Teachers at Sandton Prep were spending 4-6 hours weekly on
-                    administrative tasks: writing personalized lesson notes,
-                    composing student progress reports, and crafting parent
-                    communication emails. This time drain meant less time for
-                    actual teaching and one-on-one student engagement. They
-                    needed a solution that could maintain their unique voice and
-                    professionalism while dramatically reducing repetitive work.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            {/* Approach */}
-            <div className="space-y-4">
-              <h2 className="text-3xl font-bold flex items-center gap-3">
-                <Lightbulb className="w-8 h-8 text-primary" />
-                My Prompt Engineering Approach
-              </h2>
-
-              <div className="space-y-6 pl-4 border-l-4 border-primary/30">
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">
-                    1. Multi-Step Prompting for Context Awareness
-                  </h3>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    Instead of a single prompt, I designed a multi-step system
-                    where the AI first gathers essential context about the
-                    lesson, student, or communication purpose, then generates
-                    tailored content.
-                  </p>
-                  <Card className="p-4 bg-muted/50">
-                    <code className="text-sm whitespace-pre-wrap">
-                      {`Step 1: "What is the topic and grade level?"
-Step 2: "What key concepts should be covered?"
-Step 3: "What learning objectives should students meet?"
-Step 4: Generate personalized lesson notes with examples relevant to the grade level`}
-                    </code>
-                  </Card>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">
-                    2. Persona-Based Prompting for Authentic Voice
-                  </h3>
-                  <p className="text-foreground/90 leading-relaxed">
-                    I created detailed persona prompts that captured each
-                    teacher's unique communication style, values, and
-                    pedagogical approach. This ensured the AI-generated content
-                    felt authentic and maintained the teacher's individual voice
-                    rather than sounding generic.
-                  </p>
-                  <Card className="p-4 bg-muted/50 mt-3">
-                    <code className="text-sm whitespace-pre-wrap">
-                      {`"You are Ms. Chen, a compassionate 4th grade teacher who believes in 
-nurturing student confidence. You use encouraging language, celebrate 
-small wins, and write with warmth while maintaining professionalism. 
-Your communication style is clear, friendly, and never patronizing."`}
-                    </code>
-                  </Card>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">
-                    3. Style-Tuning for Professional Consistency
-                  </h3>
-                  <p className="text-foreground/90 leading-relaxed">
-                    I fine-tuned prompts to maintain consistent tone,
-                    vocabulary, and formatting across all generated documents.
-                    This included specific instructions for tone (friendly yet
-                    professional), formality level, and structural preferences.
-                  </p>
-                  <ul className="space-y-2 mt-3">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">ΓÇó</span>
-                      <span className="text-foreground/90">
-                        <strong>Tone:</strong> Warm, professional, never
-                        condescending
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">ΓÇó</span>
-                      <span className="text-foreground/90">
-                        <strong>Format:</strong> Use bullet points for clarity,
-                        specific examples
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">ΓÇó</span>
-                      <span className="text-foreground/90">
-                        <strong>Length:</strong> Concise but comprehensive,
-                        respects parent reading time
-                      </span>
-                    </li>
+                  <h2 className="text-2xl font-bold mb-4">The Problem: Manual Work Kills Time and Consistency</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">Teams spend hours on repetitive work:</p>
+                  <ul className="space-y-2 text-foreground/90 ml-4">
+                    <li className="flex gap-2"><span className="text-destructive">•</span><span>Writing the same content repeatedly</span></li>
+                    <li className="flex gap-2"><span className="text-destructive">•</span><span>Repeating the same processes manually</span></li>
+                    <li className="flex gap-2"><span className="text-destructive">•</span><span>Managing tasks that could be automated</span></li>
                   </ul>
-                </div>
-
-                <div>
-                  <h3 className="text-xl font-semibold mb-2 text-primary">
-                    4. Template Integration with Dynamic Content
-                  </h3>
-                  <p className="text-foreground/90 leading-relaxed">
-                    I built Streamlit app that combined pre-made templates with
-                    AI-generated dynamic content, allowing teachers to quickly
-                    customize and export documents. This reduced implementation
-                    time from hours to minutes.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Results */}
-            <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
-              <div className="flex items-start gap-4">
-                <TrendingUp className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
-                  <div className="space-y-3">
-                    <p className="text-foreground/90 leading-relaxed">
-                      The AI assistant was deployed across Sandton Prep and
-                      delivered measurable impact within 3 months:
-                    </p>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          Γ£ô
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            60% reduction in writing time
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            Teachers reduced weekly administrative time from 4-6
-                            hours to 1-2 hours
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          Γ£ô
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            95% consistency in tone and professionalism
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            All generated documents maintained authentic teacher
-                            voice and quality standards
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          Γ£ô
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            Improved parent communication frequency
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            Teachers sent 40% more parent updates due to ease of
-                            use
-                          </p>
-                        </div>
-                      </li>
-                      <li className="flex items-start gap-3">
-                        <span className="text-primary font-bold text-lg">
-                          Γ£ô
-                        </span>
-                        <div>
-                          <p className="font-bold text-foreground">
-                            Reclaimed 10+ hours per teacher monthly
-                          </p>
-                          <p className="text-foreground/80 text-sm">
-                            Enabled focus on lesson planning, student
-                            interaction, and professional development
-                          </p>
-                        </div>
-                      </li>
+                  <div className="mt-6 space-y-2 border-l-4 border-destructive/50 pl-4">
+                    <p className="text-foreground/90 font-semibold">This leads to:</p>
+                    <ul className="space-y-2 text-foreground/90">
+                      <li className="flex gap-2"><span className="text-destructive">○</span><span>Wasted time</span></li>
+                      <li className="flex gap-2"><span className="text-destructive">○</span><span>Inconsistent output</span></li>
+                      <li className="flex gap-2"><span className="text-destructive">○</span><span>Slower operations</span></li>
                     </ul>
                   </div>
                 </div>
               </div>
             </Card>
-
-            {/* Tech Stack */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">Tech Stack & Tools</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {[
-                  "Python",
-                  "Gemini API",
-                  "Google Sheets",
-                  "Streamlit",
-                  "Prompt Engineering",
-                  "Template Design",
-                ].map((tech, i) => (
-                  <Card
-                    key={i}
-                    className="p-3 bg-primary/5 border-primary/20 text-center"
-                  >
-                    <p className="font-semibold text-foreground">{tech}</p>
-                  </Card>
-                ))}
+            <Card className="p-6 bg-primary/5 border-primary/20">
+              <div className="flex items-start gap-4">
+                <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h2 className="text-2xl font-bold mb-4">The Solution: AI-Powered Workflow Systems</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">I design intelligent workflow systems that:</p>
+                  <ul className="space-y-3 text-foreground/90">
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span>Automate repetitive tasks</span></li>
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span>Structure how information is created and processed</span></li>
+                    <li className="flex gap-3"><CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" /><span>Ensure consistency across all operations</span></li>
+                  </ul>
+                  <p className="text-foreground/90 leading-relaxed mt-4 font-semibold">These systems don't just "assist" — they replace manual effort with structured automation.</p>
+                </div>
               </div>
-            </div>
-
-            {/* Takeaways */}
+            </Card>
             <div className="space-y-4">
-              <h2 className="text-3xl font-bold">Key Takeaways</h2>
-              <Card className="p-6 md:p-8 bg-muted/30">
-                <ol className="space-y-4">
-                  <li className="flex gap-3">
-                    <span className="font-bold text-primary text-lg">1.</span>
-                    <p className="text-foreground/90 leading-relaxed">
-                      <strong>Persona prompting is essential:</strong> Detailed
-                      prompts that capture voice and values produce content that
-                      feels authentic and maintains the human touch.
-                    </p>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-primary text-lg">2.</span>
-                    <p className="text-foreground/90 leading-relaxed">
-                      <strong>
-                        Multi-step prompts outperform single prompts:
-                      </strong>{" "}
-                      Breaking complex tasks into sequential steps yields more
-                      contextually appropriate and nuanced results.
-                    </p>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="font-bold text-primary text-lg">3.</span>
-                    <p className="text-foreground/90 leading-relaxed">
-                      <strong>UI/UX matters for adoption:</strong> Even great AI
-                      needs an intuitive interface. Streamlit templates and
-                      quick workflows meant 100% teacher adoption within a week.
-                    </p>
-                  </li>
-                </ol>
+              <h2 className="text-3xl font-bold flex items-center gap-3"><Gauge className="w-8 h-8 text-primary" />What This Looks Like</h2>
+              <Card className="p-6 bg-muted/30 space-y-3">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" /><p className="text-foreground/90">Automated content and document generation</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" /><p className="text-foreground/90">Structured workflows for internal operations</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" /><p className="text-foreground/90">AI-assisted task execution pipelines</p></div>
+                  <div className="flex gap-3"><div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" /><p className="text-foreground/90">Systems that maintain tone, format, and consistency</p></div>
+                </div>
               </Card>
             </div>
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold">Impact</h2>
+              <div className="grid md:grid-cols-2 gap-4">
+                <Card className="p-4 bg-primary/5 border-primary/20"><p className="font-semibold text-foreground mb-2">Reduce manual workload significantly</p><p className="text-sm text-muted-foreground">Free up your team from repetitive tasks</p></Card>
+                <Card className="p-4 bg-primary/5 border-primary/20"><p className="font-semibold text-foreground mb-2">Save hours every week</p><p className="text-sm text-muted-foreground">Automated processes handle what used to take days</p></Card>
+                <Card className="p-4 bg-primary/5 border-primary/20"><p className="font-semibold text-foreground mb-2">Improve consistency and quality</p><p className="text-sm text-muted-foreground">Standardized outputs across all operations</p></Card>
+                <Card className="p-4 bg-primary/5 border-primary/20"><p className="font-semibold text-foreground mb-2">Focus on higher-value work</p><p className="text-sm text-muted-foreground">Teams spend time on strategy, not repetition</p></Card>
+              </div>
+            </div>
+            <Card className="p-6 bg-muted/50">
+              <h2 className="text-2xl font-bold mb-4">How I Build It</h2>
+              <div className="space-y-4">
+                {[{num: 1, title: "Map your current workflow", desc: "Understand existing processes and pain points"}, {num: 2, title: "Identify repetitive bottlenecks", desc: "Find where automation can have the biggest impact"}, {num: 3, title: "Design structured AI flows", desc: "Build workflows that maintain consistency"}, {num: 4, title: "Integrate with your existing tools", desc: "Connect to your current systems seamlessly"}, {num: 5, title: "Test, refine, and optimize", desc: "Continuously improve based on real-world usage"}].map((step) => (
+                  <div key={step.num} className="flex gap-4">
+                    <div className="flex-shrink-0"><div className="flex items-center justify-center h-8 w-8 rounded-full bg-primary text-background font-bold text-sm">{step.num}</div></div>
+                    <div><p className="font-semibold text-foreground">{step.title}</p><p className="text-sm text-muted-foreground">{step.desc}</p></div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+            <div className="pt-8 border-t border-border">
+              <h2 className="text-2xl font-bold mb-4">Ready to Reduce Manual Work?</h2>
+              <p className="text-foreground/90 leading-relaxed mb-6">Want to reduce manual work in your workflow? Let's design a system that handles it for you.</p>
+              <Button size="lg" className="bg-primary hover:bg-primary/90">Book a Call</Button>
+            </div>
           </section>
-
-          <div className="pt-8 border-t border-border flex gap-3 flex-col md:flex-row">
-            <Button
-              onClick={() => navigate("/")}
-              size="lg"
-              className="bg-primary hover:bg-primary/90"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to All Case Studies
-            </Button>
-            <Button
-              onClick={() => window.open(projectLink, "_blank")}
-              size="lg"
-              className="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20"
-            >
-              View Live Project ΓåÆ
-            </Button>
-          </div>
         </article>
       </div>
     </div>
   );
 };
-
 export default CaseStudyTeacherAI;
