@@ -2,10 +2,7 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "installCommand": "npm install",
-  "env": [
-    "RESEND_API_KEY",
-    "VITE_API_URL"
-  ],
+  "env": ["RESEND_API_KEY", "VITE_API_URL"],
   "functions": {
     "api/**/*.ts": {
       "runtime": "@vercel/node@3"

@@ -46,7 +46,7 @@ const BookACall = () => {
       // In development, use http://localhost:3001/api/book-call
       const apiBase = import.meta.env.VITE_API_URL || "";
       const apiUrl = apiBase ? `${apiBase}/api/book-call` : "/api/book-call";
-      
+
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
