@@ -266,8 +266,8 @@ const CaseStudyTeacherAI = () => {
                       Consistency Is a Core Business Advantage
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Standardized automated workflows improve quality control and
-                      make processes easier to scale across teams.
+                      Standardized automated workflows improve quality control
+                      and make processes easier to scale across teams.
                     </p>
                   </div>
                   <div>

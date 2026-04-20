@@ -40,7 +40,12 @@ const implementationItems = [
   "Template-driven output formatting for usability and clarity",
 ];
 
-const tools = ["Python", "Gemini API", "Google Sheets Integration", "Streamlit"];
+const tools = [
+  "Python",
+  "Gemini API",
+  "Google Sheets Integration",
+  "Streamlit",
+];
 
 const CaseStudyTeacherAIAssistant = () => {
   const navigate = useNavigate();
@@ -70,8 +75,8 @@ const CaseStudyTeacherAIAssistant = () => {
               AI Teaching Assistant & Workflow System
             </h1>
             <p className="text-xl text-muted-foreground">
-              Reducing administrative workload and improving communication consistency
-              for educators at scale.
+              Reducing administrative workload and improving communication
+              consistency for educators at scale.
             </p>
           </header>
 
@@ -96,9 +101,10 @@ const CaseStudyTeacherAIAssistant = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">Overview</h2>
                   <p className="text-foreground/90 leading-relaxed">
-                    Teachers at Sandton Preparatory School needed a way to reduce
-                    repetitive administrative tasks while maintaining high-quality,
-                    personalized communication with students and parents.
+                    Teachers at Sandton Preparatory School needed a way to
+                    reduce repetitive administrative tasks while maintaining
+                    high-quality, personalized communication with students and
+                    parents.
                   </p>
                 </div>
               </div>
@@ -110,9 +116,10 @@ const CaseStudyTeacherAIAssistant = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed">
-                    Teachers were spending 4-6 hours weekly on tasks such as writing
-                    lesson notes, student reports, and parent communication. This
-                    reduced time available for actual teaching and student engagement.
+                    Teachers were spending 4-6 hours weekly on tasks such as
+                    writing lesson notes, student reports, and parent
+                    communication. This reduced time available for actual
+                    teaching and student engagement.
                   </p>
                 </div>
               </div>
@@ -124,16 +131,19 @@ const CaseStudyTeacherAIAssistant = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Solution</h2>
                   <p className="text-foreground/90 leading-relaxed">
-                    I designed and implemented an AI-powered system that automates
-                    key teaching workflows while preserving each teacher's unique
-                    voice and communication style.
+                    I designed and implemented an AI-powered system that
+                    automates key teaching workflows while preserving each
+                    teacher's unique voice and communication style.
                   </p>
                   <p className="text-foreground/90 leading-relaxed mt-4 mb-3">
                     The system enables teachers to:
                   </p>
                   <ul className="space-y-2">
                     {solutionItems.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-foreground/90">
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 text-foreground/90"
+                      >
                         <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                         <span>{item}</span>
                       </li>
@@ -147,7 +157,10 @@ const CaseStudyTeacherAIAssistant = () => {
               <h2 className="text-2xl font-bold mb-4">Key Features</h2>
               <ul className="space-y-3">
                 {keyFeatures.map((feature) => (
-                  <li key={feature} className="flex items-start gap-3 text-foreground/90">
+                  <li
+                    key={feature}
+                    className="flex items-start gap-3 text-foreground/90"
+                  >
                     <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span>{feature}</span>
                   </li>
@@ -161,8 +174,9 @@ const CaseStudyTeacherAIAssistant = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">System Design</h2>
                   <p className="text-foreground/90 leading-relaxed mb-3">
-                    The solution combines AI processing, structured workflows, and a
-                    simple user interface to ensure ease of use and scalability.
+                    The solution combines AI processing, structured workflows,
+                    and a simple user interface to ensure ease of use and
+                    scalability.
                   </p>
                   <p className="text-foreground/90 leading-relaxed">
                     Teachers interact with the system through a Streamlit-based
@@ -181,7 +195,10 @@ const CaseStudyTeacherAIAssistant = () => {
               </p>
               <ul className="space-y-3">
                 {impactItems.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-foreground/90">
+                  <li
+                    key={item}
+                    className="flex items-start gap-3 text-foreground/90"
+                  >
                     <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                     <span>{item}</span>
                   </li>
@@ -193,7 +210,9 @@ const CaseStudyTeacherAIAssistant = () => {
               <div className="flex items-start gap-4">
                 <Settings className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">Technical Implementation</h2>
+                  <h2 className="text-2xl font-bold mb-3">
+                    Technical Implementation
+                  </h2>
                   <p className="text-foreground/90 leading-relaxed mb-3">
                     At the core of the system is a structured AI workflow that
                     ensures reliable and context-aware outputs.
@@ -203,7 +222,10 @@ const CaseStudyTeacherAIAssistant = () => {
                   </p>
                   <ul className="space-y-2">
                     {implementationItems.map((item) => (
-                      <li key={item} className="flex items-start gap-3 text-foreground/90">
+                      <li
+                        key={item}
+                        className="flex items-start gap-3 text-foreground/90"
+                      >
                         <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
                         <span>{item}</span>
                       </li>
@@ -238,9 +260,9 @@ const CaseStudyTeacherAIAssistant = () => {
                       AI Integration Should Start With Workflow Design
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      AI delivers the best results when it is embedded into clear
-                      operational workflows instead of being used as a standalone
-                      tool.
+                      AI delivers the best results when it is embedded into
+                      clear operational workflows instead of being used as a
+                      standalone tool.
                     </p>
                   </div>
                   <div>
@@ -269,8 +291,8 @@ const CaseStudyTeacherAIAssistant = () => {
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
                       Combining role-based behavior, workflow logic, and quality
-                      controls leads to real gains in time savings and communication
-                      quality.
+                      controls leads to real gains in time savings and
+                      communication quality.
                     </p>
                   </div>
                 </div>

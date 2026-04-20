@@ -92,8 +92,8 @@ const CaseStudyEcommerceSalesAutomation = () => {
               <h2 className="text-2xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
                 A fast-growing dropshipping business was losing potential
-                revenue due to slow response times, abandoned carts, and lack
-                of 24/7 customer engagement.
+                revenue due to slow response times, abandoned carts, and lack of
+                24/7 customer engagement.
               </p>
             </div>
 
