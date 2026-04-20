@@ -1,111 +1,72 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
-import {
-  ConversationState,
-  Message,
-  LeadData,
-  INITIAL_CONVERSATION_STATE,
-  STORAGE_KEY,
-  MESSAGES_STORAGE_KEY,
-} from "@/lib/chatbot/types";
+import { ConversationState, Message, LeadData } from "@/lib/chatbot/types";
 import {
   analyzeMessage,
   shouldTriggerCTA,
   determineNextStage,
 } from "@/lib/chatbot/intents";
-import { generateBotResponse, getCTAVariation } from "@/lib/chatbot/flows";
-
-const PenIcon = ({ className }: { className?: string }) => (
-  <svg
-    viewBox="0 0 24 24"
-    className={className}
-    fill="currentColor"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M 12 2 L 15 10 L 12 12 L 9 10 Z" fill="currentColor" />
-    <rect x="10.5" y="12" width="3" height="10" fill="currentColor" />
-    <path d="M 9 22 L 15 22 L 12 20 Z" fill="currentColor" />
-  </svg>
-);
+import {
+  generateBotResponse,
+  getCTAVariation,
+  type BotResponseResult,
+} from "@/lib/chatbot/flows";
+import { useAIChatbot } from "@/hooks/use-ai-chatbot";
+import { useNavigate } from "react-router-dom";
+import { INITIAL_QUICK_REPLIES } from "@/components/chatbot/constants";
+import { getIntentFallback } from "@/components/chatbot/fallbacks";
+import { sendLeadToAPI } from "@/components/chatbot/leadApi";
+import { renderMessageWithLinks } from "@/components/chatbot/messageLinks";
+import { PenIcon } from "@/components/chatbot/PenIcon";
+import { usePromoCard } from "@/components/chatbot/promo";
+import {
+  getInitialConversationState,
+  getInitialMessages,
+  persistConversationState,
+  persistMessages,
+} from "@/components/chatbot/storage";
 
 const ChatBot = () => {
+  const navigate = useNavigate();
+  const apiBase =
+    typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL
+      ? String(import.meta.env.VITE_API_URL).replace(/\/+$/, "")
+      : "";
+  const { getAIResponse, error: aiError } = useAIChatbot({
+    useOpenAI: true,
+  });
   const [isOpen, setIsOpen] = useState(false);
-  const [showPromoCard, setShowPromoCard] = useState(false);
-  const [promoCardClosed, setPromoCardClosed] = useState(false);
+  const {
+    showPromoCard,
+    setShowPromoCard,
+    promoCardClosed,
+    setPromoCardClosed,
+  } = usePromoCard(isOpen);
 
-  // Load state from localStorage with fallback
-  const [state, setState] = useState<ConversationState>(() => {
-    if (typeof window === "undefined") return INITIAL_CONVERSATION_STATE;
-
-    try {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        return {
-          ...INITIAL_CONVERSATION_STATE,
-          ...parsed,
-          lastActivityAt: new Date(),
-        };
-      }
-    } catch (error) {
-      console.error("Failed to load chatbot state:", error);
-    }
-    return INITIAL_CONVERSATION_STATE;
-  });
-
-  // Load messages from localStorage
-  const [messages, setMessages] = useState<Message[]>(() => {
-    if (typeof window === "undefined") return [];
-
-    try {
-      const saved = localStorage.getItem(MESSAGES_STORAGE_KEY);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        return parsed.map((msg: any) => ({
-          ...msg,
-          timestamp: new Date(msg.timestamp),
-        }));
-      }
-    } catch (error) {
-      console.error("Failed to load messages:", error);
-    }
-
-    return [
-      {
-        role: "bot",
-        text: "Hey! 👋 I'm Moruf.\n\nI build AI systems, automation workflows, and full-stack solutions that help businesses run more efficiently.\n\nWhat are you looking to do right now?",
-        timestamp: new Date(),
-        messageId: `msg_${Date.now()}`,
-      },
-    ];
-  });
+  const [state, setState] = useState<ConversationState>(() =>
+    getInitialConversationState(),
+  );
+  const [messages, setMessages] = useState<Message[]>(() =>
+    getInitialMessages(),
+  );
 
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [quickReplies, setQuickReplies] = useState<string[]>([
-    "Build or automate something",
-    "Learn more about my work",
-    "Hiring / job opportunity",
-    "Just exploring",
+    ...INITIAL_QUICK_REPLIES,
   ]);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Persist state to localStorage
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
+    persistConversationState(state);
   }, [state]);
 
-  // Persist messages to localStorage
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      localStorage.setItem(MESSAGES_STORAGE_KEY, JSON.stringify(messages));
-    }
+    persistMessages(messages);
   }, [messages]);
 
   // Auto-scroll to bottom
@@ -113,27 +74,12 @@ const ChatBot = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
-  // Show promo card
+  // Surface AI errors to user so failures are visible
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!isOpen) {
-        setShowPromoCard(true);
-        setPromoCardClosed(false);
-      }
-    }, 3000);
-    return () => clearTimeout(timer);
-  }, [isOpen]);
-
-  // Reshow promo
-  useEffect(() => {
-    if (promoCardClosed && !isOpen) {
-      const timer = setTimeout(() => {
-        setShowPromoCard(true);
-        setPromoCardClosed(false);
-      }, 20000);
-      return () => clearTimeout(timer);
+    if (aiError) {
+      toast.error(`AI is unavailable right now. ${aiError}`);
     }
-  }, [promoCardClosed, isOpen]);
+  }, [aiError]);
 
   const handleOpenChat = () => {
     setIsOpen(true);
@@ -146,32 +92,11 @@ const ChatBot = () => {
     setPromoCardClosed(true);
   };
 
-  // Send lead data to API
-  const sendLeadToAPI = useCallback(async (leadData: LeadData) => {
-    try {
-      const response = await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(leadData),
-      });
-
-      if (response.ok) {
-        toast.success("✅ Details captured! Check your email for next steps.");
-        setState((prev) => ({
-          ...prev,
-          leadCaptured: true,
-        }));
-        return true;
-      } else {
-        toast.error("Failed to capture details");
-        return false;
-      }
-    } catch (error) {
-      console.error("Error sending lead data:", error);
-      toast.error("Failed to capture details");
-      return false;
-    }
-  }, []);
+  const handleNavigateFromMessage = (path: string) => {
+    navigate(path);
+    setIsOpen(false);
+    setShowPromoCard(false);
+  };
 
   // Handle message send
   const handleSend = async (msgText?: string) => {
@@ -208,14 +133,14 @@ const ChatBot = () => {
       stage: determineNextStage(
         state.stage,
         analysis.userType,
-        state.messageCount + 1
+        state.messageCount + 1,
       ) as any,
       ctaTriggered:
         state.ctaTriggered ||
         shouldTriggerCTA(
           state.messageCount + 1,
           analysis.userType,
-          !!state.capturedData.problem
+          !!state.capturedData.problem,
         ),
       lastActivityAt: new Date(),
     };
@@ -227,14 +152,29 @@ const ChatBot = () => {
 
     // Generate response
     setTimeout(async () => {
-      setIsTyping(false);
+      const conversationHistory: Array<{
+        role: "user" | "assistant";
+        content: string;
+      }> = newMessages.map((msg) => ({
+        role: msg.role === "bot" ? "assistant" : "user",
+        content: msg.text,
+      }));
 
-      const botResponse = generateBotResponse(
+      const aiResponse = await getAIResponse(textToSend, conversationHistory);
+
+      const rulesFallback: BotResponseResult = getIntentFallback(
         textToSend,
-        analysis.userType,
-        newState.messageCount,
-        newState.capturedData
+        generateBotResponse(
+          textToSend,
+          analysis.userType,
+          newState.messageCount,
+          newState.capturedData,
+        ),
       );
+
+      const botResponse: BotResponseResult = aiResponse
+        ? { text: aiResponse }
+        : rulesFallback;
 
       const botMessage: Message = {
         role: "bot",
@@ -244,10 +184,13 @@ const ChatBot = () => {
       };
 
       setMessages((prev) => [...prev, botMessage]);
+      setIsTyping(false);
 
-      if (botResponse.quickReplies) {
+      if ("quickReplies" in botResponse && botResponse.quickReplies) {
         setQuickReplies(botResponse.quickReplies);
         setShowQuickReplies(true);
+      } else {
+        setShowQuickReplies(false);
       }
 
       // Capture lead if conditions met
@@ -271,7 +214,7 @@ const ChatBot = () => {
           source: "chatbot",
           sessionId: newState.sessionId,
           conversationDuration: Math.round(
-            (new Date().getTime() - newState.startedAt.getTime()) / 1000
+            (new Date().getTime() - newState.startedAt.getTime()) / 1000,
           ),
           messageCount: newState.messageCount,
           messages: newMessages.map((m) => ({
@@ -281,7 +224,13 @@ const ChatBot = () => {
           })),
         };
 
-        await sendLeadToAPI(leadData);
+        const leadCaptured = await sendLeadToAPI(apiBase, leadData);
+        if (leadCaptured) {
+          setState((prev) => ({
+            ...prev,
+            leadCaptured: true,
+          }));
+        }
       }
 
       // Show CTA if triggered
@@ -304,7 +253,7 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex items-end gap-3">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-end gap-3">
       {/* Promotional Message Card */}
       {showPromoCard && !isOpen && (
         <div
@@ -326,7 +275,7 @@ const ChatBot = () => {
       {/* Chat Widget */}
       <div className="relative">
         {isOpen ? (
-          <Card className="w-80 h-96 bg-card border-primary/20 shadow-lg flex flex-col">
+          <Card className="w-[calc(100vw-2rem)] max-w-[28rem] h-[70vh] max-h-[40rem] sm:h-[34rem] lg:h-[40rem] bg-card border-primary/20 shadow-lg flex flex-col">
             {/* Header */}
             <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex items-center justify-between">
               <div className="flex items-center gap-2">
@@ -342,7 +291,7 @@ const ChatBot = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
               {messages.map((msg, idx) => (
                 <div
                   key={msg.messageId || idx}
@@ -351,14 +300,17 @@ const ChatBot = () => {
                   }`}
                 >
                   <div
-                    className={`max-w-xs px-3 py-2 rounded-lg text-sm whitespace-pre-wrap ${
+                    className={`max-w-[85%] px-3 py-2 rounded-lg text-sm whitespace-pre-wrap ${
                       msg.role === "user"
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted text-foreground"
                     }`}
                     title={msg.timestamp.toLocaleTimeString()}
                   >
-                    {msg.text}
+                    {renderMessageWithLinks(
+                      msg.text,
+                      handleNavigateFromMessage,
+                    )}
                   </div>
                 </div>
               ))}
