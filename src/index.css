@@ -96,21 +96,13 @@ All colors MUST be HSL.
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
-    background: linear-gradient(
-      180deg,
-      hsl(188 94% 60%),
-      hsl(193 82% 40%)
-    );
+    background: linear-gradient(180deg, hsl(188 94% 60%), hsl(193 82% 40%));
     border-radius: 999px;
     border: 1px solid hsl(220 15% 15% / 0.65);
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(
-      180deg,
-      hsl(188 98% 66%),
-      hsl(193 90% 45%)
-    );
+    background: linear-gradient(180deg, hsl(188 98% 66%), hsl(193 90% 45%));
   }
 
   /* Typing Animation Delays */
