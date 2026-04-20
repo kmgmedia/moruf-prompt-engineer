@@ -73,10 +73,17 @@ export default async function handler(
       },
     });
   } catch (error) {
-    console.error("OpenAI API error:", error);
+    // Log error safely without exposing sensitive data
+    if (error instanceof Error) {
+      console.error("OpenAI API error:", error.message);
+    } else {
+      console.error("OpenAI API error: Unknown error");
+    }
+    
+    // Never expose error details to client (might contain sensitive info)
     return res.status(500).json({
       error: "Failed to generate response",
-      details: error instanceof Error ? error.message : "Unknown error",
+      success: false,
     });
   }
 }
