@@ -3,7 +3,12 @@ import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
-import { ConversationState, Message, LeadData } from "@/lib/chatbot/types";
+import {
+  ConversationState,
+  Message,
+  LeadCaptureStep,
+  LeadData,
+} from "@/lib/chatbot/types";
 import {
   analyzeMessage,
   shouldTriggerCTA,
@@ -29,6 +34,150 @@ import {
   persistConversationState,
   persistMessages,
 } from "@/components/chatbot/storage";
+
+const START_LEAD_CAPTURE_REGEX =
+  /\b(book|schedule|call|meeting|talk|speak|zoom|whatsapp|ready|proceed|move forward|get started|next step)\b/i;
+
+const PROJECT_TYPE_QUICK_REPLIES = [
+  "1. Automation system",
+  "2. API / integration",
+  "3. Web app",
+  "4. Not sure yet",
+];
+
+const PROJECT_TYPE_LABELS: Record<string, string> = {
+  automation: "Automation system",
+  api_integration: "API / integration",
+  web_app: "Web app",
+  web_system: "Web system",
+  recruiting: "Recruiting / role conversation",
+  not_sure: "Not sure yet",
+};
+
+const normalizeName = (value: string): string | undefined => {
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return undefined;
+  }
+
+  const cleaned = trimmed
+    .replace(/^(my name is|name is|i am|i'm|im|this is|call me)\s+/i, "")
+    .replace(/[^a-zA-Z\s'-]/g, "")
+    .trim();
+
+  if (!cleaned || cleaned.length < 2) {
+    return undefined;
+  }
+
+  return cleaned
+    .split(/\s+/)
+    .slice(0, 3)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
+    .join(" ");
+};
+
+const extractValidEmail = (value: string): string | undefined => {
+  const match = value.trim().match(/([^\s@]+@[^\s@]+\.[^\s@]+)/i);
+  if (!match?.[1]) {
+    return undefined;
+  }
+
+  const candidate = match[1].toLowerCase();
+  const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate);
+  return isValid ? candidate : undefined;
+};
+
+const mapProjectTypeFromInput = (value: string): string | undefined => {
+  const normalized = value.toLowerCase().trim();
+
+  if (
+    normalized.startsWith("1") ||
+    normalized.includes("automation") ||
+    normalized.includes("workflow")
+  ) {
+    return "automation";
+  }
+
+  if (
+    normalized.startsWith("2") ||
+    normalized.includes("api") ||
+    normalized.includes("integration") ||
+    normalized.includes("connect")
+  ) {
+    return "api_integration";
+  }
+
+  if (
+    normalized.startsWith("3") ||
+    normalized.includes("web app") ||
+    normalized.includes("web") ||
+    normalized.includes("app") ||
+    normalized.includes("system")
+  ) {
+    return "web_app";
+  }
+
+  if (
+    normalized.startsWith("4") ||
+    normalized.includes("not sure") ||
+    normalized.includes("unsure")
+  ) {
+    return "not_sure";
+  }
+
+  return undefined;
+};
+
+const getNextLeadCaptureStep = (
+  capturedData: ConversationState["capturedData"],
+): LeadCaptureStep => {
+  if (!capturedData.name) {
+    return "name";
+  }
+  if (!capturedData.email) {
+    return "email";
+  }
+  if (!capturedData.projectType) {
+    return "project_type";
+  }
+  if (!capturedData.problem) {
+    return "description";
+  }
+
+  return "complete";
+};
+
+const getLeadCapturePrompt = (
+  step: LeadCaptureStep,
+  capturedData: ConversationState["capturedData"],
+): string => {
+  if (step === "name") {
+    return "Before we jump to a call, I can quickly capture your details so I come prepared.\n\nWhat's your name?";
+  }
+
+  if (step === "email") {
+    const displayName = capturedData.name ? capturedData.name : "there";
+    return `Nice to meet you, ${displayName} 👍\nWhat's the best email to reach you?`;
+  }
+
+  if (step === "project_type") {
+    return "Got it.\n\nWhich best describes what you need?\n\n1. Automation system\n2. API / integration\n3. Web app\n4. Not sure yet";
+  }
+
+  if (step === "description") {
+    return "Last one — can you briefly describe what you're trying to build or improve?";
+  }
+
+  return "";
+};
+
+const getProjectTypeLabel = (projectType?: string): string => {
+  if (!projectType) {
+    return "project";
+  }
+
+  return PROJECT_TYPE_LABELS[projectType] || projectType;
+};
 
 const ChatBot = () => {
   const navigate = useNavigate();
@@ -64,6 +213,42 @@ const ChatBot = () => {
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const lastAiErrorRef = useRef<string | null>(null);
   const hasShownOfflineToastRef = useRef(false);
+  const hasShownReturnGreetingRef = useRef(false);
+
+  const createBotMessage = (text: string, suffix: string): Message => ({
+    role: "bot",
+    text,
+    timestamp: new Date(),
+    messageId: `msg_${Date.now()}_${suffix}`,
+  });
+
+  const buildLeadPayload = (
+    nextState: ConversationState,
+    conversationMessages: Message[],
+  ): LeadData => ({
+    name: nextState.capturedData.name || "Unknown",
+    email: nextState.capturedData.email || "unknown@example.com",
+    projectType: nextState.capturedData.projectType || "not_sure",
+    description: nextState.capturedData.problem || "To be discussed on call",
+    intent:
+      nextState.userType === "recruiter"
+        ? "recruiter"
+        : nextState.userType === "client"
+          ? "client"
+          : "browsing",
+    source: "chatbot",
+    status: "new_lead",
+    sessionId: nextState.sessionId,
+    conversationDuration: Math.round(
+      (Date.now() - nextState.startedAt.getTime()) / 1000,
+    ),
+    messageCount: nextState.messageCount,
+    messages: conversationMessages.map((m) => ({
+      role: m.role,
+      text: m.text,
+      timestamp: m.timestamp,
+    })),
+  });
 
   const scrollToBottom = (behavior: ScrollBehavior = "auto") => {
     const container = messagesContainerRef.current;
@@ -138,6 +323,32 @@ const ChatBot = () => {
     return () => window.removeEventListener("online", handleOnline);
   }, []);
 
+  useEffect(() => {
+    if (!isOpen || hasShownReturnGreetingRef.current) {
+      return;
+    }
+
+    const { name, projectType } = state.capturedData;
+    if (!name || !projectType || !state.leadCaptured) {
+      return;
+    }
+
+    const welcomeBackText = `Hey ${name}, welcome back 👋\nStill working on that ${getProjectTypeLabel(projectType)} you mentioned?`;
+
+    const alreadyPresent = messages.some(
+      (msg) => msg.role === "bot" && msg.text === welcomeBackText,
+    );
+
+    if (!alreadyPresent) {
+      setMessages((prev) => [
+        ...prev,
+        createBotMessage(welcomeBackText, "return"),
+      ]);
+    }
+
+    hasShownReturnGreetingRef.current = true;
+  }, [isOpen, messages, state.capturedData, state.leadCaptured]);
+
   // Lock background scroll when chatbot is full-screen on mobile.
   useEffect(() => {
     if (!(isMobile && isOpen)) {
@@ -204,13 +415,142 @@ const ChatBot = () => {
     };
 
     // Add user message
-    const newMessages = [...messages, userMessage];
-    setMessages(newMessages);
+    const updatedConversation = [...messages, userMessage];
+    setMessages(updatedConversation);
     setInput("");
     setShowQuickReplies(false);
 
+    const isCapturingLead =
+      state.captureStep !== "none" &&
+      state.captureStep !== "complete" &&
+      !state.leadCaptured;
+
+    if (isCapturingLead) {
+      setIsTyping(true);
+
+      setTimeout(async () => {
+        let nextCapturedData = { ...state.capturedData };
+        let nextStep: LeadCaptureStep = state.captureStep;
+        let responseText = "";
+
+        if (state.captureStep === "name") {
+          const parsedName = normalizeName(textToSend);
+          if (!parsedName) {
+            responseText =
+              "I didn't catch your name clearly. Please share your first name.";
+            nextStep = "name";
+          } else {
+            nextCapturedData = {
+              ...nextCapturedData,
+              name: parsedName,
+            };
+            nextStep = getNextLeadCaptureStep(nextCapturedData);
+          }
+        } else if (state.captureStep === "email") {
+          const email = extractValidEmail(textToSend);
+          if (!email) {
+            responseText =
+              "That email looks invalid. Please share a valid email address so I can send follow-up details.";
+            nextStep = "email";
+          } else {
+            nextCapturedData = {
+              ...nextCapturedData,
+              email,
+            };
+            nextStep = getNextLeadCaptureStep(nextCapturedData);
+          }
+        } else if (state.captureStep === "project_type") {
+          const projectType = mapProjectTypeFromInput(textToSend);
+          if (!projectType) {
+            responseText =
+              "Please choose one of these options: 1. Automation system, 2. API / integration, 3. Web app, 4. Not sure yet.";
+            nextStep = "project_type";
+          } else {
+            nextCapturedData = {
+              ...nextCapturedData,
+              projectType,
+            };
+            nextStep = getNextLeadCaptureStep(nextCapturedData);
+          }
+        } else if (state.captureStep === "description") {
+          const description = textToSend.trim();
+          if (description.length < 12) {
+            responseText =
+              "Can you share a bit more context in one short sentence so I can prepare properly?";
+            nextStep = "description";
+          } else {
+            nextCapturedData = {
+              ...nextCapturedData,
+              problem: description,
+            };
+            nextStep = getNextLeadCaptureStep(nextCapturedData);
+          }
+        }
+
+        const nextState: ConversationState = {
+          ...state,
+          messageCount: state.messageCount + 1,
+          capturedData: nextCapturedData,
+          captureStep: nextStep,
+          stage: nextStep === "complete" ? "captured" : "lead_capture",
+          lastActivityAt: new Date(),
+        };
+
+        if (nextStep === "complete") {
+          const leadPayload = buildLeadPayload(nextState, updatedConversation);
+          const leadCaptured = await sendLeadToAPI(apiBase, leadPayload);
+
+          const completionText = leadCaptured
+            ? "Perfect, details captured. I have sent a quick follow-up email. Next step: book your 20-30 minute discovery call at /book-call."
+            : "I couldn't submit your details right now. You can still continue at /book-call and I will review your request there.";
+
+          setMessages((prev) => [
+            ...prev,
+            createBotMessage(completionText, "capture_done"),
+          ]);
+
+          setState({
+            ...nextState,
+            leadCaptured,
+            captureStep: leadCaptured ? "complete" : "description",
+            stage: leadCaptured ? "captured" : "lead_capture",
+          });
+
+          setShowQuickReplies(false);
+          setIsTyping(false);
+          return;
+        }
+
+        const nextPrompt =
+          responseText || getLeadCapturePrompt(nextStep, nextCapturedData);
+        const quickReplyOptions =
+          nextStep === "project_type" ? PROJECT_TYPE_QUICK_REPLIES : [];
+
+        setMessages((prev) => [
+          ...prev,
+          createBotMessage(nextPrompt, "capture_step"),
+        ]);
+        setState(nextState);
+
+        if (quickReplyOptions.length > 0) {
+          setQuickReplies(quickReplyOptions);
+          setShowQuickReplies(true);
+        } else {
+          setShowQuickReplies(false);
+        }
+
+        setIsTyping(false);
+      }, 600);
+
+      return;
+    }
+
     // Analyze message
     const analysis = analyzeMessage(textToSend);
+    const mergedCapturedData = {
+      ...state.capturedData,
+      ...analysis.extractedData,
+    };
 
     // Update state
     const newState: ConversationState = {
@@ -218,24 +558,92 @@ const ChatBot = () => {
       userType: analysis.userType,
       intent: analysis.intent as any,
       messageCount: state.messageCount + 1,
-      capturedData: {
-        ...state.capturedData,
-        ...analysis.extractedData,
-      },
+      capturedData: mergedCapturedData,
       stage: determineNextStage(
         state.stage,
         analysis.userType,
         state.messageCount + 1,
       ) as any,
+      captureStep: "none",
       ctaTriggered:
         state.ctaTriggered ||
         shouldTriggerCTA(
           state.messageCount + 1,
           analysis.userType,
-          !!state.capturedData.problem,
+          !!mergedCapturedData.problem,
         ),
       lastActivityAt: new Date(),
     };
+
+    const shouldStartLeadCapture =
+      !newState.leadCaptured &&
+      newState.captureStep === "none" &&
+      (START_LEAD_CAPTURE_REGEX.test(textToSend) ||
+        (newState.ctaTriggered &&
+          (newState.userType === "client" ||
+            newState.userType === "recruiter")));
+
+    if (shouldStartLeadCapture) {
+      const nextStep = getNextLeadCaptureStep(newState.capturedData);
+      const captureState: ConversationState = {
+        ...newState,
+        captureStep: nextStep,
+        stage: nextStep === "complete" ? "captured" : "lead_capture",
+      };
+
+      setState(captureState);
+      setIsTyping(true);
+
+      setTimeout(async () => {
+        if (nextStep === "complete") {
+          const leadPayload = buildLeadPayload(
+            captureState,
+            updatedConversation,
+          );
+          const leadCaptured = await sendLeadToAPI(apiBase, leadPayload);
+
+          const completionText = leadCaptured
+            ? "Perfect, details captured. I have sent a quick follow-up email. Next step: book your 20-30 minute discovery call at /book-call."
+            : "I couldn't submit your details right now. You can still continue at /book-call and I will review your request there.";
+
+          setMessages((prev) => [
+            ...prev,
+            createBotMessage(completionText, "capture_done"),
+          ]);
+
+          setState({
+            ...captureState,
+            leadCaptured,
+            captureStep: leadCaptured ? "complete" : "description",
+            stage: leadCaptured ? "captured" : "lead_capture",
+          });
+
+          setShowQuickReplies(false);
+          setIsTyping(false);
+          return;
+        }
+
+        const firstPrompt = getLeadCapturePrompt(
+          nextStep,
+          captureState.capturedData,
+        );
+        setMessages((prev) => [
+          ...prev,
+          createBotMessage(firstPrompt, "capture_start"),
+        ]);
+
+        if (nextStep === "project_type") {
+          setQuickReplies(PROJECT_TYPE_QUICK_REPLIES);
+          setShowQuickReplies(true);
+        } else {
+          setShowQuickReplies(false);
+        }
+
+        setIsTyping(false);
+      }, 700);
+
+      return;
+    }
 
     setState(newState);
 
@@ -263,7 +671,7 @@ const ChatBot = () => {
       const conversationHistory: Array<{
         role: "user" | "assistant";
         content: string;
-      }> = newMessages.map((msg) => ({
+      }> = updatedConversation.map((msg) => ({
         role: msg.role === "bot" ? "assistant" : "user",
         content: msg.text,
       }));
@@ -284,12 +692,7 @@ const ChatBot = () => {
         ? { text: aiResponse }
         : rulesFallback;
 
-      const botMessage: Message = {
-        role: "bot",
-        text: botResponse.text,
-        timestamp: new Date(),
-        messageId: `msg_${Date.now()}_bot`,
-      };
+      const botMessage = createBotMessage(botResponse.text, "bot");
 
       setMessages((prev) => [...prev, botMessage]);
       setIsTyping(false);
@@ -301,58 +704,13 @@ const ChatBot = () => {
         setShowQuickReplies(false);
       }
 
-      // Capture lead if conditions met
-      if (
-        botResponse.shouldCaptureLead &&
-        newState.capturedData.name &&
-        newState.capturedData.email
-      ) {
-        const leadData: LeadData = {
-          name: newState.capturedData.name,
-          email: newState.capturedData.email,
-          projectType: newState.capturedData.projectType || "not_sure",
-          description:
-            newState.capturedData.problem || "To be discussed on call",
-          intent:
-            newState.userType === "recruiter"
-              ? "recruiter"
-              : newState.userType === "client"
-                ? "client"
-                : "browsing",
-          source: "chatbot",
-          sessionId: newState.sessionId,
-          conversationDuration: Math.round(
-            (new Date().getTime() - newState.startedAt.getTime()) / 1000,
-          ),
-          messageCount: newState.messageCount,
-          messages: newMessages.map((m) => ({
-            role: m.role,
-            text: m.text,
-            timestamp: m.timestamp,
-          })),
-        };
-
-        const leadCaptured = await sendLeadToAPI(apiBase, leadData);
-        if (leadCaptured) {
-          setState((prev) => ({
-            ...prev,
-            leadCaptured: true,
-          }));
-        }
-      }
-
       // Show CTA if triggered
       if (newState.ctaTriggered && !state.ctaTriggered) {
         setTimeout(() => {
           const ctaIndex = Math.floor(Math.random() * 5);
           const cta = getCTAVariation(ctaIndex);
 
-          const ctaMessage: Message = {
-            role: "bot",
-            text: cta,
-            timestamp: new Date(),
-            messageId: `msg_${Date.now()}_cta`,
-          };
+          const ctaMessage = createBotMessage(cta, "cta");
 
           setMessages((prev) => [...prev, ctaMessage]);
         }, 1500);

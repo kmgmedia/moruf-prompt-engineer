@@ -3,12 +3,18 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const YOUR_EMAIL = "morufbadebola@gmail.com";
+const CRM_WEBHOOK_URL =
+  process.env.CRM_WEBHOOK_URL ||
+  process.env.N8N_LEAD_WEBHOOK_URL ||
+  process.env.N8N_WEBHOOK_URL ||
+  "";
 
 interface BookCallFormData {
   name: string;
   email: string;
   projectType: string;
   description: string;
+  phone?: string;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -34,6 +40,54 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // Validate required fields
     if (!name || !email || !projectType) {
       return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    let crmSync = {
+      attempted: false,
+      success: false,
+      error: "",
+    };
+
+    if (CRM_WEBHOOK_URL) {
+      crmSync.attempted = true;
+      try {
+        const webhookResponse = await fetch(CRM_WEBHOOK_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            event: "lead.booked",
+            lead: {
+              name,
+              email,
+              projectType,
+              description: description || "Not provided",
+              source: "book_call_form",
+              status: "booked",
+              createdAt: new Date().toISOString(),
+              tags: {
+                source: "book_call_form",
+                status: "booked",
+              },
+            },
+          }),
+        });
+
+        if (!webhookResponse.ok) {
+          throw new Error(
+            `Webhook failed with status ${webhookResponse.status}`,
+          );
+        }
+
+        crmSync.success = true;
+      } catch (webhookError) {
+        crmSync.error =
+          webhookError instanceof Error
+            ? webhookError.message
+            : "Unknown webhook error";
+        console.error("Book-call CRM webhook error:", crmSync.error);
+      }
     }
 
     // Send email to yourself with the form data
@@ -80,6 +134,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(200).json({
       success: true,
       message: "Submission received successfully",
+      crmSync,
     });
   } catch (error) {
     console.error("Error sending email:", error);

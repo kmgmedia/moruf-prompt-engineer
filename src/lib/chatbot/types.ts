@@ -4,6 +4,15 @@
  */
 
 export type UserType = "unknown" | "client" | "recruiter" | "browser";
+export type LeadCaptureStep =
+  | "none"
+  | "name"
+  | "email"
+  | "project_type"
+  | "description"
+  | "complete";
+export type LeadStatus = "new_lead" | "booked" | "closed" | "lost";
+export type LeadSource = "chatbot" | "book_call_form";
 export type ConversationStage =
   | "greeting"
   | "qualifying"
@@ -40,6 +49,7 @@ export interface ConversationState {
   stage: ConversationStage;
   userType: UserType;
   intent: Intent;
+  captureStep: LeadCaptureStep;
   messageCount: number;
   capturedData: CapturedData;
   memoryKey: string;
@@ -56,7 +66,8 @@ export interface LeadData {
   projectType: string;
   description: string;
   intent: "client" | "recruiter" | "browsing";
-  source: "chatbot";
+  source: LeadSource;
+  status: LeadStatus;
   sessionId: string;
   conversationDuration: number; // in seconds
   messageCount: number;
@@ -81,6 +92,7 @@ export const INITIAL_CONVERSATION_STATE: ConversationState = {
   stage: "greeting",
   userType: "unknown",
   intent: "unknown",
+  captureStep: "none",
   messageCount: 0,
   capturedData: {},
   memoryKey: `chatbot_${Date.now()}`,

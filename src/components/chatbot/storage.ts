@@ -22,6 +22,11 @@ export const getInitialConversationState = (): ConversationState => {
     return {
       ...INITIAL_CONVERSATION_STATE,
       ...parsed,
+      captureStep:
+        parsed.captureStep || INITIAL_CONVERSATION_STATE.captureStep || "none",
+      startedAt: parsed.startedAt
+        ? new Date(parsed.startedAt)
+        : INITIAL_CONVERSATION_STATE.startedAt,
       lastActivityAt: new Date(),
     };
   } catch (error) {
