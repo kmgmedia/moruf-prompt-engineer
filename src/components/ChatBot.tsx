@@ -746,12 +746,18 @@ const ChatBot = () => {
       )}
 
       {/* Chat Widget */}
-      <div className={isMobile && isOpen ? "w-full h-full" : "relative"}>
+      <div
+        className={
+          isMobile && isOpen
+            ? "w-full h-[100dvh] flex flex-col"
+            : "relative"
+        }
+      >
         {isOpen ? (
           <Card
             className={
               isMobile
-                ? "w-full h-full bg-card border-0 shadow-none rounded-none flex flex-col"
+                ? "w-full h-[100dvh] bg-card border-0 shadow-none rounded-none flex flex-col"
                 : "w-[calc(100vw-2rem)] max-w-[28rem] h-[70vh] max-h-[40rem] sm:h-[34rem] lg:h-[40rem] bg-card border-primary/20 shadow-lg flex flex-col"
             }
           >
@@ -835,9 +841,16 @@ const ChatBot = () => {
 
             {/* Input */}
             <div
-              className={`border-t border-border p-3 flex gap-2 ${
-                isMobile ? "pb-[calc(0.75rem+env(safe-area-inset-bottom))]" : ""
+              className={`border-t border-border p-3 flex gap-2 bg-background ${
+                isMobile
+                  ? "fixed left-0 right-0 bottom-0 z-50 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+                  : ""
               }`}
+              style={
+                isMobile
+                  ? { maxWidth: "100vw" }
+                  : undefined
+              }
             >
               <input
                 type="text"
@@ -846,6 +859,7 @@ const ChatBot = () => {
                 onKeyPress={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Type a message..."
                 className="flex-1 px-3 py-2 rounded-lg bg-background border border-border focus:border-primary focus:outline-none text-sm"
+                style={isMobile ? { minWidth: 0 } : undefined}
               />
               <Button
                 onClick={() => handleSend()}
