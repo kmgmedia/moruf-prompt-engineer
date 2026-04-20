@@ -748,9 +748,7 @@ const ChatBot = () => {
       {/* Chat Widget */}
       <div
         className={
-          isMobile && isOpen
-            ? "w-full h-[100dvh] flex flex-col"
-            : "relative"
+          isMobile && isOpen ? "w-full h-[100dvh] flex flex-col" : "relative"
         }
       >
         {isOpen ? (
@@ -846,11 +844,7 @@ const ChatBot = () => {
                   ? "fixed left-0 right-0 bottom-0 z-50 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
                   : ""
               }`}
-              style={
-                isMobile
-                  ? { maxWidth: "100vw" }
-                  : undefined
-              }
+              style={isMobile ? { maxWidth: "100vw" } : undefined}
             >
               <input
                 type="text"
