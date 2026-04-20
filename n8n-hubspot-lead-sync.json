@@ -1,0 +1,50 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lead-events",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "id": "Webhook",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [300, 300]
+    },
+    {
+      "parameters": {
+        "resource": "contact",
+        "operation": "create",
+        "additionalFields": {
+          "email": "={{$json[\"lead\"][\"email\"]}}",
+          "firstname": "={{$json[\"lead\"][\"name\"]}}",
+          "description": "={{$json[\"lead\"][\"description\"]}}",
+          "lifecyclestage": "lead"
+        }
+      },
+      "id": "HubSpot",
+      "name": "HubSpot",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 1,
+      "position": [600, 300],
+      "credentials": {
+        "hubspotApi": "YOUR_HUBSPOT_CREDENTIAL_NAME"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HubSpot",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  }
+}

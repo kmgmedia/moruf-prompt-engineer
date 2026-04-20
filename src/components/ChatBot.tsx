@@ -518,6 +518,7 @@ const ChatBot = () => {
 
           setShowQuickReplies(false);
           setIsTyping(false);
+          // FIX: Do not send next prompt after completion, wait for user input
           return;
         }
 
