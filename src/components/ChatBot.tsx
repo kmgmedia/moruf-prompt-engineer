@@ -15,6 +15,7 @@ import {
   type BotResponseResult,
 } from "@/lib/chatbot/flows";
 import { useAIChatbot } from "@/hooks/use-ai-chatbot";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
 import { INITIAL_QUICK_REPLIES } from "@/components/chatbot/constants";
 import { getIntentFallback } from "@/components/chatbot/fallbacks";
@@ -31,6 +32,7 @@ import {
 
 const ChatBot = () => {
   const navigate = useNavigate();
+  const isMobile = useIsMobile();
   const apiBase =
     typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL
       ? String(import.meta.env.VITE_API_URL).replace(/\/+$/, "")
@@ -59,7 +61,21 @@ const ChatBot = () => {
     ...INITIAL_QUICK_REPLIES,
   ]);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
-  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const lastAiErrorRef = useRef<string | null>(null);
+  const hasShownOfflineToastRef = useRef(false);
+
+  const scrollToBottom = (behavior: ScrollBehavior = "auto") => {
+    const container = messagesContainerRef.current;
+    if (!container) {
+      return;
+    }
+
+    container.scrollTo({
+      top: container.scrollHeight,
+      behavior,
+    });
+  };
 
   useEffect(() => {
     persistConversationState(state);
@@ -71,19 +87,95 @@ const ChatBot = () => {
 
   // Auto-scroll to bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, isTyping]);
-
-  // Surface AI errors to user so failures are visible
-  useEffect(() => {
-    if (aiError) {
-      toast.error(`AI is unavailable right now. ${aiError}`);
+    if (!isOpen) {
+      return;
     }
+
+    scrollToBottom("smooth");
+  }, [messages, isTyping, isOpen]);
+
+  // When chat opens, jump to latest message even if no new message was added.
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    scrollToBottom("auto");
+
+    let rafId2 = 0;
+    const rafId1 = window.requestAnimationFrame(() => {
+      scrollToBottom("auto");
+
+      rafId2 = window.requestAnimationFrame(() => {
+        scrollToBottom("auto");
+      });
+    });
+
+    const delayedScrollTimer = window.setTimeout(() => {
+      scrollToBottom("auto");
+    }, 100);
+
+    const delayedScrollTimer2 = window.setTimeout(() => {
+      scrollToBottom("auto");
+    }, 260);
+
+    return () => {
+      window.cancelAnimationFrame(rafId1);
+      if (rafId2) {
+        window.cancelAnimationFrame(rafId2);
+      }
+      window.clearTimeout(delayedScrollTimer);
+      window.clearTimeout(delayedScrollTimer2);
+    };
+  }, [isOpen]);
+
+  useEffect(() => {
+    const handleOnline = () => {
+      hasShownOfflineToastRef.current = false;
+    };
+
+    window.addEventListener("online", handleOnline);
+    return () => window.removeEventListener("online", handleOnline);
+  }, []);
+
+  // Lock background scroll when chatbot is full-screen on mobile.
+  useEffect(() => {
+    if (!(isMobile && isOpen)) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [isMobile, isOpen]);
+
+  // Show only actionable AI errors and avoid duplicate toasts.
+  useEffect(() => {
+    if (!aiError) {
+      lastAiErrorRef.current = null;
+      return;
+    }
+
+    const offline =
+      typeof navigator !== "undefined" && navigator.onLine === false;
+    if (offline || lastAiErrorRef.current === aiError) {
+      return;
+    }
+
+    lastAiErrorRef.current = aiError;
+    toast.error(`AI is unavailable right now. ${aiError}`);
   }, [aiError]);
 
   const handleOpenChat = () => {
     setIsOpen(true);
     setShowPromoCard(false);
+  };
+
+  const handleCloseChat = () => {
+    setIsOpen(false);
   };
 
   const handleClosePromo = (e: React.MouseEvent) => {
@@ -152,6 +244,22 @@ const ChatBot = () => {
 
     // Generate response
     setTimeout(async () => {
+      const offline =
+        typeof navigator !== "undefined" && navigator.onLine === false;
+
+      if (offline) {
+        setIsTyping(false);
+
+        if (!hasShownOfflineToastRef.current) {
+          toast.error(
+            "No internet connection. Please reconnect to continue chatting.",
+          );
+          hasShownOfflineToastRef.current = true;
+        }
+
+        return;
+      }
+
       const conversationHistory: Array<{
         role: "user" | "assistant";
         content: string;
@@ -253,7 +361,13 @@ const ChatBot = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-end gap-3">
+    <div
+      className={
+        isMobile && isOpen
+          ? "fixed inset-0 z-50 flex items-stretch justify-stretch bg-background"
+          : "fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-end gap-3"
+      }
+    >
       {/* Promotional Message Card */}
       {showPromoCard && !isOpen && (
         <div
@@ -273,17 +387,32 @@ const ChatBot = () => {
       )}
 
       {/* Chat Widget */}
-      <div className="relative">
+      <div className={isMobile && isOpen ? "w-full h-full" : "relative"}>
         {isOpen ? (
-          <Card className="w-[calc(100vw-2rem)] max-w-[28rem] h-[70vh] max-h-[40rem] sm:h-[34rem] lg:h-[40rem] bg-card border-primary/20 shadow-lg flex flex-col">
+          <Card
+            className={
+              isMobile
+                ? "w-full h-full bg-card border-0 shadow-none rounded-none flex flex-col"
+                : "w-[calc(100vw-2rem)] max-w-[28rem] h-[70vh] max-h-[40rem] sm:h-[34rem] lg:h-[40rem] bg-card border-primary/20 shadow-lg flex flex-col"
+            }
+          >
             {/* Header */}
-            <div className="bg-primary text-primary-foreground p-4 rounded-t-lg flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <PenIcon className="w-5 h-5" />
-                <span className="font-semibold">Moruf</span>
+            <div
+              className={`bg-primary text-primary-foreground p-4 flex items-center justify-between ${
+                isMobile ? "" : "rounded-t-lg"
+              }`}
+            >
+              <div className="flex items-start gap-2.5 min-w-0">
+                <PenIcon className="w-7 h-7 sm:w-8 sm:h-8 mt-0.5 shrink-0" />
+                <div className="flex flex-col leading-tight min-w-0">
+                  <span className="font-bold text-base sm:text-lg">Moruf</span>
+                  <span className="text-[12px] sm:text-[13px] font-semibold opacity-95 leading-snug break-words">
+                    Applied AI Engineer & Full-Stack Software Engineer
+                  </span>
+                </div>
               </div>
               <button
-                onClick={() => setIsOpen(false)}
+                onClick={handleCloseChat}
                 className="hover:bg-primary/80 p-1 rounded transition-colors"
               >
                 <X className="w-5 h-5" />
@@ -291,7 +420,10 @@ const ChatBot = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar">
+            <div
+              ref={messagesContainerRef}
+              className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar"
+            >
               {messages.map((msg, idx) => (
                 <div
                   key={msg.messageId || idx}
@@ -340,12 +472,14 @@ const ChatBot = () => {
                   ))}
                 </div>
               )}
-
-              <div ref={messagesEndRef} />
             </div>
 
             {/* Input */}
-            <div className="border-t border-border p-3 flex gap-2">
+            <div
+              className={`border-t border-border p-3 flex gap-2 ${
+                isMobile ? "pb-[calc(0.75rem+env(safe-area-inset-bottom))]" : ""
+              }`}
+            >
               <input
                 type="text"
                 value={input}
@@ -366,10 +500,12 @@ const ChatBot = () => {
         ) : (
           <Button
             onClick={handleOpenChat}
-            size="lg"
+            size="icon"
             className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 shadow-lg flex items-center justify-center"
           >
-            <PenIcon className="w-8 h-8" />
+            <span className="relative z-10 inline-flex items-center justify-center w-9 h-9 shrink-0">
+              <PenIcon className="w-full h-full object-contain" />
+            </span>
             {(showPromoCard || promoCardClosed) && (
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
                 <span className="text-xs font-bold text-white">1</span>

@@ -1,6 +1,8 @@
 export const CHATBOT_ALLOWED_PATHS = [
   "/book-call",
   "/case-study/teacher-ai",
+  "/case-study/intelligent-workflow-systems",
+  "/case-study/ai-teaching-assistant-system",
   "/case-study/ecommerce-sales-automation",
   "/case-study/sandton-school",
   "/case-study/dashboard",

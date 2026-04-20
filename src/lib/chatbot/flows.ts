@@ -30,7 +30,7 @@ export const CONVERSATION_FLOWS: Record<string, ConversationFlow> = {
     step1_role:
       "Great — thanks for reaching out.\n\nAre you hiring for:\n• Software Engineering (Full-Stack / Backend)\n• AI / Automation roles\n• Contract / freelance work?",
     step2_background:
-      "Here's a quick overview of my background:\n\nI'm an Applied AI Engineer and Full-Stack Developer focused on:\n• AI automation systems\n• API integrations\n• Workflow design\n• Scalable backend + frontend applications\n\nTech stack:\nNode.js, Python, React, OpenAI, LangChain, MySQL, system design\n\nWhat type of role or project are you looking to fill?",
+      "Here's a quick overview of my background:\n\nI'm an Applied AI Engineer, Software Engineer, and Full-Stack Developer focused on:\n• AI automation systems\n• API integrations\n• Workflow design\n• Scalable backend + frontend applications\n\nTech stack:\nNode.js, Python, React, OpenAI, LangChain, MySQL, system design\n\nWhat type of role or project are you looking to fill?",
     step3_cta:
       "Happy to walk through my work and role fit.\n\nFor CV/resume requests, the next step is booking a quick call so I can share the most relevant version.\n\nWould you like me to:\n1) Book a quick call\n2) Walk through projects\n3) Discuss role requirements first?",
   },

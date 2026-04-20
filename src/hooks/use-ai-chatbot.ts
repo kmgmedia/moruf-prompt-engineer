@@ -15,6 +15,16 @@ interface UseAIChatbotOptions {
   fallbackToRules?: boolean;
 }
 
+const isBrowserOffline = (): boolean => {
+  return typeof navigator !== "undefined" && navigator.onLine === false;
+};
+
+const isLikelyNetworkIssue = (errorMessage: string): boolean => {
+  return /Failed to fetch|NetworkError|fetch failed|ECONNREFUSED|ENOTFOUND|EAI_AGAIN/i.test(
+    errorMessage,
+  );
+};
+
 const CALL_INTENT_REGEX =
   /\b(call|phone|talk|speak|meeting|meet|zoom|whatsapp|schedule|book)\b/i;
 
@@ -50,7 +60,7 @@ const PRICE_TIMELINE_HINT_REGEX =
   /\b(scope|budget|timeline|estimate|discovery call)\b|\/book-call/i;
 
 const EXPERIENCE_HINT_REGEX =
-  /\b(applied ai engineer|full-stack|automation|api integration|conversational ai|node\.?js|python|react|langchain|mysql|system design|5\+ years|over 5 years)\b/i;
+  /\b(applied ai engineer|software engineer|full-stack|automation|api integration|conversational ai|node\.?js|python|react|langchain|mysql|system design|5\+ years|over 5 years)\b/i;
 
 const callBookingReply =
   "Absolutely, yes — we can talk by phone. The fastest next step is to book a 20-30 minute discovery call here: /book-call. Once you submit, I will send a calendar link by email. If you want, I can guide you through what to fill in.";
@@ -71,7 +81,7 @@ const resumeByCallReply =
   "Absolutely. For CV/resume requests, the process is to book a quick discovery call first at /book-call so I can share the most relevant version based on your role or project context. If helpful, share the role title and key requirements now.";
 
 const experienceReply =
-  "I have over 5 years of professional experience as an Applied AI Engineer and Full-Stack Developer. I focus on building production-ready automation systems, API integrations, conversational AI, and scalable web apps. I work across Node.js, Python, React, OpenAI, LangChain, MySQL, and system design, with a strong focus on reducing manual work and improving operational speed. If you want, I can map your use case to the most relevant project examples, or you can book a call at /book-call.";
+  "I have over 5 years of professional experience as an Applied AI Engineer, Software Engineer, and Full-Stack Developer. I focus on building production-ready automation systems, API integrations, conversational AI, and scalable web apps. I work across Node.js, Python, React, OpenAI, LangChain, MySQL, and system design, with a strong focus on reducing manual work and improving operational speed. If you want, I can map your use case to the most relevant project examples, or you can book a call at /book-call.";
 
 const unavailableCaseStudyReply = (unknownPaths: string[]): string => {
   const availableCaseStudies = CHATBOT_ALLOWED_PATHS.filter((path) =>
@@ -168,7 +178,7 @@ Core role:
 - Services include AI automation systems, API integrations, conversational AI, and full-stack web/backend development.
 
 Profile context:
-- I am an Applied AI Engineer and Full-Stack Developer.
+- I am an Applied AI Engineer, Software Engineer, and Full-Stack Developer.
 - I have 5+ years of professional experience.
 - My strengths are AI automation systems, API integrations, conversational AI systems, and scalable product development.
 - My core stack includes Node.js, Python, React, OpenAI, LangChain, MySQL, and system design.
@@ -222,6 +232,12 @@ Boundaries:
       }>,
     ): Promise<string | null> => {
       if (!useOpenAI) return null;
+
+      // If user is offline, skip AI request and rely on rules fallback.
+      if (fallbackToRules && isBrowserOffline()) {
+        setError(null);
+        return null;
+      }
 
       setIsLoading(true);
       setError(null);
@@ -278,6 +294,23 @@ Boundaries:
       } catch (err) {
         const errorMessage =
           err instanceof Error ? err.message : "Unknown error";
+
+        // When fallback is enabled, silence expected network/offline failures.
+        const shouldSilenceError =
+          fallbackToRules &&
+          (isLikelyNetworkIssue(errorMessage) ||
+            (isBrowserOffline() &&
+              /status 500: Failed to generate response/i.test(errorMessage)));
+
+        if (shouldSilenceError) {
+          setError(null);
+          console.warn(
+            "AI unavailable; using fallback responses.",
+            errorMessage,
+          );
+          return null;
+        }
+
         setError(errorMessage);
         console.error("AI chatbot error:", errorMessage);
 

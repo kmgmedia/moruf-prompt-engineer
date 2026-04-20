@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import BookACall from "./pages/BookACall";
 import CaseStudyTeacherAI from "./pages/CaseStudyTeacherAI";
+import CaseStudyTeacherAIAssistant from "./pages/CaseStudyTeacherAIAssistant";
 import CaseStudyEcommerceSalesAutomation from "./pages/CaseStudyEcommerceSalesAutomation";
 import CaseStudySandtonSchool from "./pages/CaseStudySandtonSchool";
 import CaseStudyDashboard from "./pages/CaseStudyDashboard";
@@ -32,7 +33,15 @@ const App = () => (
           <Route path="/book-call" element={<BookACall />} />
           <Route
             path="/case-study/teacher-ai"
+            element={<CaseStudyTeacherAIAssistant />}
+          />
+          <Route
+            path="/case-study/intelligent-workflow-systems"
             element={<CaseStudyTeacherAI />}
+          />
+          <Route
+            path="/case-study/ai-teaching-assistant-system"
+            element={<CaseStudyTeacherAIAssistant />}
           />
           <Route
             path="/case-study/ecommerce-sales-automation"

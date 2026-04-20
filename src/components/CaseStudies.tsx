@@ -8,7 +8,7 @@ const caseStudies = [
     title: "Intelligent Workflow Systems",
     description:
       "Automate repetitive processes and structure operations with AI-powered workflows.",
-    link: "/case-study/teacher-ai",
+    link: "/case-study/intelligent-workflow-systems",
   },
   {
     title: "Connected Systems & API Integration",

@@ -45,7 +45,7 @@ const resumeByCallFallback: BotResponseResult = {
 };
 
 const experienceFallback: BotResponseResult = {
-  text: "I have over 5 years of professional experience as an Applied AI Engineer and Full-Stack Developer. I build production-ready automation systems, API integrations, conversational AI, and scalable web apps. I work across Node.js, Python, React, OpenAI, LangChain, MySQL, and system design, with a strong focus on business outcomes. If you want, I can guide you to relevant case studies or you can book a call at /book-call.",
+  text: "I have over 5 years of professional experience as an Applied AI Engineer, Software Engineer, and Full-Stack Developer. I build production-ready automation systems, API integrations, conversational AI, and scalable web apps. I work across Node.js, Python, React, OpenAI, LangChain, MySQL, and system design, with a strong focus on business outcomes. If you want, I can guide you to relevant case studies or you can book a call at /book-call.",
 };
 
 export const getIntentFallback = (

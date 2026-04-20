@@ -239,6 +239,49 @@ const CaseStudyTeacherAI = () => {
                 ))}
               </div>
             </Card>
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold">Key Takeaways</h2>
+              <Card className="p-6 bg-muted/30">
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Repetitive Work Limits Team Capacity
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Manual, repeated tasks reduce operational speed and keep
+                      teams from focusing on strategic, high-value work.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Automation Works Best With Structure
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Systems that define clear input-output workflows deliver
+                      more consistent outcomes than ad-hoc automation efforts.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Consistency Is a Core Business Advantage
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Standardized automated workflows improve quality control and
+                      make processes easier to scale across teams.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Workflow Design Drives Long-Term ROI
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Investing in the right automation architecture saves time
+                      continuously and compounds efficiency over time.
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </div>
             <div className="pt-8 border-t border-border">
               <h2 className="text-2xl font-bold mb-4">
                 Ready to Reduce Manual Work?

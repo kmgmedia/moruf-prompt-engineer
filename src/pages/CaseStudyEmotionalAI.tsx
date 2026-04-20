@@ -256,6 +256,49 @@ const CaseStudyEmotionalAI = () => {
                 ))}
               </div>
             </Card>
+            <div className="space-y-4">
+              <h2 className="text-3xl font-bold">Key Takeaways</h2>
+              <Card className="p-6 bg-muted/30">
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Conversation Quality Directly Affects Growth
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Fast, consistent, and context-aware interactions improve
+                      user engagement and reduce lost opportunities.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Context Awareness Is Essential for Reliability
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      AI systems perform better when they preserve context and
+                      respond based on structured intent and conversation state.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Scalable AI Requires Defined Interaction Flows
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Clear flow design improves response consistency and makes
+                      conversational systems easier to maintain at scale.
+                    </p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-2 text-primary">
+                      Decision Support Improves With Structured Outputs
+                    </h4>
+                    <p className="text-foreground/90 text-sm leading-relaxed">
+                      Systems that return actionable, well-formed outputs help
+                      teams make better decisions with less manual effort.
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            </div>
             <div className="pt-8 border-t border-border">
               <h2 className="text-2xl font-bold mb-4">
                 Need a System That Actually Works?
