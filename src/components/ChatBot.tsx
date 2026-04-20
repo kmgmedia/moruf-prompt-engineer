@@ -744,18 +744,18 @@ const ChatBot = () => {
           </button>
         </div>
       )}
-
-      {/* Chat Widget */}
       <div
         className={
-          isMobile && isOpen ? "w-full h-[100dvh] flex flex-col" : "relative"
+          isMobile && isOpen
+            ? "w-full h-[100svh] flex flex-col relative"
+            : "relative"
         }
       >
         {isOpen ? (
           <Card
             className={
               isMobile
-                ? "w-full h-[100dvh] bg-card border-0 shadow-none rounded-none flex flex-col"
+                ? "w-full h-[100svh] bg-card border-0 shadow-none rounded-none flex flex-col relative"
                 : "w-[calc(100vw-2rem)] max-w-[28rem] h-[70vh] max-h-[40rem] sm:h-[34rem] lg:h-[40rem] bg-card border-primary/20 shadow-lg flex flex-col"
             }
           >
@@ -785,7 +785,11 @@ const ChatBot = () => {
             {/* Messages */}
             <div
               ref={messagesContainerRef}
-              className="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar"
+              className={
+                isMobile
+                  ? "flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar pb-24"
+                  : "flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar"
+              }
             >
               {messages.map((msg, idx) => (
                 <div
@@ -841,7 +845,7 @@ const ChatBot = () => {
             <div
               className={`border-t border-border p-3 flex gap-2 bg-background ${
                 isMobile
-                  ? "fixed left-0 right-0 bottom-0 z-50 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+                  ? "absolute left-0 right-0 bottom-0 z-50 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
                   : ""
               }`}
               style={isMobile ? { maxWidth: "100vw" } : undefined}
