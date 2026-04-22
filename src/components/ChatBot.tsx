@@ -212,21 +212,21 @@ const ChatBot = () => {
   const [showQuickReplies, setShowQuickReplies] = useState(true);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-    // iOS keyboard fix: scroll input into view on focus
-    useEffect(() => {
-      if (!isMobile) return;
-      const input = inputRef.current;
-      if (!input) return;
-      const handler = () => {
-        setTimeout(() => {
-          input.scrollIntoView({ behavior: "smooth", block: "center" });
-        }, 200);
-      };
-      input.addEventListener("focus", handler);
-      return () => {
-        input.removeEventListener("focus", handler);
-      };
-    }, [isMobile, isOpen]);
+  // iOS keyboard fix: scroll input into view on focus
+  useEffect(() => {
+    if (!isMobile) return;
+    const input = inputRef.current;
+    if (!input) return;
+    const handler = () => {
+      setTimeout(() => {
+        input.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 200);
+    };
+    input.addEventListener("focus", handler);
+    return () => {
+      input.removeEventListener("focus", handler);
+    };
+  }, [isMobile, isOpen]);
   const lastAiErrorRef = useRef<string | null>(null);
   const hasShownOfflineToastRef = useRef(false);
   const hasShownReturnGreetingRef = useRef(false);
