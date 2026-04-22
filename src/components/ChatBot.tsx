@@ -211,6 +211,22 @@ const ChatBot = () => {
   ]);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
   const messagesContainerRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+    // iOS keyboard fix: scroll input into view on focus
+    useEffect(() => {
+      if (!isMobile) return;
+      const input = inputRef.current;
+      if (!input) return;
+      const handler = () => {
+        setTimeout(() => {
+          input.scrollIntoView({ behavior: "smooth", block: "center" });
+        }, 200);
+      };
+      input.addEventListener("focus", handler);
+      return () => {
+        input.removeEventListener("focus", handler);
+      };
+    }, [isMobile, isOpen]);
   const lastAiErrorRef = useRef<string | null>(null);
   const hasShownOfflineToastRef = useRef(false);
   const hasShownReturnGreetingRef = useRef(false);
@@ -845,12 +861,13 @@ const ChatBot = () => {
             <div
               className={`border-t border-border p-3 flex gap-2 bg-background ${
                 isMobile
-                  ? "absolute left-0 right-0 bottom-0 z-50 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
+                  ? "sticky left-0 right-0 bottom-0 z-50 pb-[calc(0.75rem+env(safe-area-inset-bottom))]"
                   : ""
               }`}
               style={isMobile ? { maxWidth: "100vw" } : undefined}
             >
               <input
+                ref={inputRef}
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
