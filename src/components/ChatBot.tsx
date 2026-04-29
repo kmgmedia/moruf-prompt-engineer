@@ -19,7 +19,8 @@ import {
   getCTAVariation,
   type BotResponseResult,
 } from "@/lib/chatbot/flows";
-import { useAIChatbot } from "@/hooks/use-ai-chatbot";
+import { useAIResponse } from "../features/chatbot/hooks/useAIResponse";
+import { useAIChatbot } from "../hooks/use-ai-chatbot";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
 import { INITIAL_QUICK_REPLIES } from "@/components/chatbot/constants";
@@ -186,8 +187,9 @@ const ChatBot = () => {
     typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL
       ? String(import.meta.env.VITE_API_URL).replace(/\/+$/, "")
       : "";
-  const { getAIResponse, error: aiError } = useAIChatbot({
+  const { getAIResponse, isLoading: aiLoading, error: aiError } = useAIChatbot({
     useOpenAI: true,
+    fallbackToRules: true,
   });
   const [isOpen, setIsOpen] = useState(false);
   const {
@@ -210,6 +212,17 @@ const ChatBot = () => {
     ...INITIAL_QUICK_REPLIES,
   ]);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
+  const { handleAIResponse } = useAIResponse(
+    getAIResponse,
+    setMessages,
+    setIsTyping,
+    setQuickReplies,
+    setShowQuickReplies,
+    setState,
+    state,
+    messages,
+    input,
+  );
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   // iOS keyboard fix: scroll input into view on focus
@@ -422,317 +435,20 @@ const ChatBot = () => {
     const textToSend = msgText || input;
     if (!textToSend.trim()) return;
 
-    // Create message object with timestamp
+    // Use strict guardrail logic for all AI responses
     const userMessage: Message = {
       role: "user",
       text: textToSend,
       timestamp: new Date(),
       messageId: `msg_${Date.now()}_user`,
     };
-
-    // Add user message
     const updatedConversation = [...messages, userMessage];
     setMessages(updatedConversation);
     setInput("");
     setShowQuickReplies(false);
 
-    const isCapturingLead =
-      state.captureStep !== "none" &&
-      state.captureStep !== "complete" &&
-      !state.leadCaptured;
-
-    if (isCapturingLead) {
-      setIsTyping(true);
-
-      setTimeout(async () => {
-        let nextCapturedData = { ...state.capturedData };
-        let nextStep: LeadCaptureStep = state.captureStep;
-        let responseText = "";
-
-        if (state.captureStep === "name") {
-          const parsedName = normalizeName(textToSend);
-          if (!parsedName) {
-            responseText =
-              "I didn't catch your name clearly. Please share your first name.";
-            nextStep = "name";
-          } else {
-            nextCapturedData = {
-              ...nextCapturedData,
-              name: parsedName,
-            };
-            nextStep = getNextLeadCaptureStep(nextCapturedData);
-          }
-        } else if (state.captureStep === "email") {
-          const email = extractValidEmail(textToSend);
-          if (!email) {
-            responseText =
-              "That email looks invalid. Please share a valid email address so I can send follow-up details.";
-            nextStep = "email";
-          } else {
-            nextCapturedData = {
-              ...nextCapturedData,
-              email,
-            };
-            nextStep = getNextLeadCaptureStep(nextCapturedData);
-          }
-        } else if (state.captureStep === "project_type") {
-          const projectType = mapProjectTypeFromInput(textToSend);
-          if (!projectType) {
-            responseText =
-              "Please choose one of these options: 1. Automation system, 2. API / integration, 3. Web app, 4. Not sure yet.";
-            nextStep = "project_type";
-          } else {
-            nextCapturedData = {
-              ...nextCapturedData,
-              projectType,
-            };
-            nextStep = getNextLeadCaptureStep(nextCapturedData);
-          }
-        } else if (state.captureStep === "description") {
-          const description = textToSend.trim();
-          if (description.length < 12) {
-            responseText =
-              "Can you share a bit more context in one short sentence so I can prepare properly?";
-            nextStep = "description";
-          } else {
-            nextCapturedData = {
-              ...nextCapturedData,
-              problem: description,
-            };
-            nextStep = getNextLeadCaptureStep(nextCapturedData);
-          }
-        }
-
-        const nextState: ConversationState = {
-          ...state,
-          messageCount: state.messageCount + 1,
-          capturedData: nextCapturedData,
-          captureStep: nextStep,
-          stage: nextStep === "complete" ? "captured" : "lead_capture",
-          lastActivityAt: new Date(),
-        };
-
-        if (nextStep === "complete") {
-          const leadPayload = buildLeadPayload(nextState, updatedConversation);
-          const leadCaptured = await sendLeadToAPI(apiBase, leadPayload);
-
-          const completionText = leadCaptured
-            ? "Perfect, details captured. I have sent a quick follow-up email. Next step: book your 20-30 minute discovery call at /book-call."
-            : "I couldn't submit your details right now. You can still continue at /book-call and I will review your request there.";
-
-          setMessages((prev) => [
-            ...prev,
-            createBotMessage(completionText, "capture_done"),
-          ]);
-
-          setState({
-            ...nextState,
-            leadCaptured,
-            captureStep: leadCaptured ? "complete" : "description",
-            stage: leadCaptured ? "captured" : "lead_capture",
-          });
-
-          setShowQuickReplies(false);
-          setIsTyping(false);
-          // FIX: Do not send next prompt after completion, wait for user input
-          return;
-        }
-
-        const nextPrompt =
-          responseText || getLeadCapturePrompt(nextStep, nextCapturedData);
-        const quickReplyOptions =
-          nextStep === "project_type" ? PROJECT_TYPE_QUICK_REPLIES : [];
-
-        setMessages((prev) => [
-          ...prev,
-          createBotMessage(nextPrompt, "capture_step"),
-        ]);
-        setState(nextState);
-
-        if (quickReplyOptions.length > 0) {
-          setQuickReplies(quickReplyOptions);
-          setShowQuickReplies(true);
-        } else {
-          setShowQuickReplies(false);
-        }
-
-        setIsTyping(false);
-      }, 600);
-
-      return;
-    }
-
-    // Analyze message
-    const analysis = analyzeMessage(textToSend);
-    const mergedCapturedData = {
-      ...state.capturedData,
-      ...analysis.extractedData,
-    };
-
-    // Update state
-    const newState: ConversationState = {
-      ...state,
-      userType: analysis.userType,
-      intent: analysis.intent as any,
-      messageCount: state.messageCount + 1,
-      capturedData: mergedCapturedData,
-      stage: determineNextStage(
-        state.stage,
-        analysis.userType,
-        state.messageCount + 1,
-      ) as any,
-      captureStep: "none",
-      ctaTriggered:
-        state.ctaTriggered ||
-        shouldTriggerCTA(
-          state.messageCount + 1,
-          analysis.userType,
-          !!mergedCapturedData.problem,
-        ),
-      lastActivityAt: new Date(),
-    };
-
-    const shouldStartLeadCapture =
-      !newState.leadCaptured &&
-      newState.captureStep === "none" &&
-      (START_LEAD_CAPTURE_REGEX.test(textToSend) ||
-        (newState.ctaTriggered &&
-          (newState.userType === "client" ||
-            newState.userType === "recruiter")));
-
-    if (shouldStartLeadCapture) {
-      const nextStep = getNextLeadCaptureStep(newState.capturedData);
-      const captureState: ConversationState = {
-        ...newState,
-        captureStep: nextStep,
-        stage: nextStep === "complete" ? "captured" : "lead_capture",
-      };
-
-      setState(captureState);
-      setIsTyping(true);
-
-      setTimeout(async () => {
-        if (nextStep === "complete") {
-          const leadPayload = buildLeadPayload(
-            captureState,
-            updatedConversation,
-          );
-          const leadCaptured = await sendLeadToAPI(apiBase, leadPayload);
-
-          const completionText = leadCaptured
-            ? "Perfect, details captured. I have sent a quick follow-up email. Next step: book your 20-30 minute discovery call at /book-call."
-            : "I couldn't submit your details right now. You can still continue at /book-call and I will review your request there.";
-
-          setMessages((prev) => [
-            ...prev,
-            createBotMessage(completionText, "capture_done"),
-          ]);
-
-          setState({
-            ...captureState,
-            leadCaptured,
-            captureStep: leadCaptured ? "complete" : "description",
-            stage: leadCaptured ? "captured" : "lead_capture",
-          });
-
-          setShowQuickReplies(false);
-          setIsTyping(false);
-          return;
-        }
-
-        const firstPrompt = getLeadCapturePrompt(
-          nextStep,
-          captureState.capturedData,
-        );
-        setMessages((prev) => [
-          ...prev,
-          createBotMessage(firstPrompt, "capture_start"),
-        ]);
-
-        if (nextStep === "project_type") {
-          setQuickReplies(PROJECT_TYPE_QUICK_REPLIES);
-          setShowQuickReplies(true);
-        } else {
-          setShowQuickReplies(false);
-        }
-
-        setIsTyping(false);
-      }, 700);
-
-      return;
-    }
-
-    setState(newState);
-
-    // Show typing
-    setIsTyping(true);
-
-    // Generate response
-    setTimeout(async () => {
-      const offline =
-        typeof navigator !== "undefined" && navigator.onLine === false;
-
-      if (offline) {
-        setIsTyping(false);
-
-        if (!hasShownOfflineToastRef.current) {
-          toast.error(
-            "No internet connection. Please reconnect to continue chatting.",
-          );
-          hasShownOfflineToastRef.current = true;
-        }
-
-        return;
-      }
-
-      const conversationHistory: Array<{
-        role: "user" | "assistant";
-        content: string;
-      }> = updatedConversation.map((msg) => ({
-        role: msg.role === "bot" ? "assistant" : "user",
-        content: msg.text,
-      }));
-
-      const aiResponse = await getAIResponse(textToSend, conversationHistory);
-
-      const rulesFallback: BotResponseResult = getIntentFallback(
-        textToSend,
-        generateBotResponse(
-          textToSend,
-          analysis.userType,
-          newState.messageCount,
-          newState.capturedData,
-        ),
-      );
-
-      const botResponse: BotResponseResult = aiResponse
-        ? { text: aiResponse }
-        : rulesFallback;
-
-      const botMessage = createBotMessage(botResponse.text, "bot");
-
-      setMessages((prev) => [...prev, botMessage]);
-      setIsTyping(false);
-
-      if ("quickReplies" in botResponse && botResponse.quickReplies) {
-        setQuickReplies(botResponse.quickReplies);
-        setShowQuickReplies(true);
-      } else {
-        setShowQuickReplies(false);
-      }
-
-      // Show CTA if triggered
-      if (newState.ctaTriggered && !state.ctaTriggered) {
-        setTimeout(() => {
-          const ctaIndex = Math.floor(Math.random() * 5);
-          const cta = getCTAVariation(ctaIndex);
-
-          const ctaMessage = createBotMessage(cta, "cta");
-
-          setMessages((prev) => [...prev, ctaMessage]);
-        }, 1500);
-      }
-    }, 1200);
+    // Delegate to strict handler (handles all blocking and fallback logic)
+    await handleAIResponse(textToSend, updatedConversation);
   };
 
   return (
