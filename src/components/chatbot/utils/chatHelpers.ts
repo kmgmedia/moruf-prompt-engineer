@@ -19,8 +19,8 @@ export const buildLeadPayload = (
     nextState.userType === "recruiter"
       ? "recruiter"
       : nextState.userType === "client"
-      ? "client"
-      : "browsing",
+        ? "client"
+        : "browsing",
   source: "chatbot",
   status: "new_lead",
   sessionId: nextState.sessionId,

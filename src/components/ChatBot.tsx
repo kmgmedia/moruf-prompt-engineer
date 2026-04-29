@@ -187,7 +187,11 @@ const ChatBot = () => {
     typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL
       ? String(import.meta.env.VITE_API_URL).replace(/\/+$/, "")
       : "";
-  const { getAIResponse, isLoading: aiLoading, error: aiError } = useAIChatbot({
+  const {
+    getAIResponse,
+    isLoading: aiLoading,
+    error: aiError,
+  } = useAIChatbot({
     useOpenAI: true,
     fallbackToRules: true,
   });
