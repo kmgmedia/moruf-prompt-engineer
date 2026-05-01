@@ -1,1 +1,0 @@
-// Removed broken re-export. PromoCard now exists in features/chatbot/components/PromoCard.tsx

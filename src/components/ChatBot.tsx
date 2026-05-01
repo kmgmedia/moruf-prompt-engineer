@@ -3,32 +3,17 @@ import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
-import {
-  ConversationState,
-  Message,
-  LeadCaptureStep,
-  LeadData,
-} from "@/lib/chatbot/types";
-import {
-  analyzeMessage,
-  shouldTriggerCTA,
-  determineNextStage,
-} from "@/lib/chatbot/intents";
-import {
-  generateBotResponse,
-  getCTAVariation,
-  type BotResponseResult,
-} from "@/lib/chatbot/flows";
+import { ConversationState, Message } from "@/lib/chatbot/types";
 import { useAIResponse } from "../features/chatbot/hooks/useAIResponse";
 import { useAIChatbot } from "../hooks/use-ai-chatbot";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
 import { INITIAL_QUICK_REPLIES } from "@/components/chatbot/constants";
-import { getIntentFallback } from "@/components/chatbot/fallbacks";
-import { sendLeadToAPI } from "@/components/chatbot/leadApi";
 import { renderMessageWithLinks } from "@/components/chatbot/messageLinks";
 import { PenIcon } from "@/components/chatbot/PenIcon";
 import { usePromoCard } from "@/components/chatbot/promo";
+import { createBotMessage } from "@/components/chatbot/utils/chatHelpers";
+import { getProjectTypeLabel } from "@/components/chatbot/utils/leadUtils";
 import {
   getInitialConversationState,
   getInitialMessages,
@@ -36,162 +21,10 @@ import {
   persistMessages,
 } from "@/components/chatbot/storage";
 
-const START_LEAD_CAPTURE_REGEX =
-  /\b(book|schedule|call|meeting|talk|speak|zoom|whatsapp|ready|proceed|move forward|get started|next step)\b/i;
-
-const PROJECT_TYPE_QUICK_REPLIES = [
-  "1. Automation system",
-  "2. API / integration",
-  "3. Web app",
-  "4. Not sure yet",
-];
-
-const PROJECT_TYPE_LABELS: Record<string, string> = {
-  automation: "Automation system",
-  api_integration: "API / integration",
-  web_app: "Web app",
-  web_system: "Web system",
-  recruiting: "Recruiting / role conversation",
-  not_sure: "Not sure yet",
-};
-
-const normalizeName = (value: string): string | undefined => {
-  const trimmed = value.trim();
-  if (!trimmed) {
-    return undefined;
-  }
-
-  const cleaned = trimmed
-    .replace(/^(my name is|name is|i am|i'm|im|this is|call me)\s+/i, "")
-    .replace(/[^a-zA-Z\s'-]/g, "")
-    .trim();
-
-  if (!cleaned || cleaned.length < 2) {
-    return undefined;
-  }
-
-  return cleaned
-    .split(/\s+/)
-    .slice(0, 3)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1).toLowerCase())
-    .join(" ");
-};
-
-const extractValidEmail = (value: string): string | undefined => {
-  const match = value.trim().match(/([^\s@]+@[^\s@]+\.[^\s@]+)/i);
-  if (!match?.[1]) {
-    return undefined;
-  }
-
-  const candidate = match[1].toLowerCase();
-  const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(candidate);
-  return isValid ? candidate : undefined;
-};
-
-const mapProjectTypeFromInput = (value: string): string | undefined => {
-  const normalized = value.toLowerCase().trim();
-
-  if (
-    normalized.startsWith("1") ||
-    normalized.includes("automation") ||
-    normalized.includes("workflow")
-  ) {
-    return "automation";
-  }
-
-  if (
-    normalized.startsWith("2") ||
-    normalized.includes("api") ||
-    normalized.includes("integration") ||
-    normalized.includes("connect")
-  ) {
-    return "api_integration";
-  }
-
-  if (
-    normalized.startsWith("3") ||
-    normalized.includes("web app") ||
-    normalized.includes("web") ||
-    normalized.includes("app") ||
-    normalized.includes("system")
-  ) {
-    return "web_app";
-  }
-
-  if (
-    normalized.startsWith("4") ||
-    normalized.includes("not sure") ||
-    normalized.includes("unsure")
-  ) {
-    return "not_sure";
-  }
-
-  return undefined;
-};
-
-const getNextLeadCaptureStep = (
-  capturedData: ConversationState["capturedData"],
-): LeadCaptureStep => {
-  if (!capturedData.name) {
-    return "name";
-  }
-  if (!capturedData.email) {
-    return "email";
-  }
-  if (!capturedData.projectType) {
-    return "project_type";
-  }
-  if (!capturedData.problem) {
-    return "description";
-  }
-
-  return "complete";
-};
-
-const getLeadCapturePrompt = (
-  step: LeadCaptureStep,
-  capturedData: ConversationState["capturedData"],
-): string => {
-  if (step === "name") {
-    return "Before we jump to a call, I can quickly capture your details so I come prepared.\n\nWhat's your name?";
-  }
-
-  if (step === "email") {
-    const displayName = capturedData.name ? capturedData.name : "there";
-    return `Nice to meet you, ${displayName} 👍\nWhat's the best email to reach you?`;
-  }
-
-  if (step === "project_type") {
-    return "Got it.\n\nWhich best describes what you need?\n\n1. Automation system\n2. API / integration\n3. Web app\n4. Not sure yet";
-  }
-
-  if (step === "description") {
-    return "Last one — can you briefly describe what you're trying to build or improve?";
-  }
-
-  return "";
-};
-
-const getProjectTypeLabel = (projectType?: string): string => {
-  if (!projectType) {
-    return "project";
-  }
-
-  return PROJECT_TYPE_LABELS[projectType] || projectType;
-};
-
 const ChatBot = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
-  const apiBase =
-    typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL
-      ? String(import.meta.env.VITE_API_URL).replace(/\/+$/, "")
-      : "";
-  const {
-    getAIResponse,
-    isLoading: aiLoading,
-    error: aiError,
-  } = useAIChatbot({
+  const { getAIResponse, error: aiError } = useAIChatbot({
     useOpenAI: true,
     fallbackToRules: true,
   });
@@ -209,13 +42,13 @@ const ChatBot = () => {
   const [messages, setMessages] = useState<Message[]>(() =>
     getInitialMessages(),
   );
-
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [quickReplies, setQuickReplies] = useState<string[]>([
     ...INITIAL_QUICK_REPLIES,
   ]);
   const [showQuickReplies, setShowQuickReplies] = useState(true);
+
   const { handleAIResponse } = useAIResponse(
     getAIResponse,
     setMessages,
@@ -224,64 +57,31 @@ const ChatBot = () => {
     setShowQuickReplies,
     setState,
     state,
-    messages,
-    input,
   );
+
   const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  // iOS keyboard fix: scroll input into view on focus
-  useEffect(() => {
-    if (!isMobile) return;
-    const input = inputRef.current;
-    if (!input) return;
-    const handler = () => {
-      setTimeout(() => {
-        input.scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 200);
-    };
-    input.addEventListener("focus", handler);
-    return () => {
-      input.removeEventListener("focus", handler);
-    };
-  }, [isMobile, isOpen]);
   const lastAiErrorRef = useRef<string | null>(null);
   const hasShownOfflineToastRef = useRef(false);
   const hasShownReturnGreetingRef = useRef(false);
 
-  const createBotMessage = (text: string, suffix: string): Message => ({
-    role: "bot",
-    text,
-    timestamp: new Date(),
-    messageId: `msg_${Date.now()}_${suffix}`,
-  });
+  useEffect(() => {
+    if (!isMobile) return;
 
-  const buildLeadPayload = (
-    nextState: ConversationState,
-    conversationMessages: Message[],
-  ): LeadData => ({
-    name: nextState.capturedData.name || "Unknown",
-    email: nextState.capturedData.email || "unknown@example.com",
-    projectType: nextState.capturedData.projectType || "not_sure",
-    description: nextState.capturedData.problem || "To be discussed on call",
-    intent:
-      nextState.userType === "recruiter"
-        ? "recruiter"
-        : nextState.userType === "client"
-          ? "client"
-          : "browsing",
-    source: "chatbot",
-    status: "new_lead",
-    sessionId: nextState.sessionId,
-    conversationDuration: Math.round(
-      (Date.now() - nextState.startedAt.getTime()) / 1000,
-    ),
-    messageCount: nextState.messageCount,
-    messages: conversationMessages.map((m) => ({
-      role: m.role,
-      text: m.text,
-      timestamp: m.timestamp,
-    })),
-  });
+    const inputElement = inputRef.current;
+    if (!inputElement) return;
+
+    const handler = () => {
+      setTimeout(() => {
+        inputElement.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 200);
+    };
+
+    inputElement.addEventListener("focus", handler);
+    return () => {
+      inputElement.removeEventListener("focus", handler);
+    };
+  }, [isMobile, isOpen]);
 
   const scrollToBottom = (behavior: ScrollBehavior = "auto") => {
     const container = messagesContainerRef.current;
@@ -303,7 +103,6 @@ const ChatBot = () => {
     persistMessages(messages);
   }, [messages]);
 
-  // Auto-scroll to bottom
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -312,7 +111,6 @@ const ChatBot = () => {
     scrollToBottom("smooth");
   }, [messages, isTyping, isOpen]);
 
-  // When chat opens, jump to latest message even if no new message was added.
   useEffect(() => {
     if (!isOpen) {
       return;
@@ -366,8 +164,7 @@ const ChatBot = () => {
       return;
     }
 
-    const welcomeBackText = `Hey ${name}, welcome back 👋\nStill working on that ${getProjectTypeLabel(projectType)} you mentioned?`;
-
+    const welcomeBackText = `Hey ${name}, welcome back.\nStill working on that ${getProjectTypeLabel(projectType)} you mentioned?`;
     const alreadyPresent = messages.some(
       (msg) => msg.role === "bot" && msg.text === welcomeBackText,
     );
@@ -382,7 +179,6 @@ const ChatBot = () => {
     hasShownReturnGreetingRef.current = true;
   }, [isOpen, messages, state.capturedData, state.leadCaptured]);
 
-  // Lock background scroll when chatbot is full-screen on mobile.
   useEffect(() => {
     if (!(isMobile && isOpen)) {
       return;
@@ -396,7 +192,6 @@ const ChatBot = () => {
     };
   }, [isMobile, isOpen]);
 
-  // Show only actionable AI errors and avoid duplicate toasts.
   useEffect(() => {
     if (!aiError) {
       lastAiErrorRef.current = null;
@@ -434,24 +229,22 @@ const ChatBot = () => {
     setShowPromoCard(false);
   };
 
-  // Handle message send
   const handleSend = async (msgText?: string) => {
     const textToSend = msgText || input;
     if (!textToSend.trim()) return;
 
-    // Use strict guardrail logic for all AI responses
     const userMessage: Message = {
       role: "user",
       text: textToSend,
       timestamp: new Date(),
       messageId: `msg_${Date.now()}_user`,
     };
+
     const updatedConversation = [...messages, userMessage];
     setMessages(updatedConversation);
     setInput("");
     setShowQuickReplies(false);
 
-    // Delegate to strict handler (handles all blocking and fallback logic)
     await handleAIResponse(textToSend, updatedConversation);
   };
 
@@ -463,7 +256,6 @@ const ChatBot = () => {
           : "fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-end gap-3"
       }
     >
-      {/* Promotional Message Card */}
       {showPromoCard && !isOpen && (
         <div
           onClick={handleOpenChat}
@@ -480,6 +272,7 @@ const ChatBot = () => {
           </button>
         </div>
       )}
+
       <div
         className={
           isMobile && isOpen
@@ -495,7 +288,6 @@ const ChatBot = () => {
                 : "w-[calc(100vw-2rem)] max-w-[28rem] h-[70vh] max-h-[40rem] sm:h-[34rem] lg:h-[40rem] bg-card border-primary/20 shadow-lg flex flex-col"
             }
           >
-            {/* Header */}
             <div
               className={`bg-primary text-primary-foreground p-4 flex items-center justify-between ${
                 isMobile ? "" : "rounded-t-lg"
@@ -518,7 +310,6 @@ const ChatBot = () => {
               </button>
             </div>
 
-            {/* Messages */}
             <div
               ref={messagesContainerRef}
               className={
@@ -577,7 +368,6 @@ const ChatBot = () => {
               )}
             </div>
 
-            {/* Input */}
             <div
               className={`border-t border-border p-3 flex gap-2 bg-background ${
                 isMobile
@@ -591,7 +381,7 @@ const ChatBot = () => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSend()}
+                onKeyPress={(e) => e.key === "Enter" && handleSend() }
                 placeholder="Type a message..."
                 className="flex-1 px-3 py-2 rounded-lg bg-background border border-border focus:border-primary focus:outline-none text-sm"
                 style={isMobile ? { minWidth: 0 } : undefined}
