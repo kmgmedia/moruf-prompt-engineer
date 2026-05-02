@@ -7,6 +7,8 @@ import {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "morufbadebola@gmail.com";
+const RESEND_FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 const MEETING_LINK =
   process.env.BOOKING_MEETING_LINK || "https://meet.google.com/";
 const CRM_WEBHOOK_URL =
@@ -144,7 +146,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: RESEND_FROM_EMAIL,
       to: NOTIFY_EMAIL,
       subject: `New Call Booking: ${name}`,
       html: `
@@ -161,32 +163,53 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       `,
     });
 
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: email,
-      subject: "Your discovery call is booked",
-      html: `
-        <h2>Thanks, ${name}!</h2>
-        <p>Your discovery call has been booked successfully.</p>
-        <p><strong>Date and time:</strong> ${selectedSlot}</p>
-        <p><strong>Timezone:</strong> ${timezoneLabel}</p>
-        <p><strong>Meeting link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a></p>
-        <h3>What happens next:</h3>
-        <ol>
-          <li>Keep this email for your selected slot.</li>
-          <li>Use the meeting link above at the scheduled time.</li>
-          <li>If you need to update anything, reply to this email.</li>
-        </ol>
-        <p>Looking forward to speaking with you.</p>
-        <p>Moruf</p>
-      `,
-    });
+    let clientConfirmationWarning = "";
+
+    try {
+      await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: email,
+        subject: "Your discovery call is booked",
+        html: `
+          <h2>Thanks, ${name}!</h2>
+          <p>Your discovery call has been booked successfully.</p>
+          <p><strong>Date and time:</strong> ${selectedSlot}</p>
+          <p><strong>Timezone:</strong> ${timezoneLabel}</p>
+          <p><strong>Meeting link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a></p>
+          <h3>What happens next:</h3>
+          <ol>
+            <li>Keep this email for your selected slot.</li>
+            <li>Use the meeting link above at the scheduled time.</li>
+            <li>If you need to update anything, reply to this email.</li>
+          </ol>
+          <p>Looking forward to speaking with you.</p>
+          <p>Moruf</p>
+        `,
+      });
+    } catch (clientEmailError) {
+      clientConfirmationWarning =
+        clientEmailError instanceof Error
+          ? clientEmailError.message
+          : "Client confirmation email could not be sent.";
+
+      console.error(
+        "Client confirmation email error:",
+        clientConfirmationWarning,
+      );
+
+      if (!googleCalendarEnabled) {
+        throw new Error(
+          "Booking was saved, but the client confirmation email could not be sent. Add a verified RESEND_FROM_EMAIL in Vercel and redeploy.",
+        );
+      }
+    }
 
     return res.status(200).json({
       success: true,
       message: "Booking received successfully",
       googleCalendarEnabled,
       crmSync,
+      clientConfirmationWarning,
     });
   } catch (error) {
     console.error("Error sending booking email:", error);
