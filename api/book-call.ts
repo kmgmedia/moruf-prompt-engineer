@@ -238,6 +238,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       success: true,
       message: "Booking received successfully",
       googleCalendarEnabled,
+      calendarBooking,
       crmSync,
       clientConfirmationWarning,
     });

@@ -86,6 +86,17 @@ const toOffsetIsoString = (dateTimeLocal: string, timezone: string) => {
   return `${dateTimeLocal}${sign}${offsetHours}:${remainderMinutes}`;
 };
 
+const toInstantMs = (dateTimeLocal: string, timezone: string) => {
+  const isoWithOffset = toOffsetIsoString(dateTimeLocal, timezone);
+  const parsed = Date.parse(isoWithOffset);
+
+  if (Number.isNaN(parsed)) {
+    throw new Error(`Unable to parse date/time value: ${isoWithOffset}`);
+  }
+
+  return parsed;
+};
+
 export const isGoogleCalendarConfigured = () =>
   Boolean(
     process.env.GOOGLE_CALENDAR_CLIENT_ID &&
@@ -178,15 +189,23 @@ export const createGoogleCalendarBooking = async (
     );
   }
 
-  // Capture the created start/timezone and verify it matches the requested local date/time.
-  const createdStart =
-    (event.data.start && (event.data.start as any).dateTime) || "";
-  const createdTimeZone =
-    (event.data.start && (event.data.start as any).timeZone) || "";
+  const createdStart = event.data.start?.dateTime || "";
+  const createdTimeZone = event.data.start?.timeZone || "";
   const requestedLocal = `${input.meetingDate}T${input.meetingTime}:00`;
-  const createdMatchesRequested = Boolean(
-    createdStart && createdStart.indexOf(requestedLocal) === 0,
-  );
+
+  const createdMatchesRequested =
+    Boolean(createdStart) &&
+    createdTimeZone === input.timezone &&
+    toInstantMs(requestedLocal, input.timezone) === Date.parse(createdStart);
+
+  if (!createdMatchesRequested) {
+    console.warn("Google Calendar event time mismatch", {
+      requestedLocal,
+      requestedTimezone: input.timezone,
+      createdStart,
+      createdTimeZone,
+    });
+  }
 
   return {
     eventId: event.data.id,
