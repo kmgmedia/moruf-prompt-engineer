@@ -156,9 +156,9 @@ export function useAIResponse(
         setIsTyping(false);
         setShowQuickReplies(true);
         setQuickReplies([
-          'Show me your projects',
-          'What services do you offer?',
-          'How can I book a call?',
+          "Show me your projects",
+          "What services do you offer?",
+          "How can I book a call?",
         ]);
         return;
       }
@@ -203,10 +203,7 @@ export function useAIResponse(
       );
 
       if (isBlocked) {
-        const blockedResponse = getBlockedResponse(
-          textToSend,
-          normalizedInput,
-        );
+        const blockedResponse = getBlockedResponse(textToSend, normalizedInput);
         // eslint-disable-next-line no-console
         console.log("[GUARDRAIL BLOCKED]", {
           textToSend,
