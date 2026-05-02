@@ -179,8 +179,10 @@ export const createGoogleCalendarBooking = async (
   }
 
   // Capture the created start/timezone and verify it matches the requested local date/time.
-  const createdStart = (event.data.start && (event.data.start as any).dateTime) || "";
-  const createdTimeZone = (event.data.start && (event.data.start as any).timeZone) || "";
+  const createdStart =
+    (event.data.start && (event.data.start as any).dateTime) || "";
+  const createdTimeZone =
+    (event.data.start && (event.data.start as any).timeZone) || "";
   const requestedLocal = `${input.meetingDate}T${input.meetingTime}:00`;
   const createdMatchesRequested = Boolean(
     createdStart && createdStart.indexOf(requestedLocal) === 0,
