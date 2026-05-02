@@ -1,8 +1,14 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
+import {
+  createGoogleCalendarBooking,
+  isGoogleCalendarConfigured,
+} from "../src/lib/googleCalendar";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const YOUR_EMAIL = "morufbadebola@gmail.com";
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "morufbadebola@gmail.com";
+const MEETING_LINK =
+  process.env.BOOKING_MEETING_LINK || "https://meet.google.com/";
 const CRM_WEBHOOK_URL =
   process.env.CRM_WEBHOOK_URL ||
   process.env.N8N_LEAD_WEBHOOK_URL ||
@@ -15,32 +21,80 @@ interface BookCallFormData {
   projectType: string;
   description: string;
   phone?: string;
+  meetingDate: string;
+  meetingTime: string;
+  timezone?: string;
 }
 
+const formatMeetingDateTime = (meetingDate: string, meetingTime: string) => {
+  if (!meetingDate || !meetingTime) {
+    return "Not provided";
+  }
+
+  const date = new Date(`${meetingDate}T00:00:00`);
+  const formattedDate = new Intl.DateTimeFormat("en-US", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(date);
+
+  return `${formattedDate} at ${meetingTime}`;
+};
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Enable CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // Handle preflight requests
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
 
-  // Only allow POST requests
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { name, email, projectType, description }: BookCallFormData =
-      req.body;
+    const {
+      name,
+      email,
+      projectType,
+      description,
+      phone,
+      meetingDate,
+      meetingTime,
+      timezone,
+    }: BookCallFormData = req.body;
 
-    // Validate required fields
-    if (!name || !email || !projectType) {
+    if (
+      !name ||
+      !email ||
+      !projectType ||
+      !phone ||
+      !meetingDate ||
+      !meetingTime
+    ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
+
+    const selectedSlot = formatMeetingDateTime(meetingDate, meetingTime);
+    const timezoneLabel = timezone || "Africa/Lagos";
+    const googleCalendarEnabled = isGoogleCalendarConfigured();
+
+    const calendarBooking = googleCalendarEnabled
+      ? await createGoogleCalendarBooking({
+          customerEmail: email,
+          customerName: name,
+          description,
+          meetingDate,
+          meetingTime,
+          projectType,
+          timezone: timezoneLabel,
+        })
+      : null;
+
+    const finalMeetingLink = calendarBooking?.meetingLink || MEETING_LINK;
 
     let crmSync = {
       attempted: false,
@@ -61,23 +115,22 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             lead: {
               name,
               email,
+              phone,
               projectType,
               description: description || "Not provided",
               source: "book_call_form",
               status: "booked",
+              meetingDate,
+              meetingTime,
+              timezone: timezoneLabel,
+              meetingLink: finalMeetingLink,
               createdAt: new Date().toISOString(),
-              tags: {
-                source: "book_call_form",
-                status: "booked",
-              },
             },
           }),
         });
 
         if (!webhookResponse.ok) {
-          throw new Error(
-            `Webhook failed with status ${webhookResponse.status}`,
-          );
+          throw new Error(`Webhook failed with status ${webhookResponse.status}`);
         }
 
         crmSync.success = true;
@@ -90,56 +143,55 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    // Send email to yourself with the form data
     await resend.emails.send({
       from: "onboarding@resend.dev",
-      to: YOUR_EMAIL,
+      to: NOTIFY_EMAIL,
       subject: `New Call Booking: ${name}`,
       html: `
         <h2>New Call Booking Request</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Phone:</strong> ${phone}</p>
         <p><strong>Project Type:</strong> ${projectType}</p>
+        <p><strong>Selected Slot:</strong> ${selectedSlot}</p>
+        <p><strong>Timezone:</strong> ${timezoneLabel}</p>
+        <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a></p>
         <p><strong>Description:</strong> ${description || "Not provided"}</p>
         <p><strong>Submitted at:</strong> ${new Date().toLocaleString()}</p>
-        
-        <hr />
-        <p><strong>Next steps:</strong> Reply to this email or contact ${email} to schedule the call.</p>
       `,
     });
 
-    // Send confirmation email to the customer
     await resend.emails.send({
       from: "onboarding@resend.dev",
       to: email,
-      subject: "Thanks for reaching out!",
+      subject: "Your discovery call is booked",
       html: `
-        <h2>Thanks for reaching out, ${name}!</h2>
-        <p>I've received your information and I'm already thinking about your project.</p>
-        
+        <h2>Thanks, ${name}!</h2>
+        <p>Your discovery call has been booked successfully.</p>
+        <p><strong>Date and time:</strong> ${selectedSlot}</p>
+        <p><strong>Timezone:</strong> ${timezoneLabel}</p>
+        <p><strong>Meeting link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a></p>
         <h3>What happens next:</h3>
         <ol>
-          <li>I'll review your project details and goals</li>
-          <li>I'll send you a calendar link to book our 20-30 minute discovery call</li>
-          <li>During our call, we'll explore your vision and discuss how I can help</li>
+          <li>Keep this email for your selected slot.</li>
+          <li>Use the meeting link above at the scheduled time.</li>
+          <li>If you need to update anything, reply to this email.</li>
         </ol>
-        
-        <p>If this is urgent, feel free to reach out directly at morufbadebola@gmail.com</p>
-        
-        <p>Looking forward to connecting!</p>
+        <p>Looking forward to speaking with you.</p>
         <p>Moruf</p>
       `,
     });
 
     return res.status(200).json({
       success: true,
-      message: "Submission received successfully",
+      message: "Booking received successfully",
+      googleCalendarEnabled,
       crmSync,
     });
   } catch (error) {
-    console.error("Error sending email:", error);
+    console.error("Error sending booking email:", error);
     return res.status(500).json({
-      error: "Failed to process submission",
+      error: error instanceof Error ? error.message : "Failed to process booking",
       details: error instanceof Error ? error.message : "Unknown error",
     });
   }
