@@ -152,3 +152,10 @@ export const PRICING_TIMELINE_TOPIC_REGEX =
 
 export const RECRUITER_TOPIC_REGEX =
   /\b(recruiter|recruitment|hiring|job|role|position|interview|contract|availability|cv|resume)\b/i;
+
+// Short exploratory phrases visitors commonly use when just browsing the site.
+export const SHORT_EXPLORATION_REGEX =
+  /^(just exploring|just looking|just browsing|exploring|looking around|just checking|browsing)$/i;
+
+export const SHORT_EXPLORATION_REPLY =
+  "No problem — feel free to explore! Try: 'Show me your projects', 'What services do you offer?', or 'How can I book a call?'.";

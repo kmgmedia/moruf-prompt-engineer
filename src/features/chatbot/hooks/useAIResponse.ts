@@ -28,6 +28,8 @@ import {
   RECRUITER_TOPIC_REGEX,
   UNRELATED_TOPIC_FALLBACK,
   UNRELATED_TOPIC_QUICK_REPLIES,
+  SHORT_EXPLORATION_REGEX,
+  SHORT_EXPLORATION_REPLY,
 } from "@/features/chatbot/guardrails";
 
 export function useAIResponse(
@@ -109,6 +111,7 @@ export function useAIResponse(
       const greetingRegex =
         /^(hi|hello|hey|hey there|good morning|good afternoon|good evening|yo)\b[!.]?$/i;
       const thanksRegex = /^(thanks|thank you|thx|ty)\b[!.]?$/i;
+      const shortExplorationRegex = SHORT_EXPLORATION_REGEX;
       const normalizedSimple = textToSend
         .replace(/[^a-zA-Z\s]/g, "")
         .trim()
@@ -132,6 +135,30 @@ export function useAIResponse(
         setQuickReplies([
           "What services do you offer?",
           "How can I book a call?",
+        ]);
+        return;
+      }
+
+      // Friendly reply for short, neutral exploratory messages like "just exploring".
+      if (
+        shortExplorationRegex.test(textToSend) ||
+        shortExplorationRegex.test(normalizedSimple)
+      ) {
+        setMessages(() => [
+          ...updatedConversation,
+          {
+            role: "bot",
+            text: SHORT_EXPLORATION_REPLY,
+            timestamp: new Date(),
+            messageId: `msg_${Date.now()}_explore`,
+          },
+        ]);
+        setIsTyping(false);
+        setShowQuickReplies(true);
+        setQuickReplies([
+          'Show me your projects',
+          'What services do you offer?',
+          'How can I book a call?',
         ]);
         return;
       }
