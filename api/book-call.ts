@@ -132,7 +132,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         });
 
         if (!webhookResponse.ok) {
-          throw new Error(`Webhook failed with status ${webhookResponse.status}`);
+          throw new Error(
+            `Webhook failed with status ${webhookResponse.status}`,
+          );
         }
 
         crmSync.success = true;
@@ -214,7 +216,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   } catch (error) {
     console.error("Error sending booking email:", error);
     return res.status(500).json({
-      error: error instanceof Error ? error.message : "Failed to process booking",
+      error:
+        error instanceof Error ? error.message : "Failed to process booking",
       details: error instanceof Error ? error.message : "Unknown error",
     });
   }
