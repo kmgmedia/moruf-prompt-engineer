@@ -86,8 +86,8 @@ const toOffsetIsoString = (dateTimeLocal: string, timezone: string) => {
 export const isGoogleCalendarConfigured = () =>
   Boolean(
     process.env.GOOGLE_CALENDAR_CLIENT_ID &&
-      process.env.GOOGLE_CALENDAR_CLIENT_SECRET &&
-      process.env.GOOGLE_CALENDAR_REFRESH_TOKEN,
+    process.env.GOOGLE_CALENDAR_CLIENT_SECRET &&
+    process.env.GOOGLE_CALENDAR_REFRESH_TOKEN,
   );
 
 export const createGoogleCalendarBooking = async (
@@ -114,7 +114,9 @@ export const createGoogleCalendarBooking = async (
   });
 
   if ((events.data.items || []).length > 0) {
-    throw new Error("This time slot is no longer available. Please pick another one.");
+    throw new Error(
+      "This time slot is no longer available. Please pick another one.",
+    );
   }
 
   const requestId = `booking-${Date.now()}-${Math.random()
