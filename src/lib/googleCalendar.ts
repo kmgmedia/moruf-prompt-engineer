@@ -18,6 +18,9 @@ export interface CalendarBookingResult {
   meetingLink: string;
   startIso: string;
   endIso: string;
+  createdStart?: string;
+  createdTimeZone?: string;
+  createdMatchesRequested?: boolean;
 }
 
 const getOAuthClient = () => {
@@ -175,11 +178,22 @@ export const createGoogleCalendarBooking = async (
     );
   }
 
+  // Capture the created start/timezone and verify it matches the requested local date/time.
+  const createdStart = (event.data.start && (event.data.start as any).dateTime) || "";
+  const createdTimeZone = (event.data.start && (event.data.start as any).timeZone) || "";
+  const requestedLocal = `${input.meetingDate}T${input.meetingTime}:00`;
+  const createdMatchesRequested = Boolean(
+    createdStart && createdStart.indexOf(requestedLocal) === 0,
+  );
+
   return {
     eventId: event.data.id,
     htmlLink: event.data.htmlLink,
     meetingLink,
     startIso: timeMin,
     endIso: timeMax,
+    createdStart: createdStart || undefined,
+    createdTimeZone: createdTimeZone || undefined,
+    createdMatchesRequested,
   };
 };
