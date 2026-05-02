@@ -27,9 +27,7 @@ const CaseStudyBywayBackendAPI = lazy(
 const CaseStudyBYCEcommerce = lazy(
   () => import("./pages/CaseStudyBYCEcommerce"),
 );
-const CaseStudyEmotionalAI = lazy(
-  () => import("./pages/CaseStudyEmotionalAI"),
-);
+const CaseStudyEmotionalAI = lazy(() => import("./pages/CaseStudyEmotionalAI"));
 
 const queryClient = new QueryClient();
 
