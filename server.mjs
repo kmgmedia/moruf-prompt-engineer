@@ -4,6 +4,8 @@ import OpenAI from "openai";
 import { Resend } from "resend";
 import { google } from "googleapis";
 
+dotenv.config({ path: ".env.local" });
+
 const app = express();
 const port = Number(process.env.PORT) || 3001;
 
@@ -18,8 +20,6 @@ app.use((req, res, next) => {
   }
   return next();
 });
-
-dotenv.config({ path: ".env.local" });
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_SECRET_KEY,
@@ -52,8 +52,8 @@ const formatMeetingDateTime = (meetingDate, meetingTime) => {
 const isGoogleCalendarConfigured = () =>
   Boolean(
     process.env.GOOGLE_CALENDAR_CLIENT_ID &&
-      process.env.GOOGLE_CALENDAR_CLIENT_SECRET &&
-      process.env.GOOGLE_CALENDAR_REFRESH_TOKEN,
+    process.env.GOOGLE_CALENDAR_CLIENT_SECRET &&
+    process.env.GOOGLE_CALENDAR_REFRESH_TOKEN,
   );
 
 const getOAuthClient = () => {
@@ -139,7 +139,9 @@ const createGoogleCalendarBooking = async ({
   });
 
   if ((events.data.items || []).length > 0) {
-    throw new Error("This time slot is no longer available. Please pick another one.");
+    throw new Error(
+      "This time slot is no longer available. Please pick another one.",
+    );
   }
 
   const requestId = `booking-${Date.now()}-${Math.random()
@@ -365,15 +367,25 @@ app.post("/api/book-call", async (req, res) => {
       timezone,
     } = req.body || {};
 
-    if (!name || !email || !phone || !projectType || !meetingDate || !meetingTime) {
+    if (
+      !name ||
+      !email ||
+      !phone ||
+      !projectType ||
+      !meetingDate ||
+      !meetingTime
+    ) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
     const selectedSlot = formatMeetingDateTime(meetingDate, meetingTime);
     const timezoneLabel = timezone || "Africa/Lagos";
     const googleCalendarEnabled = isGoogleCalendarConfigured();
-    const calendarBooking = googleCalendarEnabled
-      ? await createGoogleCalendarBooking({
+    let calendarBooking = null;
+
+    if (googleCalendarEnabled) {
+      try {
+        calendarBooking = await createGoogleCalendarBooking({
           customerEmail: email,
           customerName: name,
           description,
@@ -381,8 +393,16 @@ app.post("/api/book-call", async (req, res) => {
           meetingTime,
           projectType,
           timezone: timezoneLabel,
-        })
-      : null;
+        });
+      } catch (calendarError) {
+        console.error(
+          "Google Calendar booking error:",
+          calendarError instanceof Error
+            ? calendarError.message
+            : calendarError,
+        );
+      }
+    }
     const finalMeetingLink = calendarBooking?.meetingLink || MEETING_LINK;
 
     await resend.emails.send({
@@ -457,7 +477,8 @@ app.post("/api/book-call", async (req, res) => {
       console.error("Error sending email: Unknown error");
     }
     return res.status(500).json({
-      error: error instanceof Error ? error.message : "Failed to process submission",
+      error:
+        error instanceof Error ? error.message : "Failed to process submission",
       success: false,
     });
   }

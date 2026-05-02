@@ -83,9 +83,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const selectedSlot = formatMeetingDateTime(meetingDate, meetingTime);
     const timezoneLabel = timezone || "Africa/Lagos";
     const googleCalendarEnabled = isGoogleCalendarConfigured();
+    let calendarBooking = null;
 
-    const calendarBooking = googleCalendarEnabled
-      ? await createGoogleCalendarBooking({
+    if (googleCalendarEnabled) {
+      try {
+        calendarBooking = await createGoogleCalendarBooking({
           customerEmail: email,
           customerName: name,
           description,
@@ -93,8 +95,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           meetingTime,
           projectType,
           timezone: timezoneLabel,
-        })
-      : null;
+        });
+      } catch (calendarError) {
+        console.error(
+          "Google Calendar booking error:",
+          calendarError instanceof Error
+            ? calendarError.message
+            : calendarError,
+        );
+      }
+    }
 
     const finalMeetingLink = calendarBooking?.meetingLink || MEETING_LINK;
 
