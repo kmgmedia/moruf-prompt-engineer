@@ -3,7 +3,7 @@ import { Resend } from "resend";
 import {
   createGoogleCalendarBooking,
   isGoogleCalendarConfigured,
-} from "../src/lib/googleCalendar";
+} from "../src/lib/googleCalendar.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "morufbadebola@gmail.com";
