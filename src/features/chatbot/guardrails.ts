@@ -162,7 +162,7 @@ export const SHORT_EXPLORATION_REPLY =
 
 // Compliments and praise from users
 export const COMPLIMENT_REGEX =
-  /\b(great|awesome|amazing|impressive|excellent|good|nice|cool|love|love your|love it|doing well|you're great|you're awesome|talented|skilled|brilliant|fantastic|wonderful|incredible|kudos|congratulations|well done|bravo|rock|crushing it|killing it)\b/i;
+  /\b(great|awesome|amazing|impressive|excellent|good|nice|cool|love|love your|love it|doing well|doing a great job|doing an excellent job|you're great|you're awesome|you're doing great|you're doing well|you are doing great|you are doing well|talented|skilled|brilliant|fantastic|wonderful|incredible|kudos|congratulations|well done|bravo|great job|good job|nice work|keep it up|rock|crushing it|killing it)\b/i;
 
 export const COMPLIMENT_QUICK_REPLIES = [
   "What services do you offer?",

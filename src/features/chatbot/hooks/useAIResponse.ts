@@ -115,6 +115,8 @@ export function useAIResponse(
         /^(hi|hello|hey|hey there|good morning|good afternoon|good evening|yo)\b[!.]?$/i;
       const thanksRegex = /^(thanks|thank you|thx|ty)\b[!.]?$/i;
       const shortExplorationRegex = SHORT_EXPLORATION_REGEX;
+      const normalize = (value: string) =>
+        value.replace(/\s+/g, " ").trim().toLowerCase();
       const normalizedSimple = textToSend
         .replace(/[^a-zA-Z\s]/g, "")
         .trim()
@@ -182,7 +184,15 @@ export function useAIResponse(
       }
 
       // Handle compliments and praise
-      if (COMPLIMENT_REGEX.test(textToSend)) {
+      const normalizedCompliment = normalize(textToSend);
+      if (
+        COMPLIMENT_REGEX.test(textToSend) ||
+        COMPLIMENT_REGEX.test(normalizedSimple) ||
+        COMPLIMENT_REGEX.test(normalizedCompliment) ||
+        /\b(you are|you\'re|youre)\b.*\b(great|awesome|amazing|excellent|good|nice|doing well|doing great|doing a great job|doing a good job|well done|good job|nice work|keep it up)\b/i.test(
+          textToSend,
+        )
+      ) {
         setMessages(() => [
           ...updatedConversation,
           {
@@ -198,8 +208,6 @@ export function useAIResponse(
         return;
       }
 
-      const normalize = (value: string) =>
-        value.replace(/\s+/g, " ").trim().toLowerCase();
       const normalizedInput = normalize(textToSend);
       const isGeneralLearningRequest =
         GENERAL_LEARNING_REQUEST_REGEX.test(textToSend) &&
