@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Analytics } from "@vercel/analytics/react";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
@@ -100,7 +101,6 @@ const router = createBrowserRouter(
   {
     future: {
       v7_relativeSplatPath: true,
-      v7_startTransition: true,
     },
   },
 );
@@ -113,6 +113,7 @@ const App = () => (
         <AnimatedBackground opacity={0.5} subtle={true} />
       </div>
       <RouterProvider router={router} />
+      <Analytics />
     </TooltipProvider>
   </QueryClientProvider>
 );
