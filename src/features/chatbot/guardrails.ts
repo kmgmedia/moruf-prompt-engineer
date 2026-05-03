@@ -159,3 +159,16 @@ export const SHORT_EXPLORATION_REGEX =
 
 export const SHORT_EXPLORATION_REPLY =
   "No problem — feel free to explore! Try: 'Show me your projects', 'What services do you offer?', or 'How can I book a call?'.";
+
+// Compliments and praise from users
+export const COMPLIMENT_REGEX =
+  /\b(great|awesome|amazing|impressive|excellent|good|nice|cool|love|love your|love it|doing well|you're great|you're awesome|talented|skilled|brilliant|fantastic|wonderful|incredible|kudos|congratulations|well done|bravo|rock|crushing it|killing it)\b/i;
+
+export const COMPLIMENT_QUICK_REPLIES = [
+  "What services do you offer?",
+  "Show me your case studies",
+  "How can I book a call?",
+] as const;
+
+export const COMPLIMENT_REPLY =
+  "Thank you so much! I really appreciate that. I'm passionate about building high-quality solutions that make a real impact. If you'd like to explore how I can help with your project, just ask!";

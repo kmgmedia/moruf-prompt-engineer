@@ -30,6 +30,9 @@ import {
   UNRELATED_TOPIC_QUICK_REPLIES,
   SHORT_EXPLORATION_REGEX,
   SHORT_EXPLORATION_REPLY,
+  COMPLIMENT_REGEX,
+  COMPLIMENT_QUICK_REPLIES,
+  COMPLIMENT_REPLY,
 } from "@/features/chatbot/guardrails";
 
 export function useAIResponse(
@@ -175,6 +178,23 @@ export function useAIResponse(
         ]);
         setIsTyping(false);
         setShowQuickReplies(false);
+        return;
+      }
+
+      // Handle compliments and praise
+      if (COMPLIMENT_REGEX.test(textToSend)) {
+        setMessages(() => [
+          ...updatedConversation,
+          {
+            role: "bot",
+            text: COMPLIMENT_REPLY,
+            timestamp: new Date(),
+            messageId: `msg_${Date.now()}_compliment`,
+          },
+        ]);
+        setIsTyping(false);
+        setShowQuickReplies(true);
+        setQuickReplies([...COMPLIMENT_QUICK_REPLIES]);
         return;
       }
 
