@@ -3,7 +3,8 @@ import { Resend } from "resend";
 import {
   createGoogleCalendarBooking,
   isGoogleCalendarConfigured,
-} from "../src/lib/googleCalendar";
+  type CalendarBookingResult,
+} from "../src/lib/googleCalendar.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "morufbadebola@gmail.com";
@@ -82,7 +83,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const selectedSlot = formatMeetingDateTime(meetingDate, meetingTime);
     const timezoneLabel = timezone || "Africa/Lagos";
-    const calendarBooking = null;
+    let calendarBooking: CalendarBookingResult | null = null;
 
     const googleCalendarEnabled = isGoogleCalendarConfigured();
 
