@@ -1,5 +1,10 @@
 import { useCallback, Dispatch, SetStateAction } from "react";
-import type { Message, ConversationState, Intent, ConversationStage } from "@/lib/chatbot/types";
+import type {
+  Message,
+  ConversationState,
+  Intent,
+  ConversationStage,
+} from "@/lib/chatbot/types";
 import {
   analyzeMessage,
   shouldTriggerCTA,
@@ -36,7 +41,10 @@ import {
 } from "@/features/chatbot/guardrails";
 
 export function useAIResponse(
-  getAIResponse: (input: string, history: Array<{ role: "user" | "assistant"; content: string }>) => Promise<string | undefined>,
+  getAIResponse: (
+    input: string,
+    history: Array<{ role: "user" | "assistant"; content: string }>,
+  ) => Promise<string | undefined>,
   setMessages: Dispatch<SetStateAction<Message[]>>,
   setIsTyping: Dispatch<SetStateAction<boolean>>,
   setQuickReplies: Dispatch<SetStateAction<string[]>>,
