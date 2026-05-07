@@ -1,5 +1,5 @@
 import { useCallback, Dispatch, SetStateAction } from "react";
-import type { Message, ConversationState } from "@/lib/chatbot/types";
+import type { Message, ConversationState, Intent, ConversationStage } from "@/lib/chatbot/types";
 import {
   analyzeMessage,
   shouldTriggerCTA,
@@ -36,7 +36,7 @@ import {
 } from "@/features/chatbot/guardrails";
 
 export function useAIResponse(
-  getAIResponse: (input: string, history: any[]) => Promise<string | undefined>,
+  getAIResponse: (input: string, history: Array<{ role: "user" | "assistant"; content: string }>) => Promise<string | undefined>,
   setMessages: Dispatch<SetStateAction<Message[]>>,
   setIsTyping: Dispatch<SetStateAction<boolean>>,
   setQuickReplies: Dispatch<SetStateAction<string[]>>,
@@ -189,7 +189,7 @@ export function useAIResponse(
         COMPLIMENT_REGEX.test(textToSend) ||
         COMPLIMENT_REGEX.test(normalizedSimple) ||
         COMPLIMENT_REGEX.test(normalizedCompliment) ||
-        /\b(you are|you\'re|youre)\b.*\b(great|awesome|amazing|excellent|good|nice|doing well|doing great|doing a great job|doing a good job|well done|good job|nice work|keep it up)\b/i.test(
+        /\b(you are|you're|youre)\b.*\b(great|awesome|amazing|excellent|good|nice|doing well|doing great|doing a great job|doing a good job|well done|good job|nice work|keep it up)\b/i.test(
           textToSend,
         )
       ) {
@@ -264,14 +264,14 @@ export function useAIResponse(
       const newState: ConversationState = {
         ...state,
         userType: analysis.userType,
-        intent: analysis.intent as any,
+        intent: analysis.intent as Intent,
         messageCount: state.messageCount + 1,
         capturedData: mergedCapturedData,
         stage: determineNextStage(
           state.stage,
           analysis.userType,
           state.messageCount + 1,
-        ) as any,
+        ) as ConversationStage,
         captureStep: "none",
         ctaTriggered:
           state.ctaTriggered ||
@@ -281,7 +281,7 @@ export function useAIResponse(
             !!mergedCapturedData.problem,
           ),
         lastActivityAt: new Date(),
-        memoryKey: (state as any).memoryKey,
+        memoryKey: (state as ConversationState).memoryKey,
       };
 
       setState(newState);

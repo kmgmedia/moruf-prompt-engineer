@@ -44,9 +44,9 @@ export const getInitialMessages = (): Message[] => {
     const saved = localStorage.getItem(MESSAGES_STORAGE_KEY);
     if (saved) {
       const parsed = JSON.parse(saved);
-      return parsed.map((msg: any) => ({
+      return parsed.map((msg: Record<string, unknown>) => ({
         ...msg,
-        timestamp: new Date(msg.timestamp),
+        timestamp: new Date(msg.timestamp as string),
       }));
     }
   } catch (error) {

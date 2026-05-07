@@ -1,17 +1,9 @@
 import { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
-// Dynamically import Google Calendar helpers at runtime to avoid
-// TypeScript/Vercel ESM import-extension build issues.
-let createGoogleCalendarBooking: any = null;
-let isGoogleCalendarConfigured: any = null;
-
-const loadGoogleCalendarHelpers = async () => {
-  if (!createGoogleCalendarBooking || !isGoogleCalendarConfigured) {
-    const mod = await import("../src/lib/googleCalendar.js");
-    createGoogleCalendarBooking = mod.createGoogleCalendarBooking;
-    isGoogleCalendarConfigured = mod.isGoogleCalendarConfigured;
-  }
-};
+import {
+  createGoogleCalendarBooking,
+  isGoogleCalendarConfigured,
+} from "../src/lib/googleCalendar";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "morufbadebola@gmail.com";
@@ -90,18 +82,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const selectedSlot = formatMeetingDateTime(meetingDate, meetingTime);
     const timezoneLabel = timezone || "Africa/Lagos";
-    let calendarBooking = null;
+    const calendarBooking = null;
 
-    try {
-      await loadGoogleCalendarHelpers();
-    } catch (loadErr) {
-      console.error("Failed to load Google Calendar helpers:", loadErr);
-    }
-
-    const googleCalendarEnabled =
-      typeof isGoogleCalendarConfigured === "function"
-        ? isGoogleCalendarConfigured()
-        : false;
+    const googleCalendarEnabled = isGoogleCalendarConfigured();
 
     if (googleCalendarEnabled) {
       try {
@@ -126,7 +109,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const finalMeetingLink = calendarBooking?.meetingLink || MEETING_LINK;
 
-    let crmSync = {
+    const crmSync = {
       attempted: false,
       success: false,
       error: "",

@@ -134,7 +134,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       },
     };
 
-    let crmSync = {
+    const crmSync = {
       attempted: false,
       success: false,
       error: "",
