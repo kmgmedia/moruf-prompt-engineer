@@ -115,7 +115,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const finalMeetingLink = calendarBooking?.meetingLink
       ? calendarBooking.meetingLink
       : MEETING_LINK;
-    
+
     console.log("Final meeting link:", {
       hasCalendarBooking: !!calendarBooking,
       meetingLink: finalMeetingLink,
