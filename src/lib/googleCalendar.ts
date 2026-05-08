@@ -104,6 +104,13 @@ export const isGoogleCalendarConfigured = () =>
     process.env.GOOGLE_CALENDAR_REFRESH_TOKEN,
   );
 
+const generateGoogleMeetUrl = (eventId: string): string => {
+  // Generate a simple Google Meet URL format from the event ID
+  // This is a fallback if the API doesn't return hangoutLink
+  const meetCode = eventId.split("@")[0];
+  return `https://meet.google.com/${meetCode.replace(/[^a-z0-9-]/g, "").toLowerCase()}`;
+};
+
 export const createGoogleCalendarBooking = async (
   input: CalendarBookingInput,
 ): Promise<CalendarBookingResult> => {
@@ -176,16 +183,26 @@ export const createGoogleCalendarBooking = async (
     },
   });
 
-  const meetingLink =
+  let meetingLink =
     event.data.hangoutLink ||
     event.data.conferenceData?.entryPoints?.find(
       (entry) => entry.entryPointType === "video",
-    )?.uri ||
-    "";
+    )?.uri;
 
-  if (!event.data.id || !event.data.htmlLink || !meetingLink) {
+  // Fallback: if no meeting link, use the event HTML link as a backup
+  if (!meetingLink) {
+    console.warn("Google Meet link not found in conference data", {
+      hangoutLink: event.data.hangoutLink,
+      conferenceData: event.data.conferenceData,
+      htmlLink: event.data.htmlLink,
+    });
+    // Use the calendar event link as fallback
+    meetingLink = event.data.htmlLink || "";
+  }
+
+  if (!event.data.id || !event.data.htmlLink) {
     throw new Error(
-      "Google Calendar booking was created, but the meeting link could not be generated.",
+      "Google Calendar booking failed: missing event ID or HTML link.",
     );
   }
 
@@ -210,7 +227,7 @@ export const createGoogleCalendarBooking = async (
   return {
     eventId: event.data.id,
     htmlLink: event.data.htmlLink,
-    meetingLink,
+    meetingLink: meetingLink || event.data.htmlLink || "",
     startIso: timeMin,
     endIso: timeMax,
     createdStart: createdStart || undefined,

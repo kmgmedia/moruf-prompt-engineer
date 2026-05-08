@@ -98,6 +98,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           projectType,
           timezone: timezoneLabel,
         });
+        console.log("Calendar booking created:", {
+          eventId: calendarBooking.eventId,
+          meetingLink: calendarBooking.meetingLink,
+        });
       } catch (calendarError) {
         console.error(
           "Google Calendar booking error:",
@@ -108,7 +112,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    const finalMeetingLink = calendarBooking?.meetingLink || MEETING_LINK;
+    const finalMeetingLink = calendarBooking?.meetingLink
+      ? calendarBooking.meetingLink
+      : MEETING_LINK;
+    
+    console.log("Final meeting link:", {
+      hasCalendarBooking: !!calendarBooking,
+      meetingLink: finalMeetingLink,
+      bookingMeetingLink: calendarBooking?.meetingLink,
+    });
 
     const crmSync = {
       attempted: false,
