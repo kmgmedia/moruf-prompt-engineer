@@ -9,10 +9,7 @@
     "skipLibCheck": true,
     "strict": false,
     "resolveJsonModule": true,
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "ignoreDeprecations": "6.0"
   },
   "include": ["api/**/*.ts"],
   "exclude": ["node_modules", "dist", "src"]
