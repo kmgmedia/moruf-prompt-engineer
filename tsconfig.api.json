@@ -12,9 +12,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "ignoreDeprecations": "6.0"
+    }
   },
-  "include": ["api/**/*.ts", "src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["api/**/*.ts"],
+  "exclude": ["node_modules", "dist", "src"]
 }

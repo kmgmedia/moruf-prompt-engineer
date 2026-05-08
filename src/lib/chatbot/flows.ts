@@ -3,7 +3,7 @@
  * Handles all conversation flows and generates contextual bot responses
  */
 
-import { ConversationFlow, UserType, Intent, CapturedData } from "./types";
+import { ConversationFlow, UserType, Intent, CapturedData } from "./types.js";
 
 export const CONVERSATION_FLOWS: Record<string, ConversationFlow> = {
   ENTRY: {

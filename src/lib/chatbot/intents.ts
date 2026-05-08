@@ -3,7 +3,7 @@
  * Analyzes user messages to determine intent and extract structured data
  */
 
-import { UserType, Intent, CapturedData } from "./types";
+import { UserType, Intent, CapturedData } from "./types.js";
 
 interface IntentResult {
   userType: UserType;
