@@ -403,7 +403,7 @@ app.post("/api/book-call", async (req, res) => {
         );
       }
     }
-    const finalMeetingLink = calendarBooking?.meetingLink || MEETING_LINK;
+    const finalMeetingLink = calendarBooking?.meetingLink || calendarBooking?.htmlLink || MEETING_LINK;
 
     await resend.emails.send({
       from: RESEND_FROM_EMAIL,
