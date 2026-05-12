@@ -370,6 +370,65 @@ ${conversationHistory}
   }
 });
 
+const BOOKING_SLOTS = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+const SLOT_DURATION_MS = 30 * 60 * 1000;
+
+const getAvailability = async (date, timezone) => {
+  const calendar = getCalendarClient();
+  const calendarId = getCalendarId();
+  const dayStart = toOffsetIsoString(`${date}T09:00:00`, timezone);
+  const dayEnd = toOffsetIsoString(`${date}T17:00:00`, timezone);
+
+  const response = await calendar.events.list({
+    calendarId,
+    timeMin: dayStart,
+    timeMax: dayEnd,
+    singleEvents: true,
+    orderBy: "startTime",
+  });
+
+  const items = response.data.items || [];
+
+  return BOOKING_SLOTS.filter((slot) => {
+    const [hours, minutes] = slot.split(":").map(Number);
+    const offsetMinutes = getTimezoneOffsetMinutes(timezone);
+    const sign = offsetMinutes >= 0 ? 1 : -1;
+    const slotStartMs = Date.parse(
+      `${date}T${slot}:00${offsetMinutes >= 0 ? "+" : "-"}${String(Math.floor(Math.abs(offsetMinutes) / 60)).padStart(2, "0")}:${String(Math.abs(offsetMinutes) % 60).padStart(2, "0")}`,
+    );
+    const slotEndMs = slotStartMs + SLOT_DURATION_MS;
+    return items.some((event) => {
+      const eventStart = event.start?.dateTime ? Date.parse(event.start.dateTime) : null;
+      const eventEnd = event.end?.dateTime ? Date.parse(event.end.dateTime) : null;
+      if (!eventStart || !eventEnd) return false;
+      return eventStart < slotEndMs && eventEnd > slotStartMs;
+    });
+  });
+};
+
+app.get("/api/availability", async (req, res) => {
+  res.setHeader("Cache-Control", "no-store");
+  const { date, timezone } = req.query;
+
+  if (!date) {
+    return res.status(400).json({ error: "Missing date parameter" });
+  }
+
+  const tz = timezone || "Africa/Lagos";
+
+  if (!isGoogleCalendarConfigured()) {
+    return res.status(200).json({ bookedSlots: [] });
+  }
+
+  try {
+    const bookedSlots = await getAvailability(date, tz);
+    return res.status(200).json({ bookedSlots });
+  } catch (error) {
+    console.error("Availability check error:", error instanceof Error ? error.message : error);
+    return res.status(200).json({ bookedSlots: [] });
+  }
+});
+
 app.post("/api/book-call", async (req, res) => {
   try {
     const {

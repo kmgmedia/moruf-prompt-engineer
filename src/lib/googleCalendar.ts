@@ -104,6 +104,37 @@ export const isGoogleCalendarConfigured = () =>
     process.env.GOOGLE_CALENDAR_REFRESH_TOKEN,
   );
 
+const BOOKING_SLOTS = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00"];
+const SLOT_DURATION_MS = 30 * 60 * 1000;
+
+export const getAvailability = async (date: string, timezone: string): Promise<string[]> => {
+  const calendar = getCalendarClient();
+  const calendarId = getCalendarId();
+  const dayStart = toOffsetIsoString(`${date}T09:00:00`, timezone);
+  const dayEnd = toOffsetIsoString(`${date}T17:00:00`, timezone);
+
+  const response = await calendar.events.list({
+    calendarId,
+    timeMin: dayStart,
+    timeMax: dayEnd,
+    singleEvents: true,
+    orderBy: "startTime",
+  });
+
+  const items = response.data.items || [];
+
+  return BOOKING_SLOTS.filter((slot) => {
+    const slotStartMs = toInstantMs(`${date}T${slot}:00`, timezone);
+    const slotEndMs = slotStartMs + SLOT_DURATION_MS;
+    return items.some((event) => {
+      const eventStart = event.start?.dateTime ? Date.parse(event.start.dateTime) : null;
+      const eventEnd = event.end?.dateTime ? Date.parse(event.end.dateTime) : null;
+      if (!eventStart || !eventEnd) return false;
+      return eventStart < slotEndMs && eventEnd > slotStartMs;
+    });
+  });
+};
+
 const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
 
 const extractMeetLink = (data: { hangoutLink?: string | null; conferenceData?: { entryPoints?: Array<{ entryPointType?: string | null; uri?: string | null }> | null } | null }) =>

@@ -38,6 +38,8 @@ const BookACall = () => {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [availabilityLoading, setAvailabilityLoading] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
   const [visibleMonth, setVisibleMonth] = useState(() => {
     const now = new Date();
@@ -82,6 +84,26 @@ const BookACall = () => {
     return () => document.removeEventListener("mousedown", handlePointerDown);
   }, [isCalendarOpen]);
 
+  const fetchAvailability = async (date: string, timezone: string) => {
+    setAvailabilityLoading(true);
+    setBookedSlots([]);
+    try {
+      const apiBase = import.meta.env.VITE_API_URL || "";
+      const apiUrl = apiBase ? `${apiBase}/api/availability` : "/api/availability";
+      const response = await fetch(
+        `${apiUrl}?date=${date}&timezone=${encodeURIComponent(timezone)}`,
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setBookedSlots(data.bookedSlots || []);
+      }
+    } catch {
+      // fail silently — all slots remain selectable
+    } finally {
+      setAvailabilityLoading(false);
+    }
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -93,6 +115,9 @@ const BookACall = () => {
       [name]: value,
     }));
     setError("");
+    if (name === "timezone" && formData.meetingDate) {
+      fetchAvailability(formData.meetingDate, value);
+    }
   };
 
   const handleDateSelect = (meetingDate: string) => {
@@ -108,6 +133,7 @@ const BookACall = () => {
     }));
     setError("");
     setIsCalendarOpen(false);
+    fetchAvailability(meetingDate, formData.timezone);
   };
 
   const handleTimeSelect = (meetingTime: string) => {
@@ -179,6 +205,7 @@ const BookACall = () => {
 
   const handleSubmitAnother = () => {
     setSubmitted(false);
+    setBookedSlots([]);
     setFormData({
       name: "",
       email: "",
@@ -470,9 +497,16 @@ const BookACall = () => {
 
               {formData.meetingDate && (
                 <Card className="p-5 bg-primary/5 border-primary/20">
-                  <div className="flex items-center gap-2 text-primary mb-3">
-                    <Clock3 className="w-5 h-5" />
-                    <span className="font-semibold">Choose a Time *</span>
+                  <div className="flex items-center justify-between gap-2 mb-3">
+                    <div className="flex items-center gap-2 text-primary">
+                      <Clock3 className="w-5 h-5" />
+                      <span className="font-semibold">Choose a Time *</span>
+                    </div>
+                    {availabilityLoading && (
+                      <span className="text-xs text-muted-foreground animate-pulse">
+                        Checking availability...
+                      </span>
+                    )}
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">
                     {selectedDateLabel || "Selected date"} in {formData.timezone}
@@ -480,22 +514,36 @@ const BookACall = () => {
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {TIME_SLOTS.map((slot) => {
                       const selected = formData.meetingTime === slot;
+                      const isBooked = bookedSlots.includes(slot);
                       return (
                         <button
                           key={slot}
                           type="button"
+                          disabled={isBooked || availabilityLoading}
                           onClick={() => handleTimeSelect(slot)}
-                          className={`rounded-lg border px-4 py-3 text-sm font-medium transition-colors ${
+                          className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
                             selected
                               ? "border-primary bg-primary text-primary-foreground"
-                              : "border-border bg-background hover:border-primary/50 hover:bg-primary/5"
+                              : isBooked
+                                ? "border-border bg-muted/40 text-muted-foreground/40 cursor-not-allowed"
+                                : availabilityLoading
+                                  ? "border-border bg-background opacity-50 cursor-wait"
+                                  : "border-border bg-background hover:border-primary/50 hover:bg-primary/5"
                           }`}
                         >
-                          {slot}
+                          <span className={isBooked ? "line-through" : ""}>{slot}</span>
+                          {isBooked && (
+                            <span className="block text-xs mt-0.5">Booked</span>
+                          )}
                         </button>
                       );
                     })}
                   </div>
+                  {bookedSlots.length > 0 && !availabilityLoading && (
+                    <p className="text-xs text-muted-foreground mt-3">
+                      Greyed out slots are already booked. Please choose an available time.
+                    </p>
+                  )}
                 </Card>
               )}
 
