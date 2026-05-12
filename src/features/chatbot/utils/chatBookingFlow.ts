@@ -1,7 +1,7 @@
 import type { CapturedData } from "@/lib/chatbot/types";
 
 export const CHAT_BOOK_INTENT_REGEX =
-  /\b(book here|book in chat|book via chat|book through chat|take my details|book directly|here in chat|book right here|skip the form|in this chat|chat booking|via this chat|through this chat|prefer chat|prefer to book here|want to book here|can i book here)\b/i;
+  /\b(book here|book in chat|book via chat|book through chat|take my details|book directly|here in chat|book right here|skip the form|in this chat|chat booking|via this chat|through this chat|prefer chat|prefer to book here|want to book here|can i book here|book a call here|help me(?: to)? book|i want to book|i(?:'d| would)(?: like)? to book|can (?:you )?(?:help me )?book|book a (?:discovery )?call|schedule (?:a )?(?:discovery )?call|set up (?:a )?(?:discovery )?call|let(?:'s| us) (?:book|schedule)|ready to book|book now|start booking|begin booking)\b/i;
 
 export const BOOKING_TIME_SLOTS = [
   "09:00",

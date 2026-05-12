@@ -63,7 +63,7 @@ const EXPERIENCE_HINT_REGEX =
   /\b(applied ai engineer|software engineer|full-stack|automation|api integration|conversational ai|node\.?js|python|react|langchain|mysql|system design|5\+ years|over 5 years)\b/i;
 
 const callBookingReply =
-  "Absolutely — you can book a 20-30 minute discovery call at /book-call, or I can take your details right here in chat. Just say 'book in chat' to start and I will guide you through it step by step. Either way, you will receive a Google Meet link and confirmation by email.";
+  "Absolutely — I can take your details right here in chat, or you can visit /book-call to book directly. Either way you will receive a Google Meet link and confirmation email. Ready to start? Just say 'book a call' and I will guide you step by step.";
 
 const recruiterReply =
   "Great to connect. If this is for a role or contract, I can share relevant experience, projects, and availability. Best next step: book a short discovery call at /book-call, or share the role title, level, and key requirements here.";
