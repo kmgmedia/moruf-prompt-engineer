@@ -30,9 +30,9 @@ export const getNextBookingField = (
   if (!data.email) return "email";
   if (!data.phone) return "phone";
   if (!data.projectType) return "project_type";
+  if (!data.timezone) return "timezone";
   if (!data.meetingDate) return "date";
   if (!data.meetingTime) return "time";
-  if (!data.timezone) return "timezone";
   return "confirm";
 };
 
@@ -54,7 +54,7 @@ export const getBookingStepPrompt = (
     case "time":
       return "What time works best? Choose one below (all times are in your selected timezone):";
     case "timezone":
-      return "What is your timezone?";
+      return "What is your timezone? This helps me show you the correct available time slots.";
   }
 };
 

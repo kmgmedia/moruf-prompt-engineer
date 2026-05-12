@@ -40,6 +40,7 @@ import {
   COMPLIMENT_REPLY,
 } from "@/features/chatbot/guardrails";
 import {
+  BOOKING_TIME_SLOTS,
   CHAT_BOOK_INTENT_REGEX,
   BOOKING_FIELD_TO_DATA_KEY,
   type BookingField,
@@ -229,6 +230,22 @@ export function useAIResponse(
       }
 
       // --- CHAT BOOKING FLOW ---
+      const fetchAvailableSlots = async (date: string, timezone: string): Promise<string[]> => {
+        try {
+          const params = new URLSearchParams({ date, timezone });
+          const url = apiBase
+            ? `${apiBase}/api/availability?${params}`
+            : `/api/availability?${params}`;
+          const response = await fetch(url);
+          if (!response.ok) return [...BOOKING_TIME_SLOTS];
+          const data = (await response.json()) as { bookedSlots?: string[] };
+          const booked = data.bookedSlots ?? [];
+          return BOOKING_TIME_SLOTS.filter((slot) => !booked.includes(slot));
+        } catch {
+          return [...BOOKING_TIME_SLOTS];
+        }
+      };
+
       // Handle ongoing booking step (bypass guardrails entirely)
       if (state.chatBookingStep && state.chatBookingStep !== "done") {
         const step = state.chatBookingStep as BookingField | "confirm";
@@ -360,6 +377,39 @@ export function useAIResponse(
           return;
         }
 
+        // For the time step, verify the chosen slot is still available
+        if (step === "time") {
+          const availableSlots = await fetchAvailableSlots(
+            state.capturedData.meetingDate!,
+            state.capturedData.timezone ?? "Africa/Lagos",
+          );
+          if (!availableSlots.includes(validation.value!)) {
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: availableSlots.length > 0
+                  ? "That time slot is already booked. Please choose from the available times below."
+                  : "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_slot_taken`,
+              },
+            ]);
+            if (availableSlots.length > 0) {
+              setQuickReplies(availableSlots);
+              setShowQuickReplies(true);
+            } else {
+              setState((prev) => ({
+                ...prev,
+                chatBookingStep: "date",
+                capturedData: { ...prev.capturedData, meetingDate: undefined },
+              }));
+              setShowQuickReplies(false);
+            }
+            return;
+          }
+        }
+
         // Save validated value and advance to next step
         const dataKey = BOOKING_FIELD_TO_DATA_KEY[step];
         const newCapturedData = {
@@ -385,6 +435,45 @@ export function useAIResponse(
             },
           ]);
           setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
+          setShowQuickReplies(true);
+          return;
+        }
+
+        // When advancing to the time step, fetch available slots first
+        if (nextField === "time") {
+          const availableSlots = await fetchAvailableSlots(
+            newCapturedData.meetingDate!,
+            newCapturedData.timezone ?? "Africa/Lagos",
+          );
+          if (availableSlots.length === 0) {
+            setState((prev) => ({
+              ...prev,
+              chatBookingStep: "date",
+              capturedData: { ...newCapturedData, meetingDate: undefined },
+            }));
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_no_slots`,
+              },
+            ]);
+            setShowQuickReplies(false);
+            return;
+          }
+          setState((prev) => ({ ...prev, chatBookingStep: "time", capturedData: newCapturedData }));
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: getBookingStepPrompt("time", newCapturedData),
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_booking_step`,
+            },
+          ]);
+          setQuickReplies(availableSlots);
           setShowQuickReplies(true);
           return;
         }
@@ -432,6 +521,41 @@ export function useAIResponse(
           ]);
           setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
           setShowQuickReplies(true);
+        } else if (firstField === "time") {
+          const availableSlots = await fetchAvailableSlots(
+            state.capturedData.meetingDate!,
+            state.capturedData.timezone ?? "Africa/Lagos",
+          );
+          if (availableSlots.length === 0) {
+            setState((prev) => ({
+              ...prev,
+              chatBookingStep: "date",
+              capturedData: { ...prev.capturedData, meetingDate: undefined },
+            }));
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_no_slots`,
+              },
+            ]);
+            setShowQuickReplies(false);
+          } else {
+            setState((prev) => ({ ...prev, chatBookingStep: "time" }));
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: getBookingStepPrompt("time", state.capturedData),
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_booking_start`,
+              },
+            ]);
+            setQuickReplies(availableSlots);
+            setShowQuickReplies(true);
+          }
         } else {
           const prompt = getBookingStepPrompt(firstField as BookingField, state.capturedData);
           setState((prev) => ({ ...prev, chatBookingStep: firstField }));
