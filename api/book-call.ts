@@ -84,6 +84,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const selectedSlot = formatMeetingDateTime(meetingDate, meetingTime);
     const timezoneLabel = timezone || "Africa/Lagos";
     let calendarBooking: CalendarBookingResult | null = null;
+    let calendarErrorMessage = "";
 
     const googleCalendarEnabled = isGoogleCalendarConfigured();
 
@@ -98,22 +99,21 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           projectType,
           timezone: timezoneLabel,
         });
-        console.log("Calendar booking created:", {
-          eventId: calendarBooking.eventId,
-          meetingLink: calendarBooking.meetingLink,
-        });
       } catch (calendarError) {
-        console.error(
-          "Google Calendar booking error:",
+        calendarErrorMessage =
           calendarError instanceof Error
             ? calendarError.message
-            : calendarError,
-        );
+            : String(calendarError);
+        console.error("Google Calendar booking error:", calendarErrorMessage);
       }
     }
 
-    const isRealMeetLink = Boolean(calendarBooking?.meetingLink);
-    const finalMeetingLink = calendarBooking?.meetingLink ||
+    const isRealMeetLink = Boolean(
+      calendarBooking?.meetingLink &&
+      calendarBooking.meetingLink.startsWith("https://meet.google.com/") &&
+      calendarBooking.meetingLink.length > "https://meet.google.com/".length,
+    );
+    const finalMeetingLink = (isRealMeetLink ? calendarBooking!.meetingLink : null) ||
       calendarBooking?.htmlLink ||
       MEETING_LINK;
 
@@ -178,7 +178,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <p><strong>Project Type:</strong> ${projectType}</p>
         <p><strong>Selected Slot:</strong> ${selectedSlot}</p>
         <p><strong>Timezone:</strong> ${timezoneLabel}</p>
-        <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a>${isRealMeetLink ? "" : " <span style='color:orange'>(⚠️ fallback — Google Calendar did not return a Meet link)</span>"}</p>
+        <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a>${isRealMeetLink ? " ✅" : " <span style='color:red'>⚠️ FALLBACK LINK — Google Meet not generated</span>"}</p>
+        ${calendarErrorMessage ? `<p style="color:red"><strong>Google Calendar Error:</strong> ${calendarErrorMessage}</p>` : ""}
+        ${!googleCalendarEnabled ? `<p style="color:orange"><strong>Note:</strong> Google Calendar credentials not configured in environment variables.</p>` : ""}
         <p><strong>Description:</strong> ${description || "Not provided"}</p>
         <p><strong>Submitted at:</strong> ${new Date().toLocaleString()}</p>
       `,
