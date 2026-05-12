@@ -43,6 +43,10 @@ export interface CapturedData {
   email?: string;
   projectType?: string;
   problem?: string;
+  phone?: string;
+  meetingDate?: string;
+  meetingTime?: string;
+  timezone?: string;
 }
 
 export interface ConversationState {
@@ -58,6 +62,7 @@ export interface ConversationState {
   leadCaptured: boolean;
   startedAt: Date;
   lastActivityAt: Date;
+  chatBookingStep: string;
 }
 
 export interface LeadData {
@@ -101,6 +106,7 @@ export const INITIAL_CONVERSATION_STATE: ConversationState = {
   leadCaptured: false,
   startedAt: new Date(),
   lastActivityAt: new Date(),
+  chatBookingStep: "",
 };
 
 export const STORAGE_KEY = "chatbot_conversation_state";

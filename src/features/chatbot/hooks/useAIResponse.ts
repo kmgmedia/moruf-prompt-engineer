@@ -39,6 +39,17 @@ import {
   COMPLIMENT_QUICK_REPLIES,
   COMPLIMENT_REPLY,
 } from "@/features/chatbot/guardrails";
+import {
+  CHAT_BOOK_INTENT_REGEX,
+  BOOKING_FIELD_TO_DATA_KEY,
+  type BookingField,
+  getNextBookingField,
+  getBookingStepPrompt,
+  getBookingStepQuickReplies,
+  validateBookingInput,
+  buildBookingSummary,
+  submitChatBooking,
+} from "@/features/chatbot/utils/chatBookingFlow";
 
 export function useAIResponse(
   getAIResponse: (
@@ -51,6 +62,7 @@ export function useAIResponse(
   setShowQuickReplies: Dispatch<SetStateAction<boolean>>,
   setState: Dispatch<SetStateAction<ConversationState>>,
   state: ConversationState,
+  apiBase: string,
 ) {
   const getScopedQuickReplies = (text: string): string[] | null => {
     if (RECRUITER_TOPIC_REGEX.test(text)) {
@@ -216,6 +228,234 @@ export function useAIResponse(
         return;
       }
 
+      // --- CHAT BOOKING FLOW ---
+      // Handle ongoing booking step (bypass guardrails entirely)
+      if (state.chatBookingStep && state.chatBookingStep !== "done") {
+        const step = state.chatBookingStep as BookingField | "confirm";
+
+        if (step === "confirm") {
+          const confirmsYes =
+            /\b(yes|yeah|yep|yup|confirm|go ahead|ok|sure|book it|looks good|correct|do it|proceed)\b/i.test(
+              textToSend,
+            );
+          const confirmsNo =
+            /\b(no|nope|nah|cancel|change|wrong|incorrect|edit|modify|start over)\b/i.test(
+              textToSend,
+            );
+
+          if (confirmsYes) {
+            setIsTyping(true);
+            try {
+              const result = await submitChatBooking(
+                {
+                  name: state.capturedData.name!,
+                  email: state.capturedData.email!,
+                  phone: state.capturedData.phone!,
+                  projectType: state.capturedData.projectType!,
+                  description: state.capturedData.problem ?? "",
+                  meetingDate: state.capturedData.meetingDate!,
+                  meetingTime: state.capturedData.meetingTime!,
+                  timezone: state.capturedData.timezone!,
+                },
+                apiBase,
+              );
+              setState((prev) => ({ ...prev, chatBookingStep: "done" }));
+              setMessages(() => [
+                ...updatedConversation,
+                {
+                  role: "bot",
+                  text: result.message,
+                  timestamp: new Date(),
+                  messageId: `msg_${Date.now()}_booked`,
+                },
+              ]);
+            } catch (err) {
+              const errorMsg =
+                err instanceof Error ? err.message : "Unknown error";
+              const isSlotTaken = /time slot/i.test(errorMsg);
+              setState((prev) => ({
+                ...prev,
+                chatBookingStep: isSlotTaken ? "date" : "",
+                capturedData: isSlotTaken
+                  ? {
+                      ...prev.capturedData,
+                      meetingDate: undefined,
+                      meetingTime: undefined,
+                    }
+                  : prev.capturedData,
+              }));
+              setMessages(() => [
+                ...updatedConversation,
+                {
+                  role: "bot",
+                  text: isSlotTaken
+                    ? "That time slot was just taken by someone else. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days."
+                    : `Sorry, there was a problem confirming your booking: ${errorMsg}\n\nPlease try the booking form at /book-call instead.`,
+                  timestamp: new Date(),
+                  messageId: `msg_${Date.now()}_booking_err`,
+                },
+              ]);
+            } finally {
+              setIsTyping(false);
+            }
+            setShowQuickReplies(false);
+            return;
+          }
+
+          if (confirmsNo) {
+            setState((prev) => ({
+              ...prev,
+              chatBookingStep: "",
+              capturedData: {
+                ...prev.capturedData,
+                meetingDate: undefined,
+                meetingTime: undefined,
+                timezone: undefined,
+              },
+            }));
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: "No problem. Say 'book in chat' whenever you are ready to try again.",
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_booking_cancel`,
+              },
+            ]);
+            setShowQuickReplies(false);
+            return;
+          }
+
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: "Please reply with Yes to confirm or No to cancel.",
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_confirm_retry`,
+            },
+          ]);
+          setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
+          setShowQuickReplies(true);
+          return;
+        }
+
+        // Validate the current field input
+        const validation = validateBookingInput(step, textToSend);
+        if (!validation.valid) {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: validation.error ?? "Invalid input. Please try again.",
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_booking_invalid`,
+            },
+          ]);
+          const qr = getBookingStepQuickReplies(step);
+          if (qr) {
+            setQuickReplies([...qr]);
+            setShowQuickReplies(true);
+          }
+          return;
+        }
+
+        // Save validated value and advance to next step
+        const dataKey = BOOKING_FIELD_TO_DATA_KEY[step];
+        const newCapturedData = {
+          ...state.capturedData,
+          [dataKey]: validation.value,
+        };
+        const nextField = getNextBookingField(newCapturedData);
+
+        if (nextField === "confirm") {
+          const summary = buildBookingSummary(newCapturedData);
+          setState((prev) => ({
+            ...prev,
+            chatBookingStep: "confirm",
+            capturedData: newCapturedData,
+          }));
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: summary,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_booking_summary`,
+            },
+          ]);
+          setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
+          setShowQuickReplies(true);
+          return;
+        }
+
+        setState((prev) => ({
+          ...prev,
+          chatBookingStep: nextField,
+          capturedData: newCapturedData,
+        }));
+        const prompt = getBookingStepPrompt(nextField as BookingField, newCapturedData);
+        setMessages(() => [
+          ...updatedConversation,
+          {
+            role: "bot",
+            text: prompt,
+            timestamp: new Date(),
+            messageId: `msg_${Date.now()}_booking_step`,
+          },
+        ]);
+        const qr = getBookingStepQuickReplies(nextField as BookingField);
+        if (qr) {
+          setQuickReplies([...qr]);
+          setShowQuickReplies(true);
+        } else {
+          setShowQuickReplies(false);
+        }
+        return;
+      }
+
+      // Detect fresh booking-in-chat intent
+      if (CHAT_BOOK_INTENT_REGEX.test(textToSend)) {
+        const firstField = getNextBookingField(state.capturedData);
+        if (firstField === "confirm") {
+          // All data already captured — go straight to summary
+          const summary = buildBookingSummary(state.capturedData);
+          setState((prev) => ({ ...prev, chatBookingStep: "confirm" }));
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: summary,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_booking_summary`,
+            },
+          ]);
+          setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
+          setShowQuickReplies(true);
+        } else {
+          const prompt = getBookingStepPrompt(firstField as BookingField, state.capturedData);
+          setState((prev) => ({ ...prev, chatBookingStep: firstField }));
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: prompt,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_booking_start`,
+            },
+          ]);
+          const qr = getBookingStepQuickReplies(firstField as BookingField);
+          if (qr) {
+            setQuickReplies([...qr]);
+            setShowQuickReplies(true);
+          } else {
+            setShowQuickReplies(false);
+          }
+        }
+        return;
+      }
+      // --- END CHAT BOOKING FLOW ---
+
       const normalizedInput = normalize(textToSend);
       const isGeneralLearningRequest =
         GENERAL_LEARNING_REQUEST_REGEX.test(textToSend) &&
@@ -347,6 +587,7 @@ export function useAIResponse(
       }, 1200);
     },
     [
+      apiBase,
       getAIResponse,
       setMessages,
       setIsTyping,

@@ -63,7 +63,7 @@ const EXPERIENCE_HINT_REGEX =
   /\b(applied ai engineer|software engineer|full-stack|automation|api integration|conversational ai|node\.?js|python|react|langchain|mysql|system design|5\+ years|over 5 years)\b/i;
 
 const callBookingReply =
-  "Absolutely, yes — we can talk by phone. The fastest next step is to book a 20-30 minute discovery call here: /book-call. Once you submit, I will send a calendar link by email. If you want, I can guide you through what to fill in.";
+  "Absolutely — you can book a 20-30 minute discovery call at /book-call, or I can take your details right here in chat. Just say 'book in chat' to start and I will guide you through it step by step. Either way, you will receive a Google Meet link and confirmation by email.";
 
 const recruiterReply =
   "Great to connect. If this is for a role or contract, I can share relevant experience, projects, and availability. Best next step: book a short discovery call at /book-call, or share the role title, level, and key requirements here.";

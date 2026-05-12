@@ -24,6 +24,13 @@ import {
 const ChatBot = () => {
   const navigate = useNavigate();
   const isMobile = useIsMobile();
+  const isDev = typeof import.meta !== "undefined" && !!import.meta.env?.DEV;
+  const apiBase = (
+    (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL
+      ? String(import.meta.env.VITE_API_URL)
+      : "") || (isDev ? "http://localhost:3001" : "")
+  ).replace(/\/+$/, "");
+
   const { getAIResponse, error: aiError } = useAIChatbot({
     useOpenAI: true,
     fallbackToRules: true,
@@ -57,6 +64,7 @@ const ChatBot = () => {
     setShowQuickReplies,
     setState,
     state,
+    apiBase,
   );
 
   const messagesContainerRef = useRef<HTMLDivElement>(null);
