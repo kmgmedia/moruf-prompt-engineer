@@ -109,6 +109,13 @@ const toOffsetIsoString = (dateTimeLocal, timezone) => {
   return `${dateTimeLocal}${sign}${offsetHours}:${remainderMinutes}`;
 };
 
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const extractMeetLink = (data) =>
+  data.hangoutLink ||
+  data.conferenceData?.entryPoints?.find((e) => e.entryPointType === "video")?.uri ||
+  null;
+
 const createGoogleCalendarBooking = async ({
   customerEmail,
   customerName,
@@ -187,23 +194,32 @@ const createGoogleCalendarBooking = async ({
     },
   });
 
-  const meetingLink =
-    event.data.hangoutLink ||
-    event.data.conferenceData?.entryPoints?.find(
-      (entry) => entry.entryPointType === "video",
-    )?.uri ||
-    "";
+  let meetingLink = extractMeetLink(event.data);
 
-  if (!event.data.id || !event.data.htmlLink || !meetingLink) {
-    throw new Error(
-      "Google Calendar booking was created, but the meeting link could not be generated.",
-    );
+  if (!meetingLink) {
+    const statusCode = event.data.conferenceData?.createRequest?.status?.statusCode;
+    if (statusCode === "pending") {
+      await sleep(2500);
+      const refreshed = await calendar.events.get({ calendarId, eventId: event.data.id });
+      meetingLink = extractMeetLink(refreshed.data);
+    }
+    if (!meetingLink) {
+      console.warn("Google Meet link not available after creation", {
+        statusCode,
+        hangoutLink: event.data.hangoutLink,
+        htmlLink: event.data.htmlLink,
+      });
+    }
+  }
+
+  if (!event.data.id || !event.data.htmlLink) {
+    throw new Error("Google Calendar booking failed: missing event ID or HTML link.");
   }
 
   return {
     eventId: event.data.id,
     htmlLink: event.data.htmlLink,
-    meetingLink,
+    meetingLink: meetingLink || event.data.htmlLink,
   };
 };
 
@@ -403,6 +419,7 @@ app.post("/api/book-call", async (req, res) => {
         );
       }
     }
+    const isRealMeetLink = Boolean(calendarBooking?.meetingLink);
     const finalMeetingLink = calendarBooking?.meetingLink || calendarBooking?.htmlLink || MEETING_LINK;
 
     await resend.emails.send({
@@ -417,7 +434,7 @@ app.post("/api/book-call", async (req, res) => {
         <p><strong>Project Type:</strong> ${projectType}</p>
         <p><strong>Selected Slot:</strong> ${selectedSlot}</p>
         <p><strong>Timezone:</strong> ${timezoneLabel}</p>
-        <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a></p>
+        <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a>${isRealMeetLink ? "" : " <span style='color:orange'>(⚠️ fallback — Google Calendar did not return a Meet link)</span>"}</p>
         <p><strong>Description:</strong> ${description || "Not provided"}</p>
         <p><strong>Submitted at:</strong> ${new Date().toLocaleString()}</p>
       `,

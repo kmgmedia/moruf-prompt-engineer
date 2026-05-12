@@ -104,12 +104,12 @@ export const isGoogleCalendarConfigured = () =>
     process.env.GOOGLE_CALENDAR_REFRESH_TOKEN,
   );
 
-const generateGoogleMeetUrl = (eventId: string): string => {
-  // Generate a simple Google Meet URL format from the event ID
-  // This is a fallback if the API doesn't return hangoutLink
-  const meetCode = eventId.split("@")[0];
-  return `https://meet.google.com/${meetCode.replace(/[^a-z0-9-]/g, "").toLowerCase()}`;
-};
+const sleep = (ms: number) => new Promise<void>((resolve) => setTimeout(resolve, ms));
+
+const extractMeetLink = (data: { hangoutLink?: string | null; conferenceData?: { entryPoints?: Array<{ entryPointType?: string | null; uri?: string | null }> | null } | null }) =>
+  data.hangoutLink ||
+  data.conferenceData?.entryPoints?.find((e) => e.entryPointType === "video")?.uri ||
+  null;
 
 export const createGoogleCalendarBooking = async (
   input: CalendarBookingInput,
@@ -183,21 +183,23 @@ export const createGoogleCalendarBooking = async (
     },
   });
 
-  let meetingLink =
-    event.data.hangoutLink ||
-    event.data.conferenceData?.entryPoints?.find(
-      (entry) => entry.entryPointType === "video",
-    )?.uri;
+  let meetingLink = extractMeetLink(event.data);
 
-  // Fallback: if no meeting link, use the event HTML link as a backup
   if (!meetingLink) {
-    console.warn("Google Meet link not found in conference data", {
-      hangoutLink: event.data.hangoutLink,
-      conferenceData: event.data.conferenceData,
-      htmlLink: event.data.htmlLink,
-    });
-    // Use the calendar event link as fallback
-    meetingLink = event.data.htmlLink || "";
+    const statusCode = event.data.conferenceData?.createRequest?.status?.statusCode;
+    if (statusCode === "pending") {
+      await sleep(2500);
+      const refreshed = await calendar.events.get({ calendarId, eventId: event.data.id! });
+      meetingLink = extractMeetLink(refreshed.data);
+    }
+    if (!meetingLink) {
+      console.warn("Google Meet link not available after creation", {
+        statusCode,
+        hangoutLink: event.data.hangoutLink,
+        conferenceData: event.data.conferenceData,
+        htmlLink: event.data.htmlLink,
+      });
+    }
   }
 
   if (!event.data.id || !event.data.htmlLink) {

@@ -1,7 +1,5 @@
 export const DEFAULT_NOTIFY_EMAIL = "morufbadebola@gmail.com";
 
-export const DEFAULT_MEETING_LINK = "https://meet.google.com/";
-
 export const BOOKING_TIMEZONE_OPTIONS = [
   { value: "Africa/Lagos", label: "Africa/Lagos (WAT)" },
   { value: "Africa/Johannesburg", label: "Africa/Johannesburg (SAST)" },

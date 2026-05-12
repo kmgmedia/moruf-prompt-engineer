@@ -112,15 +112,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
+    const isRealMeetLink = Boolean(calendarBooking?.meetingLink);
     const finalMeetingLink = calendarBooking?.meetingLink ||
       calendarBooking?.htmlLink ||
       MEETING_LINK;
-
-    console.log("Final meeting link:", {
-      hasCalendarBooking: !!calendarBooking,
-      meetingLink: finalMeetingLink,
-      bookingMeetingLink: calendarBooking?.meetingLink,
-    });
 
     const crmSync = {
       attempted: false,
@@ -183,7 +178,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         <p><strong>Project Type:</strong> ${projectType}</p>
         <p><strong>Selected Slot:</strong> ${selectedSlot}</p>
         <p><strong>Timezone:</strong> ${timezoneLabel}</p>
-        <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a></p>
+        <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a>${isRealMeetLink ? "" : " <span style='color:orange'>(⚠️ fallback — Google Calendar did not return a Meet link)</span>"}</p>
         <p><strong>Description:</strong> ${description || "Not provided"}</p>
         <p><strong>Submitted at:</strong> ${new Date().toLocaleString()}</p>
       `,
