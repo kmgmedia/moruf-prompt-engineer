@@ -143,25 +143,35 @@ export function useAIResponse(
         .trim()
         .toLowerCase();
 
+      // Shows typing dots for a short delay, then fires fn() to reveal the bot message.
+      const showAfterTyping = (fn: () => void, delay = 750) => {
+        setIsTyping(true);
+        setTimeout(() => {
+          setIsTyping(false);
+          fn();
+        }, delay);
+      };
+
       if (
         greetingRegex.test(textToSend) ||
         greetingRegex.test(normalizedSimple)
       ) {
-        setMessages(() => [
-          ...updatedConversation,
-          {
-            role: "bot",
-            text: "Hey there! I can help with questions about my projects, services, or portfolio. What would you like to know about my work?",
-            timestamp: new Date(),
-            messageId: `msg_${Date.now()}_greeting`,
-          },
-        ]);
-        setIsTyping(false);
-        setShowQuickReplies(true);
-        setQuickReplies([
-          "What services do you offer?",
-          "How can I book a call?",
-        ]);
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: "Hey there! I can help with questions about my projects, services, or portfolio. What would you like to know about my work?",
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_greeting`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What services do you offer?",
+            "How can I book a call?",
+          ]);
+        });
         return;
       }
 
@@ -170,37 +180,39 @@ export function useAIResponse(
         shortExplorationRegex.test(textToSend) ||
         shortExplorationRegex.test(normalizedSimple)
       ) {
-        setMessages(() => [
-          ...updatedConversation,
-          {
-            role: "bot",
-            text: SHORT_EXPLORATION_REPLY,
-            timestamp: new Date(),
-            messageId: `msg_${Date.now()}_explore`,
-          },
-        ]);
-        setIsTyping(false);
-        setShowQuickReplies(true);
-        setQuickReplies([
-          "Show me your projects",
-          "What services do you offer?",
-          "How can I book a call?",
-        ]);
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: SHORT_EXPLORATION_REPLY,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_explore`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "Show me your projects",
+            "What services do you offer?",
+            "How can I book a call?",
+          ]);
+        });
         return;
       }
 
       if (thanksRegex.test(textToSend) || thanksRegex.test(normalizedSimple)) {
-        setMessages(() => [
-          ...updatedConversation,
-          {
-            role: "bot",
-            text: "You're welcome - happy to help! If you have questions about my projects or services, ask away.",
-            timestamp: new Date(),
-            messageId: `msg_${Date.now()}_thanks`,
-          },
-        ]);
-        setIsTyping(false);
-        setShowQuickReplies(false);
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: "You're welcome - happy to help! If you have questions about my projects or services, ask away.",
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_thanks`,
+            },
+          ]);
+          setShowQuickReplies(false);
+        });
         return;
       }
 
@@ -214,18 +226,19 @@ export function useAIResponse(
           textToSend,
         )
       ) {
-        setMessages(() => [
-          ...updatedConversation,
-          {
-            role: "bot",
-            text: COMPLIMENT_REPLY,
-            timestamp: new Date(),
-            messageId: `msg_${Date.now()}_compliment`,
-          },
-        ]);
-        setIsTyping(false);
-        setShowQuickReplies(true);
-        setQuickReplies([...COMPLIMENT_QUICK_REPLIES]);
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: COMPLIMENT_REPLY,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_compliment`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([...COMPLIMENT_QUICK_REPLIES]);
+        });
         return;
       }
 
@@ -330,59 +343,67 @@ export function useAIResponse(
                 timezone: undefined,
               },
             }));
+            showAfterTyping(() => {
+              setMessages(() => [
+                ...updatedConversation,
+                {
+                  role: "bot",
+                  text: "No problem. Say 'book a call' whenever you are ready to try again.",
+                  timestamp: new Date(),
+                  messageId: `msg_${Date.now()}_booking_cancel`,
+                },
+              ]);
+              setShowQuickReplies(false);
+            });
+            return;
+          }
+
+          showAfterTyping(() => {
             setMessages(() => [
               ...updatedConversation,
               {
                 role: "bot",
-                text: "No problem. Say 'book in chat' whenever you are ready to try again.",
+                text: "Please reply with Yes to confirm or No to cancel.",
                 timestamp: new Date(),
-                messageId: `msg_${Date.now()}_booking_cancel`,
+                messageId: `msg_${Date.now()}_confirm_retry`,
               },
             ]);
-            setShowQuickReplies(false);
-            return;
-          }
-
-          setMessages(() => [
-            ...updatedConversation,
-            {
-              role: "bot",
-              text: "Please reply with Yes to confirm or No to cancel.",
-              timestamp: new Date(),
-              messageId: `msg_${Date.now()}_confirm_retry`,
-            },
-          ]);
-          setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
-          setShowQuickReplies(true);
+            setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
+            setShowQuickReplies(true);
+          });
           return;
         }
 
         // Validate the current field input
         const validation = validateBookingInput(step, textToSend);
         if (!validation.valid) {
-          setMessages(() => [
-            ...updatedConversation,
-            {
-              role: "bot",
-              text: validation.error ?? "Invalid input. Please try again.",
-              timestamp: new Date(),
-              messageId: `msg_${Date.now()}_booking_invalid`,
-            },
-          ]);
-          const qr = getBookingStepQuickReplies(step);
-          if (qr) {
-            setQuickReplies([...qr]);
-            setShowQuickReplies(true);
-          }
+          showAfterTyping(() => {
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: validation.error ?? "Invalid input. Please try again.",
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_booking_invalid`,
+              },
+            ]);
+            const qr = getBookingStepQuickReplies(step);
+            if (qr) {
+              setQuickReplies([...qr]);
+              setShowQuickReplies(true);
+            }
+          });
           return;
         }
 
         // For the time step, verify the chosen slot is still available
         if (step === "time") {
+          setIsTyping(true);
           const availableSlots = await fetchAvailableSlots(
             state.capturedData.meetingDate!,
             state.capturedData.timezone ?? "Africa/Lagos",
           );
+          setIsTyping(false);
           if (!availableSlots.includes(validation.value!)) {
             setMessages(() => [
               ...updatedConversation,
@@ -441,10 +462,12 @@ export function useAIResponse(
 
         // When advancing to the time step, fetch available slots first
         if (nextField === "time") {
+          setIsTyping(true);
           const availableSlots = await fetchAvailableSlots(
             newCapturedData.meetingDate!,
             newCapturedData.timezone ?? "Africa/Lagos",
           );
+          setIsTyping(false);
           if (availableSlots.length === 0) {
             setState((prev) => ({
               ...prev,
@@ -478,28 +501,30 @@ export function useAIResponse(
           return;
         }
 
-        setState((prev) => ({
-          ...prev,
-          chatBookingStep: nextField,
-          capturedData: newCapturedData,
-        }));
-        const prompt = getBookingStepPrompt(nextField as BookingField, newCapturedData);
-        setMessages(() => [
-          ...updatedConversation,
-          {
-            role: "bot",
-            text: prompt,
-            timestamp: new Date(),
-            messageId: `msg_${Date.now()}_booking_step`,
-          },
-        ]);
-        const qr = getBookingStepQuickReplies(nextField as BookingField);
-        if (qr) {
-          setQuickReplies([...qr]);
-          setShowQuickReplies(true);
-        } else {
-          setShowQuickReplies(false);
-        }
+        showAfterTyping(() => {
+          setState((prev) => ({
+            ...prev,
+            chatBookingStep: nextField,
+            capturedData: newCapturedData,
+          }));
+          const prompt = getBookingStepPrompt(nextField as BookingField, newCapturedData);
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: prompt,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_booking_step`,
+            },
+          ]);
+          const qr = getBookingStepQuickReplies(nextField as BookingField);
+          if (qr) {
+            setQuickReplies([...qr]);
+            setShowQuickReplies(true);
+          } else {
+            setShowQuickReplies(false);
+          }
+        });
         return;
       }
 
@@ -509,23 +534,27 @@ export function useAIResponse(
         if (firstField === "confirm") {
           // All data already captured — go straight to summary
           const summary = buildBookingSummary(state.capturedData);
-          setState((prev) => ({ ...prev, chatBookingStep: "confirm" }));
-          setMessages(() => [
-            ...updatedConversation,
-            {
-              role: "bot",
-              text: summary,
-              timestamp: new Date(),
-              messageId: `msg_${Date.now()}_booking_summary`,
-            },
-          ]);
-          setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
-          setShowQuickReplies(true);
+          showAfterTyping(() => {
+            setState((prev) => ({ ...prev, chatBookingStep: "confirm" }));
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: summary,
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_booking_summary`,
+              },
+            ]);
+            setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
+            setShowQuickReplies(true);
+          });
         } else if (firstField === "time") {
+          setIsTyping(true);
           const availableSlots = await fetchAvailableSlots(
             state.capturedData.meetingDate!,
             state.capturedData.timezone ?? "Africa/Lagos",
           );
+          setIsTyping(false);
           if (availableSlots.length === 0) {
             setState((prev) => ({
               ...prev,
@@ -557,24 +586,26 @@ export function useAIResponse(
             setShowQuickReplies(true);
           }
         } else {
-          const prompt = getBookingStepPrompt(firstField as BookingField, state.capturedData);
-          setState((prev) => ({ ...prev, chatBookingStep: firstField }));
-          setMessages(() => [
-            ...updatedConversation,
-            {
-              role: "bot",
-              text: prompt,
-              timestamp: new Date(),
-              messageId: `msg_${Date.now()}_booking_start`,
-            },
-          ]);
-          const qr = getBookingStepQuickReplies(firstField as BookingField);
-          if (qr) {
-            setQuickReplies([...qr]);
-            setShowQuickReplies(true);
-          } else {
-            setShowQuickReplies(false);
-          }
+          showAfterTyping(() => {
+            setState((prev) => ({ ...prev, chatBookingStep: firstField }));
+            const prompt = getBookingStepPrompt(firstField as BookingField, state.capturedData);
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: prompt,
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_booking_start`,
+              },
+            ]);
+            const qr = getBookingStepQuickReplies(firstField as BookingField);
+            if (qr) {
+              setQuickReplies([...qr]);
+              setShowQuickReplies(true);
+            } else {
+              setShowQuickReplies(false);
+            }
+          });
         }
         return;
       }
@@ -610,18 +641,19 @@ export function useAIResponse(
           isBlocked,
           isAllowed,
         });
-        setMessages(() => [
-          ...updatedConversation,
-          {
-            role: "bot",
-            text: blockedResponse.text,
-            timestamp: new Date(),
-            messageId: `msg_${Date.now()}_blocked`,
-          },
-        ]);
-        setIsTyping(false);
-        setQuickReplies(blockedResponse.quickReplies);
-        setShowQuickReplies(true);
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: blockedResponse.text,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_blocked`,
+            },
+          ]);
+          setQuickReplies(blockedResponse.quickReplies);
+          setShowQuickReplies(true);
+        });
         return;
       }
 
