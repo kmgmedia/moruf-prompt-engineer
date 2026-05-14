@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { X, Send } from "lucide-react";
+import { X, Send, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { toast } from "sonner";
@@ -8,7 +8,7 @@ import { useAIResponse } from "../features/chatbot/hooks/useAIResponse";
 import { useAIChatbot } from "../hooks/use-ai-chatbot";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
-import { INITIAL_QUICK_REPLIES } from "@/components/chatbot/constants";
+import { INITIAL_QUICK_REPLIES, INITIAL_BOT_GREETING } from "@/components/chatbot/constants";
 import { renderMessageWithLinks } from "@/components/chatbot/messageLinks";
 import { PenIcon } from "@/components/chatbot/PenIcon";
 import { usePromoCard } from "@/components/chatbot/promo";
@@ -36,6 +36,7 @@ const ChatBot = () => {
     fallbackToRules: true,
   });
   const [isOpen, setIsOpen] = useState(false);
+  const [showResetModal, setShowResetModal] = useState(false);
   const {
     showPromoCard,
     setShowPromoCard,
@@ -225,6 +226,40 @@ const ChatBot = () => {
     setIsOpen(false);
   };
 
+  const handleNewConversation = () => {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("chatbot_conversation_state");
+      localStorage.removeItem("chatbot_messages");
+    }
+    const freshGreeting: Message = {
+      role: "bot",
+      text: INITIAL_BOT_GREETING,
+      timestamp: new Date(),
+      messageId: `msg_${Date.now()}`,
+    };
+    setMessages([freshGreeting]);
+    setState({
+      stage: "greeting",
+      userType: "unknown",
+      intent: "unknown",
+      captureStep: "none",
+      messageCount: 0,
+      capturedData: {},
+      memoryKey: `chatbot_${Date.now()}`,
+      sessionId: `session_${Date.now()}_${Math.random().toString(36).substring(2, 11)}`,
+      ctaTriggered: false,
+      leadCaptured: false,
+      startedAt: new Date(),
+      lastActivityAt: new Date(),
+      chatBookingStep: "",
+    });
+    setQuickReplies([...INITIAL_QUICK_REPLIES]);
+    setShowQuickReplies(true);
+    setInput("");
+    hasShownReturnGreetingRef.current = false;
+    setShowResetModal(false);
+  };
+
   const handleClosePromo = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShowPromoCard(false);
@@ -293,7 +328,7 @@ const ChatBot = () => {
             className={
               isMobile
                 ? "w-full h-[100svh] bg-card border-0 shadow-none rounded-none flex flex-col relative"
-                : "w-[calc(100vw-2rem)] max-w-[28rem] h-[70vh] max-h-[40rem] sm:h-[34rem] lg:h-[40rem] bg-card border-primary/20 shadow-lg flex flex-col"
+                : "w-[calc(100vw-2rem)] max-w-[28rem] h-[70vh] max-h-[40rem] sm:h-[34rem] lg:h-[40rem] bg-card border-primary/20 shadow-lg flex flex-col relative"
             }
           >
             <div
@@ -310,12 +345,21 @@ const ChatBot = () => {
                   </span>
                 </div>
               </div>
-              <button
-                onClick={handleCloseChat}
-                className="hover:bg-primary/80 p-1 rounded transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={() => setShowResetModal(true)}
+                  className="hover:bg-primary/80 p-1 rounded transition-colors"
+                  title="New conversation"
+                >
+                  <RotateCcw className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={handleCloseChat}
+                  className="hover:bg-primary/80 p-1 rounded transition-colors"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
             </div>
 
             <div
@@ -389,7 +433,7 @@ const ChatBot = () => {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSend() }
+                onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Type a message..."
                 className="flex-1 px-3 py-2 rounded-lg bg-background border border-border focus:border-primary focus:outline-none text-sm"
                 style={isMobile ? { minWidth: 0 } : undefined}
@@ -402,6 +446,38 @@ const ChatBot = () => {
                 <Send className="w-4 h-4" />
               </Button>
             </div>
+            <div className="flex items-center justify-center gap-1.5 py-1.5 border-t border-border/50 bg-background">
+              <img src="/kmgmedia-logo.png" alt="KmgMedia" className="h-4 w-4 shrink-0 object-contain" />
+              <span className="text-[10px] text-muted-foreground">
+                Powered by KmgMedia
+              </span>
+            </div>
+
+            {showResetModal && (
+              <div className="absolute inset-0 flex items-end justify-center z-50">
+                <div
+                  className="absolute inset-0 bg-black/20"
+                  onClick={() => setShowResetModal(false)}
+                />
+                <div className="relative w-full bg-background rounded-t-2xl shadow-xl px-6 pt-5 pb-8">
+                  <p className="text-center text-sm font-semibold text-foreground mb-4">
+                    Create New Conversation
+                  </p>
+                  <button
+                    onClick={handleNewConversation}
+                    className="w-full py-3 rounded-xl bg-primary/10 text-primary font-medium text-sm hover:bg-primary/20 transition-colors mb-2"
+                  >
+                    New conversation
+                  </button>
+                  <button
+                    onClick={() => setShowResetModal(false)}
+                    className="w-full py-3 rounded-xl text-foreground font-medium text-sm hover:bg-muted transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
           </Card>
         ) : (
           <Button
