@@ -246,11 +246,11 @@ export const Projects = () => {
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               {/* Project Image */}
-              <div className="relative h-32 md:h-40 bg-gradient-primary overflow-hidden flex items-center justify-center group">
+              <div className="relative h-48 md:h-56 bg-gradient-primary overflow-hidden flex items-center justify-center group">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover contrast-110 saturate-125 group-hover:scale-105 transition-transform duration-300"
                   onLoad={() => handleImageLoad(index)}
                   onError={(e) => handleImageError(index, e)}
                 />
@@ -291,24 +291,6 @@ export const Projects = () => {
                   </p>
                 </div>
 
-                <div>
-                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
-                    Key Features
-                  </h4>
-                  <ul className="space-y-0.5 md:space-y-1">
-                    {project.strategy.map((item, i) => (
-                      <li
-                        key={i}
-                        className="text-foreground/90 text-xs md:text-sm flex items-start"
-                      >
-                        <span className="text-primary mr-2 flex-shrink-0">
-                          •
-                        </span>
-                        <span>{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
 
                 <div>
                   <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
