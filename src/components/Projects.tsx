@@ -10,6 +10,7 @@ import {
   Store,
   School,
   LayoutDashboard,
+  Building2,
 } from "lucide-react";
 
 const projects = [
@@ -46,6 +47,32 @@ const projects = [
     tools: ["Gemini API", "Python", "LangChain", "Telegram API"],
     link: "https://saleschatbotfile.vercel.app/",
     caseStudy: "/case-study/ecommerce-sales-automation",
+  },
+  {
+    icon: Building2,
+    image: "/projects/property-intelligence.png",
+    title: "AI Property Intelligence Assistant",
+    client: "NaijaRealty AI System",
+    goal: "Build an AI-powered property assistant that helps real estate teams and clients instantly search listings, answer property questions, and automate lead engagement.",
+    strategy: [
+      "AI-powered property search and recommendations",
+      "Conversational real estate assistant with memory",
+      "Automated lead capture and inquiry handling",
+      "Daily analytics and interaction reporting",
+    ],
+    outcome:
+      "Reduced response delays, improved property discovery speed, and enabled 24/7 automated client engagement.",
+    tools: [
+      "n8n",
+      "OpenAI",
+      "Pinecone",
+      "React",
+      "Gmail API",
+      "Webhooks & APIs",
+      "Vector Search",
+    ],
+    link: "https://realestatewebsite-main.vercel.app/",
+    caseStudy: "/case-study/property-intelligence-assistant",
   },
   {
     icon: Database,
@@ -92,6 +119,7 @@ const projects = [
       "CSS/Sass",
       "JavaScript",
       "Node.js",
+      "Express.js",
       "MongoDB",
       "Bootstrap",
     ],
@@ -162,7 +190,8 @@ const projects = [
     outcome:
       "Created 15+ original story + image pairs that were used across digital campaigns and social media assets.",
     tools: ["GPT-4", "Midjourney", "Notion AI"],
-    link: "",
+    link: "mailto:morufbadebola@gmail.com?subject=Creative%20Storytelling%20Prompts%20Project",
+    caseStudy: "/case-study/emotional-ai",
   },
 ];
 

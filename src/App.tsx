@@ -29,6 +29,9 @@ const CaseStudyBYCEcommerce = lazy(
   () => import("./pages/CaseStudyBYCEcommerce"),
 );
 const CaseStudyEmotionalAI = lazy(() => import("./pages/CaseStudyEmotionalAI"));
+const CaseStudyPropertyIntelligence = lazy(
+  () => import("./pages/CaseStudyPropertyIntelligence"),
+);
 
 const queryClient = new QueryClient();
 
@@ -93,6 +96,10 @@ const router = createBrowserRouter(
         {
           path: "/case-study/emotional-ai",
           element: withSuspense(<CaseStudyEmotionalAI />),
+        },
+        {
+          path: "/case-study/property-intelligence-assistant",
+          element: withSuspense(<CaseStudyPropertyIntelligence />),
         },
         { path: "*", element: withSuspense(<NotFound />) },
       ],

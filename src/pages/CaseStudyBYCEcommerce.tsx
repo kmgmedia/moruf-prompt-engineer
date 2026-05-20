@@ -295,6 +295,7 @@ const CaseStudyBYCEcommerce = () => {
                   "CSS/Sass",
                   "JavaScript",
                   "Node.js",
+                  "Express.js",
                   "MongoDB",
                   "Bootstrap",
                 ].map((tech, i) => (
