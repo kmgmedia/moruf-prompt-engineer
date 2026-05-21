@@ -11,6 +11,10 @@ const expertise = [
   "AI Assistants",
   "Webhooks",
   "Backend Automation",
+  "React.js",
+  "TypeScript",
+  "Node.js",
+  "REST APIs",
   "Business Systems",
 ];
 
@@ -54,10 +58,10 @@ export const About = () => {
               </h2>
 
               <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base md:text-lg md:leading-8">
-                I am an Applied AI Engineer designing and deploying AI-powered
-                workflow systems, automation pipelines, and LLM-integrated
-                business solutions across sales, operations, customer support,
-                and internal productivity workflows.
+                I am an Applied AI Engineer and Full-Stack Software Engineer
+                designing AI-powered workflow systems, automation pipelines, and
+                LLM-integrated business solutions across sales, operations,
+                customer support, and internal productivity workflows.
               </p>
             </div>
 
@@ -65,25 +69,27 @@ export const About = () => {
               <p>
                 I build scalable systems with OpenAI APIs, n8n, webhooks,
                 vector databases, RAG workflows, backend integrations, and
-                automation orchestration that reduce manual effort and improve
-                response speed.
+                automation orchestration that reduce manual effort, improve
+                response speed, and support real business operations.
               </p>
 
               <p>
-                My software engineering foundation spans Python, JavaScript,
-                Node.js, API integrations, and backend automation systems, so
-                the solutions I build are practical, maintainable, and ready to
-                support real business operations.
+                My software engineering foundation spans React.js, TypeScript,
+                JavaScript, Node.js, Express.js, Python, REST APIs, MongoDB, and
+                backend automation systems. This allows me to build not just AI
+                workflows, but complete web applications, dashboards, APIs, and
+                business systems that are practical, maintainable, and
+                deployment-ready.
               </p>
             </div>
 
             <div className="pt-4">
               <Button
                 size="lg"
-                className="bg-primary px-8 font-mono text-xs font-semibold uppercase tracking-[0.18em] text-primary-foreground hover:bg-primary/90"
+                className="bg-primary px-8 text-sm font-medium text-primary-foreground hover:bg-primary/90"
                 asChild
               >
-                <a href="#contact">Start a Project</a>
+                <a href="#contact">Start A Project</a>
               </Button>
             </div>
           </div>
