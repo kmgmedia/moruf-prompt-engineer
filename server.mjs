@@ -278,7 +278,7 @@ app.post("/api/chatbot-response", async (req, res) => {
 
 app.post("/api/lead", async (req, res) => {
   try {
-    const { name, email, projectType, description, intent, messages } =
+    const { name, email, projectType, description, intent, messages, source } =
       req.body || {};
 
     if (!name || !email) {
@@ -303,6 +303,12 @@ app.post("/api/lead", async (req, res) => {
         recruiting: "Job/Recruiting",
         not_sure: "Not Sure Yet",
       }[projectType] || projectType;
+    const sourceLabel =
+      {
+        chatbot: "Chatbot",
+        book_call_form: "Book a Call Form",
+        contact_form: "Contact Section",
+      }[source] || "Contact Section";
 
     const conversationHistory = messages
       ? messages
@@ -315,7 +321,7 @@ app.post("/api/lead", async (req, res) => {
       to: NOTIFY_EMAIL,
       subject: `New Lead: ${name} (${intentLabel})`,
       html: `
-        <h2 style="color: #000;">New Chatbot Lead</h2>
+        <h2 style="color: #000;">New ${sourceLabel} Lead</h2>
         <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #333;">Lead Information</h3>
           <p><strong>Name:</strong> ${name}</p>
@@ -323,7 +329,7 @@ app.post("/api/lead", async (req, res) => {
           <p><strong>Intent:</strong> ${intentLabel}</p>
           <p><strong>Project Type:</strong> ${projectTypeLabel}</p>
           <p><strong>Description:</strong> ${description || "Not provided"}</p>
-          <p><strong>Source:</strong> Chatbot</p>
+          <p><strong>Source:</strong> ${sourceLabel}</p>
           <p><strong>Submitted at:</strong> ${new Date().toLocaleString()}</p>
         </div>
         <div style="background: #f9f9f9; padding: 15px; border-left: 4px solid #007bff; margin: 20px 0;">

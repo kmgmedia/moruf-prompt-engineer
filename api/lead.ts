@@ -14,7 +14,7 @@ const BOOK_CALL_URL =
   (APP_BASE_URL ? `${APP_BASE_URL}/book-call` : "/book-call");
 
 type LeadStatus = "new_lead" | "booked" | "closed" | "lost";
-type LeadSource = "chatbot" | "book_call_form";
+type LeadSource = "chatbot" | "book_call_form" | "contact_form";
 
 interface LeadData {
   name: string;
@@ -69,6 +69,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     const normalizedStatus: LeadStatus = status || "new_lead";
     const normalizedSource: LeadSource = source || "chatbot";
+    const sourceLabel =
+      {
+        chatbot: "Chatbot",
+        book_call_form: "Book a Call Form",
+        contact_form: "Contact Section",
+      }[normalizedSource] || normalizedSource;
 
     // Validate required fields
     if (!name || !email || !projectType) {
@@ -184,7 +190,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       to: YOUR_EMAIL,
       subject: `🚀 New Lead: ${name} (${intentLabel})`,
       html: `
-        <h2 style="color: #000;">New Chatbot Lead</h2>
+        <h2 style="color: #000;">New ${sourceLabel} Lead</h2>
         
         <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #333;">Lead Information</h3>
@@ -193,7 +199,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           <p><strong>Intent:</strong> ${intentLabel}</p>
           <p><strong>Project Type:</strong> ${projectTypeLabel}</p>
           <p><strong>Description:</strong> ${description || "Not provided"}</p>
-          <p><strong>Source:</strong> ${normalizedSource}</p>
+          <p><strong>Source:</strong> ${sourceLabel}</p>
           <p><strong>Status:</strong> ${statusLabel}</p>
           <p><strong>Session ID:</strong> ${normalizedLead.sessionId}</p>
           <p><strong>Conversation Duration:</strong> ${normalizedLead.conversationDuration}s</p>
