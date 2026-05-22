@@ -72,7 +72,7 @@ const pricingTimelineReply =
   "Great question. Pricing and timeline depend on scope, integrations, and delivery speed. The fastest way to get a realistic estimate is a 20-30 minute discovery call at /book-call. If you want, share your goal, budget range, and deadline and I will help you frame it first.";
 
 const caseStudyReply =
-  "Absolutely. Here are strong examples you can review now: /case-study/teacher-ai, /case-study/ecommerce-sales-automation, and /case-study/byway-backend-api. If you share your use case, I can point you to the closest match.";
+  "Absolutely. Here are strong examples you can review now: /case-study/teacher-ai, /case-study/ecommerce-sales-automation, /case-study/gatepass-system, /case-study/gatepass-website, and /case-study/property-intelligence-assistant. If you share your use case, I can point you to the closest match.";
 
 const readyToStartReply =
   "Perfect — let’s move forward. Please book your 20-30 minute discovery call at /book-call so I can review scope and share the best next steps. If you prefer, I can help you prepare a short project brief first.";

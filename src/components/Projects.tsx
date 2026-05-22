@@ -3,6 +3,8 @@ import { Badge } from "./ui/badge";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 import {
+  ChevronLeft,
+  ChevronRight,
   GraduationCap,
   ShoppingCart,
   Palette,
@@ -11,7 +13,11 @@ import {
   School,
   LayoutDashboard,
   Building2,
+  ScanLine,
+  Globe2,
 } from "lucide-react";
+
+const PROJECTS_PER_PAGE = 6;
 
 const projects = [
   {
@@ -73,6 +79,56 @@ const projects = [
     ],
     link: "https://realestatewebsite-main.vercel.app/",
     caseStudy: "/case-study/property-intelligence-assistant",
+  },
+  {
+    icon: ScanLine,
+    image: "/projects/gatepass-system.png",
+    title: "GatePass System",
+    client: "Smart Event Access & Guest Verification System",
+    goal: "Build an operational event access platform that streamlines guest check-in, improves entry coordination, and reduces gate management chaos during live events.",
+    strategy: [
+      "QR-based guest verification for fast event access",
+      "Real-time attendance tracking and check-in visibility",
+      "Structured gate workflows for event staff coordination",
+      "Digital guest data management and reporting",
+    ],
+    outcome:
+      "Improved event entry flow, reduced unauthorized access, and digitized guest verification for more coordinated live event operations.",
+    tools: [
+      "Node.js",
+      "React.js",
+      "QR Verification",
+      "REST APIs",
+      "Database Systems",
+      "Real-Time Check-In",
+    ],
+    link: "",
+    caseStudy: "/case-study/gatepass-system",
+  },
+  {
+    icon: Globe2,
+    image: "/projects/gatepass-website.png",
+    title: "GatePass Website",
+    client: "Product Marketing & Event Operations Showcase Platform",
+    goal: "Create a public-facing product website that explains the GatePass ecosystem, communicates operational value, and drives event service inquiries.",
+    strategy: [
+      "Product-centered landing experience for event planners",
+      "Clear service, pricing, and workflow presentation",
+      "Mobile-responsive product storytelling and inquiry flow",
+      "Brand positioning for digital event access services",
+    ],
+    outcome:
+      "Improved product clarity, strengthened digital brand positioning, and created a centralized inquiry channel for prospective event clients.",
+    tools: [
+      "React.js",
+      "Frontend UI",
+      "Responsive Design",
+      "Landing Page",
+      "Product Architecture",
+      "Web Interaction Design",
+    ],
+    link: "https://www.gatepasscheckin.com.ng/",
+    caseStudy: "/case-study/gatepass-website",
   },
   {
     icon: Database,
@@ -197,9 +253,37 @@ const projects = [
 
 export const Projects = () => {
   const navigate = useNavigate();
+  const sectionRef = React.useRef<HTMLElement>(null);
   const [imageStates, setImageStates] = React.useState<Record<number, boolean>>(
     {},
   );
+  const [currentPage, setCurrentPage] = React.useState(1);
+
+  const totalPages = Math.ceil(projects.length / PROJECTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+  const visibleProjects = projects.slice(
+    startIndex,
+    startIndex + PROJECTS_PER_PAGE,
+  );
+
+  const scrollToProjects = () => {
+    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  const goToPage = (page: number) => {
+    setCurrentPage(page);
+    scrollToProjects();
+  };
+
+  const goToPreviousPage = () => {
+    setCurrentPage((page) => Math.max(1, page - 1));
+    scrollToProjects();
+  };
+
+  const goToNextPage = () => {
+    setCurrentPage((page) => Math.min(totalPages, page + 1));
+    scrollToProjects();
+  };
 
   const handleCaseStudyClick = (caseStudyPath: string, e: React.MouseEvent) => {
     e.stopPropagation();
@@ -226,7 +310,7 @@ export const Projects = () => {
   };
 
   return (
-    <section id="projects" className="py-24 px-2 md:px-4">
+    <section ref={sectionRef} id="projects" className="py-24 px-2 md:px-4">
       <div className="container mx-auto max-w-6xl">
         <div className="text-center mb-16 animate-fade-in">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -239,9 +323,12 @@ export const Projects = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-          {projects.map((project, index) => (
+          {visibleProjects.map((project, index) => {
+            const projectIndex = startIndex + index;
+
+            return (
             <Card
-              key={index}
+              key={project.title}
               className="overflow-hidden bg-card hover:bg-card/80 border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow animate-slide-up flex flex-col h-full"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -251,11 +338,11 @@ export const Projects = () => {
                   src={project.image}
                   alt={project.title}
                   className="w-full h-full object-cover contrast-110 saturate-125 group-hover:scale-105 transition-transform duration-300"
-                  onLoad={() => handleImageLoad(index)}
-                  onError={(e) => handleImageError(index, e)}
+                  onLoad={() => handleImageLoad(projectIndex)}
+                  onError={(e) => handleImageError(projectIndex, e)}
                 />
                 {/* Fallback icon if image fails to load */}
-                {imageStates[index] === false && (
+                {imageStates[projectIndex] === false && (
                   <div className="absolute inset-0 bg-gradient-primary flex items-center justify-center pointer-events-none">
                     <project.icon className="w-12 h-12 md:w-16 md:h-16 text-primary-foreground opacity-50" />
                   </div>
@@ -336,8 +423,57 @@ export const Projects = () => {
                 </div>
               </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
+
+        {totalPages > 1 && (
+          <nav
+            className="mt-10 flex items-center justify-center gap-2"
+            aria-label="Project pagination"
+          >
+            <button
+              type="button"
+              onClick={goToPreviousPage}
+              disabled={currentPage === 1}
+              className="h-10 w-10 inline-flex items-center justify-center rounded-md border border-primary/20 bg-primary/10 text-primary transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40"
+              aria-label="Previous projects"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+
+            {Array.from({ length: totalPages }, (_, index) => {
+              const page = index + 1;
+              const isActive = page === currentPage;
+
+              return (
+                <button
+                  key={page}
+                  type="button"
+                  onClick={() => goToPage(page)}
+                  className={`h-10 min-w-10 px-3 rounded-md text-sm font-semibold transition-colors ${
+                    isActive
+                      ? "bg-primary text-primary-foreground"
+                      : "bg-primary/10 text-primary border border-primary/20 hover:bg-primary/20"
+                  }`}
+                  aria-current={isActive ? "page" : undefined}
+                >
+                  {page}
+                </button>
+              );
+            })}
+
+            <button
+              type="button"
+              onClick={goToNextPage}
+              disabled={currentPage === totalPages}
+              className="h-10 w-10 inline-flex items-center justify-center rounded-md border border-primary/20 bg-primary/10 text-primary transition-colors hover:bg-primary/20 disabled:cursor-not-allowed disabled:opacity-40"
+              aria-label="Next projects"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </nav>
+        )}
       </div>
     </section>
   );

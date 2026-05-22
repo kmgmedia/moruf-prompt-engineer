@@ -9,6 +9,9 @@ export const CHATBOT_ALLOWED_PATHS = [
   "/case-study/byway-backend-api",
   "/case-study/byc-ecommerce",
   "/case-study/emotional-ai",
+  "/case-study/property-intelligence-assistant",
+  "/case-study/gatepass-system",
+  "/case-study/gatepass-website",
 ] as const;
 
 const CHATBOT_ALLOWED_PATH_SET = new Set<string>(CHATBOT_ALLOWED_PATHS);
