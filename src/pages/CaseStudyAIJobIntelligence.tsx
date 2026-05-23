@@ -1,11 +1,4 @@
-import {
-  ArrowLeft,
-  AlertCircle,
-  Building2,
-  Lightbulb,
-  TrendingUp,
-  GitBranch,
-} from "lucide-react";
+import { ArrowLeft, Search, Lightbulb, TrendingUp, GitBranch } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
@@ -13,108 +6,99 @@ import { Footer } from "@/components/Footer";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 
 const problemItems = [
-  "Searching through property documents manually",
-  "Responding repeatedly to similar enquiries",
-  "Handling late-night client questions",
-  "Managing fragmented property information",
+  "Time-consuming manual job discovery and filtering",
+  "Repetitive, manual resume rewrites per application",
+  "Scattered application tracking across platforms",
+  "Low throughput due to manual verification and formatting",
 ];
 
 const solutionItems = [
-  "Search property listings conversationally",
-  "Retrieve accurate property details instantly",
-  "Access market and location information",
-  "Automate enquiry handling and lead engagement",
-  "Generate operational summaries automatically",
+  "Automated scraping and normalization of job listings",
+  "AI-based relevance scoring and keyword extraction",
+  "Programmatic resume rewriting with ATS-safe HTML",
+  "Google Docs generation and centralized application logging",
 ];
 
 const keyFeatures = [
   {
-    title: "AI-Powered Property Search",
+    title: "AI-powered job relevance filtering",
     description:
-      'Users can ask natural language questions such as "Show me 3-bedroom apartments in Lekki under 50M." The system retrieves and ranks relevant property information instantly.',
+      "Role-fit scoring and rationale extraction using OpenAI to reduce noise and prioritise opportunities.",
   },
   {
-    title: "Conversational Assistant with Memory",
+    title: "Automated resume customization",
     description:
-      "The assistant maintains conversational context, creating more natural and personalized interactions for users.",
+      "Targeted rewriting of a master resume to emphasize role-specific skills and responsibilities while preserving ATS safety.",
   },
   {
-    title: "Intelligent Document Retrieval",
+    title: "LinkedIn scraping and batch ingestion",
     description:
-      "Property documents, reports, and listing data are transformed into searchable knowledge using vector embeddings and semantic retrieval.",
+      "Apify actors collect listings, normalize payloads, and deduplicate using deterministic fingerprints.",
   },
   {
-    title: "Workflow Automation",
+    title: "Google Docs generation & logging",
     description:
-      "The system automates property enquiry handling, lead interaction logging, daily operational reporting, contact routing, and follow-ups.",
+      "Create a role-specific Google Doc per application and persist metadata to Google Sheets for audit and analytics.",
   },
   {
-    title: "Multi-Channel Architecture",
+    title: "Batch processing with operational controls",
     description:
-      "The platform supports internal staff usage, website chat integration, webhook/API integrations, and future WhatsApp deployment.",
+      "Configurable batch windows, retry/backoff, and observable status for each pipeline stage.",
   },
 ];
 
 const architectureItems = [
-  "AI retrieval workflows",
-  "Vector database search",
-  "Context-aware conversational logic",
-  "Automated operational reporting",
+  "Scraper (Apify) -> Ingest queue -> n8n orchestrator",
+  "OpenAI evaluator with JSON-schema validation",
+  "Resume processor and Google Docs HTML pipeline",
+  "Google Sheets logging and audit trails",
 ];
 
 const impactItems = [
-  "Faster property information retrieval",
-  "Reduced manual response workload",
-  "Improved lead engagement availability",
-  "Centralized access to property intelligence",
-  "24/7 conversational assistance capability",
+  "Dramatically reduced time spent per tailored application",
+  "Higher interview-per-application ratio through stronger fit filtering",
+  "Scalable application throughput without additional manual effort",
+  "Full audit trail for iteration and prompt tuning",
 ];
 
 const implementationItems = [
-  "Retrieval-Augmented Generation (RAG)",
-  "Vector similarity search",
-  "Conversational AI orchestration",
-  "Metadata-based document handling",
-  "Automated logging and reporting workflows",
-  "API-driven chat integration",
+  "n8n orchestration with idempotent nodes",
+  "Apify scraping actors with fingerprinting",
+  "OpenAI structured prompts and response validation",
+  "Google Docs API HTML uploads and Sheets logging",
+  "HTML sanitization and ATS formatting rules",
 ];
 
 const tools = [
   "n8n",
-  "OpenAI GPT-4.1 Mini",
-  "Pinecone Vector Database",
-  "React.js",
-  "Gmail API",
-  "Webhooks & APIs",
-  "Vector Search Architecture",
+  "OpenAI API",
+  "Apify",
+  "Google Docs API",
+  "Google Sheets API",
+  "JavaScript / Node.js",
+  "REST APIs",
 ];
 
 const takeaways = [
   {
-    title: "AI Systems Become Powerful When Connected to Operational Workflows",
+    title: "Treat LLMs as deterministic filters, not final answers",
     description:
-      "The value of the system comes from connecting intelligence directly to lead handling, reporting, and communication workflows.",
+      "Wrap model outputs with schema checks and deterministic prompts to maintain reliability in automated pipelines.",
   },
   {
-    title: "Conversational Interfaces Improve Information Accessibility",
+    title: "Operational controls reduce cost and error surface",
     description:
-      "Natural language search makes property information easier to access for both internal teams and clients.",
+      "Batching, rate-limit-aware scheduling, and idempotency make automation predictable and maintainable.",
   },
   {
-    title: "Workflow Automation Enhances Scalability",
+    title: "Auditability unlocks iterative improvements",
     description:
-      "Automating repetitive communication and reporting tasks helps real estate teams respond faster without increasing manual workload.",
-  },
-  {
-    title: "AI Retrieval Systems Require Structured Context Design",
-    description:
-      "Accurate AI responses depend on clean document ingestion, metadata design, and thoughtful retrieval architecture.",
+      "Capture structured metadata at each step to tune fit thresholds and prompt variants based on downstream signals.",
   },
 ];
 
-const CaseStudyPropertyIntelligence = () => {
+const CaseStudyAIJobIntelligence = () => {
   const navigate = useNavigate();
-  const projectLink = "https://realestatewebsite-main.vercel.app/";
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
@@ -132,25 +116,25 @@ const CaseStudyPropertyIntelligence = () => {
         <article className="space-y-8 animate-fade-in">
           <header className="space-y-4">
             <div className="flex items-center gap-2 text-primary">
-              <Building2 className="w-6 h-6" />
+              <Search className="w-6 h-6" />
               <span className="text-sm font-semibold uppercase tracking-wider">
                 Case Study
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              AI Property Intelligence & Conversational Assistant
+              AI Job Intelligence & Resume Automation System
             </h1>
             <p className="text-xl text-muted-foreground">
-              An AI-powered real estate assistant designed to help agencies
-              automate property discovery, improve response speed, and provide
-              intelligent client engagement across web and internal platforms.
+              An operational AI pipeline that discovers opportunities,
+              evaluates fit, and generates role-specific resumes with
+              centralized application tracking.
             </p>
           </header>
 
           <div className="w-full h-64 md:h-80 bg-gradient-primary rounded-2xl overflow-hidden flex items-center justify-center group">
             <img
-              src="/projects/property-intelligence.png"
-              alt="AI Property Intelligence Assistant"
+              src="/jobscraping1.png"
+              alt="AI Job Intelligence & Resume Automation System"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
               onError={(e) => {
                 e.currentTarget.style.display = "none";
@@ -164,28 +148,23 @@ const CaseStudyPropertyIntelligence = () => {
             <div className="space-y-3">
               <h2 className="text-2xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
-                Real estate teams often manage large volumes of listings, market
-                reports, legal documents, and client enquiries across multiple
-                channels. Responding quickly while maintaining accuracy becomes
-                difficult as operations scale.
-              </p>
-              <p className="text-foreground/90 leading-relaxed">
-                NaijaRealty needed a system that could centralize property
-                knowledge, support conversational search, and automate
-                repetitive communication workflows.
+                The system automates discovery and application workflows by
+                combining scheduled scraping, AI-based relevance scoring, and
+                programmatic resume generation. It reduces repetitive work
+                and provides a single source of truth for all applications.
               </p>
             </div>
 
             <Card className="p-6 md:p-8 bg-destructive/10 border-destructive/30">
               <div className="flex items-start gap-4">
-                <AlertCircle className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
+                <TrendingUp className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    Agents and support teams spent significant time on manual
-                    search and repeated communication tasks. This created delays
-                    in response time, inconsistent communication, and missed
-                    sales opportunities.
+                    Engineers spend excessive time finding, qualifying, and
+                    tailoring applications. Manual workflows limit throughput
+                    and introduce inconsistency in role alignment and
+                    formatting required by ATS systems.
                   </p>
                   <ul className="space-y-2">
                     {problemItems.map((item) => (
@@ -205,13 +184,9 @@ const CaseStudyPropertyIntelligence = () => {
                 The Solution
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                I designed and implemented an AI-powered property intelligence
-                system that combines conversational AI, vector search, and
-                workflow automation to deliver fast and context-aware property
-                assistance.
-              </p>
-              <p className="text-foreground/90 leading-relaxed font-semibold">
-                The system enables users to:
+                I built a workflow intelligence system that applies deterministic
+                AI evaluation and automated resume generation to move high-quality
+                opportunities through a consistent, auditable pipeline.
               </p>
               <ul className="space-y-2 pl-4">
                 {solutionItems.map((item) => (
@@ -244,13 +219,11 @@ const CaseStudyPropertyIntelligence = () => {
               <div className="flex items-start gap-4">
                 <GitBranch className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">
-                    System Architecture
-                  </h2>
+                  <h2 className="text-2xl font-bold mb-3">System Architecture</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The solution combines AI retrieval workflows, vector
-                    database search, context-aware conversational logic, and
-                    automated operational reporting.
+                    The pipeline is composed of scraping, evaluation, rewrite,
+                    generation, and logging stages. Each stage persists
+                    status for recoverability and metrics collection.
                   </p>
                   <ul className="space-y-2 mb-4">
                     {architectureItems.map((item) => (
@@ -260,11 +233,6 @@ const CaseStudyPropertyIntelligence = () => {
                       </li>
                     ))}
                   </ul>
-                  <p className="text-foreground/90 leading-relaxed">
-                    Property data is processed through structured ingestion
-                    pipelines, embedded into a vector database, and retrieved
-                    dynamically based on user intent and conversational context.
-                  </p>
                 </div>
               </div>
             </Card>
@@ -275,9 +243,9 @@ const CaseStudyPropertyIntelligence = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The system improved access to property intelligence and
-                    reduced the amount of manual communication required from the
-                    real estate team.
+                    The automation reduced manual effort and increased the
+                    rate of meaningful outreach by focusing time on high-fit
+                    opportunities and removing repetitive resume edits.
                   </p>
                   <ul className="space-y-3">
                     {impactItems.map((item) => (
@@ -297,12 +265,9 @@ const CaseStudyPropertyIntelligence = () => {
                 Technical Implementation
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The workflow architecture was designed using modular automation
-                and retrieval components to ensure scalability and
-                maintainability.
-              </p>
-              <p className="text-foreground/90 leading-relaxed font-semibold">
-                Core implementation areas included:
+                Implementation focused on deterministic prompt templates,
+                structured response validation, idempotent nodes, and secure
+                credential handling across integrations.
               </p>
               <ul className="space-y-2 pl-4">
                 {implementationItems.map((item) => (
@@ -318,13 +283,8 @@ const CaseStudyPropertyIntelligence = () => {
               <h2 className="text-2xl font-bold">Tech Stack</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {tools.map((tool, i) => (
-                  <Card
-                    key={i}
-                    className="p-3 bg-primary/5 border-primary/20 text-center"
-                  >
-                    <p className="font-semibold text-foreground text-sm">
-                      {tool}
-                    </p>
+                  <Card key={i} className="p-3 bg-primary/5 border-primary/20 text-center">
+                    <p className="font-semibold text-foreground text-sm">{tool}</p>
                   </Card>
                 ))}
               </div>
@@ -349,20 +309,9 @@ const CaseStudyPropertyIntelligence = () => {
             </div>
 
             <div className="pt-8 border-t border-border flex gap-3 flex-col md:flex-row">
-              <Button
-                onClick={() => navigate("/")}
-                size="lg"
-                className="bg-primary hover:bg-primary/90"
-              >
+              <Button onClick={() => navigate("/")} size="lg" className="bg-primary hover:bg-primary/90">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to All Case Studies
-              </Button>
-              <Button
-                onClick={() => window.open(projectLink, "_blank")}
-                size="lg"
-                className="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20"
-              >
-                View Project &rarr;
               </Button>
             </div>
           </section>
@@ -374,4 +323,4 @@ const CaseStudyPropertyIntelligence = () => {
   );
 };
 
-export default CaseStudyPropertyIntelligence;
+export default CaseStudyAIJobIntelligence;

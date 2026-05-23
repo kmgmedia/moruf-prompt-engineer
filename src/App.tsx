@@ -38,6 +38,9 @@ const CaseStudyGatePassSystem = lazy(
 const CaseStudyGatePassWebsite = lazy(
   () => import("./pages/CaseStudyGatePassWebsite"),
 );
+const CaseStudyAIJobIntelligence = lazy(
+  () => import("./pages/CaseStudyAIJobIntelligence"),
+);
 
 const queryClient = new QueryClient();
 
@@ -114,6 +117,10 @@ const router = createBrowserRouter(
         {
           path: "/case-study/gatepass-website",
           element: withSuspense(<CaseStudyGatePassWebsite />),
+        },
+        {
+          path: "/case-study/ai-job-intelligence",
+          element: withSuspense(<CaseStudyAIJobIntelligence />),
         },
         { path: "*", element: withSuspense(<NotFound />) },
       ],

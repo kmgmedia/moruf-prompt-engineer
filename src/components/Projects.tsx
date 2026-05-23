@@ -82,6 +82,31 @@ const projects = [
   },
   {
     icon: ScanLine,
+    image: "/jobscraping1.png",
+    title: "AI Job Intelligence & Resume Automation System",
+    client: "Personal Productivity & Job Ops",
+    goal:
+      "Reduce manual effort in job searching and resume tailoring while improving role alignment and application throughput.",
+    strategy: [
+      "Automated LinkedIn scraping and normalization",
+      "AI fit scoring and keyword extraction",
+      "Programmatic resume rewriting and Google Docs generation",
+    ],
+    outcome:
+      "Operationalized job discovery and automated resume generation, increasing application throughput while maintaining quality.",
+    tools: [
+      "n8n",
+      "OpenAI API",
+      "Apify",
+      "Google Docs API",
+      "Google Sheets API",
+      "JavaScript",
+    ],
+    link: "",
+    caseStudy: "/case-study/ai-job-intelligence",
+  },
+  {
+    icon: ScanLine,
     image: "/projects/gatepass-system.png",
     title: "GatePass System",
     client: "Smart Event Access & Guest Verification System",
@@ -249,6 +274,7 @@ const projects = [
     link: "mailto:morufbadebola@gmail.com?subject=Creative%20Storytelling%20Prompts%20Project",
     caseStudy: "/case-study/emotional-ai",
   },
+ 
 ];
 
 export const Projects = () => {
