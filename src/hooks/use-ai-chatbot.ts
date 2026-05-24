@@ -43,13 +43,13 @@ const RECRUITER_INTENT_REGEX =
   /\b(recruiter|hiring|job|role|position|resume|cv|interview|contract)\b/i;
 
 const CASE_STUDY_INTENT_REGEX =
-  /\b(case study|case studies|examples?|portfolio|projects?|past work|similar work)\b/i;
+  /\b(case study|case studies|examples?|portfolio|past work|similar work|show me your work|see your work|your projects|previous projects|previous work)\b/i;
 
 const PRICING_OR_TIMELINE_REGEX =
   /\b(price|pricing|cost|budget|expensive|cheap|timeline|deadline|how long|delivery|deliver)\b/i;
 
 const READY_TO_START_REGEX =
-  /\b(ready|proceed|move forward|get started|start now|next step|hire)\b/i;
+  /\b(ready|proceed|move forward|get started|start now|next step|hire|available to start|start working|work with me|work together|work on a project)\b/i;
 
 const CASE_STUDY_ROUTE_REGEX = /\/case-study\//i;
 
@@ -72,23 +72,19 @@ const pricingTimelineReply =
   "Great question. Pricing and timeline depend on scope, integrations, and delivery speed. The fastest way to get a realistic estimate is a 20-30 minute discovery call at /book-call. If you want, share your goal, budget range, and deadline and I will help you frame it first.";
 
 const caseStudyReply =
-  "Absolutely. Here are all case studies you can review now: /case-study/teacher-ai, /case-study/ecommerce-sales-automation, /case-study/property-intelligence-assistant, /case-study/ai-job-intelligence, /case-study/gatepass-system, /case-study/gatepass-website, /case-study/byway-backend-api, /case-study/byc-ecommerce, /case-study/sandton-school, /case-study/dashboard, and /case-study/emotional-ai. If you share your use case, I can point you to the closest match.";
+  "Sure! Here are a few strong examples: /case-study/teacher-ai, /case-study/ecommerce-sales-automation, /case-study/property-intelligence-assistant, and /case-study/gatepass-system. What industry or problem are you working on? I can point you to the most relevant one.";
 
 const readyToStartReply =
-  "Perfect — let’s move forward. Please book your 20-30 minute discovery call at /book-call so I can review scope and share the best next steps. If you prefer, I can help you prepare a short project brief first.";
+  "Yes, I’m available! Tell me a bit about your project — what are you looking to build or automate? Once I understand the scope, I can suggest next steps or you can book a quick call at /book-call.";
 
 const resumeByCallReply =
   "Absolutely. For CV/resume requests, the process is to book a quick discovery call first at /book-call so I can share the most relevant version based on your role or project context. If helpful, share the role title and key requirements now.";
 
 const experienceReply =
-  "I have 5+ years of professional experience as an Applied AI Engineer, Software Engineer, and Full-Stack Developer. I build AI automation systems, chatbots, API integrations, and scalable web apps. My stack includes Node.js, TypeScript, React, Next.js, Python, OpenAI, LangChain, n8n, MySQL, PostgreSQL, MongoDB, Docker, and Google APIs. I have delivered 11 projects across e-commerce, real estate, education, event tech, and productivity — including a sales chatbot that improved conversion by 22%, an AI teacher assistant that cut content creation time by 60%, a real estate AI with 24/7 automated lead engagement, a job intelligence and resume automation system, a GatePass event access platform, and more. Ask me about any specific skill, project, or experience and I will give you the details.";
+  "I have 5+ years of experience as an Applied AI Engineer and Full-Stack Developer. I build AI automation systems, chatbots, APIs, and web apps across e-commerce, real estate, education, and event tech. Stack: Node.js, React, Python, OpenAI, LangChain, n8n, MongoDB, and more. What would you like to know more about?";
 
-const unavailableCaseStudyReply = (unknownPaths: string[]): string => {
-  const availableCaseStudies = CHATBOT_ALLOWED_PATHS.filter((path) =>
-    path.startsWith("/case-study/"),
-  ).join(", ");
-
-  return `I don't currently have this published on the site: ${unknownPaths.join(", ")}. Available case studies right now are: ${availableCaseStudies}. If you want examples in your exact niche, please book a discovery call at /book-call and I can share relevant details.`;
+const unavailableCaseStudyReply = (_unknownPaths: string[]): string => {
+  return "That case study isn't published yet. You can browse what's available in the Projects section, or tell me your use case and I'll point you to the closest match. You can also book a call at /book-call for a deeper look.";
 };
 
 const normalizeLinkFormatting = (text: string): string => {
@@ -143,6 +139,10 @@ const postProcessResponse = (userMessage: string, aiText: string): string => {
     }
   }
 
+  if (hasReadyIntent && !BOOKING_HINT_REGEX.test(cleaned)) {
+    return readyToStartReply;
+  }
+
   if (hasRecruiterIntent && !RECRUITER_RESPONSE_HINT_REGEX.test(cleaned)) {
     return recruiterReply;
   }
@@ -153,10 +153,6 @@ const postProcessResponse = (userMessage: string, aiText: string): string => {
 
   if (hasPricingOrTimelineIntent && !PRICE_TIMELINE_HINT_REGEX.test(cleaned)) {
     return pricingTimelineReply;
-  }
-
-  if (hasReadyIntent && !BOOKING_HINT_REGEX.test(cleaned)) {
-    return readyToStartReply;
   }
 
   return cleaned;

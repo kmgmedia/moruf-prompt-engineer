@@ -113,19 +113,19 @@ export const BLOCKED_NON_PROJECT_QUESTIONS = [
 
 // Main blocked response.
 export const PROJECT_SCOPE_FALLBACK =
-  "I only answer questions about Moruf's portfolio, projects, services, case studies, experience, and how he uses technology in his work. I do not answer general learning questions, tutorials, or unrelated tech topics. If you want, ask about his projects, services, tech stack, pricing, or how he can help with your business.";
+  "I'm here to help with questions about my services, projects, case studies, experience, tech stack, pricing, and how I can help your business. What would you like to know?";
 
 export const LEARNING_SCOPE_FALLBACK =
-  "I do not answer general learning or tutorial questions here. I only discuss how Moruf uses technologies like Python, JavaScript, AI, APIs, and automation in his own projects and client work. If you want, ask about his tech stack, case studies, or services.";
+  "I don't cover general tutorials or learning resources here — but I'm happy to talk about how I use Python, JavaScript, AI, APIs, and automation in my own projects and client work. Ask me about my tech stack, case studies, or services!";
 
 export const PROMPT_INJECTION_FALLBACK =
-  "I cannot ignore my portfolio-only instructions or discuss hidden prompts. I only answer questions about Moruf's projects, services, case studies, experience, and business-focused work.";
+  "I can't go outside my portfolio scope, but I'm happy to help with anything about my work, services, projects, or how to get started. What would you like to know?";
 
 export const UNRELATED_TOPIC_FALLBACK =
-  "That is outside the scope of this portfolio chatbot. I only answer questions about Moruf's work, services, projects, case studies, pricing, booking, and professional experience.";
+  "That's a bit outside what I cover here. I'm best at answering questions about my services, projects, experience, pricing, and how I can help with your business. What are you looking to do?";
 
 export const RECRUITER_SCOPE_FALLBACK =
-  "For recruiter, CV, resume, interview, or availability questions, I can only discuss Moruf's professional background, project fit, and booking next steps. Ask about his experience, availability, case studies, or book a call.";
+  "Great to connect! I'm happy to share my experience, project work, availability, and what I bring to the table. Feel free to ask anything — or book a quick call at /book-call to talk directly.";
 
 // Generic learning/tutoring intent.
 export const GENERAL_LEARNING_REQUEST_REGEX =
@@ -137,7 +137,7 @@ export const GENERAL_TECH_TOPIC_REGEX =
 
 // Topics that count as in-scope for the portfolio.
 export const PORTFOLIO_TOPIC_REGEX =
-  /\b(portfolio|project|projects|case study|case studies|example|examples|service|services|experience|background|tech stack|stack|pricing|price|cost|budget|quote|estimate|timeline|deadline|delivery|deliverables|hire|hiring|availability|contact|book|booking|booked|schedule|scheduling|scheduled|call|calls|meeting|meetings|discovery call|consultation|next steps|onboarding|automation|automate|workflow|workflows|api|apis|integration|integrations|ai system|ai systems|web app|web apps|full-stack|full stack|client|clients|business|role|recruiter|recruitment|cv|resume|your work|what you do|who are you|built|building|build for my|help me build|help automate|linkedin|github|twitter|instagram|social|profile|email|reach you|reach out|connect|location|based|south africa|johannesburg|nigeria|lagos|education|degree|university|school|certification|course|achievement|skill|skills|language|speak|moruf|adebola|name|about you|introduce|yourself|tell me about)\b/i;
+  /\b(portfolio|project|projects|case study|case studies|example|examples|service|services|experience|background|tech stack|stack|pricing|price|cost|budget|quote|estimate|timeline|deadline|delivery|deliverables|hire|hiring|availability|contact|book|booking|booked|schedule|scheduling|scheduled|call|calls|meeting|meetings|discovery call|consultation|next steps|onboarding|automation|automate|workflow|workflows|api|apis|integration|integrations|ai system|ai systems|web app|web apps|web development|web dev|website|websites|web design|ecommerce|e-commerce|app development|mobile app|backend|frontend|full-stack|full stack|software development|software engineer|client|clients|business|role|recruiter|recruitment|cv|resume|your work|what you do|who are you|built|building|build for my|help me build|help automate|linkedin|github|twitter|instagram|social|profile|email|reach you|reach out|connect|location|based|south africa|johannesburg|nigeria|lagos|education|degree|university|school|certification|course|achievement|skill|skills|language|speak|moruf|adebola|name|about you|introduce|yourself|tell me about|work with me|work together|start working|available to start|can you help|can you build|can you create|need a|need an|looking for a|looking for an|i want a|i need a)\b/i;
 
 // Block attempts to override or manipulate chatbot instructions.
 export const PROMPT_INJECTION_REGEX =
