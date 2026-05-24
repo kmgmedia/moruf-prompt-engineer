@@ -72,7 +72,7 @@ const pricingTimelineReply =
   "Great question. Pricing and timeline depend on scope, integrations, and delivery speed. The fastest way to get a realistic estimate is a 20-30 minute discovery call at /book-call. If you want, share your goal, budget range, and deadline and I will help you frame it first.";
 
 const caseStudyReply =
-  "Absolutely. Here are strong examples you can review now: /case-study/teacher-ai, /case-study/ecommerce-sales-automation, /case-study/gatepass-system, /case-study/gatepass-website, and /case-study/property-intelligence-assistant. If you share your use case, I can point you to the closest match.";
+  "Absolutely. Here are all case studies you can review now: /case-study/teacher-ai, /case-study/ecommerce-sales-automation, /case-study/property-intelligence-assistant, /case-study/ai-job-intelligence, /case-study/gatepass-system, /case-study/gatepass-website, /case-study/byway-backend-api, /case-study/byc-ecommerce, /case-study/sandton-school, /case-study/dashboard, and /case-study/emotional-ai. If you share your use case, I can point you to the closest match.";
 
 const readyToStartReply =
   "Perfect — let’s move forward. Please book your 20-30 minute discovery call at /book-call so I can review scope and share the best next steps. If you prefer, I can help you prepare a short project brief first.";
@@ -81,7 +81,7 @@ const resumeByCallReply =
   "Absolutely. For CV/resume requests, the process is to book a quick discovery call first at /book-call so I can share the most relevant version based on your role or project context. If helpful, share the role title and key requirements now.";
 
 const experienceReply =
-  "I have 5+ years of professional experience as an Applied AI Engineer, Software Engineer, and Full-Stack Developer. I build AI automation systems, chatbots, API integrations, and scalable web apps. My stack includes Node.js, TypeScript, React, Next.js, Python, OpenAI, LangChain, MySQL, PostgreSQL, Docker, and Google APIs. I have delivered projects in e-commerce, fintech, education, and productivity — including a sales chatbot that improved conversion by 22% and an AI teacher assistant that cut content creation time by 60%. Ask me about any specific skill, project, or experience and I will give you the details.";
+  "I have 5+ years of professional experience as an Applied AI Engineer, Software Engineer, and Full-Stack Developer. I build AI automation systems, chatbots, API integrations, and scalable web apps. My stack includes Node.js, TypeScript, React, Next.js, Python, OpenAI, LangChain, n8n, MySQL, PostgreSQL, MongoDB, Docker, and Google APIs. I have delivered 11 projects across e-commerce, real estate, education, event tech, and productivity — including a sales chatbot that improved conversion by 22%, an AI teacher assistant that cut content creation time by 60%, a real estate AI with 24/7 automated lead engagement, a job intelligence and resume automation system, a GatePass event access platform, and more. Ask me about any specific skill, project, or experience and I will give you the details.";
 
 const unavailableCaseStudyReply = (unknownPaths: string[]): string => {
   const availableCaseStudies = CHATBOT_ALLOWED_PATHS.filter((path) =>
@@ -196,26 +196,84 @@ SidonPay (Fintech App) — UI/UX & Product Designer
 - Partnered with backend engineers to incorporate real-time user feedback, improving app satisfaction scores by 20%.
 - Established a scalable design system that enhanced consistency and accelerated front-end development cycles by 35%.
 
-Featured AI Projects:
+Portfolio Projects (11 Total):
 
-1. AI E-Commerce Sales Chatbot (Dropshipping Business)
-- Built a 24/7 AI chatbot using GPT-4 Turbo, LangChain, and Telegram API to handle inquiries, recommend products, and manage order flow.
-- Implemented few-shot prompting, emotion-aware tone, and memory retention, improving customer conversion by 22% in the first month.
+1. AI Teaching Assistant System — Sandton Preparatory School
+   Goal: Help teachers generate lesson notes, student reports, and parent communication efficiently.
+   Strategy: Automated lesson notes and teaching materials, structured student report creation, tone-controlled parent messaging.
+   Outcome: Reduced teachers' content creation time by 60% and improved consistency across classes.
+   Tools: Python, Gemini API, Google Sheets Integration, Streamlit
+   Case Study: /case-study/teacher-ai
 
-2. AI Assistant for Teachers — Sandton Preparatory School
-- Designed a multi-step prompt system to generate lesson notes, student reports, and parent messages.
-- Integrated persona-based prompting to match educator tone.
-- Reduced teachers' content creation time by 60%.
+2. E-Commerce Sales Automation System — Dropshipping Business
+   Goal: Build a 24/7 system handling customer inquiries, product recommendations, and order processing.
+   Strategy: Intent-based product recommendations, context-aware conversations, automated response handling.
+   Outcome: Increased conversion rate by 22% within the first month of pilot testing.
+   Tools: Gemini API, Python, LangChain, Telegram API
+   Case Study: /case-study/ecommerce-sales-automation
 
-3. Prompt Design System — KMGMedia Internal Project
-- Created structured prompt templates for sales, education, and productivity contexts.
-- Implemented modular logic for context switching and tone control, improving AI interaction accuracy by 35%.
+3. AI Property Intelligence Assistant — NaijaRealty AI System
+   Goal: AI-powered property assistant for real estate teams — instant listing search, property Q&A, and automated lead engagement.
+   Strategy: AI property search and recommendations with memory, automated lead capture and inquiry handling, daily analytics and interaction reporting.
+   Outcome: Reduced response delays, improved property discovery speed, and enabled 24/7 automated client engagement.
+   Tools: n8n, OpenAI, Pinecone, React, Gmail API, Webhooks & APIs, Vector Search
+   Case Study: /case-study/property-intelligence-assistant
 
-Other Projects:
-- PetHome Store: Developing a top platform for pet supplies, veterinary connections, and pet adoption.
-- Sickle Cell Foundation Nigeria: Designed web UI to support patient appointment scheduling and donations.
-- Mentorship Program: Founded a design mentorship program to help young designers navigate UI design challenges.
-- JOMT Journal: Developed a journal dashboard to help users track habits and reflections.
+4. AI Job Intelligence & Resume Automation System — Personal Productivity & Job Ops
+   Goal: Reduce manual effort in job searching and resume tailoring while improving role alignment and application throughput.
+   Strategy: Automated LinkedIn scraping and normalization, AI fit scoring and keyword extraction, programmatic resume rewriting and Google Docs generation.
+   Outcome: Operationalized job discovery and automated resume generation, increasing application throughput while maintaining quality.
+   Tools: n8n, OpenAI API, Apify, Google Docs API, Google Sheets API, JavaScript
+   Case Study: /case-study/ai-job-intelligence
+
+5. GatePass System — Smart Event Access & Guest Verification System
+   Goal: Operational event access platform streamlining guest check-in, entry coordination, and reducing gate management chaos during live events.
+   Strategy: QR-based guest verification for fast event access, real-time attendance tracking and check-in visibility, structured gate workflows for staff coordination, digital guest data management and reporting.
+   Outcome: Improved event entry flow, reduced unauthorized access, and digitized guest verification for more coordinated live event operations.
+   Tools: Node.js, React.js, QR Verification, REST APIs, Database Systems, Real-Time Check-In
+   Case Study: /case-study/gatepass-system
+
+6. GatePass Website — Product Marketing & Event Operations Showcase Platform
+   Goal: Public-facing product website explaining the GatePass ecosystem, communicating its operational value, and driving event service inquiries.
+   Strategy: Product-centered landing experience for event planners, clear service, pricing, and workflow presentation, mobile-responsive product storytelling and inquiry flow, brand positioning for digital event access services.
+   Outcome: Improved product clarity, strengthened digital brand positioning, and created a centralized inquiry channel for prospective event clients.
+   Tools: React.js, Frontend UI, Responsive Design, Landing Page, Product Architecture, Web Interaction Design
+   Case Study: /case-study/gatepass-website
+
+7. Byway Backend API System — End-to-End REST API Development
+   Goal: Build a scalable backend for a product review platform with user management, role-based access control, and secure data handling.
+   Strategy: Full CRUD operations for product reviews and user data, role-based access control and authentication middleware, structured API architecture, MongoDB integration for data persistence.
+   Outcome: Delivered a production-ready backend with secure authentication, efficient data handling, and deployment-ready infrastructure.
+   Tools: Node.js, Express.js, MongoDB, Mongoose, Postman, GitHub Actions, Vercel
+   Case Study: /case-study/byway-backend-api
+
+8. BYC eCommerce Platform — Full-Stack eCommerce Application
+   Goal: Build a modern eCommerce platform with seamless product discovery, secure checkout, and real-time inventory handling.
+   Strategy: Intuitive product browsing and category navigation, shopping cart and secure checkout flow, order tracking and user account management, real-time inventory updates.
+   Outcome: Delivered a scalable and user-friendly eCommerce platform that improves shopping experience and supports reliable transaction handling.
+   Tools: HTML, CSS/Sass, JavaScript, Node.js, Express.js, MongoDB, Bootstrap
+   Case Study: /case-study/byc-ecommerce
+
+9. Sandton Preparatory School Website — Educational Platform & School Management Interface
+   Goal: Design and develop a comprehensive website to showcase school programs, enable online bookings, and improve parent engagement.
+   Strategy: Program showcase with structured curriculum presentation, online class booking and event scheduling, blog and content management for parent engagement, fully responsive design for all devices.
+   Outcome: Complete digital platform supporting 100+ students, improving parent interaction and simplifying school communication and bookings.
+   Tools: Next.js, React, TypeScript, Cloudinary, Responsive Design, SEO Optimization
+   Case Study: /case-study/sandton-school
+
+10. Project Tracker Dashboard — Real-Time Data & Workflow Management System
+    Goal: Build a high-performance dashboard for tracking projects, managing workflows, and visualizing real-time data securely.
+    Strategy: Real-time data updates and live project tracking, secure authentication using Supabase, clean and responsive UI optimized for usability, scalable component structure for maintainability.
+    Outcome: Production-ready dashboard providing live insights, improving workflow visibility, and ensuring reliable performance across devices.
+    Tools: React.js, TypeScript, Next.js, Tailwind CSS, Supabase, Vercel, Sonner
+    Case Study: /case-study/dashboard
+
+11. Creative Storytelling Prompts — Brand Campaign (Midjourney + GPT)
+    Goal: Generate brand stories and visuals capturing a 'vintage luxury' aesthetic for a client campaign.
+    Strategy: Layered prompts connecting brand tone with imagery concepts, consistent keyword and aesthetic framing across all outputs.
+    Outcome: Created 15+ original story and image pairs used across digital campaigns and social media assets.
+    Tools: GPT-4, Midjourney, Notion AI
+    Case Study: /case-study/emotional-ai
 
 Education:
 B.Sc. Software Engineering — Miva Open University, Lagos
@@ -243,8 +301,10 @@ Core role:
 - Services include AI automation systems, API integrations, conversational AI, and full-stack web/backend development.
 
 Response style:
-- Friendly, confident, and concise (max 150 words).
-- Use simple language and focus on outcomes.
+- Friendly, confident, and concise. Hard limit: 80 words max per reply. Never exceed this.
+- Use simple language and focus on outcomes — no long explanations.
+- Never list all projects at once. Only mention 1-3 most relevant ones based on what the client asked.
+- Use the project details above as reference knowledge only — summarize, do not copy them out in full.
 - Ask at most 1 clarifying question when needed.
 - Always speak in first person using I, me, and my.
 - Do not refer to Moruf in third person.
