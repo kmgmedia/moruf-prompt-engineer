@@ -38,6 +38,12 @@ import {
   COMPLIMENT_REGEX,
   COMPLIMENT_QUICK_REPLIES,
   COMPLIMENT_REPLY,
+  FRUSTRATION_REGEX,
+  FRUSTRATION_FALLBACK,
+  FRUSTRATION_QUICK_REPLIES,
+  VAGUE_INPUT_REGEX,
+  VAGUE_INPUT_FALLBACK,
+  VAGUE_INPUT_QUICK_REPLIES,
 } from "@/features/chatbot/guardrails";
 import {
   BOOKING_TIME_SLOTS,
@@ -238,6 +244,45 @@ export function useAIResponse(
           ]);
           setShowQuickReplies(true);
           setQuickReplies([...COMPLIMENT_QUICK_REPLIES]);
+        });
+        return;
+      }
+
+      // Handle frustrated or dissatisfied messages
+      if (FRUSTRATION_REGEX.test(textToSend)) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: FRUSTRATION_FALLBACK,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_frustration`,
+            },
+          ]);
+          setQuickReplies([...FRUSTRATION_QUICK_REPLIES]);
+          setShowQuickReplies(true);
+        });
+        return;
+      }
+
+      // Handle vague or single-word inputs
+      if (
+        VAGUE_INPUT_REGEX.test(textToSend.trim()) ||
+        VAGUE_INPUT_REGEX.test(normalizedSimple)
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: VAGUE_INPUT_FALLBACK,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_vague`,
+            },
+          ]);
+          setQuickReplies([...VAGUE_INPUT_QUICK_REPLIES]);
+          setShowQuickReplies(true);
         });
         return;
       }

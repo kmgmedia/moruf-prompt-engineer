@@ -137,7 +137,7 @@ export const GENERAL_TECH_TOPIC_REGEX =
 
 // Topics that count as in-scope for the portfolio.
 export const PORTFOLIO_TOPIC_REGEX =
-  /\b(portfolio|project|projects|case study|case studies|example|examples|service|services|experience|background|tech stack|stack|pricing|price|cost|budget|quote|estimate|timeline|deadline|delivery|deliverables|hire|hiring|availability|contact|book|booking|booked|schedule|scheduling|scheduled|call|calls|meeting|meetings|discovery call|consultation|next steps|onboarding|automation|automate|workflow|workflows|api|apis|integration|integrations|ai system|ai systems|web app|web apps|web development|web dev|website|websites|web design|ecommerce|e-commerce|app development|mobile app|backend|frontend|full-stack|full stack|software development|software engineer|client|clients|business|role|recruiter|recruitment|cv|resume|your work|what you do|who are you|built|building|build for my|help me build|help automate|linkedin|github|twitter|instagram|social|profile|email|reach you|reach out|connect|location|based|south africa|johannesburg|nigeria|lagos|education|degree|university|school|certification|course|achievement|skill|skills|language|speak|moruf|adebola|name|about you|introduce|yourself|tell me about|work with me|work together|start working|available to start|can you help|can you build|can you create|need a|need an|looking for a|looking for an|i want a|i need a)\b/i;
+  /\b(portfolio|project|projects|case study|case studies|example|examples|service|services|experience|background|tech stack|stack|pricing|price|cost|budget|quote|estimate|timeline|deadline|delivery|deliverables|hire|hiring|availability|contact|book|booking|booked|schedule|scheduling|scheduled|call|calls|meeting|meetings|discovery call|consultation|next steps|onboarding|automation|automate|workflow|workflows|api|apis|integration|integrations|ai system|ai systems|web app|web apps|web development|web dev|website|websites|web design|ecommerce|e-commerce|app development|mobile app|backend|frontend|full-stack|full stack|software development|software engineer|client|clients|business|role|recruiter|recruitment|cv|resume|your work|what you do|who are you|built|building|build for my|help me build|help automate|linkedin|github|twitter|instagram|social|profile|email|reach you|reach out|connect|location|based|south africa|johannesburg|nigeria|lagos|education|degree|university|school|certification|course|achievement|skill|skills|language|speak|moruf|adebola|name|about you|introduce|yourself|tell me about|work with me|work together|start working|available to start|can you help|can you build|can you create|need a|need an|looking for a|looking for an|i want a|i need a|what about|more about|explain|how does|how do|how did|what is|what are|what was|what were|describe|walk me through|tell me more|chatbot|chatbots|bot|bots|prompt|prompt engineering|langchain|openai|n8n|gemini|gpt|llm|saas|dashboard|dashboards|demo|demonstration|landing page|property|real estate|realty|assistant|assistants|intelligence|teacher|teaching|gatepass|gate pass|byway|byc|sandton|remote|remotely|freelance|freelancer|collaborate|collaboration|support|maintenance|startup|founder|agency|entrepreneur|team|rate|rates|hourly|monthly|retainer|charge|charges)\b/i;
 
 // Block attempts to override or manipulate chatbot instructions.
 export const PROMPT_INJECTION_REGEX =
@@ -172,3 +172,29 @@ export const COMPLIMENT_QUICK_REPLIES = [
 
 export const COMPLIMENT_REPLY =
   "Thank you so much! I really appreciate that. I'm passionate about building high-quality solutions that make a real impact. If you'd like to explore how I can help with your project, just ask!";
+
+// Frustrated or dissatisfied users
+export const FRUSTRATION_REGEX =
+  /\b(useless|not helpful|not helping|waste of time|not working|broken|stupid|worst|terrible|awful|horrible|disappointing|frustrated|frustrating|you don't understand|you're not helping|you are not helping|this doesn't help|this isn't helpful|bad bot|bad chatbot)\b/i;
+
+export const FRUSTRATION_FALLBACK =
+  "I'm sorry that wasn't helpful! Let me try again — feel free to ask me anything about my services, projects, pricing, or how to get started. I'm here to help.";
+
+export const FRUSTRATION_QUICK_REPLIES = [
+  "What services do you offer?",
+  "Show me your case studies",
+  "How can I book a call?",
+] as const;
+
+// Vague or single-word inputs that need a nudge
+export const VAGUE_INPUT_REGEX =
+  /^(help|yes|no|ok|okay|sure|hmm|hm|uh|er|um|what|why|how|when|where|who|maybe|\?+|\.+|!+|and|or|but|so|nice|cool|interesting|go on|continue|tell me|really|alright|right|yep|nope|yeah|nah)$/i;
+
+export const VAGUE_INPUT_FALLBACK =
+  "I'm here to help! What would you like to know? You can ask about my services, projects, pricing, or how we can work together.";
+
+export const VAGUE_INPUT_QUICK_REPLIES = [
+  "What services do you offer?",
+  "Can you help automate my business?",
+  "How can I book a call?",
+] as const;
