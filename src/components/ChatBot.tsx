@@ -10,7 +10,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
 import { INITIAL_QUICK_REPLIES, INITIAL_BOT_GREETING } from "@/components/chatbot/constants";
 import { renderMessageWithLinks } from "@/components/chatbot/messageLinks";
-import { PenIcon } from "@/components/chatbot/PenIcon";
+import chatbotIcon from "@/assets/about-moruf.jpeg";
 import { usePromoCard } from "@/components/chatbot/promo";
 import { createBotMessage } from "@/components/chatbot/utils/chatHelpers";
 import { getProjectTypeLabel } from "@/components/chatbot/utils/leadUtils";
@@ -337,7 +337,7 @@ const ChatBot = () => {
               }`}
             >
               <div className="flex items-start gap-2.5 min-w-0">
-                <PenIcon className="w-7 h-7 sm:w-8 sm:h-8 mt-0.5 shrink-0" />
+                <img src={chatbotIcon} alt="Chatbot" className="w-9 h-9 sm:w-10 sm:h-10 mt-0.5 shrink-0 object-cover rounded-full" />
                 <div className="flex flex-col leading-tight min-w-0">
                   <span className="font-bold text-base sm:text-lg">Moruf</span>
                   <span className="text-[12px] sm:text-[13px] font-semibold opacity-95 leading-snug break-words">
@@ -485,8 +485,8 @@ const ChatBot = () => {
             size="icon"
             className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 shadow-lg flex items-center justify-center"
           >
-            <span className="relative z-10 inline-flex items-center justify-center w-9 h-9 shrink-0">
-              <PenIcon className="w-full h-full object-contain" />
+            <span className="relative z-10 inline-flex items-center justify-center w-12 h-12 shrink-0">
+              <img src={chatbotIcon} alt="Chatbot" className="w-full h-full object-contain rounded-full" />
             </span>
             {(showPromoCard || promoCardClosed) && (
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
