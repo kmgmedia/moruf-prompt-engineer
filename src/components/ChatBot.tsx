@@ -8,7 +8,10 @@ import { useAIResponse } from "../features/chatbot/hooks/useAIResponse";
 import { useAIChatbot } from "../hooks/use-ai-chatbot";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useNavigate } from "react-router-dom";
-import { INITIAL_QUICK_REPLIES, INITIAL_BOT_GREETING } from "@/components/chatbot/constants";
+import {
+  INITIAL_QUICK_REPLIES,
+  INITIAL_BOT_GREETING,
+} from "@/components/chatbot/constants";
 import { renderMessageWithLinks } from "@/components/chatbot/messageLinks";
 import chatbotIcon from "@/assets/about-moruf.jpeg";
 import { usePromoCard } from "@/components/chatbot/promo";
@@ -337,7 +340,11 @@ const ChatBot = () => {
               }`}
             >
               <div className="flex items-start gap-2.5 min-w-0">
-                <img src={chatbotIcon} alt="Chatbot" className="w-9 h-9 sm:w-10 sm:h-10 mt-0.5 shrink-0 object-cover rounded-full" />
+                <img
+                  src={chatbotIcon}
+                  alt="Chatbot"
+                  className="w-9 h-9 sm:w-10 sm:h-10 mt-0.5 shrink-0 object-cover rounded-full"
+                />
                 <div className="flex flex-col leading-tight min-w-0">
                   <span className="font-bold text-base sm:text-lg">Moruf</span>
                   <span className="text-[12px] sm:text-[13px] font-semibold opacity-95 leading-snug break-words">
@@ -447,7 +454,11 @@ const ChatBot = () => {
               </Button>
             </div>
             <div className="flex items-center justify-center gap-1.5 py-1.5 border-t border-border/50 bg-background">
-              <img src="/kmgmedia-logo.png" alt="KmgMedia" className="h-4 w-4 shrink-0 object-contain" />
+              <img
+                src="/kmgmedia-logo.png"
+                alt="KmgMedia"
+                className="h-4 w-4 shrink-0 object-contain"
+              />
               <span className="text-[10px] text-muted-foreground">
                 Powered by KmgMedia
               </span>
@@ -486,7 +497,11 @@ const ChatBot = () => {
             className="rounded-full w-16 h-16 bg-primary hover:bg-primary/90 shadow-lg flex items-center justify-center"
           >
             <span className="relative z-10 inline-flex items-center justify-center w-12 h-12 shrink-0">
-              <img src={chatbotIcon} alt="Chatbot" className="w-full h-full object-contain rounded-full" />
+              <img
+                src={chatbotIcon}
+                alt="Chatbot"
+                className="w-full h-full object-contain rounded-full"
+              />
             </span>
             {(showPromoCard || promoCardClosed) && (
               <div className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center">
