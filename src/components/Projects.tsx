@@ -85,8 +85,7 @@ const projects = [
     image: "/jobscraping1.png",
     title: "AI Job Intelligence & Resume Automation System",
     client: "Personal Productivity & Job Ops",
-    goal:
-      "Reduce manual effort in job searching and resume tailoring while improving role alignment and application throughput.",
+    goal: "Reduce manual effort in job searching and resume tailoring while improving role alignment and application throughput.",
     strategy: [
       "Automated LinkedIn scraping and normalization",
       "AI fit scoring and keyword extraction",
@@ -274,7 +273,6 @@ const projects = [
     link: "mailto:morufbadebola@gmail.com?subject=Creative%20Storytelling%20Prompts%20Project",
     caseStudy: "/case-study/emotional-ai",
   },
- 
 ];
 
 export const Projects = () => {
@@ -353,102 +351,101 @@ export const Projects = () => {
             const projectIndex = startIndex + index;
 
             return (
-            <Card
-              key={project.title}
-              className="overflow-hidden bg-card hover:bg-card/80 border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow animate-slide-up flex flex-col h-full"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              {/* Project Image */}
-              <div className="relative h-48 md:h-56 bg-gradient-primary overflow-hidden flex items-center justify-center group">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover contrast-110 saturate-125 group-hover:scale-105 transition-transform duration-300"
-                  onLoad={() => handleImageLoad(projectIndex)}
-                  onError={(e) => handleImageError(projectIndex, e)}
-                />
-                {/* Fallback icon if image fails to load */}
-                {imageStates[projectIndex] === false && (
-                  <div className="absolute inset-0 bg-gradient-primary flex items-center justify-center pointer-events-none">
-                    <project.icon className="w-12 h-12 md:w-16 md:h-16 text-primary-foreground opacity-50" />
+              <Card
+                key={project.title}
+                className="overflow-hidden bg-card hover:bg-card/80 border-border hover:border-primary/50 transition-all duration-300 hover:shadow-glow animate-slide-up flex flex-col h-full"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Project Image */}
+                <div className="relative h-48 md:h-56 bg-gradient-primary overflow-hidden flex items-center justify-center group">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover contrast-110 saturate-125 group-hover:scale-105 transition-transform duration-300"
+                    onLoad={() => handleImageLoad(projectIndex)}
+                    onError={(e) => handleImageError(projectIndex, e)}
+                  />
+                  {/* Fallback icon if image fails to load */}
+                  {imageStates[projectIndex] === false && (
+                    <div className="absolute inset-0 bg-gradient-primary flex items-center justify-center pointer-events-none">
+                      <project.icon className="w-12 h-12 md:w-16 md:h-16 text-primary-foreground opacity-50" />
+                    </div>
+                  )}
+                </div>
+
+                {/* Content */}
+                <div className="p-4 md:p-6 flex-1 flex flex-col space-y-2 md:space-y-3">
+                  <div>
+                    <h3 className="text-lg md:text-2xl font-bold mb-1 text-foreground">
+                      {project.title}
+                    </h3>
+                    <p className="text-primary text-xs md:text-sm font-medium">
+                      {project.client}
+                    </p>
                   </div>
-                )}
-              </div>
 
-              {/* Content */}
-              <div className="p-4 md:p-6 flex-1 flex flex-col space-y-2 md:space-y-3">
-                <div>
-                  <h3 className="text-lg md:text-2xl font-bold mb-1 text-foreground">
-                    {project.title}
-                  </h3>
-                  <p className="text-primary text-xs md:text-sm font-medium">
-                    {project.client}
-                  </p>
+                  <div>
+                    <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
+                      Goal
+                    </h4>
+                    <p className="text-foreground/90 text-xs md:text-sm">
+                      {project.goal}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
+                      Solution
+                    </h4>
+                    <p className="text-foreground/90 text-xs md:text-sm">
+                      {project.strategy[0] || project.outcome}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
+                      Impact
+                    </h4>
+                    <p className="text-foreground/90 text-xs md:text-sm font-medium">
+                      {project.outcome}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap gap-1 md:gap-2 pt-1 md:pt-2">
+                    {project.tools.map((tool, i) => (
+                      <Badge
+                        key={i}
+                        variant="secondary"
+                        className="bg-primary/10 text-primary border-primary/20 text-xs"
+                      >
+                        {tool}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2 mt-3 md:mt-4 pt-2 md:pt-3 border-t border-border/30">
+                    {project.caseStudy && (
+                      <button
+                        onClick={(e) =>
+                          handleCaseStudyClick(project.caseStudy, e)
+                        }
+                        className="flex-1 px-3 py-2 md:px-4 md:py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-xs md:text-sm font-medium rounded-md transition-colors"
+                      >
+                        Read Case Study
+                      </button>
+                    )}
+                    {project.link && (
+                      <button
+                        onClick={(e) => handleProjectLinkClick(project.link, e)}
+                        className="flex-1 px-3 py-2 md:px-4 md:py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs md:text-sm font-medium rounded-md border border-primary/20 transition-colors"
+                      >
+                        View Project
+                      </button>
+                    )}
+                  </div>
                 </div>
-
-                <div>
-                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
-                    Goal
-                  </h4>
-                  <p className="text-foreground/90 text-xs md:text-sm">
-                    {project.goal}
-                  </p>
-                </div>
-
-                <div>
-                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
-                    Solution
-                  </h4>
-                  <p className="text-foreground/90 text-xs md:text-sm">
-                    {project.strategy[0] || project.outcome}
-                  </p>
-                </div>
-
-
-                <div>
-                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1 md:mb-2">
-                    Impact
-                  </h4>
-                  <p className="text-foreground/90 text-xs md:text-sm font-medium">
-                    {project.outcome}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap gap-1 md:gap-2 pt-1 md:pt-2">
-                  {project.tools.map((tool, i) => (
-                    <Badge
-                      key={i}
-                      variant="secondary"
-                      className="bg-primary/10 text-primary border-primary/20 text-xs"
-                    >
-                      {tool}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-2 mt-3 md:mt-4 pt-2 md:pt-3 border-t border-border/30">
-                  {project.caseStudy && (
-                    <button
-                      onClick={(e) =>
-                        handleCaseStudyClick(project.caseStudy, e)
-                      }
-                      className="flex-1 px-3 py-2 md:px-4 md:py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-xs md:text-sm font-medium rounded-md transition-colors"
-                    >
-                      Read Case Study
-                    </button>
-                  )}
-                  {project.link && (
-                    <button
-                      onClick={(e) => handleProjectLinkClick(project.link, e)}
-                      className="flex-1 px-3 py-2 md:px-4 md:py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs md:text-sm font-medium rounded-md border border-primary/20 transition-colors"
-                    >
-                      View Project
-                    </button>
-                  )}
-                </div>
-              </div>
-            </Card>
+              </Card>
             );
           })}
         </div>

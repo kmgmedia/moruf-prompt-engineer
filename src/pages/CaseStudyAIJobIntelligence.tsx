@@ -1,4 +1,10 @@
-import { ArrowLeft, Search, Lightbulb, TrendingUp, GitBranch } from "lucide-react";
+import {
+  ArrowLeft,
+  Search,
+  Lightbulb,
+  TrendingUp,
+  GitBranch,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
@@ -125,9 +131,9 @@ const CaseStudyAIJobIntelligence = () => {
               AI Job Intelligence & Resume Automation System
             </h1>
             <p className="text-xl text-muted-foreground">
-              An operational AI pipeline that discovers opportunities,
-              evaluates fit, and generates role-specific resumes with
-              centralized application tracking.
+              An operational AI pipeline that discovers opportunities, evaluates
+              fit, and generates role-specific resumes with centralized
+              application tracking.
             </p>
           </header>
 
@@ -150,8 +156,8 @@ const CaseStudyAIJobIntelligence = () => {
               <p className="text-foreground/90 leading-relaxed">
                 The system automates discovery and application workflows by
                 combining scheduled scraping, AI-based relevance scoring, and
-                programmatic resume generation. It reduces repetitive work
-                and provides a single source of truth for all applications.
+                programmatic resume generation. It reduces repetitive work and
+                provides a single source of truth for all applications.
               </p>
             </div>
 
@@ -163,8 +169,8 @@ const CaseStudyAIJobIntelligence = () => {
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     Engineers spend excessive time finding, qualifying, and
                     tailoring applications. Manual workflows limit throughput
-                    and introduce inconsistency in role alignment and
-                    formatting required by ATS systems.
+                    and introduce inconsistency in role alignment and formatting
+                    required by ATS systems.
                   </p>
                   <ul className="space-y-2">
                     {problemItems.map((item) => (
@@ -184,9 +190,10 @@ const CaseStudyAIJobIntelligence = () => {
                 The Solution
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                I built a workflow intelligence system that applies deterministic
-                AI evaluation and automated resume generation to move high-quality
-                opportunities through a consistent, auditable pipeline.
+                I built a workflow intelligence system that applies
+                deterministic AI evaluation and automated resume generation to
+                move high-quality opportunities through a consistent, auditable
+                pipeline.
               </p>
               <ul className="space-y-2 pl-4">
                 {solutionItems.map((item) => (
@@ -219,11 +226,13 @@ const CaseStudyAIJobIntelligence = () => {
               <div className="flex items-start gap-4">
                 <GitBranch className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">System Architecture</h2>
+                  <h2 className="text-2xl font-bold mb-3">
+                    System Architecture
+                  </h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     The pipeline is composed of scraping, evaluation, rewrite,
-                    generation, and logging stages. Each stage persists
-                    status for recoverability and metrics collection.
+                    generation, and logging stages. Each stage persists status
+                    for recoverability and metrics collection.
                   </p>
                   <ul className="space-y-2 mb-4">
                     {architectureItems.map((item) => (
@@ -243,8 +252,8 @@ const CaseStudyAIJobIntelligence = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The automation reduced manual effort and increased the
-                    rate of meaningful outreach by focusing time on high-fit
+                    The automation reduced manual effort and increased the rate
+                    of meaningful outreach by focusing time on high-fit
                     opportunities and removing repetitive resume edits.
                   </p>
                   <ul className="space-y-3">
@@ -283,8 +292,13 @@ const CaseStudyAIJobIntelligence = () => {
               <h2 className="text-2xl font-bold">Tech Stack</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {tools.map((tool, i) => (
-                  <Card key={i} className="p-3 bg-primary/5 border-primary/20 text-center">
-                    <p className="font-semibold text-foreground text-sm">{tool}</p>
+                  <Card
+                    key={i}
+                    className="p-3 bg-primary/5 border-primary/20 text-center"
+                  >
+                    <p className="font-semibold text-foreground text-sm">
+                      {tool}
+                    </p>
                   </Card>
                 ))}
               </div>
@@ -309,7 +323,11 @@ const CaseStudyAIJobIntelligence = () => {
             </div>
 
             <div className="pt-8 border-t border-border flex gap-3 flex-col md:flex-row">
-              <Button onClick={() => navigate("/")} size="lg" className="bg-primary hover:bg-primary/90">
+              <Button
+                onClick={() => navigate("/")}
+                size="lg"
+                className="bg-primary hover:bg-primary/90"
+              >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to All Case Studies
               </Button>
