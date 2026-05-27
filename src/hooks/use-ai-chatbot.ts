@@ -217,15 +217,21 @@ Portfolio Projects (11 Total):
 
 4. AI Job Intelligence & Resume Automation System — Personal Productivity & Job Ops
    Goal: Reduce manual effort in job searching and resume tailoring while improving role alignment and application throughput.
-   Strategy: Automated LinkedIn scraping and normalization, AI fit scoring and keyword extraction, programmatic resume rewriting and Google Docs generation.
-   Outcome: Operationalized job discovery and automated resume generation, increasing application throughput while maintaining quality.
-   Tools: n8n, OpenAI API, Apify, Google Docs API, Google Sheets API, JavaScript
+   Strategy: Automated LinkedIn scraping via Apify, GPT-4 relevance scoring with structured JSON output, programmatic resume rewriting, Google Docs generation, and Sheets audit logging — all orchestrated in n8n with a React frontend dashboard for triggering runs.
+   Frontend: A React + TypeScript dashboard (AI Job Dashboard) lets users paste a LinkedIn search URL, choose how many jobs to scrape (10–100), and start the pipeline. It shows a live progress screen with elapsed timer while n8n processes in the background.
+   Real engineering challenges solved: fixed invalid JSON body in Apify node, corrected field type mismatch (String vs Number) causing only 6 jobs to scrape instead of 50, added Respond to Webhook node so the frontend gets an instant response while the workflow runs in the background, disabled n8n's 5-minute execution timeout that was killing mid-run AI processing, and fixed production webhook activation so the workflow accepts requests without manual intervention.
+   Outcome: End-to-end pipeline running reliably — 50 jobs scraped per run, AI-filtered to top matches, tailored resumes generated as Google Docs, everything logged to Sheets.
+   Tools: n8n, OpenAI API, Apify, Google Docs API, Google Sheets API, React, TypeScript, JavaScript
    Case Study: /case-study/ai-job-intelligence
 
 5. GatePass System — Smart Event Access & Guest Verification System
    Goal: Operational event access platform streamlining guest check-in, entry coordination, and reducing gate management chaos during live events.
-   Strategy: QR-based guest verification for fast event access, real-time attendance tracking and check-in visibility, structured gate workflows for staff coordination, digital guest data management and reporting.
-   Outcome: Improved event entry flow, reduced unauthorized access, and digitized guest verification for more coordinated live event operations.
+   How It Works (6 steps): Guest Registration → QR Code Generation → Gate Scanning → Real-Time Verification → Live Attendance Tracking → Post-Event Reporting.
+   Event Operations Flow: Pre-Event (guest list upload, QR generation, staff briefing) → Event Day (gate scanning, real-time QR validation, unauthorized access flagging) → Post-Event (attendance report, data export, archiving).
+   Architecture: Client Layer (React.js Dashboard, Mobile QR Scanner) → API Layer (Node.js REST API, QR Validation Engine, Auth Middleware) → Data Layer (Guest Database, Event Config, Attendance Logs).
+   API Endpoints: POST /api/events, POST /api/guests, GET /api/guests, POST /api/checkin, GET /api/attendance, GET /api/events.
+   Scalability: Stateless Node.js backend for parallel scaling, indexed QR lookups for sub-millisecond verification, multi-gate support, handles 50 to 50,000+ guests.
+   Outcome: Improved event entry flow, reduced unauthorized access, digitized guest verification, and full post-event attendance reporting.
    Tools: Node.js, React.js, QR Verification, REST APIs, Database Systems, Real-Time Check-In
    Case Study: /case-study/gatepass-system
 

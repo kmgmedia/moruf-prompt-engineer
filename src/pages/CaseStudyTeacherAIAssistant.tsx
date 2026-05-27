@@ -1,59 +1,41 @@
 import {
   ArrowLeft,
-  Briefcase,
-  CheckCircle,
+  ArrowRight,
+  BarChart2,
+  Brain,
+  Camera,
+  CheckCircle2,
   GraduationCap,
-  Layers,
   Lightbulb,
-  Settings,
-  Wrench,
+  Play,
+  TrendingUp,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
 import { Footer } from "@/components/Footer";
-
-const solutionItems = [
-  "Generate structured lesson notes tailored to each grade level",
-  "Create consistent and professional student progress reports",
-  "Draft personalized parent communication quickly and efficiently",
-];
-
-const keyFeatures = [
-  "Automated lesson note generation with structured learning objectives",
-  "Consistent student report creation with personalized insights",
-  "Streamlined parent communication with tone-controlled outputs",
-  "Integration with Google Sheets for student data access and tracking",
-];
-
-const impactItems = [
-  "60% reduction in administrative writing time",
-  "40% increase in parent communication frequency",
-  "Consistent tone and quality across all generated content",
-  "10+ hours saved per teacher monthly",
-];
-
-const implementationItems = [
-  "Context-aware input handling for lesson, student, and communication data",
-  "Role-based behavior design to maintain consistent tone and style",
-  "Multi-step processing to generate accurate and structured responses",
-  "Template-driven output formatting for usability and clarity",
-];
-
-const tools = [
-  "Python",
-  "Gemini API",
-  "Google Sheets Integration",
-  "Streamlit",
-];
+import { AnimatedBackground } from "@/components/AnimatedBackground";
+import {
+  problemItems,
+  solutionItems,
+  pipelineStages,
+  architectureLayers,
+  workflowTypes,
+  keyFeatures,
+  businessOutcomes,
+  impactItems,
+  tools,
+  takeaways,
+  dashboardScreenshots,
+} from "@/data/teacherAIData";
 
 const CaseStudyTeacherAIAssistant = () => {
   const navigate = useNavigate();
-  const projectLink = "https://teacher-ai-assistant-cr.streamlit.app/";
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
+    <div className="relative min-h-screen bg-background overflow-hidden">
+      <AnimatedBackground opacity={0.6} subtle={true} />
+      <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
@@ -67,85 +49,68 @@ const CaseStudyTeacherAIAssistant = () => {
           <header className="space-y-4">
             <div className="flex items-center gap-2 text-primary">
               <GraduationCap className="w-6 h-6" />
-              <span className="text-sm font-semibold uppercase tracking-wider">
-                Case Study
-              </span>
+              <span className="text-sm font-semibold uppercase tracking-wider">Case Study</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              AI Teaching Assistant & Workflow System
+              AI Teaching Assistant System
             </h1>
             <p className="text-xl text-muted-foreground">
-              Reducing administrative workload and improving communication
-              consistency for educators at scale.
+              Automated Lesson Notes, Student Reports & Parent Communication for Educators
+            </p>
+            <p className="text-lg text-foreground/80 leading-relaxed">
+              A Gemini-powered AI workflow system that automates the most time-consuming
+              administrative tasks for teachers — lesson note generation, student progress
+              reports, and parent communication — saving 10+ hours per teacher monthly
+              without sacrificing quality or personalization.
             </p>
           </header>
 
-          {/* Hero Image */}
           <div className="w-full h-64 md:h-80 bg-gradient-primary rounded-2xl overflow-hidden flex items-center justify-center group">
             <img
               src="/projects/teacher-ai.png"
-              alt="AI Teaching Assistant Workflow System"
+              alt="AI Teaching Assistant System"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
+              onError={(e) => { e.currentTarget.style.display = "none"; }}
             />
           </div>
 
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
 
-          <section className="space-y-6">
-            <Card className="p-6 bg-card border-primary/20">
-              <div className="flex items-start gap-4">
-                <Briefcase className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-3">Overview</h2>
-                  <p className="text-foreground/90 leading-relaxed">
-                    Teachers at Sandton Preparatory School needed a way to
-                    reduce repetitive administrative tasks while maintaining
-                    high-quality, personalized communication with students and
-                    parents.
-                  </p>
-                </div>
-              </div>
-            </Card>
+          <section className="space-y-12">
 
-            <Card className="p-6 bg-destructive/10 border-destructive/30">
+            {/* OVERVIEW */}
+            <div className="space-y-3 pt-2">
+              <h2 className="text-2xl font-bold">Overview</h2>
+              <p className="text-foreground/90 leading-relaxed">
+                Teachers at Sandton Preparatory School were spending 4–6 hours per week
+                on administrative writing tasks — lesson notes, student progress reports,
+                and parent communications — that consumed time better spent on teaching
+                and student engagement.
+              </p>
+              <p className="text-foreground/90 leading-relaxed">
+                I designed and built an AI system that automates these workflows using
+                Gemini API with role-based prompting, Google Sheets integration for student
+                data access, and a Streamlit interface simple enough for non-technical teachers
+                to use without any training.
+              </p>
+            </div>
+
+            {/* PROBLEM */}
+            <Card className="p-6 md:p-8 bg-destructive/10 border-destructive/30">
               <div className="flex items-start gap-4">
-                <Wrench className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
+                <GraduationCap className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
-                  <p className="text-foreground/90 leading-relaxed">
-                    Teachers were spending 4-6 hours weekly on tasks such as
-                    writing lesson notes, student reports, and parent
-                    communication. This reduced time available for actual
-                    teaching and student engagement.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-6 bg-primary/5 border-primary/20">
-              <div className="flex items-start gap-4">
-                <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-3">The Solution</h2>
-                  <p className="text-foreground/90 leading-relaxed">
-                    I designed and implemented an AI-powered system that
-                    automates key teaching workflows while preserving each
-                    teacher's unique voice and communication style.
-                  </p>
-                  <p className="text-foreground/90 leading-relaxed mt-4 mb-3">
-                    The system enables teachers to:
+                  <p className="text-foreground/90 leading-relaxed mb-4">
+                    The administrative writing burden was not just a time problem — it was
+                    a quality problem. Under time pressure, reports and communications
+                    became inconsistent and parent engagement suffered.
                   </p>
                   <ul className="space-y-2">
-                    {solutionItems.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 text-foreground/90"
-                      >
-                        <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <span>{item}</span>
+                    {problemItems.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span className="text-destructive mt-1">&bull;</span>
+                        <span className="text-foreground/90">{item}</span>
                       </li>
                     ))}
                   </ul>
@@ -153,173 +118,272 @@ const CaseStudyTeacherAIAssistant = () => {
               </div>
             </Card>
 
-            <Card className="p-6 bg-muted/30 border-border">
-              <h2 className="text-2xl font-bold mb-4">Key Features</h2>
-              <ul className="space-y-3">
-                {keyFeatures.map((feature) => (
-                  <li
-                    key={feature}
-                    className="flex items-start gap-3 text-foreground/90"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-
-            <Card className="p-6 bg-card border-primary/20">
-              <div className="flex items-start gap-4">
-                <Layers className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-3">System Design</h2>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    The solution combines AI processing, structured workflows,
-                    and a simple user interface to ensure ease of use and
-                    scalability.
-                  </p>
-                  <p className="text-foreground/90 leading-relaxed">
-                    Teachers interact with the system through a Streamlit-based
-                    interface, where inputs are processed and transformed into
-                    structured outputs using controlled AI logic and predefined
-                    templates.
-                  </p>
-                </div>
-              </div>
-            </Card>
-
-            <Card className="p-6 bg-primary/5 border-primary/20">
-              <h2 className="text-2xl font-bold mb-2">Results & Impact</h2>
-              <p className="text-foreground/90 leading-relaxed mb-4">
-                The system delivered measurable improvements within 3 months:
+            {/* SOLUTION */}
+            <div className="space-y-4 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Lightbulb className="w-8 h-8 text-primary" />
+                The Solution
+              </h2>
+              <p className="text-foreground/90 leading-relaxed">
+                I built a structured AI workflow system — not a general-purpose AI chat tool,
+                but a task-specific automation pipeline designed around the exact documents
+                teachers need to produce. Each workflow takes teacher inputs, applies a
+                role-based prompt template, and returns a formatted, professional output.
               </p>
-              <ul className="space-y-3">
-                {impactItems.map((item) => (
-                  <li
-                    key={item}
-                    className="flex items-start gap-3 text-foreground/90"
-                  >
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                    <span>{item}</span>
+              <p className="text-foreground/90 leading-relaxed font-semibold">The system enables teachers to:</p>
+              <ul className="space-y-2 pl-4">
+                {solutionItems.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="text-primary mt-1">&bull;</span>
+                    <span className="text-foreground/90">{item}</span>
                   </li>
                 ))}
               </ul>
-            </Card>
+            </div>
 
-            <Card className="p-6 bg-muted/40 border-border">
-              <div className="flex items-start gap-4">
-                <Settings className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-3">
-                    Technical Implementation
-                  </h2>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    At the core of the system is a structured AI workflow that
-                    ensures reliable and context-aware outputs.
-                  </p>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    This includes:
-                  </p>
-                  <ul className="space-y-2">
-                    {implementationItems.map((item) => (
-                      <li
-                        key={item}
-                        className="flex items-start gap-3 text-foreground/90"
-                      >
-                        <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
-                        <span>{item}</span>
-                      </li>
+            {/* WORKFLOW PIPELINE */}
+            <div className="space-y-6 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Brain className="w-7 h-7 text-primary" />
+                AI Workflow Pipeline
+              </h2>
+              <p className="text-foreground/90 leading-relaxed">
+                Every output follows a 6-stage pipeline — from task selection through context
+                injection, prompt loading, AI processing, quality control, and formatted delivery.
+              </p>
+              <div className="relative">
+                <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-background to-transparent z-10" />
+                <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-background to-transparent z-10" />
+                <div className="overflow-x-auto custom-scrollbar px-3 pb-3">
+                  <div className="flex items-stretch gap-2 min-w-max">
+                    {pipelineStages.map((stage, index) => (
+                      <div key={stage.label} className="flex items-center gap-2">
+                        <Card className="p-3 bg-primary/5 border-primary/20 flex flex-col items-center text-center w-28">
+                          <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center mb-2">
+                            <stage.icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <p className="text-xs font-bold text-foreground leading-tight">{stage.label}</p>
+                          <p className="text-xs text-foreground/50 mt-0.5 leading-tight">{stage.sublabel}</p>
+                        </Card>
+                        {index < pipelineStages.length - 1 && (
+                          <ArrowRight className="w-4 h-4 text-primary/50 flex-shrink-0" />
+                        )}
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               </div>
-            </Card>
+            </div>
 
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">Tech Stack</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {tools.map((tool, i) => (
-                  <Card
-                    key={i}
-                    className="p-3 bg-primary/5 border-primary/20 text-center"
-                  >
-                    <p className="font-semibold text-foreground text-sm">
-                      {tool}
-                    </p>
+            {/* ARCHITECTURE LAYERS */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <BarChart2 className="w-7 h-7 text-primary" />
+                System Architecture
+              </h2>
+              <p className="text-foreground/90 leading-relaxed">
+                Four layers — interface, AI processing, data, and output — each with a
+                clearly defined role in transforming teacher inputs into professional documents.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {architectureLayers.map((layer) => (
+                  <Card key={layer.layer} className={`p-5 border ${layer.color}`}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${layer.color}`}>
+                        <layer.icon className={`w-5 h-5 ${layer.textColor}`} />
+                      </div>
+                      <p className={`font-bold text-sm uppercase tracking-wider ${layer.textColor}`}>
+                        {layer.layer}
+                      </p>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {layer.components.map((c) => (
+                        <li key={c} className="flex items-center gap-2 text-sm text-foreground/80">
+                          <CheckCircle2 className={`w-3.5 h-3.5 flex-shrink-0 ${layer.textColor}`} />
+                          {c}
+                        </li>
+                      ))}
+                    </ul>
                   </Card>
                 ))}
               </div>
             </div>
 
-            <div className="space-y-4">
+            {/* WORKFLOW TYPES */}
+            <div className="space-y-6 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <GraduationCap className="w-7 h-7 text-primary" />
+                Workflow Types
+              </h2>
+              <p className="text-foreground/90 leading-relaxed">
+                Three specialized workflows — each with task-specific prompt templates,
+                input requirements, and output formats designed for real classroom use.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+                {workflowTypes.map((wf) => (
+                  <Card key={wf.step} className="p-5 bg-primary/5 border-primary/20 hover:border-primary/40 transition-colors">
+                    <div className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/15 flex items-center justify-center">
+                        <wf.icon className="w-5 h-5 text-primary" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-bold text-primary/60 tracking-widest">WORKFLOW {wf.step}</span>
+                        <h4 className="font-bold text-foreground mb-1 mt-0.5">{wf.title}</h4>
+                        <p className="text-sm text-foreground/75 leading-relaxed">{wf.description}</p>
+                      </div>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* KEY FEATURES */}
+            <div className="space-y-4 pt-2">
+              <h2 className="text-2xl font-bold">Key Features</h2>
+              <div className="space-y-4">
+                {keyFeatures.map((feature) => (
+                  <div key={feature.title} className="space-y-1">
+                    <p className="text-foreground/90 font-semibold flex items-start gap-2">
+                      <span className="text-primary">&bull;</span>
+                      <span>{feature.title}</span>
+                    </p>
+                    <p className="text-foreground/80 leading-relaxed pl-5">{feature.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* BUSINESS OUTCOMES */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <TrendingUp className="w-7 h-7 text-primary" />
+                Business Outcomes
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {businessOutcomes.map((outcome) => (
+                  <Card key={outcome.label} className="p-5 bg-primary/5 border-primary/20 text-center">
+                    <outcome.icon className="w-6 h-6 text-primary mx-auto mb-2" />
+                    <p className="text-2xl font-bold text-primary">{outcome.metric}</p>
+                    <p className="text-xs font-semibold text-foreground mt-1">{outcome.label}</p>
+                    <p className="text-xs text-foreground/50 mt-1 leading-tight">{outcome.context}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* SCREENSHOTS */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Camera className="w-7 h-7 text-primary" />
+                Screenshots
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {dashboardScreenshots.map((item) => (
+                  <div key={item.label} className="rounded-xl border border-primary/20 bg-primary/5 overflow-hidden">
+                    {item.src ? (
+                      <img src={item.src} alt={item.label} className="w-full h-64 object-cover object-top" />
+                    ) : (
+                      <div className="h-48 flex flex-col items-center justify-center gap-2 px-4 text-center">
+                        <Camera className="w-8 h-8 text-primary/30" />
+                        <p className="text-sm font-semibold text-foreground/60">{item.label}</p>
+                        <p className="text-xs text-foreground/40 leading-snug">{item.description}</p>
+                        <span className="text-xs text-foreground/30 mt-1">Screenshot coming soon</span>
+                      </div>
+                    )}
+                    {item.src && (
+                      <div className="px-4 py-3 border-t border-primary/10">
+                        <p className="text-sm font-semibold text-foreground/80">{item.label}</p>
+                        <p className="text-xs text-foreground/50 leading-snug mt-0.5">{item.description}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DEMO VIDEO */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Play className="w-7 h-7 text-primary" />
+                Demo Video
+              </h2>
+              <div className="w-full h-64 md:h-80 rounded-xl border border-primary/20 bg-primary/5 flex flex-col items-center justify-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                  <Play className="w-7 h-7 text-primary ml-1" />
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-medium text-foreground/60">Demo video coming soon</p>
+                  <p className="text-xs text-foreground/40 mt-1">Full walkthrough — task selection → input → AI generation → output</p>
+                </div>
+              </div>
+            </div>
+
+            {/* RESULTS & IMPACT */}
+            <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
+              <div className="flex items-start gap-4">
+                <TrendingUp className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <div>
+                  <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">
+                    The system delivered measurable improvements within 3 months of deployment
+                    at Sandton Preparatory School.
+                  </p>
+                  <ul className="space-y-3">
+                    {impactItems.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-primary font-bold">&#10003;</span>
+                        <span className="text-foreground/90">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </Card>
+
+            {/* TECH STACK */}
+            <div className="space-y-4 pt-2">
+              <h2 className="text-2xl font-bold">Tech Stack</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {tools.map((tool) => (
+                  <Card key={tool} className="p-3 bg-primary/5 border-primary/20 text-center">
+                    <p className="font-semibold text-foreground text-sm">{tool}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* KEY TAKEAWAYS */}
+            <div className="space-y-4 pt-2">
               <h2 className="text-3xl font-bold">Key Takeaways</h2>
               <Card className="p-6 bg-muted/30">
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      AI Integration Should Start With Workflow Design
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      AI delivers the best results when it is embedded into
-                      clear operational workflows instead of being used as a
-                      standalone tool.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Structured Inputs Produce Reliable Outputs
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Context-aware inputs and template-driven formatting make
-                      generated content more consistent, practical, and easy for
-                      teachers to use.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Adoption Depends on Simplicity
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      A simple interface and familiar workflow reduce friction,
-                      helping educators adopt the system quickly in day-to-day
-                      classroom operations.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Controlled AI Can Deliver Measurable Impact
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Combining role-based behavior, workflow logic, and quality
-                      controls leads to real gains in time savings and
-                      communication quality.
-                    </p>
-                  </div>
+                <div className="space-y-5">
+                  {takeaways.map((takeaway) => (
+                    <div key={takeaway.title}>
+                      <h4 className="font-semibold text-lg mb-2 text-primary">{takeaway.title}</h4>
+                      <p className="text-foreground/90 text-sm leading-relaxed">{takeaway.description}</p>
+                    </div>
+                  ))}
                 </div>
               </Card>
             </div>
 
-            <div className="pt-8 border-t border-border flex gap-3 flex-col md:flex-row">
-              <Button
-                onClick={() => navigate("/")}
-                size="lg"
-                className="bg-primary hover:bg-primary/90"
-              >
+            <div className="pt-8 border-t border-border flex flex-col md:flex-row gap-3">
+              <Button onClick={() => navigate("/")} size="lg" className="bg-primary hover:bg-primary/90">
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Back to All Case Studies
               </Button>
               <Button
-                onClick={() => window.open(projectLink, "_blank")}
+                onClick={() => window.open("https://teacher-ai-assistant-cr.streamlit.app/", "_blank")}
                 size="lg"
                 className="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20"
               >
-                View Live Project →
+                View Live Project &rarr;
               </Button>
             </div>
+
           </section>
         </article>
       </div>
-
       <Footer />
     </div>
   );

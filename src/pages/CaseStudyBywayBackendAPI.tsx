@@ -1,17 +1,42 @@
-import { ArrowLeft, Code, Target, Lightbulb, TrendingUp } from "lucide-react";
+import {
+  ArrowLeft,
+  ArrowRight,
+  BarChart2,
+  Camera,
+  CheckCircle2,
+  Code,
+  GitBranch,
+  Lightbulb,
+  Play,
+  Shield,
+  TrendingUp,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "@/components/Footer";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
+import {
+  problemItems,
+  solutionItems,
+  pipelineStages,
+  architectureLayers,
+  apiEndpoints,
+  keyFeatures,
+  businessOutcomes,
+  impactItems,
+  tools,
+  takeaways,
+  dashboardScreenshots,
+} from "@/data/bywayAPIData";
 
 const CaseStudyBywayBackendAPI = () => {
   const navigate = useNavigate();
-  const projectLink = "https://github.com/yourusername/byway-backend-api";
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
       <AnimatedBackground opacity={0.6} subtle={true} />
-      <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
+      <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button
           variant="ghost"
           onClick={() => navigate("/")}
@@ -25,355 +50,333 @@ const CaseStudyBywayBackendAPI = () => {
           <header className="space-y-4">
             <div className="flex items-center gap-2 text-primary">
               <Code className="w-6 h-6" />
-              <span className="text-sm font-semibold uppercase tracking-wider">
-                Case Study
-              </span>
+              <span className="text-sm font-semibold uppercase tracking-wider">Case Study</span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
               Byway Backend API System
             </h1>
             <p className="text-xl text-muted-foreground">
-              End-to-End REST API for Product Review Platform
+              Production-Ready REST API with JWT Auth, RBAC & MongoDB
+            </p>
+            <p className="text-lg text-foreground/80 leading-relaxed">
+              A modular RESTful API built for a product review platform — covering user
+              authentication, role-based access control, full CRUD operations, Mongoose
+              schema validation, and a CI/CD pipeline. Designed for production reliability
+              and clean extensibility from day one.
             </p>
           </header>
 
-          {/* Hero Image */}
           <div className="w-full h-64 md:h-80 bg-gradient-primary rounded-2xl overflow-hidden flex items-center justify-center group">
             <img
               src="/projects/byway-api.png"
-              alt="Byway Backend API System Interface"
+              alt="Byway Backend API System"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-              onError={(e) => {
-                e.currentTarget.style.display = "none";
-              }}
+              onError={(e) => { e.currentTarget.style.display = "none"; }}
             />
           </div>
 
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
 
-          <section className="space-y-8">
-            {/* Overview */}
-            <div className="space-y-3">
+          <section className="space-y-12">
+
+            {/* OVERVIEW */}
+            <div className="space-y-3 pt-2">
               <h2 className="text-2xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
-                A backend API system designed to manage product reviews, user
-                authentication, and role-based access for a scalable web
-                platform.
+                Building a backend API that is genuinely production-ready means more than
+                writing endpoints that return data. It means authentication that cannot be
+                bypassed, access control that enforces permissions structurally, data validation
+                that prevents malformed records, and a deployment pipeline that catches
+                breakage before it reaches users.
+              </p>
+              <p className="text-foreground/90 leading-relaxed">
+                The Byway Backend API was designed and built as a scalable, secure, and
+                maintainable REST API — with every architectural decision oriented around
+                reliability, extensibility, and clean separation of concerns.
               </p>
             </div>
 
-            {/* Challenge */}
-            <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
+            {/* PROBLEM */}
+            <Card className="p-6 md:p-8 bg-destructive/10 border-destructive/30">
               <div className="flex items-start gap-4">
-                <Target className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
+                <Code className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
                 <div>
-                  <h2 className="text-2xl font-bold mb-3">The Challenge</h2>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    Building a backend system required handling authentication,
-                    structured data management, and secure access control while
-                    maintaining scalability and performance.
+                  <h2 className="text-2xl font-bold mb-3">The Problem</h2>
+                  <p className="text-foreground/90 leading-relaxed mb-4">
+                    Building a backend system required solving authentication, data integrity,
+                    access control, and deployment reliability — all at once, and correctly
+                    from the start.
                   </p>
-                  <p className="text-foreground/90 leading-relaxed font-semibold">
-                    The goal was to create an API that is:
-                  </p>
-                  <ul className="space-y-2 pl-4 mt-3">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        Secure and reliable
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        Easy to maintain and extend
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        Efficient in handling data operations
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary mt-1">•</span>
-                      <span className="text-foreground/90">
-                        Ready for production use
-                      </span>
-                    </li>
+                  <ul className="space-y-2">
+                    {problemItems.map((item) => (
+                      <li key={item} className="flex items-start gap-2">
+                        <span className="text-destructive mt-1">&bull;</span>
+                        <span className="text-foreground/90">{item}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
             </Card>
 
-            {/* Solution */}
-            <div className="space-y-4">
+            {/* SOLUTION */}
+            <div className="space-y-4 pt-2">
               <h2 className="text-2xl font-bold flex items-center gap-3">
                 <Lightbulb className="w-8 h-8 text-primary" />
                 The Solution
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                I designed and implemented a RESTful API that supports user
-                management, product reviews, and role-based permissions using a
-                modular architecture.
+                I designed and built a modular RESTful API using Node.js and Express — with
+                authentication and access control built as middleware, not afterthoughts.
+                Each concern is isolated into its own layer, making the system safe to
+                extend without modifying working code.
               </p>
+              <p className="text-foreground/90 leading-relaxed font-semibold">The API delivers:</p>
+              <ul className="space-y-2 pl-4">
+                {solutionItems.map((item) => (
+                  <li key={item} className="flex items-start gap-2">
+                    <span className="text-primary mt-1">&bull;</span>
+                    <span className="text-foreground/90">{item}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
 
-            {/* Key Features */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold">Key Features</h2>
-              <div className="space-y-3">
-                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>
-                    Full CRUD operations for product reviews and users
-                  </span>
-                </p>
-                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>Role-based access control (RBAC)</span>
-                </p>
-                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>Authentication middleware for protected routes</span>
-                </p>
-                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>Structured API architecture for scalability</span>
-                </p>
-                <p className="text-foreground/90 leading-relaxed font-semibold flex items-start gap-2">
-                  <span className="text-primary">•</span>
-                  <span>
-                    MongoDB integration for efficient data persistence
-                  </span>
-                </p>
-              </div>
-            </div>
-
-            {/* System Design */}
-            <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
-              <div className="flex items-start gap-4">
-                <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-bold mb-3">System Design</h2>
-                  <p className="text-foreground/90 leading-relaxed mb-3">
-                    The API follows a modular structure with separation of
-                    concerns across routes, controllers, and data models.
-                  </p>
-                  <p className="text-foreground/90 leading-relaxed font-semibold mb-3">
-                    Key design considerations include:
-                  </p>
-                  <ul className="space-y-2">
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span className="text-foreground/90">
-                        Middleware-based authentication and authorization
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span className="text-foreground/90">
-                        Schema validation using Mongoose
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span className="text-foreground/90">
-                        Clean routing structure for maintainability
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-2">
-                      <span className="text-primary">•</span>
-                      <span className="text-foreground/90">
-                        Scalable architecture aligned with clean design
-                        principles
-                      </span>
-                    </li>
-                  </ul>
+            {/* REQUEST PIPELINE */}
+            <div className="space-y-6 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <GitBranch className="w-7 h-7 text-primary" />
+                Request Pipeline
+              </h2>
+              <p className="text-foreground/90 leading-relaxed">
+                Every HTTP request travels through a 7-stage pipeline — route matching,
+                authentication, RBAC check, controller logic, schema validation, database
+                operation, and structured JSON response.
+              </p>
+              <div className="relative">
+                <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-background to-transparent z-10" />
+                <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-background to-transparent z-10" />
+                <div className="overflow-x-auto custom-scrollbar px-3 pb-3">
+                  <div className="flex items-stretch gap-2 min-w-max">
+                    {pipelineStages.map((stage, index) => (
+                      <div key={stage.label} className="flex items-center gap-2">
+                        <Card className="p-3 bg-primary/5 border-primary/20 flex flex-col items-center text-center w-28">
+                          <div className="w-8 h-8 rounded-full bg-primary/15 flex items-center justify-center mb-2">
+                            <stage.icon className="w-4 h-4 text-primary" />
+                          </div>
+                          <p className="text-xs font-bold text-foreground leading-tight">{stage.label}</p>
+                          <p className="text-xs text-foreground/50 mt-0.5 leading-tight">{stage.sublabel}</p>
+                        </Card>
+                        {index < pipelineStages.length - 1 && (
+                          <ArrowRight className="w-4 h-4 text-primary/50 flex-shrink-0" />
+                        )}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </Card>
+            </div>
 
-            {/* Results */}
+            {/* ARCHITECTURE LAYERS */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <BarChart2 className="w-7 h-7 text-primary" />
+                System Architecture
+              </h2>
+              <p className="text-foreground/90 leading-relaxed">
+                Four clearly separated layers — API, auth, business, and data —
+                each independently modifiable without risk to the others.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {architectureLayers.map((layer) => (
+                  <Card key={layer.layer} className={`p-5 border ${layer.color}`}>
+                    <div className="flex items-center gap-3 mb-3">
+                      <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${layer.color}`}>
+                        <layer.icon className={`w-5 h-5 ${layer.textColor}`} />
+                      </div>
+                      <p className={`font-bold text-sm uppercase tracking-wider ${layer.textColor}`}>
+                        {layer.layer}
+                      </p>
+                    </div>
+                    <ul className="space-y-1.5">
+                      {layer.components.map((c) => (
+                        <li key={c} className="flex items-center gap-2 text-sm text-foreground/80">
+                          <CheckCircle2 className={`w-3.5 h-3.5 flex-shrink-0 ${layer.textColor}`} />
+                          {c}
+                        </li>
+                      ))}
+                    </ul>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* API MAP */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Shield className="w-7 h-7 text-primary" />
+                API Map
+              </h2>
+              <p className="text-foreground/90 leading-relaxed">
+                Seven core REST endpoints covering authentication, product management,
+                and review CRUD — each with method-specific authorization and validation.
+              </p>
+              <div className="space-y-3">
+                {apiEndpoints.map((api) => (
+                  <Card key={api.endpoint} className="p-4 bg-muted/20 border-border/50 hover:border-primary/30 transition-colors">
+                    <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+                      <span className={`text-xs font-bold px-3 py-1 rounded border w-fit ${api.color}`}>
+                        {api.method}
+                      </span>
+                      <code className="text-sm font-mono text-primary font-semibold">{api.endpoint}</code>
+                      <span className="text-sm text-foreground/70 sm:ml-auto">{api.description}</span>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* KEY FEATURES */}
+            <div className="space-y-4 pt-2">
+              <h2 className="text-2xl font-bold">Key Features</h2>
+              <div className="space-y-4">
+                {keyFeatures.map((feature) => (
+                  <div key={feature.title} className="space-y-1">
+                    <p className="text-foreground/90 font-semibold flex items-start gap-2">
+                      <span className="text-primary">&bull;</span>
+                      <span>{feature.title}</span>
+                    </p>
+                    <p className="text-foreground/80 leading-relaxed pl-5">{feature.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* BUSINESS OUTCOMES */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <TrendingUp className="w-7 h-7 text-primary" />
+                Technical Outcomes
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {businessOutcomes.map((outcome) => (
+                  <Card key={outcome.label} className="p-5 bg-primary/5 border-primary/20 text-center">
+                    <outcome.icon className="w-6 h-6 text-primary mx-auto mb-2" />
+                    <p className="text-2xl font-bold text-primary">{outcome.metric}</p>
+                    <p className="text-xs font-semibold text-foreground mt-1">{outcome.label}</p>
+                    <p className="text-xs text-foreground/50 mt-1 leading-tight">{outcome.context}</p>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* SCREENSHOTS */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Camera className="w-7 h-7 text-primary" />
+                Screenshots
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {dashboardScreenshots.map((item) => (
+                  <div key={item.label} className="rounded-xl border border-primary/20 bg-primary/5 overflow-hidden">
+                    {item.src ? (
+                      <img src={item.src} alt={item.label} className="w-full h-64 object-cover object-top" />
+                    ) : (
+                      <div className="h-48 flex flex-col items-center justify-center gap-2 px-4 text-center">
+                        <Camera className="w-8 h-8 text-primary/30" />
+                        <p className="text-sm font-semibold text-foreground/60">{item.label}</p>
+                        <p className="text-xs text-foreground/40 leading-snug">{item.description}</p>
+                        <span className="text-xs text-foreground/30 mt-1">Screenshot coming soon</span>
+                      </div>
+                    )}
+                    {item.src && (
+                      <div className="px-4 py-3 border-t border-primary/10">
+                        <p className="text-sm font-semibold text-foreground/80">{item.label}</p>
+                        <p className="text-xs text-foreground/50 leading-snug mt-0.5">{item.description}</p>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* DEMO VIDEO */}
+            <div className="space-y-5 pt-2">
+              <h2 className="text-2xl font-bold flex items-center gap-3">
+                <Play className="w-7 h-7 text-primary" />
+                Demo Video
+              </h2>
+              <div className="w-full h-64 md:h-80 rounded-xl border border-primary/20 bg-primary/5 flex flex-col items-center justify-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
+                  <Play className="w-7 h-7 text-primary ml-1" />
+                </div>
+                <div className="text-center">
+                  <p className="text-sm font-medium text-foreground/60">Demo video coming soon</p>
+                  <p className="text-xs text-foreground/40 mt-1">API walkthrough — auth → CRUD → RBAC → Postman tests</p>
+                </div>
+              </div>
+            </div>
+
+            {/* RESULTS & IMPACT */}
             <Card className="p-6 md:p-8 bg-primary/5 border-primary/20">
               <div className="flex items-start gap-4">
                 <TrendingUp className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The system demonstrated strong backend reliability:
+                    The API demonstrated strong backend reliability across authentication,
+                    data integrity, access control, and deployment readiness.
                   </p>
                   <ul className="space-y-3">
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">✓</span>
-                      <span className="text-foreground/90">
-                        Secure authentication and protected endpoints
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">✓</span>
-                      <span className="text-foreground/90">
-                        Efficient database operations and query handling
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">✓</span>
-                      <span className="text-foreground/90">
-                        Scalable structure for future expansion
-                      </span>
-                    </li>
-                    <li className="flex items-start gap-3">
-                      <span className="text-primary font-bold">✓</span>
-                      <span className="text-foreground/90">
-                        Production-ready API deployment
-                      </span>
-                    </li>
+                    {impactItems.map((item) => (
+                      <li key={item} className="flex items-start gap-3">
+                        <span className="text-primary font-bold">&#10003;</span>
+                        <span className="text-foreground/90">{item}</span>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </div>
             </Card>
 
-            {/* Technical Implementation */}
-            <div className="space-y-4">
-              <h2 className="text-2xl font-bold flex items-center gap-3">
-                <Lightbulb className="w-8 h-8 text-primary" />
-                Technical Implementation
-              </h2>
-              <p className="text-foreground/90 leading-relaxed">
-                Built using Node.js and Express, the API integrates MongoDB for
-                data storage and uses middleware for validation and security.
-              </p>
-              <p className="text-foreground/90 leading-relaxed font-semibold">
-                Core implementation includes:
-              </p>
-              <ul className="space-y-2 pl-4">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">
-                    JWT-based authentication
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">
-                    Request validation and error handling
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">
-                    Mongoose schemas for structured data
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">
-                    API testing with Postman
-                  </span>
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary mt-1">•</span>
-                  <span className="text-foreground/90">
-                    CI/CD setup for deployment readiness
-                  </span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Tech Stack */}
-            <div className="space-y-4">
+            {/* TECH STACK */}
+            <div className="space-y-4 pt-2">
               <h2 className="text-2xl font-bold">Tech Stack</h2>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                {[
-                  "Node.js",
-                  "Express.js",
-                  "MongoDB",
-                  "Mongoose",
-                  "Postman",
-                  "GitHub Actions",
-                  "Vercel",
-                ].map((tech, i) => (
-                  <Card
-                    key={i}
-                    className="p-3 bg-primary/5 border-primary/20 text-center"
-                  >
-                    <p className="font-semibold text-foreground text-sm">
-                      {tech}
-                    </p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {tools.map((tool) => (
+                  <Card key={tool} className="p-3 bg-primary/5 border-primary/20 text-center">
+                    <p className="font-semibold text-foreground text-sm">{tool}</p>
                   </Card>
                 ))}
               </div>
             </div>
 
-            {/* Key Takeaways */}
-            <div className="space-y-4">
+            {/* KEY TAKEAWAYS */}
+            <div className="space-y-4 pt-2">
               <h2 className="text-3xl font-bold">Key Takeaways</h2>
               <Card className="p-6 bg-muted/30">
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Clean Architecture Improves Maintainability
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Proper separation of concerns across routes, controllers,
-                      and models makes APIs easier to maintain and extend over
-                      time.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Security Must Be Built Early
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Integrating authentication and access control from the
-                      start prevents security vulnerabilities and rework later.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Well-Structured APIs Simplify Integration
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Clear API design with consistent patterns and proper
-                      documentation makes frontend integration straightforward
-                      and efficient.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Production Readiness Requires Testing and Deployment
-                      Strategy
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      API testing, validation, and CI/CD pipelines are essential
-                      for ensuring reliability and smooth deployment to
-                      production.
-                    </p>
-                  </div>
+                <div className="space-y-5">
+                  {takeaways.map((takeaway) => (
+                    <div key={takeaway.title}>
+                      <h4 className="font-semibold text-lg mb-2 text-primary">{takeaway.title}</h4>
+                      <p className="text-foreground/90 text-sm leading-relaxed">{takeaway.description}</p>
+                    </div>
+                  ))}
                 </div>
               </Card>
             </div>
-          </section>
 
-          <div className="pt-8 border-t border-border flex gap-3 flex-col md:flex-row">
-            <Button
-              onClick={() => navigate("/")}
-              size="lg"
-              className="bg-primary hover:bg-primary/90"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to All Case Studies
-            </Button>
-            <Button
-              onClick={() => window.open(projectLink, "_blank")}
-              size="lg"
-              className="bg-primary/10 hover:bg-primary/20 text-primary border border-primary/20"
-            >
-              View Live Project →
-            </Button>
-          </div>
+            <div className="pt-8 border-t border-border">
+              <Button onClick={() => navigate("/")} size="lg" className="bg-primary hover:bg-primary/90">
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back to All Case Studies
+              </Button>
+            </div>
+
+          </section>
         </article>
       </div>
+      <Footer />
     </div>
   );
 };
