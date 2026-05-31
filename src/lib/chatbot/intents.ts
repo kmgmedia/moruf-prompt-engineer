@@ -11,6 +11,101 @@ interface IntentResult {
   extractedData: Partial<CapturedData>;
 }
 
+const JOINED_PHRASE_ALIASES: Record<string, string> = {
+  aidevelopment: "ai development",
+  aiautomation: "ai automation",
+  aiautomationsystem: "ai automation system",
+  aiassistant: "ai assistant",
+  aichatbot: "ai chatbot",
+  aiintegration: "ai integration",
+  aipowered: "ai powered",
+  aisystem: "ai system",
+  aisystems: "ai systems",
+  appointmentbooking: "appointment booking",
+  apiintegration: "api integration",
+  apiintegrations: "api integrations",
+  apisystem: "api system",
+  appdevelopment: "app development",
+  backendapi: "backend api",
+  backenddevelopment: "backend development",
+  bookcall: "book call",
+  bookacall: "book a call",
+  bookingapp: "booking app",
+  bookingsystem: "booking system",
+  businessapp: "business app",
+  businessautomation: "business automation",
+  businessprocessautomation: "business process automation",
+  businesssoftware: "business software",
+  businesssystem: "business system",
+  businesswebsite: "business website",
+  chatbotdevelopment: "chatbot development",
+  chatbotintegration: "chatbot integration",
+  clientportal: "client portal",
+  customapp: "custom app",
+  customsoftware: "custom software",
+  customsoftwaredevelopment: "custom software development",
+  customwebsite: "custom website",
+  dashboarddevelopment: "dashboard development",
+  ecommerceautomation: "ecommerce automation",
+  ecommercechatbot: "ecommerce chatbot",
+  ecommercesystem: "ecommerce system",
+  ecommercewebsite: "ecommerce website",
+  erpsystem: "erp system",
+  frontenddevelopment: "frontend development",
+  fullstack: "full stack",
+  fullstackdeveloper: "full stack developer",
+  fullstackdevelopment: "full stack development",
+  fullstackengineer: "full stack engineer",
+  hospitalmanagementsystem: "hospital management system",
+  inventoryapp: "inventory app",
+  inventorymanagement: "inventory management",
+  inventorymanagementsystem: "inventory management system",
+  inventorysystem: "inventory system",
+  leadautomation: "lead automation",
+  leadcapture: "lead capture",
+  leadgenerationsystem: "lead generation system",
+  mobileapp: "mobile app",
+  mobileappdevelopment: "mobile app development",
+  mybusiness: "my business",
+  n8nautomation: "n8n automation",
+  onlinebusiness: "online business",
+  paymentintegration: "payment integration",
+  projectdashboard: "project dashboard",
+  realestateassistant: "real estate assistant",
+  realestateautomation: "real estate automation",
+  realestatechatbot: "real estate chatbot",
+  realestatewebsite: "real estate website",
+  restapi: "rest api",
+  restapiintegration: "rest api integration",
+  schoolmanagementsystem: "school management system",
+  smallbusiness: "small business",
+  softwareapp: "software app",
+  softwaredeveloper: "software developer",
+  softwaredevelopment: "software development",
+  softwareengineer: "software engineer",
+  systemintegration: "system integration",
+  systemintegrations: "system integrations",
+  webappdevelopment: "web app development",
+  webapp: "web app",
+  webapps: "web apps",
+  webapplication: "web application",
+  webdevelopment: "web development",
+  websitedesign: "website design",
+  websitedevelopment: "website development",
+  workflowautomation: "workflow automation",
+  workflowintegration: "workflow integration",
+};
+
+export const normalizeMessageForMatching = (message: string): string => {
+  const lowerMessage = message.toLowerCase();
+  const compactMessage = lowerMessage.replace(/[^a-z0-9]/g, "");
+  const aliases = Object.entries(JOINED_PHRASE_ALIASES)
+    .filter(([joined]) => compactMessage.includes(joined))
+    .map(([, spaced]) => spaced);
+
+  return [lowerMessage, ...aliases].join(" ");
+};
+
 /**
  * Detect if user is a client based on keywords
  */
@@ -32,7 +127,7 @@ export const isClientIntent = (message: string): boolean => {
     "software",
   ];
 
-  const lowerMsg = message.toLowerCase();
+  const lowerMsg = normalizeMessageForMatching(message);
   return clientKeywords.some((keyword) => lowerMsg.includes(keyword));
 };
 
@@ -55,7 +150,7 @@ export const isRecruiterIntent = (message: string): boolean => {
     "candidate",
   ];
 
-  const lowerMsg = message.toLowerCase();
+  const lowerMsg = normalizeMessageForMatching(message);
   return recruiterKeywords.some((keyword) => lowerMsg.includes(keyword));
 };
 
@@ -63,7 +158,7 @@ export const isRecruiterIntent = (message: string): boolean => {
  * Extract project type from message
  */
 export const extractProjectType = (message: string): Intent => {
-  const lowerMsg = message.toLowerCase();
+  const lowerMsg = normalizeMessageForMatching(message);
 
   if (lowerMsg.includes("automation") || lowerMsg.includes("automate")) {
     return "automation";
@@ -71,7 +166,11 @@ export const extractProjectType = (message: string): Intent => {
   if (lowerMsg.includes("api") || lowerMsg.includes("integration")) {
     return "api_integration";
   }
-  if (lowerMsg.includes("web") || lowerMsg.includes("app")) {
+  if (
+    lowerMsg.includes("web") ||
+    lowerMsg.includes("app") ||
+    lowerMsg.includes("software development")
+  ) {
     return "web_app";
   }
   if (lowerMsg.includes("system") || lowerMsg.includes("platform")) {
@@ -126,7 +225,7 @@ export const extractProblem = (message: string): string | undefined => {
     "struggle",
     "difficult",
   ];
-  const lowerMsg = message.toLowerCase();
+  const lowerMsg = normalizeMessageForMatching(message);
 
   for (const keyword of problemKeywords) {
     if (lowerMsg.includes(keyword)) {

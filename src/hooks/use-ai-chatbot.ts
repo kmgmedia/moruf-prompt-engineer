@@ -8,6 +8,7 @@ import {
   CHATBOT_ALLOWED_PATHS,
   getUnknownChatbotPaths,
 } from "@/lib/chatbot/routes";
+import { normalizeMessageForMatching } from "@/lib/chatbot/intents";
 
 interface UseAIChatbotOptions {
   systemPrompt?: string;
@@ -108,21 +109,27 @@ const enforceFirstPersonVoice = (text: string): string => {
 const postProcessResponse = (userMessage: string, aiText: string): string => {
   const cleaned = enforceFirstPersonVoice(normalizeLinkFormatting(aiText));
   const unknownPaths = getUnknownChatbotPaths(cleaned);
+  const matchingMessage = normalizeMessageForMatching(userMessage);
 
-  const hasCallIntent = CALL_INTENT_REGEX.test(userMessage);
-  const hasCvRequest = CV_REQUEST_REGEX.test(userMessage);
-  const hasExperienceIntent = EXPERIENCE_INTENT_REGEX.test(userMessage);
-  const hasRecruiterIntent = RECRUITER_INTENT_REGEX.test(userMessage);
-  const hasCaseStudyIntent = CASE_STUDY_INTENT_REGEX.test(userMessage);
+  const hasCallIntent = CALL_INTENT_REGEX.test(matchingMessage);
+  const hasCvRequest = CV_REQUEST_REGEX.test(matchingMessage);
+  const hasExperienceIntent = EXPERIENCE_INTENT_REGEX.test(matchingMessage);
+  const hasRecruiterIntent = RECRUITER_INTENT_REGEX.test(matchingMessage);
+  const hasCaseStudyIntent = CASE_STUDY_INTENT_REGEX.test(matchingMessage);
   const hasPricingOrTimelineIntent =
-    PRICING_OR_TIMELINE_REGEX.test(userMessage);
-  const hasReadyIntent = READY_TO_START_REGEX.test(userMessage);
+    PRICING_OR_TIMELINE_REGEX.test(matchingMessage);
+  const hasReadyIntent = READY_TO_START_REGEX.test(matchingMessage);
 
   if (unknownPaths.length > 0) {
     return unavailableCaseStudyReply(unknownPaths);
   }
 
-  if (hasCvRequest && /\b(download|send|attach|email|get a copy|share the file)\b/i.test(userMessage)) {
+  if (
+    hasCvRequest &&
+    /\b(download|send|attach|email|get a copy|share the file)\b/i.test(
+      matchingMessage,
+    )
+  ) {
     return resumeByCallReply;
   }
 

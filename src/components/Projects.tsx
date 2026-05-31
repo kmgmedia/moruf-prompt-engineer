@@ -15,6 +15,7 @@ import {
   Building2,
   ScanLine,
   Globe2,
+  Bot,
 } from "lucide-react";
 
 const PROJECTS_PER_PAGE = 6;
@@ -70,6 +71,30 @@ const projects = [
     ],
     link: "https://realestatewebsite-main.vercel.app/",
     caseStudy: "/case-study/property-intelligence-assistant",
+  },
+  {
+    icon: Bot,
+    image: "/projects/qa-knowledge-base.svg?v=2",
+    title: "QA Ingest & AI Knowledge Base Assistant",
+    client: "n8n Data Table + Chat Assistant",
+    goal: "Create a structured Q&A knowledge base where submitted answers are validated, enriched, stored, and reused by a grounded AI assistant.",
+    strategy: [
+      "Form-based QA capture with trusted contributor detection",
+      "LLM tag generation for content classification",
+      "Data Table retrieval tool connected to an AI chat agent",
+    ],
+    outcome:
+      "Turned raw Q&A submissions into a searchable knowledge base that powers context-aware assistant responses.",
+    tools: [
+      "n8n",
+      "OpenAI GPT-4.1 Mini",
+      "LangChain Agent",
+      "Data Tables",
+      "Chat Trigger",
+      "Simple Memory",
+    ],
+    link: "",
+    caseStudy: "/case-study/qa-knowledge-base-assistant",
   },
   {
     icon: ShoppingCart,

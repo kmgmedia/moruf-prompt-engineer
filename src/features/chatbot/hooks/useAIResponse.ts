@@ -9,6 +9,7 @@ import {
   analyzeMessage,
   shouldTriggerCTA,
   determineNextStage,
+  normalizeMessageForMatching,
 } from "@/lib/chatbot/intents";
 import { getCTAVariation, type BotResponseResult } from "@/lib/chatbot/flows";
 import {
@@ -72,15 +73,17 @@ export function useAIResponse(
   apiBase: string,
 ) {
   const getScopedQuickReplies = (text: string): string[] | null => {
-    if (RECRUITER_TOPIC_REGEX.test(text)) {
+    const matchingText = normalizeMessageForMatching(text);
+
+    if (RECRUITER_TOPIC_REGEX.test(matchingText)) {
       return [...RECRUITER_QUICK_REPLIES];
     }
 
-    if (PRICING_TIMELINE_TOPIC_REGEX.test(text)) {
+    if (PRICING_TIMELINE_TOPIC_REGEX.test(matchingText)) {
       return [...PRICING_QUICK_REPLIES];
     }
 
-    if (BOOKING_TOPIC_REGEX.test(text)) {
+    if (BOOKING_TOPIC_REGEX.test(matchingText)) {
       return [...BOOKING_QUICK_REPLIES];
     }
 
@@ -91,16 +94,17 @@ export function useAIResponse(
     text: string,
     normalizedInput: string,
   ): { text: string; quickReplies: string[] } => {
+    const matchingText = normalizeMessageForMatching(text);
     const normalize = (value: string) =>
       value.replace(/\s+/g, " ").trim().toLowerCase();
     const isExplicitBlocked = BLOCKED_NON_PROJECT_QUESTIONS.some(
       (question) => normalize(question) === normalizedInput,
     );
-    const isPromptInjection = PROMPT_INJECTION_REGEX.test(text);
+    const isPromptInjection = PROMPT_INJECTION_REGEX.test(matchingText);
     const isGeneralLearningRequest =
-      GENERAL_LEARNING_REQUEST_REGEX.test(text) &&
-      GENERAL_TECH_TOPIC_REGEX.test(text);
-    const isRecruiterTopic = RECRUITER_TOPIC_REGEX.test(text);
+      GENERAL_LEARNING_REQUEST_REGEX.test(matchingText) &&
+      GENERAL_TECH_TOPIC_REGEX.test(matchingText);
+    const isRecruiterTopic = RECRUITER_TOPIC_REGEX.test(matchingText);
 
     if (isPromptInjection) {
       return {
@@ -123,7 +127,7 @@ export function useAIResponse(
       };
     }
 
-    if (!PORTFOLIO_TOPIC_REGEX.test(text)) {
+    if (!PORTFOLIO_TOPIC_REGEX.test(matchingText)) {
       return {
         text: UNRELATED_TOPIC_FALLBACK,
         quickReplies: [...UNRELATED_TOPIC_QUICK_REPLIES],
@@ -148,6 +152,7 @@ export function useAIResponse(
         .replace(/[^a-zA-Z\s]/g, "")
         .trim()
         .toLowerCase();
+      const normalizedForMatching = normalizeMessageForMatching(textToSend);
 
       // Shows typing dots for a short delay, then fires fn() to reveal the bot message.
       const showAfterTyping = (fn: () => void, delay = 750) => {
@@ -450,28 +455,34 @@ export function useAIResponse(
           );
           setIsTyping(false);
           if (!availableSlots.includes(validation.value!)) {
-            setMessages(() => [
-              ...updatedConversation,
-              {
-                role: "bot",
-                text: availableSlots.length > 0
-                  ? "That time slot is already booked. Please choose from the available times below."
-                  : "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
-                timestamp: new Date(),
-                messageId: `msg_${Date.now()}_slot_taken`,
-              },
-            ]);
-            if (availableSlots.length > 0) {
-              setQuickReplies(availableSlots);
-              setShowQuickReplies(true);
-            } else {
-              setState((prev) => ({
-                ...prev,
-                chatBookingStep: "date",
-                capturedData: { ...prev.capturedData, meetingDate: undefined },
-              }));
-              setShowQuickReplies(false);
-            }
+            showAfterTyping(() => {
+              setMessages(() => [
+                ...updatedConversation,
+                {
+                  role: "bot",
+                  text:
+                    availableSlots.length > 0
+                      ? "That time slot is already booked. Please choose from the available times below."
+                      : "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                  timestamp: new Date(),
+                  messageId: `msg_${Date.now()}_slot_taken`,
+                },
+              ]);
+              if (availableSlots.length > 0) {
+                setQuickReplies(availableSlots);
+                setShowQuickReplies(true);
+              } else {
+                setState((prev) => ({
+                  ...prev,
+                  chatBookingStep: "date",
+                  capturedData: {
+                    ...prev.capturedData,
+                    meetingDate: undefined,
+                  },
+                }));
+                setShowQuickReplies(false);
+              }
+            });
             return;
           }
         }
@@ -486,22 +497,24 @@ export function useAIResponse(
 
         if (nextField === "confirm") {
           const summary = buildBookingSummary(newCapturedData);
-          setState((prev) => ({
-            ...prev,
-            chatBookingStep: "confirm",
-            capturedData: newCapturedData,
-          }));
-          setMessages(() => [
-            ...updatedConversation,
-            {
-              role: "bot",
-              text: summary,
-              timestamp: new Date(),
-              messageId: `msg_${Date.now()}_booking_summary`,
-            },
-          ]);
-          setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
-          setShowQuickReplies(true);
+          showAfterTyping(() => {
+            setState((prev) => ({
+              ...prev,
+              chatBookingStep: "confirm",
+              capturedData: newCapturedData,
+            }));
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: summary,
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_booking_summary`,
+              },
+            ]);
+            setQuickReplies(["Yes, confirm my booking", "No, cancel"]);
+            setShowQuickReplies(true);
+          });
           return;
         }
 
@@ -514,35 +527,43 @@ export function useAIResponse(
           );
           setIsTyping(false);
           if (availableSlots.length === 0) {
+            showAfterTyping(() => {
+              setState((prev) => ({
+                ...prev,
+                chatBookingStep: "date",
+                capturedData: { ...newCapturedData, meetingDate: undefined },
+              }));
+              setMessages(() => [
+                ...updatedConversation,
+                {
+                  role: "bot",
+                  text: "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                  timestamp: new Date(),
+                  messageId: `msg_${Date.now()}_no_slots`,
+                },
+              ]);
+              setShowQuickReplies(false);
+            });
+            return;
+          }
+          showAfterTyping(() => {
             setState((prev) => ({
               ...prev,
-              chatBookingStep: "date",
-              capturedData: { ...newCapturedData, meetingDate: undefined },
+              chatBookingStep: "time",
+              capturedData: newCapturedData,
             }));
             setMessages(() => [
               ...updatedConversation,
               {
                 role: "bot",
-                text: "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                text: getBookingStepPrompt("time", newCapturedData),
                 timestamp: new Date(),
-                messageId: `msg_${Date.now()}_no_slots`,
+                messageId: `msg_${Date.now()}_booking_step`,
               },
             ]);
-            setShowQuickReplies(false);
-            return;
-          }
-          setState((prev) => ({ ...prev, chatBookingStep: "time", capturedData: newCapturedData }));
-          setMessages(() => [
-            ...updatedConversation,
-            {
-              role: "bot",
-              text: getBookingStepPrompt("time", newCapturedData),
-              timestamp: new Date(),
-              messageId: `msg_${Date.now()}_booking_step`,
-            },
-          ]);
-          setQuickReplies(availableSlots);
-          setShowQuickReplies(true);
+            setQuickReplies(availableSlots);
+            setShowQuickReplies(true);
+          });
           return;
         }
 
@@ -574,7 +595,10 @@ export function useAIResponse(
       }
 
       // Detect fresh booking-in-chat intent
-      if (CHAT_BOOK_INTENT_REGEX.test(textToSend)) {
+      if (
+        CHAT_BOOK_INTENT_REGEX.test(textToSend) ||
+        CHAT_BOOK_INTENT_REGEX.test(normalizedForMatching)
+      ) {
         const firstField = getNextBookingField(state.capturedData);
         if (firstField === "confirm") {
           // All data already captured — go straight to summary
@@ -601,34 +625,38 @@ export function useAIResponse(
           );
           setIsTyping(false);
           if (availableSlots.length === 0) {
-            setState((prev) => ({
-              ...prev,
-              chatBookingStep: "date",
-              capturedData: { ...prev.capturedData, meetingDate: undefined },
-            }));
-            setMessages(() => [
-              ...updatedConversation,
-              {
-                role: "bot",
-                text: "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
-                timestamp: new Date(),
-                messageId: `msg_${Date.now()}_no_slots`,
-              },
-            ]);
-            setShowQuickReplies(false);
+            showAfterTyping(() => {
+              setState((prev) => ({
+                ...prev,
+                chatBookingStep: "date",
+                capturedData: { ...prev.capturedData, meetingDate: undefined },
+              }));
+              setMessages(() => [
+                ...updatedConversation,
+                {
+                  role: "bot",
+                  text: "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                  timestamp: new Date(),
+                  messageId: `msg_${Date.now()}_no_slots`,
+                },
+              ]);
+              setShowQuickReplies(false);
+            });
           } else {
-            setState((prev) => ({ ...prev, chatBookingStep: "time" }));
-            setMessages(() => [
-              ...updatedConversation,
-              {
-                role: "bot",
-                text: getBookingStepPrompt("time", state.capturedData),
-                timestamp: new Date(),
-                messageId: `msg_${Date.now()}_booking_start`,
-              },
-            ]);
-            setQuickReplies(availableSlots);
-            setShowQuickReplies(true);
+            showAfterTyping(() => {
+              setState((prev) => ({ ...prev, chatBookingStep: "time" }));
+              setMessages(() => [
+                ...updatedConversation,
+                {
+                  role: "bot",
+                  text: getBookingStepPrompt("time", state.capturedData),
+                  timestamp: new Date(),
+                  messageId: `msg_${Date.now()}_booking_start`,
+                },
+              ]);
+              setQuickReplies(availableSlots);
+              setShowQuickReplies(true);
+            });
           }
         } else {
           showAfterTyping(() => {
@@ -658,10 +686,14 @@ export function useAIResponse(
 
       const normalizedInput = normalize(textToSend);
       const isGeneralLearningRequest =
-        GENERAL_LEARNING_REQUEST_REGEX.test(textToSend) &&
-        GENERAL_TECH_TOPIC_REGEX.test(textToSend);
-      const isPortfolioTopic = PORTFOLIO_TOPIC_REGEX.test(textToSend);
-      const isPromptInjection = PROMPT_INJECTION_REGEX.test(textToSend);
+        GENERAL_LEARNING_REQUEST_REGEX.test(normalizedForMatching) &&
+        GENERAL_TECH_TOPIC_REGEX.test(normalizedForMatching);
+      const isPortfolioTopic = PORTFOLIO_TOPIC_REGEX.test(
+        normalizedForMatching,
+      );
+      const isPromptInjection = PROMPT_INJECTION_REGEX.test(
+        normalizedForMatching,
+      );
 
       const isBlocked =
         BLOCKED_NON_PROJECT_QUESTIONS.some(

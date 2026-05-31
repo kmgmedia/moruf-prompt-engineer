@@ -41,6 +41,9 @@ const CaseStudyGatePassWebsite = lazy(
 const CaseStudyAIJobIntelligence = lazy(
   () => import("./pages/CaseStudyAIJobIntelligence"),
 );
+const CaseStudyQAKnowledgeBase = lazy(
+  () => import("./pages/CaseStudyQAKnowledgeBase"),
+);
 
 const queryClient = new QueryClient();
 
@@ -121,6 +124,10 @@ const router = createBrowserRouter(
         {
           path: "/case-study/ai-job-intelligence",
           element: withSuspense(<CaseStudyAIJobIntelligence />),
+        },
+        {
+          path: "/case-study/qa-knowledge-base-assistant",
+          element: withSuspense(<CaseStudyQAKnowledgeBase />),
         },
         { path: "*", element: withSuspense(<NotFound />) },
       ],

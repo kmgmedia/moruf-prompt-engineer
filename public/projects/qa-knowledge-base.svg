@@ -1,0 +1,95 @@
+<svg width="1400" height="820" viewBox="0 0 1400 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="820" fill="#F7F4EC"/>
+  <path d="M0 0H1400V820H0V0Z" fill="url(#grid)"/>
+  <rect x="52" y="54" width="1296" height="712" rx="28" fill="#FFFDF7" stroke="#E5DED0" stroke-width="2"/>
+  <rect x="84" y="86" width="1232" height="68" rx="16" fill="#F4EFE4"/>
+  <circle cx="118" cy="120" r="8" fill="#FF5F57"/>
+  <circle cx="146" cy="120" r="8" fill="#FFBD2E"/>
+  <circle cx="174" cy="120" r="8" fill="#28C840"/>
+  <text x="214" y="128" fill="#1F2937" font-family="Inter, Arial, sans-serif" font-size="24" font-weight="700">QA Ingest Template</text>
+  <rect x="1040" y="102" width="222" height="36" rx="10" fill="#FFFDF7" stroke="#DED6C8"/>
+  <text x="1070" y="126" fill="#6B7280" font-family="Inter, Arial, sans-serif" font-size="16">Search Q&amp;A</text>
+
+  <g filter="url(#glow)">
+    <rect x="106" y="208" width="196" height="112" rx="18" fill="#EFF6FF" stroke="#60A5FA" stroke-width="2"/>
+    <text x="134" y="252" fill="#1D4ED8" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Form Trigger</text>
+    <text x="134" y="282" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="14">Name, Email</text>
+    <text x="134" y="304" fill="#475569" font-family="Inter, Arial, sans-serif" font-size="14">Question, Answer</text>
+  </g>
+  <path d="M310 264H398" stroke="#B6ADA0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M388 252L404 264L388 276" stroke="#B6ADA0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="418" y="208" width="196" height="112" rx="18" fill="#FDF2F8" stroke="#F472B6" stroke-width="2"/>
+  <text x="446" y="252" fill="#BE185D" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Trust Check</text>
+  <text x="446" y="282" fill="#6B5661" font-family="Inter, Arial, sans-serif" font-size="14">Email contains</text>
+  <text x="446" y="304" fill="#6B5661" font-family="Inter, Arial, sans-serif" font-size="14">n8n.io domain</text>
+  <path d="M624 264H712" stroke="#B6ADA0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M702 252L718 264L702 276" stroke="#B6ADA0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <rect x="732" y="166" width="190" height="90" rx="18" fill="#ECFDF5" stroke="#34D399" stroke-width="2"/>
+  <text x="760" y="206" fill="#047857" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Trusted</text>
+  <text x="760" y="232" fill="#4B6358" font-family="Inter, Arial, sans-serif" font-size="14">isTrusted = true</text>
+  <rect x="732" y="276" width="190" height="90" rx="18" fill="#FFF7ED" stroke="#FB923C" stroke-width="2"/>
+  <text x="760" y="316" fill="#C2410C" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">Untrusted</text>
+  <text x="760" y="342" fill="#765D4A" font-family="Inter, Arial, sans-serif" font-size="14">isTrusted = false</text>
+
+  <path d="M934 264H1022" stroke="#B6ADA0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M1012 252L1028 264L1012 276" stroke="#B6ADA0" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="1042" y="208" width="252" height="112" rx="18" fill="#F5F3FF" stroke="#A78BFA" stroke-width="2"/>
+  <text x="1070" y="248" fill="#6D28D9" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">OpenAI Tagging</text>
+  <text x="1070" y="278" fill="#665C78" font-family="Inter, Arial, sans-serif" font-size="14">GPT-4.1 mini extracts</text>
+  <text x="1070" y="300" fill="#665C78" font-family="Inter, Arial, sans-serif" font-size="14">4-8 focused tags</text>
+
+  <rect x="106" y="448" width="1188" height="214" rx="18" fill="#FFFDF7" stroke="#DED6C8" stroke-width="2"/>
+  <rect x="106" y="448" width="1188" height="48" rx="18" fill="#F4EFE4"/>
+  <text x="136" y="480" fill="#1F2937" font-family="Inter, Arial, sans-serif" font-size="18" font-weight="700">n8n Data Table: q&amp;a</text>
+  <text x="1058" y="480" fill="#EF5B4A" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Add Row</text>
+  <text x="1164" y="480" fill="#1F2937" font-family="Inter, Arial, sans-serif" font-size="16" font-weight="700">Chat Tool</text>
+
+  <g font-family="Inter, Arial, sans-serif" font-size="15">
+    <text x="136" y="532" fill="#6B7280">id</text>
+    <text x="226" y="532" fill="#6B7280">Name</text>
+    <text x="414" y="532" fill="#6B7280">Email</text>
+    <text x="644" y="532" fill="#6B7280">Question</text>
+    <text x="914" y="532" fill="#6B7280">Answer</text>
+    <text x="1160" y="532" fill="#6B7280">isTrusted</text>
+  </g>
+  <line x1="126" y1="548" x2="1274" y2="548" stroke="#E5DED0"/>
+  <g font-family="Inter, Arial, sans-serif" font-size="15" fill="#111827">
+    <text x="136" y="584">19</text>
+    <text x="226" y="584">Moruf Adebola</text>
+    <text x="414" y="584">morufbadebola@gmail.com</text>
+    <text x="644" y="584">Is the AI reliable for medical advice?</text>
+    <text x="914" y="584">The AI provides general guidance...</text>
+    <rect x="1184" y="568" width="18" height="18" rx="4" fill="#FFFFFF" stroke="#D1D5DB"/>
+  </g>
+  <line x1="126" y1="606" x2="1274" y2="606" stroke="#E5DED0"/>
+  <g font-family="Inter, Arial, sans-serif" font-size="15" fill="#111827">
+    <text x="136" y="642">20</text>
+    <text x="226" y="642">Moruf Ade</text>
+    <text x="414" y="642">team@n8n.io</text>
+    <text x="644" y="642">What should I do in an emergency?</text>
+    <text x="914" y="642">Call emergency services immediately...</text>
+    <rect x="1184" y="626" width="18" height="18" rx="4" fill="#FF6B5B"/>
+    <path d="M1188 635L1193 640L1200 631" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <rect x="418" y="688" width="564" height="40" rx="20" fill="#F4EFE4" stroke="#DED6C8"/>
+  <text x="514" y="714" fill="#4B5563" font-family="Inter, Arial, sans-serif" font-size="15">Chat assistant retrieves answers from structured Q&amp;A rows</text>
+
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1" fill="#DED6C8" opacity="0.7"/>
+    </pattern>
+    <filter id="glow" x="82" y="184" width="244" height="160" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset/>
+      <feGaussianBlur stdDeviation="12"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0.231 0 0 0 0 0.51 0 0 0 0 0.965 0 0 0 0.45 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_1_1"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_1_1" result="shape"/>
+    </filter>
+  </defs>
+</svg>
