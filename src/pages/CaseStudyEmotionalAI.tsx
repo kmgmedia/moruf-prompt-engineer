@@ -1,4 +1,5 @@
-﻿import {
+﻿import { Helmet } from "react-helmet-async";
+import {
   ArrowLeft,
   MessageCircle,
   AlertCircle,
@@ -14,6 +15,14 @@ const CaseStudyEmotionalAI = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>Conversational AI & Decision Support Systems | Moruf Adebola</title>
+        <meta name="description" content="Case study: AI systems for real-time intelligent conversations and decision support, designed for customer service automation and emotional context handling." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/emotional-ai" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/emotional-ai" />
+        <meta property="og:title" content="Conversational AI & Decision Support Systems | Moruf Adebola" />
+        <meta property="og:description" content="Case study: AI systems for real-time intelligent conversations and decision support, designed for customer service automation and emotional context handling." />
+      </Helmet>
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <Button
           variant="ghost"

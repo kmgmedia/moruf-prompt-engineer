@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   AlertCircle,
   ArrowLeft,
@@ -40,6 +41,14 @@ const CaseStudyPropertyIntelligence = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>Property Intelligence AI Assistant | Moruf Adebola</title>
+        <meta name="description" content="Case study: AI-powered property intelligence assistant using RAG pipeline and vector search to answer complex real estate queries in natural language." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/property-intelligence-assistant" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/property-intelligence-assistant" />
+        <meta property="og:title" content="Property Intelligence AI Assistant | Moruf Adebola" />
+        <meta property="og:description" content="Case study: AI-powered property intelligence assistant using RAG pipeline and vector search to answer complex real estate queries in natural language." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button

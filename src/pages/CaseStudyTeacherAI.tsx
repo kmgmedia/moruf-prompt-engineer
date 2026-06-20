@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   AlertCircle,
   ArrowLeft,
@@ -37,6 +38,14 @@ const CaseStudyTeacherAI = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>Intelligent Workflow Automation System | Moruf Adebola</title>
+        <meta name="description" content="Case study: Intelligent workflow automation engine with event-driven pipeline orchestration and trigger-based task management for business process automation." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/intelligent-workflow-systems" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/intelligent-workflow-systems" />
+        <meta property="og:title" content="Intelligent Workflow Automation System | Moruf Adebola" />
+        <meta property="og:description" content="Case study: Intelligent workflow automation engine with event-driven pipeline orchestration and trigger-based task management for business process automation." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button

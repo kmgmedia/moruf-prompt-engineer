@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   ArrowRight,
@@ -34,6 +35,14 @@ const CaseStudyTeacherAIAssistant = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>AI Teaching Assistant System | Moruf Adebola</title>
+        <meta name="description" content="Case study: AI-powered teaching assistant built with a multi-stage pipeline for personalised student support and automated lesson delivery workflows." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/teacher-ai" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/teacher-ai" />
+        <meta property="og:title" content="AI Teaching Assistant System | Moruf Adebola" />
+        <meta property="og:description" content="Case study: AI-powered teaching assistant built with a multi-stage pipeline for personalised student support and automated lesson delivery workflows." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button

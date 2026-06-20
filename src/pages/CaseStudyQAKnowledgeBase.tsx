@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   AlertCircle,
   ArrowLeft,
@@ -38,6 +39,14 @@ const CaseStudyQAKnowledgeBase = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>QA Knowledge Base AI Assistant | Moruf Adebola</title>
+        <meta name="description" content="Case study: AI-powered QA knowledge base with vector search, automated workflow integration, and a chat assistant for technical support teams." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/qa-knowledge-base-assistant" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/qa-knowledge-base-assistant" />
+        <meta property="og:title" content="QA Knowledge Base AI Assistant | Moruf Adebola" />
+        <meta property="og:description" content="Case study: AI-powered QA knowledge base with vector search, automated workflow integration, and a chat assistant for technical support teams." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button

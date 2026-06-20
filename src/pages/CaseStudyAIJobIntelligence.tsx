@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   AlertCircle,
   ArrowLeft,
@@ -40,6 +41,14 @@ const CaseStudyAIJobIntelligence = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>AI Job Intelligence & Scraping System | Moruf Adebola</title>
+        <meta name="description" content="Case study: AI job scraping and intelligence pipeline that evaluates and ranks job postings using automated data extraction and LLM-based scoring." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/ai-job-intelligence" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/ai-job-intelligence" />
+        <meta property="og:title" content="AI Job Intelligence & Scraping System | Moruf Adebola" />
+        <meta property="og:description" content="Case study: AI job scraping and intelligence pipeline that evaluates and ranks job postings using automated data extraction and LLM-based scoring." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button

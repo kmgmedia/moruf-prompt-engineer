@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   ArrowRight,
@@ -35,6 +36,14 @@ const CaseStudySandtonSchool = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>Sandton School AI Enrollment System | Moruf Adebola</title>
+        <meta name="description" content="Case study: AI-powered student enrollment and communication system for Sandton School with automated chatbot workflows and parent engagement tools." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/sandton-school" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/sandton-school" />
+        <meta property="og:title" content="Sandton School AI Enrollment System | Moruf Adebola" />
+        <meta property="og:description" content="Case study: AI-powered student enrollment and communication system for Sandton School with automated chatbot workflows and parent engagement tools." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button

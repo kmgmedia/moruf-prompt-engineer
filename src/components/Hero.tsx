@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon, Mail } from "lucide-react";
 import { Button } from "./ui/button";
 import { AnimatedBackground } from "./AnimatedBackground";
 
@@ -6,14 +6,7 @@ export const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       <AnimatedBackground opacity={1} subtle={false} />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          zIndex: 1,
-          background:
-            "linear-gradient(to bottom, rgba(13, 17, 28, 0.7), rgba(13, 17, 28, 0.6), rgba(13, 17, 28, 1))",
-        }}
-      />
+      <div className="absolute inset-0 pointer-events-none z-[1] bg-[linear-gradient(to_bottom,rgba(13,17,28,0.7),rgba(13,17,28,0.6),rgba(13,17,28,1))]" />
 
       <div className="container mx-auto px-4 z-10 animate-fade-in">
         <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
@@ -65,20 +58,23 @@ export const Hero = () => {
               href="https://github.com/kmgmedia"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="GitHub profile"
               className="text-muted-foreground hover:text-primary transition-colors duration-300"
             >
-              <Github className="w-5 h-5 md:w-6 md:h-6" />
+              <GithubIcon className="w-5 h-5 md:w-6 md:h-6" />
             </a>
             <a
               href="https://www.linkedin.com/in/moruf-adebola/"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="LinkedIn profile"
               className="text-muted-foreground hover:text-primary transition-colors duration-300"
             >
-              <Linkedin className="w-5 h-5 md:w-6 md:h-6" />
+              <LinkedinIcon className="w-5 h-5 md:w-6 md:h-6" />
             </a>
             <a
               href="mailto:morufbadebola@gmail.com"
+              aria-label="Send email"
               className="text-muted-foreground hover:text-primary transition-colors duration-300"
             >
               <Mail className="w-5 h-5 md:w-6 md:h-6" />

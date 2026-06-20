@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   BarChart3,
@@ -17,6 +18,14 @@ const CaseStudyDashboard = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>Project Tracker Dashboard | Moruf Adebola</title>
+        <meta name="description" content="Case study: Full-stack project tracker dashboard with authentication, analytics visualisation, and team task management built with React and Node.js." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/dashboard" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/dashboard" />
+        <meta property="og:title" content="Project Tracker Dashboard | Moruf Adebola" />
+        <meta property="og:description" content="Case study: Full-stack project tracker dashboard with authentication, analytics visualisation, and team task management built with React and Node.js." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
         <Button

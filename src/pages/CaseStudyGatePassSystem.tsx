@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   ArrowRight,
@@ -39,6 +40,14 @@ const CaseStudyGatePassSystem = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>GatePass Digital Access Control System | Moruf Adebola</title>
+        <meta name="description" content="Case study: Digital gate pass management system with QR scanning, real-time API, and role-based access control for secure facility management." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/gatepass-system" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/gatepass-system" />
+        <meta property="og:title" content="GatePass Digital Access Control System | Moruf Adebola" />
+        <meta property="og:description" content="Case study: Digital gate pass management system with QR scanning, real-time API, and role-based access control for secure facility management." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button

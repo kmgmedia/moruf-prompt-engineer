@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   ArrowRight,
@@ -34,6 +35,14 @@ const CaseStudyEcommerceSalesAutomation = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>Ecommerce Sales Automation AI | Moruf Adebola</title>
+        <meta name="description" content="Case study: AI-driven ecommerce sales chatbot with intelligent conversation flows for product discovery, upselling, and order support automation." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/ecommerce-sales-automation" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/ecommerce-sales-automation" />
+        <meta property="og:title" content="Ecommerce Sales Automation AI | Moruf Adebola" />
+        <meta property="og:description" content="Case study: AI-driven ecommerce sales chatbot with intelligent conversation flows for product discovery, upselling, and order support automation." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 pt-20 pb-16 max-w-4xl relative z-10">
         <Button

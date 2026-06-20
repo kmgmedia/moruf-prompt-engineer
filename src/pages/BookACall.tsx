@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowLeft,
@@ -289,6 +290,14 @@ const BookACall = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>Book a Call | Moruf Adebola</title>
+        <meta name="description" content="Schedule a free discovery call with Moruf Adebola to discuss AI automation, chatbot development, or intelligent workflow systems for your business." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/book-call" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/book-call" />
+        <meta property="og:title" content="Book a Call | Moruf Adebola" />
+        <meta property="og:description" content="Schedule a free discovery call with Moruf Adebola to discuss AI automation, chatbot development, or intelligent workflow systems for your business." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
         <Button
@@ -422,6 +431,7 @@ const BookACall = () => {
                         <button
                           type="button"
                           onClick={() => handleMonthChange(-1)}
+                          aria-label="Previous month"
                           className="rounded-lg border border-border p-2 hover:border-primary/50 hover:bg-primary/5 transition-colors"
                         >
                           <ChevronLeft className="w-4 h-4" />
@@ -430,6 +440,7 @@ const BookACall = () => {
                         <button
                           type="button"
                           onClick={() => handleMonthChange(1)}
+                          aria-label="Next month"
                           className="rounded-lg border border-border p-2 hover:border-primary/50 hover:bg-primary/5 transition-colors"
                         >
                           <ChevronRight className="w-4 h-4" />
@@ -475,8 +486,9 @@ const BookACall = () => {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold mb-3">Timezone *</label>
+                  <label htmlFor="timezone" className="block text-sm font-semibold mb-3">Timezone *</label>
                   <select
+                    id="timezone"
                     name="timezone"
                     value={formData.timezone}
                     onChange={handleInputChange}
@@ -548,10 +560,11 @@ const BookACall = () => {
               )}
 
               <div>
-                <label className="block text-sm font-semibold mb-3">
+                <label htmlFor="projectType" className="block text-sm font-semibold mb-3">
                   What do you need help with? *
                 </label>
                 <select
+                  id="projectType"
                   name="projectType"
                   value={formData.projectType}
                   onChange={handleInputChange}

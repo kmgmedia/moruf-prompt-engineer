@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
   ShoppingCart,
@@ -16,6 +17,14 @@ const CaseStudyBYCEcommerce = () => {
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
+      <Helmet>
+        <title>BYC Ecommerce Platform | Moruf Adebola</title>
+        <meta name="description" content="Case study: BYC full-stack ecommerce platform with product management, cart system, and integrated checkout built with modern web technologies." />
+        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/byc-ecommerce" />
+        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/byc-ecommerce" />
+        <meta property="og:title" content="BYC Ecommerce Platform | Moruf Adebola" />
+        <meta property="og:description" content="Case study: BYC full-stack ecommerce platform with product management, cart system, and integrated checkout built with modern web technologies." />
+      </Helmet>
       <AnimatedBackground opacity={0.6} subtle={true} />
       <div className="container mx-auto px-4 py-12 max-w-4xl relative z-10">
         <Button
