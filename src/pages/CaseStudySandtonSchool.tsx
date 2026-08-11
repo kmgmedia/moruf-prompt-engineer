@@ -39,8 +39,8 @@ const CaseStudySandtonSchool = () => {
       <Helmet>
         <title>Sandton School AI Enrollment System | Moruf Adebola</title>
         <meta name="description" content="Case study: AI-powered student enrollment and communication system for Sandton School with automated chatbot workflows and parent engagement tools." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/sandton-school" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/sandton-school" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/sandton-school" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/sandton-school" />
         <meta property="og:title" content="Sandton School AI Enrollment System | Moruf Adebola" />
         <meta property="og:description" content="Case study: AI-powered student enrollment and communication system for Sandton School with automated chatbot workflows and parent engagement tools." />
       </Helmet>

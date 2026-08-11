@@ -44,8 +44,8 @@ const CaseStudyPropertyIntelligence = () => {
       <Helmet>
         <title>Property Intelligence AI Assistant | Moruf Adebola</title>
         <meta name="description" content="Case study: AI-powered property intelligence assistant using RAG pipeline and vector search to answer complex real estate queries in natural language." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/property-intelligence-assistant" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/property-intelligence-assistant" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/property-intelligence-assistant" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/property-intelligence-assistant" />
         <meta property="og:title" content="Property Intelligence AI Assistant | Moruf Adebola" />
         <meta property="og:description" content="Case study: AI-powered property intelligence assistant using RAG pipeline and vector search to answer complex real estate queries in natural language." />
       </Helmet>

@@ -15,8 +15,8 @@ const Index = () => {
       <Helmet>
         <title>Moruf Adebola | AI Automation Engineer & Full-Stack Developer</title>
         <meta name="description" content="Software Engineer focused on AI-powered automation, full-stack development, and intelligent workflow systems. Explore case studies and projects by Moruf Adebola." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/" />
         <meta property="og:title" content="Moruf Adebola | AI Automation Engineer & Full-Stack Developer" />
         <meta property="og:description" content="Software Engineer focused on AI-powered automation, full-stack development, and intelligent workflow systems. Explore case studies and projects by Moruf Adebola." />
       </Helmet>

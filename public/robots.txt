@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.morufdesigndev.com/sitemap.xml
+Sitemap: https://www.morufstackdev.com.ng/sitemap.xml

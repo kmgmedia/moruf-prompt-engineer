@@ -41,8 +41,8 @@ const CaseStudyTeacherAI = () => {
       <Helmet>
         <title>Intelligent Workflow Automation System | Moruf Adebola</title>
         <meta name="description" content="Case study: Intelligent workflow automation engine with event-driven pipeline orchestration and trigger-based task management for business process automation." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/intelligent-workflow-systems" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/intelligent-workflow-systems" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/intelligent-workflow-systems" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/intelligent-workflow-systems" />
         <meta property="og:title" content="Intelligent Workflow Automation System | Moruf Adebola" />
         <meta property="og:description" content="Case study: Intelligent workflow automation engine with event-driven pipeline orchestration and trigger-based task management for business process automation." />
       </Helmet>

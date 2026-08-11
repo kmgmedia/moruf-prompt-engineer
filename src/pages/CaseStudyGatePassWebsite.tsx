@@ -38,8 +38,8 @@ const CaseStudyGatePassWebsite = () => {
       <Helmet>
         <title>GatePass Marketing Website | Moruf Adebola</title>
         <meta name="description" content="Case study: Full marketing website for the GatePass access control platform with integrated chatbot, lead capture pipeline, and conversion-optimised landing pages." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/gatepass-website" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/gatepass-website" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/gatepass-website" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/gatepass-website" />
         <meta property="og:title" content="GatePass Marketing Website | Moruf Adebola" />
         <meta property="og:description" content="Case study: Full marketing website for the GatePass access control platform with integrated chatbot, lead capture pipeline, and conversion-optimised landing pages." />
       </Helmet>

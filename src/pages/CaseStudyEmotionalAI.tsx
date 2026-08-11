@@ -18,8 +18,8 @@ const CaseStudyEmotionalAI = () => {
       <Helmet>
         <title>Conversational AI & Decision Support Systems | Moruf Adebola</title>
         <meta name="description" content="Case study: AI systems for real-time intelligent conversations and decision support, designed for customer service automation and emotional context handling." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/emotional-ai" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/emotional-ai" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/emotional-ai" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/emotional-ai" />
         <meta property="og:title" content="Conversational AI & Decision Support Systems | Moruf Adebola" />
         <meta property="og:description" content="Case study: AI systems for real-time intelligent conversations and decision support, designed for customer service automation and emotional context handling." />
       </Helmet>

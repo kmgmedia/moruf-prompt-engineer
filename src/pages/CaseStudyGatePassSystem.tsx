@@ -43,8 +43,8 @@ const CaseStudyGatePassSystem = () => {
       <Helmet>
         <title>GatePass Digital Access Control System | Moruf Adebola</title>
         <meta name="description" content="Case study: Digital gate pass management system with QR scanning, real-time API, and role-based access control for secure facility management." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/gatepass-system" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/gatepass-system" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/gatepass-system" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/gatepass-system" />
         <meta property="og:title" content="GatePass Digital Access Control System | Moruf Adebola" />
         <meta property="og:description" content="Case study: Digital gate pass management system with QR scanning, real-time API, and role-based access control for secure facility management." />
       </Helmet>

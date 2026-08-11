@@ -42,8 +42,8 @@ const CaseStudyQAKnowledgeBase = () => {
       <Helmet>
         <title>QA Knowledge Base AI Assistant | Moruf Adebola</title>
         <meta name="description" content="Case study: AI-powered QA knowledge base with vector search, automated workflow integration, and a chat assistant for technical support teams." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/qa-knowledge-base-assistant" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/qa-knowledge-base-assistant" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/qa-knowledge-base-assistant" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/qa-knowledge-base-assistant" />
         <meta property="og:title" content="QA Knowledge Base AI Assistant | Moruf Adebola" />
         <meta property="og:description" content="Case study: AI-powered QA knowledge base with vector search, automated workflow integration, and a chat assistant for technical support teams." />
       </Helmet>

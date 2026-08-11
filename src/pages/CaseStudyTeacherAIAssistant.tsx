@@ -38,8 +38,8 @@ const CaseStudyTeacherAIAssistant = () => {
       <Helmet>
         <title>AI Teaching Assistant System | Moruf Adebola</title>
         <meta name="description" content="Case study: AI-powered teaching assistant built with a multi-stage pipeline for personalised student support and automated lesson delivery workflows." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/teacher-ai" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/teacher-ai" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/teacher-ai" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/teacher-ai" />
         <meta property="og:title" content="AI Teaching Assistant System | Moruf Adebola" />
         <meta property="og:description" content="Case study: AI-powered teaching assistant built with a multi-stage pipeline for personalised student support and automated lesson delivery workflows." />
       </Helmet>

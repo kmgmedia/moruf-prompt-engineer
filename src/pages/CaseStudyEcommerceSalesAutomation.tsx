@@ -38,8 +38,8 @@ const CaseStudyEcommerceSalesAutomation = () => {
       <Helmet>
         <title>Ecommerce Sales Automation AI | Moruf Adebola</title>
         <meta name="description" content="Case study: AI-driven ecommerce sales chatbot with intelligent conversation flows for product discovery, upselling, and order support automation." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/ecommerce-sales-automation" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/ecommerce-sales-automation" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/ecommerce-sales-automation" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/ecommerce-sales-automation" />
         <meta property="og:title" content="Ecommerce Sales Automation AI | Moruf Adebola" />
         <meta property="og:description" content="Case study: AI-driven ecommerce sales chatbot with intelligent conversation flows for product discovery, upselling, and order support automation." />
       </Helmet>

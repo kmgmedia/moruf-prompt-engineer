@@ -20,8 +20,8 @@ const CaseStudyBYCEcommerce = () => {
       <Helmet>
         <title>BYC Ecommerce Platform | Moruf Adebola</title>
         <meta name="description" content="Case study: BYC full-stack ecommerce platform with product management, cart system, and integrated checkout built with modern web technologies." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/byc-ecommerce" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/byc-ecommerce" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/byc-ecommerce" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/byc-ecommerce" />
         <meta property="og:title" content="BYC Ecommerce Platform | Moruf Adebola" />
         <meta property="og:description" content="Case study: BYC full-stack ecommerce platform with product management, cart system, and integrated checkout built with modern web technologies." />
       </Helmet>

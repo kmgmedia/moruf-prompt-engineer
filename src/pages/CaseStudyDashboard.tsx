@@ -21,8 +21,8 @@ const CaseStudyDashboard = () => {
       <Helmet>
         <title>Project Tracker Dashboard | Moruf Adebola</title>
         <meta name="description" content="Case study: Full-stack project tracker dashboard with authentication, analytics visualisation, and team task management built with React and Node.js." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/dashboard" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/dashboard" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/dashboard" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/dashboard" />
         <meta property="og:title" content="Project Tracker Dashboard | Moruf Adebola" />
         <meta property="og:description" content="Case study: Full-stack project tracker dashboard with authentication, analytics visualisation, and team task management built with React and Node.js." />
       </Helmet>

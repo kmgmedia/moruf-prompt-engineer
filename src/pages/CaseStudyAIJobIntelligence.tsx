@@ -44,8 +44,8 @@ const CaseStudyAIJobIntelligence = () => {
       <Helmet>
         <title>AI Job Intelligence & Scraping System | Moruf Adebola</title>
         <meta name="description" content="Case study: AI job scraping and intelligence pipeline that evaluates and ranks job postings using automated data extraction and LLM-based scoring." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/ai-job-intelligence" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/ai-job-intelligence" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/ai-job-intelligence" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/ai-job-intelligence" />
         <meta property="og:title" content="AI Job Intelligence & Scraping System | Moruf Adebola" />
         <meta property="og:description" content="Case study: AI job scraping and intelligence pipeline that evaluates and ranks job postings using automated data extraction and LLM-based scoring." />
       </Helmet>

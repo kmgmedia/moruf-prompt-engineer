@@ -293,8 +293,8 @@ const BookACall = () => {
       <Helmet>
         <title>Book a Call | Moruf Adebola</title>
         <meta name="description" content="Schedule a free discovery call with Moruf Adebola to discuss AI automation, chatbot development, or intelligent workflow systems for your business." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/book-call" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/book-call" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/book-call" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/book-call" />
         <meta property="og:title" content="Book a Call | Moruf Adebola" />
         <meta property="og:description" content="Schedule a free discovery call with Moruf Adebola to discuss AI automation, chatbot development, or intelligent workflow systems for your business." />
       </Helmet>

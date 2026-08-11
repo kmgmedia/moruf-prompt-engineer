@@ -39,8 +39,8 @@ const CaseStudyBywayBackendAPI = () => {
       <Helmet>
         <title>Byway Backend API | Moruf Adebola</title>
         <meta name="description" content="Case study: Scalable Byway backend REST API with authentication, course management endpoints, and secure data architecture for an elearning platform." />
-        <link rel="canonical" href="https://www.morufdesigndev.com/case-study/byway-backend-api" />
-        <meta property="og:url" content="https://www.morufdesigndev.com/case-study/byway-backend-api" />
+        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/byway-backend-api" />
+        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/byway-backend-api" />
         <meta property="og:title" content="Byway Backend API | Moruf Adebola" />
         <meta property="og:description" content="Case study: Scalable Byway backend REST API with authentication, course management endpoints, and secure data architecture for an elearning platform." />
       </Helmet>
