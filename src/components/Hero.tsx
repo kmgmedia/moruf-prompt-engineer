@@ -12,7 +12,7 @@ export const Hero = () => {
         <div className="max-w-4xl mx-auto text-center space-y-6 md:space-y-8">
           <div className="inline-block">
             <span className="text-primary text-xs md:text-sm font-semibold tracking-wider uppercase px-3 md:px-4 py-2 rounded-full bg-primary/10 border border-primary/20">
-              AI Automation & Systems Portfolio
+              AI Automation • Full-Stack • Workflow Systems
             </span>
           </div>
 
@@ -24,13 +24,14 @@ export const Hero = () => {
 
           <div className="space-y-4 max-w-3xl mx-auto">
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Applied AI Engineer building intelligent automation systems & AI
-              workflows
+              AI Automation Engineer & Full-Stack Developer building
+              intelligent agents and workflow systems
             </p>
 
             <p className="text-base md:text-lg text-foreground/75">
-              I design and build AI-powered systems that automate conversations,
-              connect APIs, and streamline business workflows.
+              I build AI-powered automation, full-stack apps, and intelligent
+              workflow systems that help businesses streamline operations and
+              automate repetitive work.
             </p>
           </div>
 

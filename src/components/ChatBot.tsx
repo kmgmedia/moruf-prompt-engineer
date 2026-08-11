@@ -348,7 +348,7 @@ const ChatBot = () => {
                 <div className="flex flex-col leading-tight min-w-0">
                   <span className="font-bold text-base sm:text-lg">Moruf</span>
                   <span className="text-[12px] sm:text-[13px] font-semibold opacity-95 leading-snug break-words">
-                    Applied AI Engineer & Full-Stack Software Engineer
+                    AI Automation Engineer & Full-Stack Developer
                   </span>
                 </div>
               </div>

@@ -3,18 +3,22 @@ import aboutImage from "@/assets/about-moruf.jpeg";
 
 const expertise = [
   "OpenAI APIs",
-  "n8n Automation",
+  "Claude API",
   "RAG Systems",
-  "Workflow Architecture",
-  "Vector Databases",
-  "API Integrations",
   "AI Assistants",
-  "Webhooks",
+  "Vector Databases",
+  "Pinecone",
+  "n8n Automation",
+  "Workflow Architecture",
   "Backend Automation",
+  "Webhooks",
+  "API Integrations",
+  "REST APIs",
+  "Python",
+  "Node.js",
   "React.js",
   "TypeScript",
-  "Node.js",
-  "REST APIs",
+  "AWS",
   "Business Systems",
 ];
 
@@ -58,28 +62,43 @@ export const About = () => {
               </h2>
 
               <p className="max-w-2xl text-sm leading-7 text-muted-foreground sm:text-base md:text-lg md:leading-8">
-                I am an Applied AI Engineer and Full-Stack Software Engineer
-                designing AI-powered workflow systems, automation pipelines, and
-                LLM-integrated business solutions across sales, operations,
-                customer support, and internal productivity workflows.
+                I'm a Software Engineer focused on AI-powered automation,
+                full-stack application development, and intelligent workflow
+                systems. I build software that helps businesses streamline
+                operations, connect disconnected tools, and automate
+                repetitive work using modern web technologies and AI.
               </p>
             </div>
 
             <div className="space-y-5 text-sm leading-7 text-muted-foreground sm:text-base md:leading-8">
               <p>
-                I build scalable systems with OpenAI APIs, n8n, webhooks,
-                vector databases, RAG workflows, backend integrations, and
-                automation orchestration that reduce manual effort, improve
-                response speed, and support real business operations.
+                My experience spans the full development lifecycle —
+                designing intuitive interfaces, building scalable backend
+                services, and integrating third-party APIs. I enjoy shipping
+                production-ready applications that pair solid engineering
+                with AI capabilities to solve real business problems.
               </p>
 
               <p>
-                My software engineering foundation spans React.js, TypeScript,
-                JavaScript, Node.js, Express.js, Python, REST APIs, MongoDB, and
-                backend automation systems. This allows me to build not just AI
-                workflows, but complete web applications, dashboards, APIs, and
-                business systems that are practical, maintainable, and
-                deployment-ready.
+                <span className="font-semibold text-foreground">
+                  What I build:
+                </span>{" "}
+                AI-powered assistants, workflow automation systems, business
+                process integrations, and full-stack web applications —
+                intelligent tools that connect people, data, and services
+                into seamless digital experiences.
+              </p>
+
+              <p>
+                <span className="font-semibold text-foreground">
+                  Beyond the code:
+                </span>{" "}
+                I care about software architecture, system design, developer
+                productivity, and building scalable products that deliver
+                measurable value. I'm currently open to opportunities where I
+                can build scalable software and AI-powered solutions
+                alongside teams that value innovation, engineering
+                excellence, and continuous learning.
               </p>
             </div>
 

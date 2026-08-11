@@ -6,7 +6,7 @@ export const Footer = () => {
           <p>
             © {new Date().getFullYear()} Moruf Adebola. All rights reserved.
           </p>
-          <p>Applied AI Engineer | AI Automation & Workflow Systems</p>
+          <p>AI Automation Engineer & Full-Stack Developer</p>
         </div>
       </div>
     </footer>

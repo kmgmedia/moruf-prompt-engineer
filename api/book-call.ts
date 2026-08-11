@@ -166,30 +166,51 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       }
     }
 
-    await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
-      to: NOTIFY_EMAIL,
-      subject: `New Call Booking: ${name}`,
-      html: `
-        <h2>New Call Booking Request</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Phone:</strong> ${phone}</p>
-        <p><strong>Project Type:</strong> ${projectType}</p>
-        <p><strong>Selected Slot:</strong> ${selectedSlot}</p>
-        <p><strong>Timezone:</strong> ${timezoneLabel}</p>
-        <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a>${isRealMeetLink ? " ✅" : " <span style='color:red'>⚠️ FALLBACK LINK — Google Meet not generated</span>"}</p>
-        ${calendarErrorMessage ? `<p style="color:red"><strong>Google Calendar Error:</strong> ${calendarErrorMessage}</p>` : ""}
-        ${!googleCalendarEnabled ? `<p style="color:orange"><strong>Note:</strong> Google Calendar credentials not configured in environment variables.</p>` : ""}
-        <p><strong>Description:</strong> ${description || "Not provided"}</p>
-        <p><strong>Submitted at:</strong> ${new Date().toLocaleString()}</p>
-      `,
-    });
+    let ownerNotificationWarning = "";
+
+    try {
+      const ownerEmailResult = await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: NOTIFY_EMAIL,
+        subject: `New Call Booking: ${name}`,
+        html: `
+          <h2>New Call Booking Request</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Project Type:</strong> ${projectType}</p>
+          <p><strong>Selected Slot:</strong> ${selectedSlot}</p>
+          <p><strong>Timezone:</strong> ${timezoneLabel}</p>
+          <p><strong>Meeting Link:</strong> <a href="${finalMeetingLink}">${finalMeetingLink}</a>${isRealMeetLink ? " ✅" : " <span style='color:red'>⚠️ FALLBACK LINK — Google Meet not generated</span>"}</p>
+          ${calendarErrorMessage ? `<p style="color:red"><strong>Google Calendar Error:</strong> ${calendarErrorMessage}</p>` : ""}
+          ${!googleCalendarEnabled ? `<p style="color:orange"><strong>Note:</strong> Google Calendar credentials not configured in environment variables.</p>` : ""}
+          <p><strong>Description:</strong> ${description || "Not provided"}</p>
+          <p><strong>Submitted at:</strong> ${new Date().toLocaleString()}</p>
+        `,
+      });
+
+      if (ownerEmailResult.error) {
+        throw new Error(
+          ownerEmailResult.error.message ||
+            "Resend rejected the owner notification email",
+        );
+      }
+    } catch (ownerEmailError) {
+      ownerNotificationWarning =
+        ownerEmailError instanceof Error
+          ? ownerEmailError.message
+          : "Owner notification email could not be sent.";
+
+      console.error(
+        "Owner notification email error:",
+        ownerNotificationWarning,
+      );
+    }
 
     let clientConfirmationWarning = "";
 
     try {
-      await resend.emails.send({
+      const clientEmailResult = await resend.emails.send({
         from: RESEND_FROM_EMAIL,
         to: email,
         subject: "Your discovery call is booked",
@@ -209,6 +230,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
           <p>Moruf</p>
         `,
       });
+
+      if (clientEmailResult.error) {
+        throw new Error(
+          clientEmailResult.error.message ||
+            "Resend rejected the client confirmation email",
+        );
+      }
     } catch (clientEmailError) {
       clientConfirmationWarning =
         clientEmailError instanceof Error
@@ -233,6 +261,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       googleCalendarEnabled,
       calendarBooking,
       crmSync,
+      ownerNotificationWarning,
       clientConfirmationWarning,
     });
   } catch (error) {

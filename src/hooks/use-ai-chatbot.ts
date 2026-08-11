@@ -82,7 +82,7 @@ const resumeByCallReply =
   "Absolutely. For CV/resume requests, the process is to book a quick discovery call first at /book-call so I can share the most relevant version based on your role or project context. If helpful, share the role title and key requirements now.";
 
 const experienceReply =
-  "I have 5+ years of experience as an Applied AI Engineer and Full-Stack Developer. I build AI automation systems, chatbots, APIs, and web apps across e-commerce, real estate, education, and event tech. Stack: Node.js, React, Python, OpenAI, LangChain, n8n, MongoDB, and more. What would you like to know more about?";
+  "I have 5+ years of experience as an AI Automation Engineer and Full-Stack Developer. I build AI automation systems, chatbots, APIs, and web apps across e-commerce, real estate, education, and event tech. Stack: Node.js, React, Python, OpenAI, LangChain, n8n, MongoDB, and more. What would you like to know more about?";
 
 const unavailableCaseStudyReply = (_unknownPaths: string[]): string => {
   return "That case study isn't published yet. You can browse what's available in the Projects section, or tell me your use case and I'll point you to the closest match. You can also book a call at /book-call for a deeper look.";
@@ -179,7 +179,7 @@ export const useAIChatbot = (options: UseAIChatbotOptions = {}) => {
 --- PROFESSIONAL BACKGROUND ---
 
 Name: Moruf Babatunde Adebola
-Title: Applied AI Engineer | AI Automation & Workflow Systems | Software Engineering
+Title: AI Automation Engineer & Full-Stack Developer | Workflow Systems
 Location: Johannesburg, South Africa
 Email: morufbadebola@gmail.com
 LinkedIn: linkedin.com/in/moruf-adebola

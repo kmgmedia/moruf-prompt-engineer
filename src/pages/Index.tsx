@@ -13,12 +13,12 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Moruf Adebola | AI Automation & Systems Engineer</title>
-        <meta name="description" content="Applied AI Engineer specialising in intelligent automation systems, AI chatbots, and workflow solutions. Explore portfolio projects and case studies." />
+        <title>Moruf Adebola | AI Automation Engineer & Full-Stack Developer</title>
+        <meta name="description" content="Software Engineer focused on AI-powered automation, full-stack development, and intelligent workflow systems. Explore case studies and projects by Moruf Adebola." />
         <link rel="canonical" href="https://www.morufdesigndev.com/" />
         <meta property="og:url" content="https://www.morufdesigndev.com/" />
-        <meta property="og:title" content="Moruf Adebola | AI Automation & Systems Engineer" />
-        <meta property="og:description" content="Applied AI Engineer specialising in intelligent automation systems, AI chatbots, and workflow solutions. Explore portfolio projects and case studies." />
+        <meta property="og:title" content="Moruf Adebola | AI Automation Engineer & Full-Stack Developer" />
+        <meta property="og:description" content="Software Engineer focused on AI-powered automation, full-stack development, and intelligent workflow systems. Explore case studies and projects by Moruf Adebola." />
       </Helmet>
       <Hero />
       <About />
