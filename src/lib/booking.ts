@@ -1,4 +1,4 @@
-export const DEFAULT_NOTIFY_EMAIL = "morufbadebola@gmail.com";
+export const DEFAULT_NOTIFY_EMAIL = "bookings@morufstackdev.com.ng";
 
 export const BOOKING_TIMEZONE_OPTIONS = [
   { value: "Africa/Lagos", label: "Africa/Lagos (WAT)" },

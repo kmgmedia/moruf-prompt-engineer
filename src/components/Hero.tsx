@@ -1,4 +1,4 @@
-import { GithubIcon, LinkedinIcon, Mail } from "lucide-react";
+import { GithubIcon, LinkedinIcon, Mail, Phone } from "lucide-react";
 import { Button } from "./ui/button";
 import { AnimatedBackground } from "./AnimatedBackground";
 
@@ -79,6 +79,13 @@ export const Hero = () => {
               className="text-muted-foreground hover:text-primary transition-colors duration-300"
             >
               <Mail className="w-5 h-5 md:w-6 md:h-6" />
+            </a>
+            <a
+              href="tel:+2349150962867"
+              aria-label="Call phone number"
+              className="text-muted-foreground hover:text-primary transition-colors duration-300"
+            >
+              <Phone className="w-5 h-5 md:w-6 md:h-6" />
             </a>
           </div>
         </div>

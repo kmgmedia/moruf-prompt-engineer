@@ -7,7 +7,7 @@ import {
 } from "../src/lib/googleCalendar.js";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "morufbadebola@gmail.com";
+const NOTIFY_EMAIL = process.env.NOTIFY_EMAIL || "bookings@morufstackdev.com.ng";
 const RESEND_FROM_EMAIL =
   process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 const MEETING_LINK =

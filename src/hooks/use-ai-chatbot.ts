@@ -182,6 +182,8 @@ Name: Moruf Babatunde Adebola
 Title: AI Automation Engineer & Full-Stack Developer | Workflow Systems
 Location: Johannesburg, South Africa
 Email: morufbadebola@gmail.com
+Bookings Email: bookings@morufstackdev.com.ng
+Phone: +234 915 096 2867
 LinkedIn: linkedin.com/in/moruf-adebola
 
 Summary:

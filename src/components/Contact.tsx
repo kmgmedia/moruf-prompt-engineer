@@ -1,7 +1,9 @@
 import { FormEvent, useState } from "react";
-import { Github, Linkedin, Mail, Send } from "lucide-react";
+import { Github, Linkedin, Mail, Phone, Send } from "lucide-react";
 
 const CONTACT_EMAIL = "morufbadebola@gmail.com";
+const BOOKINGS_EMAIL = "bookings@morufstackdev.com.ng";
+const CONTACT_PHONE = "+234 915 096 2867";
 
 export const Contact = () => {
   const [name, setName] = useState("");
@@ -90,13 +92,29 @@ export const Contact = () => {
               </div>
             </div>
 
-            <a
-              href={`mailto:${CONTACT_EMAIL}`}
-              className="inline-flex max-w-full items-center gap-3 break-all font-mono text-xs text-primary transition-colors hover:text-primary/80 sm:text-sm"
-            >
-              <Mail className="h-4 w-4" />
-              {CONTACT_EMAIL}
-            </a>
+            <div className="space-y-2.5">
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                className="flex max-w-full items-center gap-3 break-all font-mono text-xs text-primary transition-colors hover:text-primary/80 sm:text-sm"
+              >
+                <Mail className="h-4 w-4 shrink-0" />
+                {CONTACT_EMAIL}
+              </a>
+              <a
+                href={`mailto:${BOOKINGS_EMAIL}`}
+                className="flex max-w-full items-center gap-3 break-all font-mono text-xs text-primary transition-colors hover:text-primary/80 sm:text-sm"
+              >
+                <Mail className="h-4 w-4 shrink-0" />
+                {BOOKINGS_EMAIL}
+              </a>
+              <a
+                href={`tel:${CONTACT_PHONE.replace(/\s+/g, "")}`}
+                className="flex max-w-full items-center gap-3 break-all font-mono text-xs text-primary transition-colors hover:text-primary/80 sm:text-sm"
+              >
+                <Phone className="h-4 w-4 shrink-0" />
+                {CONTACT_PHONE}
+              </a>
+            </div>
 
             <div className="flex gap-3 pt-2">
               <a

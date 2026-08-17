@@ -2,7 +2,7 @@ import { VercelRequest, VercelResponse } from "@vercel/node";
 import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const YOUR_EMAIL = "morufbadebola@gmail.com";
+const YOUR_EMAIL = "bookings@morufstackdev.com.ng";
 const CRM_WEBHOOK_URL =
   process.env.CRM_WEBHOOK_URL ||
   process.env.N8N_LEAD_WEBHOOK_URL ||
@@ -255,7 +255,7 @@ ${conversationHistory}
         </p>
 
         <p style="margin-top: 20px; color: #666; font-size: 13px;">
-          Need urgent help? Email <a href="mailto:morufbadebola@gmail.com">morufbadebola@gmail.com</a>
+          Need urgent help? Email <a href="mailto:bookings@morufstackdev.com.ng">bookings@morufstackdev.com.ng</a>
         </p>
 
         <p style="margin-top: 16px; color: #666;">
