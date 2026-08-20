@@ -316,11 +316,13 @@ app.post("/api/lead", async (req, res) => {
           .join("\n\n")
       : "No conversation history";
 
-    await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
-      to: NOTIFY_EMAIL,
-      subject: `New Lead: ${name} (${intentLabel})`,
-      html: `
+    let ownerNotificationWarning = "";
+    try {
+      const ownerEmailResult = await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: NOTIFY_EMAIL,
+        subject: `New Lead: ${name} (${intentLabel})`,
+        html: `
         <h2 style="color: #000;">New ${sourceLabel} Lead</h2>
         <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
           <h3 style="margin-top: 0; color: #333;">Lead Information</h3>
@@ -339,13 +341,29 @@ ${conversationHistory}
           </pre>
         </div>
       `,
-    });
+      });
 
-    await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
-      to: email,
-      subject: `Thanks for reaching out, ${name}!`,
-      html: `
+      if (ownerEmailResult.error) {
+        throw new Error(
+          ownerEmailResult.error.message ||
+            "Resend rejected the owner notification email",
+        );
+      }
+    } catch (ownerEmailError) {
+      ownerNotificationWarning =
+        ownerEmailError instanceof Error
+          ? ownerEmailError.message
+          : "Owner notification email could not be sent.";
+      console.error("Owner notification email error:", ownerNotificationWarning);
+    }
+
+    let clientConfirmationWarning = "";
+    try {
+      const clientEmailResult = await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: email,
+        subject: `Thanks for reaching out, ${name}!`,
+        html: `
         <h2>Hey ${name}</h2>
         <p>I've received your information and I'm already thinking about your project.</p>
         <h3>What happens next:</h3>
@@ -357,11 +375,30 @@ ${conversationHistory}
         <p><strong>If this is urgent,</strong> feel free to reach out directly at <a href="mailto:${NOTIFY_EMAIL}">${NOTIFY_EMAIL}</a></p>
         <p style="margin-top: 30px; color: #666;">Looking forward to connecting!<br/><strong>Moruf</strong></p>
       `,
-    });
+      });
+
+      if (clientEmailResult.error) {
+        throw new Error(
+          clientEmailResult.error.message ||
+            "Resend rejected the client confirmation email",
+        );
+      }
+    } catch (clientEmailError) {
+      clientConfirmationWarning =
+        clientEmailError instanceof Error
+          ? clientEmailError.message
+          : "Client confirmation email could not be sent.";
+      console.error(
+        "Client confirmation email error:",
+        clientConfirmationWarning,
+      );
+    }
 
     return res.status(200).json({
       success: true,
       message: "Lead captured successfully",
+      ownerNotificationWarning,
+      clientConfirmationWarning,
     });
   } catch (error) {
     if (error instanceof Error) {

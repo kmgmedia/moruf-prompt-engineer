@@ -187,11 +187,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     // Send email to yourself with the lead data
-    await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
-      to: YOUR_EMAIL,
-      subject: `🚀 New Lead: ${name} (${intentLabel})`,
-      html: `
+    let ownerNotificationWarning = "";
+    try {
+      const ownerEmailResult = await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: YOUR_EMAIL,
+        subject: `🚀 New Lead: ${name} (${intentLabel})`,
+        html: `
         <h2 style="color: #000;">New ${sourceLabel} Lead</h2>
         
         <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; margin: 20px 0;">
@@ -232,14 +234,34 @@ ${conversationHistory}
           </ul>
         </div>
       `,
-    });
+      });
+
+      if (ownerEmailResult.error) {
+        throw new Error(
+          ownerEmailResult.error.message ||
+            "Resend rejected the owner notification email",
+        );
+      }
+    } catch (ownerEmailError) {
+      ownerNotificationWarning =
+        ownerEmailError instanceof Error
+          ? ownerEmailError.message
+          : "Owner notification email could not be sent.";
+
+      console.error(
+        "Owner notification email error:",
+        ownerNotificationWarning,
+      );
+    }
 
     // Send confirmation email to the lead
-    await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
-      to: normalizedEmail,
-      subject: "Quick follow-up on your project",
-      html: `
+    let clientConfirmationWarning = "";
+    try {
+      const clientEmailResult = await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: normalizedEmail,
+        subject: "Quick follow-up on your project",
+        html: `
         <h2>Hey ${name} 👋</h2>
         
         <p>Got your request about <strong>${projectTypeLabel}</strong>.</p>
@@ -264,12 +286,32 @@ ${conversationHistory}
           <strong>Moruf</strong>
         </p>
       `,
-    });
+      });
+
+      if (clientEmailResult.error) {
+        throw new Error(
+          clientEmailResult.error.message ||
+            "Resend rejected the client confirmation email",
+        );
+      }
+    } catch (clientEmailError) {
+      clientConfirmationWarning =
+        clientEmailError instanceof Error
+          ? clientEmailError.message
+          : "Client confirmation email could not be sent.";
+
+      console.error(
+        "Client confirmation email error:",
+        clientConfirmationWarning,
+      );
+    }
 
     return res.status(200).json({
       success: true,
       message: "Lead captured successfully",
       crmSync,
+      ownerNotificationWarning,
+      clientConfirmationWarning,
       lead: normalizedLead,
     });
   } catch (error) {
