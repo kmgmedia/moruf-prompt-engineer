@@ -317,7 +317,7 @@ app.post("/api/lead", async (req, res) => {
       : "No conversation history";
 
     await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: RESEND_FROM_EMAIL,
       to: NOTIFY_EMAIL,
       subject: `New Lead: ${name} (${intentLabel})`,
       html: `
@@ -342,7 +342,7 @@ ${conversationHistory}
     });
 
     await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: RESEND_FROM_EMAIL,
       to: email,
       subject: `Thanks for reaching out, ${name}!`,
       html: `

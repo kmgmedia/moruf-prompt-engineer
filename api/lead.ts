@@ -3,6 +3,8 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const YOUR_EMAIL = "bookings@morufstackdev.com.ng";
+const RESEND_FROM_EMAIL =
+  process.env.RESEND_FROM_EMAIL || "onboarding@resend.dev";
 const CRM_WEBHOOK_URL =
   process.env.CRM_WEBHOOK_URL ||
   process.env.N8N_LEAD_WEBHOOK_URL ||
@@ -186,7 +188,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // Send email to yourself with the lead data
     await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: RESEND_FROM_EMAIL,
       to: YOUR_EMAIL,
       subject: `🚀 New Lead: ${name} (${intentLabel})`,
       html: `
@@ -234,7 +236,7 @@ ${conversationHistory}
 
     // Send confirmation email to the lead
     await resend.emails.send({
-      from: "onboarding@resend.dev",
+      from: RESEND_FROM_EMAIL,
       to: normalizedEmail,
       subject: "Quick follow-up on your project",
       html: `
