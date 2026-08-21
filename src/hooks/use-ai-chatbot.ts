@@ -201,7 +201,7 @@ SidonPay (Fintech App) — UI/UX & Product Designer
 - Partnered with backend engineers to incorporate real-time user feedback, improving app satisfaction scores by 20%.
 - Established a scalable design system that enhanced consistency and accelerated front-end development cycles by 35%.
 
-Portfolio Projects (11 Total):
+Portfolio Projects (12 Total):
 
 1. AI Teaching Assistant System — Sandton Preparatory School
    Goal: Help teachers generate lesson notes, student reports, and parent communication efficiently.
@@ -233,7 +233,14 @@ Portfolio Projects (11 Total):
    Tools: n8n, OpenAI API, Apify, Google Docs API, Google Sheets API, React, TypeScript, JavaScript
    Case Study: /case-study/ai-job-intelligence
 
-5. GatePass System — Smart Event Access & Guest Verification System
+5. QA Ingest & AI Knowledge Base Assistant — n8n Data Table + Chat Assistant
+   Goal: Build a structured Q&A knowledge base where submitted answers are validated, enriched, stored, and reused by a grounded AI assistant.
+   Strategy: Form-based QA capture with trusted contributor detection, LLM tag generation for content classification, Data Table retrieval tool connected to an AI chat agent.
+   Outcome: Turned raw Q&A submissions into a searchable knowledge base that powers context-aware assistant responses.
+   Tools: n8n, OpenAI GPT-4.1 Mini, LangChain Agent, Data Tables, Chat Trigger, Simple Memory
+   Case Study: /case-study/qa-knowledge-base-assistant
+
+6. GatePass System — Smart Event Access & Guest Verification System
    Goal: Operational event access platform streamlining guest check-in, entry coordination, and reducing gate management chaos during live events.
    How It Works (6 steps): Guest Registration → QR Code Generation → Gate Scanning → Real-Time Verification → Live Attendance Tracking → Post-Event Reporting.
    Event Operations Flow: Pre-Event (guest list upload, QR generation, staff briefing) → Event Day (gate scanning, real-time QR validation, unauthorized access flagging) → Post-Event (attendance report, data export, archiving).
@@ -244,42 +251,42 @@ Portfolio Projects (11 Total):
    Tools: Node.js, React.js, QR Verification, REST APIs, Database Systems, Real-Time Check-In
    Case Study: /case-study/gatepass-system
 
-6. GatePass Website — Product Marketing & Event Operations Showcase Platform
+7. GatePass Website — Product Marketing & Event Operations Showcase Platform
    Goal: Public-facing product website explaining the GatePass ecosystem, communicating its operational value, and driving event service inquiries.
    Strategy: Product-centered landing experience for event planners, clear service, pricing, and workflow presentation, mobile-responsive product storytelling and inquiry flow, brand positioning for digital event access services.
    Outcome: Improved product clarity, strengthened digital brand positioning, and created a centralized inquiry channel for prospective event clients.
    Tools: React.js, Frontend UI, Responsive Design, Landing Page, Product Architecture, Web Interaction Design
    Case Study: /case-study/gatepass-website
 
-7. Byway Backend API System — End-to-End REST API Development
+8. Byway Backend API System — End-to-End REST API Development
    Goal: Build a scalable backend for a product review platform with user management, role-based access control, and secure data handling.
    Strategy: Full CRUD operations for product reviews and user data, role-based access control and authentication middleware, structured API architecture, MongoDB integration for data persistence.
    Outcome: Delivered a production-ready backend with secure authentication, efficient data handling, and deployment-ready infrastructure.
    Tools: Node.js, Express.js, MongoDB, Mongoose, Postman, GitHub Actions, Vercel
    Case Study: /case-study/byway-backend-api
 
-8. BYC eCommerce Platform — Full-Stack eCommerce Application
+9. BYC eCommerce Platform — Full-Stack eCommerce Application
    Goal: Build a modern eCommerce platform with seamless product discovery, secure checkout, and real-time inventory handling.
    Strategy: Intuitive product browsing and category navigation, shopping cart and secure checkout flow, order tracking and user account management, real-time inventory updates.
    Outcome: Delivered a scalable and user-friendly eCommerce platform that improves shopping experience and supports reliable transaction handling.
    Tools: HTML, CSS/Sass, JavaScript, Node.js, Express.js, MongoDB, Bootstrap
    Case Study: /case-study/byc-ecommerce
 
-9. Sandton Preparatory School Website — Educational Platform & School Management Interface
+10. Sandton Preparatory School Website — Educational Platform & School Management Interface
    Goal: Design and develop a comprehensive website to showcase school programs, enable online bookings, and improve parent engagement.
    Strategy: Program showcase with structured curriculum presentation, online class booking and event scheduling, blog and content management for parent engagement, fully responsive design for all devices.
    Outcome: Complete digital platform supporting 100+ students, improving parent interaction and simplifying school communication and bookings.
    Tools: Next.js, React, TypeScript, Cloudinary, Responsive Design, SEO Optimization
    Case Study: /case-study/sandton-school
 
-10. Project Tracker Dashboard — Real-Time Data & Workflow Management System
+11. Project Tracker Dashboard — Real-Time Data & Workflow Management System
     Goal: Build a high-performance dashboard for tracking projects, managing workflows, and visualizing real-time data securely.
     Strategy: Real-time data updates and live project tracking, secure authentication using Supabase, clean and responsive UI optimized for usability, scalable component structure for maintainability.
     Outcome: Production-ready dashboard providing live insights, improving workflow visibility, and ensuring reliable performance across devices.
     Tools: React.js, TypeScript, Next.js, Tailwind CSS, Supabase, Vercel, Sonner
     Case Study: /case-study/dashboard
 
-11. Creative Storytelling Prompts — Brand Campaign (Midjourney + GPT)
+12. Creative Storytelling Prompts — Brand Campaign (Midjourney + GPT)
     Goal: Generate brand stories and visuals capturing a 'vintage luxury' aesthetic for a client campaign.
     Strategy: Layered prompts connecting brand tone with imagery concepts, consistent keyword and aesthetic framing across all outputs.
     Outcome: Created 15+ original story and image pairs used across digital campaigns and social media assets.

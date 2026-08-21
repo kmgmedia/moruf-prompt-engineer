@@ -1,7 +1,7 @@
-﻿import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
-  MessageCircle,
+  Network,
   AlertCircle,
   CheckCircle,
   Lightbulb,
@@ -15,36 +15,51 @@ import { RelatedCaseStudies } from "@/components/RelatedCaseStudies";
 
 const relatedCaseStudies = [
   {
-    title: "E-Commerce Sales Automation System",
-    description:
-      "A context-aware sales chatbot that recommends products and handles customer inquiries 24/7.",
-    link: "/case-study/ecommerce-sales-automation",
-  },
-  {
     title: "AI Property Intelligence Assistant",
     description:
-      "A conversational real estate assistant with memory that answers property questions and captures leads.",
+      "Connected property listings, vector search, and Gmail into one automated lead-response pipeline.",
     link: "/case-study/property-intelligence-assistant",
   },
   {
-    title: "AI Teaching Assistant System",
+    title: "AI Job Intelligence & Resume Automation System",
     description:
-      "Tone-controlled AI communication that generates lesson notes and parent updates for teachers.",
-    link: "/case-study/ai-teaching-assistant-system",
+      "Tied LinkedIn scraping, GPT scoring, and Google Docs/Sheets into a single hands-off pipeline.",
+    link: "/case-study/ai-job-intelligence",
+  },
+  {
+    title: "Byway Backend API System",
+    description:
+      "A structured REST API layer built for secure, scalable data exchange between services.",
+    link: "/case-study/byway-backend-api",
   },
 ];
 
-const CaseStudyEmotionalAI = () => {
+const CaseStudyConnectedSystems = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Conversational AI & Decision Support Systems | Moruf Adebola</title>
-        <meta name="description" content="Case study: AI systems for real-time intelligent conversations and decision support, designed for customer service automation and emotional context handling." />
-        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/emotional-ai" />
-        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/emotional-ai" />
-        <meta property="og:title" content="Conversational AI & Decision Support Systems | Moruf Adebola" />
-        <meta property="og:description" content="Case study: AI systems for real-time intelligent conversations and decision support, designed for customer service automation and emotional context handling." />
+        <title>Connected Systems & API Integration | Moruf Adebola</title>
+        <meta
+          name="description"
+          content="Case study: how I connect tools, sync data, and eliminate manual handoffs across systems using APIs, webhooks, and automation pipelines."
+        />
+        <link
+          rel="canonical"
+          href="https://www.morufstackdev.com.ng/case-study/connected-systems-integration"
+        />
+        <meta
+          property="og:url"
+          content="https://www.morufstackdev.com.ng/case-study/connected-systems-integration"
+        />
+        <meta
+          property="og:title"
+          content="Connected Systems & API Integration | Moruf Adebola"
+        />
+        <meta
+          property="og:description"
+          content="Case study: how I connect tools, sync data, and eliminate manual handoffs across systems using APIs, webhooks, and automation pipelines."
+        />
       </Helmet>
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <Button
@@ -58,45 +73,55 @@ const CaseStudyEmotionalAI = () => {
         <article className="space-y-8 animate-fade-in">
           <header className="space-y-4">
             <div className="flex items-center gap-2 text-primary">
-              <MessageCircle className="w-6 h-6" />
+              <Network className="w-6 h-6" />
               <span className="text-sm font-semibold uppercase tracking-wider">
-                Conversational AI
+                Systems Integration
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              AI Systems That Handle Conversations and Support Decisions
+              Connected Systems & API Integration
             </h1>
             <p className="text-xl text-muted-foreground">
-              Building intelligent systems for real-time conversations and
-              smarter decision-making
+              Connecting tools, syncing data, and eliminating manual handoffs
+              across the systems a business already runs on
             </p>
           </header>
+
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
+
           <section className="space-y-6">
             <Card className="p-6 bg-destructive/10 border-destructive/30">
               <div className="flex items-start gap-4">
                 <AlertCircle className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-4">
-                    The Problem: Lost Opportunities and Manual Effort
+                    The Problem: Tools That Don't Talk to Each Other
                   </h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    Businesses lose time and opportunities because:
+                    Most businesses aren't short on tools — they're short on
+                    connections between them:
                   </p>
                   <ul className="space-y-2 text-foreground/90 ml-4">
                     <li className="flex gap-2">
                       <span className="text-destructive">•</span>
                       <span>
-                        Customer questions aren't answered fast enough
+                        Data gets copied by hand between spreadsheets, CRMs,
+                        and inboxes
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-destructive">•</span>
-                      <span>Conversations lack consistency</span>
+                      <span>
+                        Updates in one system don't reflect in another until
+                        someone notices
+                      </span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-destructive">•</span>
-                      <span>Decisions rely too much on manual effort</span>
+                      <span>
+                        Every new integration is a one-off script nobody
+                        wants to maintain
+                      </span>
                     </li>
                   </ul>
                   <div className="mt-6 space-y-2 border-l-4 border-destructive/50 pl-4">
@@ -106,69 +131,80 @@ const CaseStudyEmotionalAI = () => {
                     <ul className="space-y-2 text-foreground/90">
                       <li className="flex gap-2">
                         <span className="text-destructive">○</span>
-                        <span>Lost customer engagement and sales</span>
+                        <span>Hours lost to manual data entry every week</span>
                       </li>
                       <li className="flex gap-2">
                         <span className="text-destructive">○</span>
-                        <span>Inefficient decision-making</span>
+                        <span>Stale or conflicting data across systems</span>
                       </li>
                       <li className="flex gap-2">
                         <span className="text-destructive">○</span>
-                        <span>Inability to scale operations</span>
+                        <span>
+                          Growth bottlenecked by manual handoffs between tools
+                        </span>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
             </Card>
+
             <Card className="p-6 bg-primary/5 border-primary/20">
               <div className="flex items-start gap-4">
                 <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-4">
-                    The Solution: Intelligent Conversational Systems
+                    The Solution: Wire Systems Together, Not People
                   </h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    I build AI systems that:
+                    I connect the tools a business already uses through APIs,
+                    webhooks, and automation pipelines so that:
                   </p>
                   <ul className="space-y-3 text-foreground/90">
                     <li className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Handle conversations in real-time</span>
-                    </li>
-                    <li className="flex gap-3">
-                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Generate structured, context-aware responses</span>
+                      <span>
+                        Data written once syncs everywhere it's needed,
+                        automatically
+                      </span>
                     </li>
                     <li className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
                       <span>
-                        Support decision-making with intelligent outputs
+                        Events in one system trigger the right action in
+                        another, in real time
+                      </span>
+                    </li>
+                    <li className="flex gap-3">
+                      <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                      <span>
+                        Manual handoffs disappear instead of being managed
                       </span>
                     </li>
                   </ul>
                   <div className="mt-6 space-y-3">
                     <p className="text-foreground/90 font-semibold">
-                      These systems are designed to be:
+                      These integrations are built to be:
                     </p>
                     <div className="grid md:grid-cols-3 gap-3 text-foreground/90">
                       <div className="flex gap-2">
                         <span className="text-primary font-bold">→</span>
-                        <span>Reliable and consistent</span>
+                        <span>Resilient to API changes and failures</span>
                       </div>
                       <div className="flex gap-2">
                         <span className="text-primary font-bold">→</span>
-                        <span>Scalable at any size</span>
+                        <span>Observable, not a black box</span>
                       </div>
                       <div className="flex gap-2">
                         <span className="text-primary font-bold">→</span>
-                        <span>Context-aware and smart</span>
+                        <span>Easy to extend as new tools get added</span>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </Card>
+
             <div className="space-y-4">
               <h2 className="text-3xl font-bold flex items-center gap-3">
                 <Zap className="w-8 h-8 text-primary" />
@@ -179,95 +215,97 @@ const CaseStudyEmotionalAI = () => {
                   <div className="flex gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <p className="text-foreground/90">
-                      AI chatbots and virtual assistants
+                      REST API and webhook integrations between platforms
                     </p>
                   </div>
                   <div className="flex gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <p className="text-foreground/90">
-                      Automated response systems
+                      Two-way data sync between CRMs, sheets, and databases
                     </p>
                   </div>
                   <div className="flex gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <p className="text-foreground/90">
-                      Context-aware conversation flows
+                      Automated pipelines connecting scraping, AI, and storage
                     </p>
                   </div>
                   <div className="flex gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <p className="text-foreground/90">
-                      Systems that generate insights based on input
+                      Vector search and retrieval layered on existing data
                     </p>
                   </div>
                 </div>
               </Card>
             </div>
+
             <div className="space-y-4">
               <h2 className="text-3xl font-bold">Impact</h2>
               <div className="grid md:grid-cols-2 gap-4">
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <p className="font-semibold text-foreground mb-2">
-                    Faster response times
+                    Hours reclaimed weekly
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Instant answers to customer inquiries 24/7
+                    No more copying data between systems by hand
                   </p>
                 </Card>
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <p className="font-semibold text-foreground mb-2">
-                    Improved user engagement
+                    Data that's always current
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Better conversations that keep users engaged
+                    Every system reflects the same source of truth
                   </p>
                 </Card>
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <p className="font-semibold text-foreground mb-2">
-                    Consistent communication
+                    Fewer dropped handoffs
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Same quality and tone across all interactions
+                    Events route automatically instead of waiting on a person
                   </p>
                 </Card>
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <p className="font-semibold text-foreground mb-2">
-                    Better decision support
+                    Integrations that scale
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Systems that generate intelligent insights
+                    Adding a new tool doesn't mean rebuilding the pipeline
                   </p>
                 </Card>
               </div>
             </div>
+
             <Card className="p-6 bg-muted/50">
               <h2 className="text-2xl font-bold mb-4">How I Build It</h2>
               <div className="space-y-4">
                 {[
                   {
                     num: 1,
-                    title: "Define conversation goals",
-                    desc: "Understand what the system needs to accomplish",
+                    title: "Map the systems and data flow",
+                    desc: "Identify which tools hold what data and where handoffs currently break down",
                   },
                   {
                     num: 2,
-                    title: "Design interaction flows",
-                    desc: "Plan how users will interact with the system",
+                    title: "Design the integration contract",
+                    desc: "Define how systems will exchange data — REST, webhooks, or scheduled sync",
                   },
                   {
                     num: 3,
-                    title: "Implement context + memory handling",
-                    desc: "Build systems that remember context in conversations",
+                    title: "Build the automation pipeline",
+                    desc: "Connect systems through n8n, custom APIs, or direct integrations",
                   },
                   {
                     num: 4,
-                    title: "Integrate into your platform",
-                    desc: "Connect system to your website or app",
+                    title: "Add observability and error handling",
+                    desc: "Make failures visible instead of silent, with retries where it matters",
                   },
                   {
                     num: 5,
-                    title: "Test and refine responses",
-                    desc: "Continuously improve based on real interactions",
+                    title: "Test against real data and scale",
+                    desc: "Validate with production-like volume before handing it off",
                   },
                 ].map((step) => (
                   <div key={step.num} className="flex gap-4">
@@ -288,6 +326,7 @@ const CaseStudyEmotionalAI = () => {
                 ))}
               </div>
             </Card>
+
             <RelatedCaseStudies items={relatedCaseStudies} />
 
             <div className="space-y-4">
@@ -296,50 +335,43 @@ const CaseStudyEmotionalAI = () => {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Conversation Quality Directly Affects Growth
+                      Integration Debt Compounds Quietly
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Fast, consistent, and context-aware interactions improve
-                      user engagement and reduce lost opportunities.
+                      Manual handoffs don't fail loudly — they just keep
+                      costing hours until someone finally automates them.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Context Awareness Is Essential for Reliability
+                      Observability Matters as Much as the Connection
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      AI systems perform better when they preserve context and
-                      respond based on structured intent and conversation state.
+                      An integration nobody can debug is worse than no
+                      integration — visibility into failures is part of the
+                      build, not an afterthought.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Scalable AI Requires Defined Interaction Flows
+                      Build for the Next Tool, Not Just This One
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Clear flow design improves response consistency and makes
-                      conversational systems easier to maintain at scale.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Decision Support Improves With Structured Outputs
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Systems that return actionable, well-formed outputs help
-                      teams make better decisions with less manual effort.
+                      Pipelines designed around a clear data contract make it
+                      cheap to add the next system instead of starting over.
                     </p>
                   </div>
                 </div>
               </Card>
             </div>
+
             <div className="pt-8 border-t border-border">
               <h2 className="text-2xl font-bold mb-4">
-                Need a System That Actually Works?
+                Need Your Systems Talking to Each Other?
               </h2>
               <p className="text-foreground/90 leading-relaxed mb-6">
-                Need a system that can handle conversations or assist decisions?
-                Let's build one that actually works.
+                If manual handoffs are costing your team hours every week,
+                let's connect your tools properly.
               </p>
               <div className="flex gap-3">
                 <Button size="lg" className="bg-primary hover:bg-primary/90">
@@ -363,4 +395,4 @@ const CaseStudyEmotionalAI = () => {
     </div>
   );
 };
-export default CaseStudyEmotionalAI;
+export default CaseStudyConnectedSystems;

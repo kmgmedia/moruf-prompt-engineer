@@ -23,30 +23,6 @@ const PROJECTS_PER_PAGE = 6;
 const projects = [
   // ── TIER 1: AI Automation & Pipeline Systems ──
   {
-    icon: ScanLine,
-    image: "/jobscraping1.png",
-    title: "AI Job Intelligence & Resume Automation System",
-    client: "Personal Productivity & Job Ops",
-    goal: "Reduce manual effort in job searching and resume tailoring while improving role alignment and application throughput.",
-    strategy: [
-      "Automated LinkedIn scraping and normalization",
-      "AI fit scoring and keyword extraction",
-      "Programmatic resume rewriting and Google Docs generation",
-    ],
-    outcome:
-      "Operationalized job discovery and automated resume generation, increasing application throughput while maintaining quality.",
-    tools: [
-      "n8n",
-      "OpenAI API",
-      "Apify",
-      "Google Docs API",
-      "Google Sheets API",
-      "JavaScript",
-    ],
-    link: "",
-    caseStudy: "/case-study/ai-job-intelligence",
-  },
-  {
     icon: Building2,
     image: "/projects/property-intelligence.png",
     title: "AI Property Intelligence Assistant",
@@ -71,30 +47,6 @@ const projects = [
     ],
     link: "https://realestatewebsite-main.vercel.app/",
     caseStudy: "/case-study/property-intelligence-assistant",
-  },
-  {
-    icon: Bot,
-    image: "/projects/qa-knowledge-base.svg?v=2",
-    title: "QA Ingest & AI Knowledge Base Assistant",
-    client: "n8n Data Table + Chat Assistant",
-    goal: "Create a structured Q&A knowledge base where submitted answers are validated, enriched, stored, and reused by a grounded AI assistant.",
-    strategy: [
-      "Form-based QA capture with trusted contributor detection",
-      "LLM tag generation for content classification",
-      "Data Table retrieval tool connected to an AI chat agent",
-    ],
-    outcome:
-      "Turned raw Q&A submissions into a searchable knowledge base that powers context-aware assistant responses.",
-    tools: [
-      "n8n",
-      "OpenAI GPT-4.1 Mini",
-      "LangChain Agent",
-      "Data Tables",
-      "Chat Trigger",
-      "Simple Memory",
-    ],
-    link: "",
-    caseStudy: "/case-study/qa-knowledge-base-assistant",
   },
   {
     icon: ShoppingCart,
@@ -129,6 +81,54 @@ const projects = [
     tools: ["Python", "Gemini API", "Google Sheets Integration", "Streamlit"],
     link: "https://teacher-ai-assistant-cr.streamlit.app/",
     caseStudy: "/case-study/teacher-ai",
+  },
+  {
+    icon: ScanLine,
+    image: "/jobscraping1.png",
+    title: "AI Job Intelligence & Resume Automation System",
+    client: "Personal Productivity & Job Ops",
+    goal: "Reduce manual effort in job searching and resume tailoring while improving role alignment and application throughput.",
+    strategy: [
+      "Automated LinkedIn scraping and normalization",
+      "AI fit scoring and keyword extraction",
+      "Programmatic resume rewriting and Google Docs generation",
+    ],
+    outcome:
+      "Operationalized job discovery and automated resume generation, increasing application throughput while maintaining quality.",
+    tools: [
+      "n8n",
+      "OpenAI API",
+      "Apify",
+      "Google Docs API",
+      "Google Sheets API",
+      "JavaScript",
+    ],
+    link: "",
+    caseStudy: "/case-study/ai-job-intelligence",
+  },
+  {
+    icon: Bot,
+    image: "/projects/qa-knowledge-base.svg?v=2",
+    title: "QA Ingest & AI Knowledge Base Assistant",
+    client: "n8n Data Table + Chat Assistant",
+    goal: "Create a structured Q&A knowledge base where submitted answers are validated, enriched, stored, and reused by a grounded AI assistant.",
+    strategy: [
+      "Form-based QA capture with trusted contributor detection",
+      "LLM tag generation for content classification",
+      "Data Table retrieval tool connected to an AI chat agent",
+    ],
+    outcome:
+      "Turned raw Q&A submissions into a searchable knowledge base that powers context-aware assistant responses.",
+    tools: [
+      "n8n",
+      "OpenAI GPT-4.1 Mini",
+      "LangChain Agent",
+      "Data Tables",
+      "Chat Trigger",
+      "Simple Memory",
+    ],
+    link: "",
+    caseStudy: "/case-study/qa-knowledge-base-assistant",
   },
   {
     icon: Palette,
@@ -172,6 +172,31 @@ const projects = [
     link: "",
     caseStudy: "/case-study/gatepass-system",
   },
+  {
+    icon: Globe2,
+    image: "/projects/gatepass-website.png",
+    title: "GatePass Website",
+    client: "Product Marketing & Event Operations Showcase Platform",
+    goal: "Create a public-facing product website that explains the GatePass ecosystem, communicates operational value, and drives event service inquiries.",
+    strategy: [
+      "Product-centered landing experience for event planners",
+      "Clear service, pricing, and workflow presentation",
+      "Mobile-responsive product storytelling and inquiry flow",
+      "Brand positioning for digital event access services",
+    ],
+    outcome:
+      "Improved product clarity, strengthened digital brand positioning, and created a centralized inquiry channel for prospective event clients.",
+    tools: [
+      "React.js",
+      "Frontend UI",
+      "Responsive Design",
+      "Landing Page",
+      "Product Architecture",
+      "Web Interaction Design",
+    ],
+    link: "https://www.gatepasscheckin.com.ng/",
+    caseStudy: "/case-study/gatepass-website",
+  },
   // ── TIER 3: Web & Backend Projects ──
   {
     icon: School,
@@ -197,31 +222,6 @@ const projects = [
     ],
     link: "https://www.sandtonprepschool.com.ng/",
     caseStudy: "/case-study/sandton-school",
-  },
-  {
-    icon: Globe2,
-    image: "/projects/gatepass-website.png",
-    title: "GatePass Website",
-    client: "Product Marketing & Event Operations Showcase Platform",
-    goal: "Create a public-facing product website that explains the GatePass ecosystem, communicates operational value, and drives event service inquiries.",
-    strategy: [
-      "Product-centered landing experience for event planners",
-      "Clear service, pricing, and workflow presentation",
-      "Mobile-responsive product storytelling and inquiry flow",
-      "Brand positioning for digital event access services",
-    ],
-    outcome:
-      "Improved product clarity, strengthened digital brand positioning, and created a centralized inquiry channel for prospective event clients.",
-    tools: [
-      "React.js",
-      "Frontend UI",
-      "Responsive Design",
-      "Landing Page",
-      "Product Architecture",
-      "Web Interaction Design",
-    ],
-    link: "https://www.gatepasscheckin.com.ng/",
-    caseStudy: "/case-study/gatepass-website",
   },
   {
     icon: Database,

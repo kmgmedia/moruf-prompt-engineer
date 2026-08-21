@@ -1,7 +1,7 @@
-﻿import { Helmet } from "react-helmet-async";
+import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
-  MessageCircle,
+  GitBranch,
   AlertCircle,
   CheckCircle,
   Lightbulb,
@@ -15,36 +15,51 @@ import { RelatedCaseStudies } from "@/components/RelatedCaseStudies";
 
 const relatedCaseStudies = [
   {
-    title: "E-Commerce Sales Automation System",
+    title: "AI Job Intelligence & Resume Automation System",
     description:
-      "A context-aware sales chatbot that recommends products and handles customer inquiries 24/7.",
-    link: "/case-study/ecommerce-sales-automation",
+      "A scheduled pipeline that scrapes, scores, and generates resumes end-to-end without manual intervention.",
+    link: "/case-study/ai-job-intelligence",
   },
   {
-    title: "AI Property Intelligence Assistant",
+    title: "QA Ingest & AI Knowledge Base Assistant",
     description:
-      "A conversational real estate assistant with memory that answers property questions and captures leads.",
-    link: "/case-study/property-intelligence-assistant",
+      "A trigger-based workflow that captures, validates, and enriches Q&A submissions automatically.",
+    link: "/case-study/qa-knowledge-base-assistant",
   },
   {
-    title: "AI Teaching Assistant System",
+    title: "GatePass System",
     description:
-      "Tone-controlled AI communication that generates lesson notes and parent updates for teachers.",
-    link: "/case-study/ai-teaching-assistant-system",
+      "Real-time event-driven workflows for guest verification and check-in coordination.",
+    link: "/case-study/gatepass-system",
   },
 ];
 
-const CaseStudyEmotionalAI = () => {
+const CaseStudyIntelligentWorkflow = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Conversational AI & Decision Support Systems | Moruf Adebola</title>
-        <meta name="description" content="Case study: AI systems for real-time intelligent conversations and decision support, designed for customer service automation and emotional context handling." />
-        <link rel="canonical" href="https://www.morufstackdev.com.ng/case-study/emotional-ai" />
-        <meta property="og:url" content="https://www.morufstackdev.com.ng/case-study/emotional-ai" />
-        <meta property="og:title" content="Conversational AI & Decision Support Systems | Moruf Adebola" />
-        <meta property="og:description" content="Case study: AI systems for real-time intelligent conversations and decision support, designed for customer service automation and emotional context handling." />
+        <title>Intelligent Workflow Automation System | Moruf Adebola</title>
+        <meta
+          name="description"
+          content="Case study: Intelligent workflow automation engine with event-driven pipeline orchestration and trigger-based task management for business process automation."
+        />
+        <link
+          rel="canonical"
+          href="https://www.morufstackdev.com.ng/case-study/intelligent-workflow-systems"
+        />
+        <meta
+          property="og:url"
+          content="https://www.morufstackdev.com.ng/case-study/intelligent-workflow-systems"
+        />
+        <meta
+          property="og:title"
+          content="Intelligent Workflow Automation System | Moruf Adebola"
+        />
+        <meta
+          property="og:description"
+          content="Case study: Intelligent workflow automation engine with event-driven pipeline orchestration and trigger-based task management for business process automation."
+        />
       </Helmet>
       <div className="container mx-auto px-4 py-12 max-w-4xl">
         <Button
@@ -58,17 +73,17 @@ const CaseStudyEmotionalAI = () => {
         <article className="space-y-8 animate-fade-in">
           <header className="space-y-4">
             <div className="flex items-center gap-2 text-primary">
-              <MessageCircle className="w-6 h-6" />
+              <GitBranch className="w-6 h-6" />
               <span className="text-sm font-semibold uppercase tracking-wider">
-                Conversational AI
+                Workflow Automation
               </span>
             </div>
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
-              AI Systems That Handle Conversations and Support Decisions
+              Automate Repetitive Processes and Structure Operations
             </h1>
             <p className="text-xl text-muted-foreground">
-              Building intelligent systems for real-time conversations and
-              smarter decision-making
+              Building AI-powered workflows that replace manual handoffs with
+              observable, always-on automation
             </p>
           </header>
           <div className="w-full h-1 bg-gradient-primary rounded-full" />
@@ -78,25 +93,31 @@ const CaseStudyEmotionalAI = () => {
                 <AlertCircle className="w-8 h-8 text-destructive flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-4">
-                    The Problem: Lost Opportunities and Manual Effort
+                    The Problem: Manual Handoffs Everywhere
                   </h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    Businesses lose time and opportunities because:
+                    Businesses lose time and money because:
                   </p>
                   <ul className="space-y-2 text-foreground/90 ml-4">
                     <li className="flex gap-2">
                       <span className="text-destructive">•</span>
                       <span>
-                        Customer questions aren't answered fast enough
+                        Form submissions and events sit unprocessed until
+                        someone notices them
                       </span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-destructive">•</span>
-                      <span>Conversations lack consistency</span>
+                      <span>
+                        Teams have no visibility into whether a workflow ran,
+                        failed, or silently stalled
+                      </span>
                     </li>
                     <li className="flex gap-2">
                       <span className="text-destructive">•</span>
-                      <span>Decisions rely too much on manual effort</span>
+                      <span>
+                        Simple operational changes require developer time
+                      </span>
                     </li>
                   </ul>
                   <div className="mt-6 space-y-2 border-l-4 border-destructive/50 pl-4">
@@ -106,15 +127,15 @@ const CaseStudyEmotionalAI = () => {
                     <ul className="space-y-2 text-foreground/90">
                       <li className="flex gap-2">
                         <span className="text-destructive">○</span>
-                        <span>Lost customer engagement and sales</span>
+                        <span>Hours lost to repetitive manual actions</span>
                       </li>
                       <li className="flex gap-2">
                         <span className="text-destructive">○</span>
-                        <span>Inefficient decision-making</span>
+                        <span>Missed handoffs and stalled processes</span>
                       </li>
                       <li className="flex gap-2">
                         <span className="text-destructive">○</span>
-                        <span>Inability to scale operations</span>
+                        <span>Operations that can't scale without more headcount</span>
                       </li>
                     </ul>
                   </div>
@@ -126,25 +147,23 @@ const CaseStudyEmotionalAI = () => {
                 <Lightbulb className="w-8 h-8 text-primary flex-shrink-0 mt-1" />
                 <div>
                   <h2 className="text-2xl font-bold mb-4">
-                    The Solution: Intelligent Conversational Systems
+                    The Solution: Intelligent Workflow Systems
                   </h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    I build AI systems that:
+                    I build automation engines that:
                   </p>
                   <ul className="space-y-3 text-foreground/90">
                     <li className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Handle conversations in real-time</span>
+                      <span>Route every event to the right action automatically</span>
                     </li>
                     <li className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>Generate structured, context-aware responses</span>
+                      <span>Give operators live visibility into workflow health</span>
                     </li>
                     <li className="flex gap-3">
                       <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span>
-                        Support decision-making with intelligent outputs
-                      </span>
+                      <span>Stay configurable without touching code</span>
                     </li>
                   </ul>
                   <div className="mt-6 space-y-3">
@@ -154,15 +173,15 @@ const CaseStudyEmotionalAI = () => {
                     <div className="grid md:grid-cols-3 gap-3 text-foreground/90">
                       <div className="flex gap-2">
                         <span className="text-primary font-bold">→</span>
-                        <span>Reliable and consistent</span>
+                        <span>Observable, not a black box</span>
                       </div>
                       <div className="flex gap-2">
                         <span className="text-primary font-bold">→</span>
-                        <span>Scalable at any size</span>
+                        <span>Configurable by operators, not just developers</span>
                       </div>
                       <div className="flex gap-2">
                         <span className="text-primary font-bold">→</span>
-                        <span>Context-aware and smart</span>
+                        <span>Always-on, with zero manual monitoring</span>
                       </div>
                     </div>
                   </div>
@@ -179,25 +198,25 @@ const CaseStudyEmotionalAI = () => {
                   <div className="flex gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <p className="text-foreground/90">
-                      AI chatbots and virtual assistants
+                      Multi-trigger automation engines (webhook, cron, manual)
                     </p>
                   </div>
                   <div className="flex gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <p className="text-foreground/90">
-                      Automated response systems
+                      Operational dashboards for monitoring live workflow status
                     </p>
                   </div>
                   <div className="flex gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <p className="text-foreground/90">
-                      Context-aware conversation flows
+                      Intent classification that routes events to the right branch
                     </p>
                   </div>
                   <div className="flex gap-3">
                     <div className="w-2 h-2 rounded-full bg-primary mt-2 flex-shrink-0" />
                     <p className="text-foreground/90">
-                      Systems that generate insights based on input
+                      Full execution audit trails for debugging and compliance
                     </p>
                   </div>
                 </div>
@@ -208,34 +227,34 @@ const CaseStudyEmotionalAI = () => {
               <div className="grid md:grid-cols-2 gap-4">
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <p className="font-semibold text-foreground mb-2">
-                    Faster response times
+                    Manual handoffs eliminated
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Instant answers to customer inquiries 24/7
+                    Triggers execute within seconds of the event
                   </p>
                 </Card>
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <p className="font-semibold text-foreground mb-2">
-                    Improved user engagement
+                    24/7 uptime
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Better conversations that keep users engaged
+                    Workflows run without developer monitoring
                   </p>
                 </Card>
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <p className="font-semibold text-foreground mb-2">
-                    Consistent communication
+                    Full operational visibility
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Same quality and tone across all interactions
+                    Every execution logged and inspectable
                   </p>
                 </Card>
                 <Card className="p-4 bg-primary/5 border-primary/20">
                   <p className="font-semibold text-foreground mb-2">
-                    Better decision support
+                    Zero-code configuration
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Systems that generate intelligent insights
+                    Operators adjust rules without a developer
                   </p>
                 </Card>
               </div>
@@ -246,28 +265,28 @@ const CaseStudyEmotionalAI = () => {
                 {[
                   {
                     num: 1,
-                    title: "Define conversation goals",
-                    desc: "Understand what the system needs to accomplish",
+                    title: "Map the manual handoffs",
+                    desc: "Identify where events sit unprocessed and who currently has to act on them",
                   },
                   {
                     num: 2,
-                    title: "Design interaction flows",
-                    desc: "Plan how users will interact with the system",
+                    title: "Design the trigger and classification layer",
+                    desc: "Define how webhooks, schedules, and manual runs get routed to the right workflow",
                   },
                   {
                     num: 3,
-                    title: "Implement context + memory handling",
-                    desc: "Build systems that remember context in conversations",
+                    title: "Build the automation engine",
+                    desc: "Connect triggers to execution using n8n or custom orchestration",
                   },
                   {
                     num: 4,
-                    title: "Integrate into your platform",
-                    desc: "Connect system to your website or app",
+                    title: "Layer in an operational dashboard",
+                    desc: "Give operators live status, logs, and config controls without code access",
                   },
                   {
                     num: 5,
-                    title: "Test and refine responses",
-                    desc: "Continuously improve based on real interactions",
+                    title: "Test and monitor in production",
+                    desc: "Validate against real events and add alerting for failures",
                   },
                 ].map((step) => (
                   <div key={step.num} className="flex gap-4">
@@ -288,6 +307,7 @@ const CaseStudyEmotionalAI = () => {
                 ))}
               </div>
             </Card>
+
             <RelatedCaseStudies items={relatedCaseStudies} />
 
             <div className="space-y-4">
@@ -296,38 +316,32 @@ const CaseStudyEmotionalAI = () => {
                 <div className="space-y-4">
                   <div>
                     <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Conversation Quality Directly Affects Growth
+                      Observability Is Non-Negotiable
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Fast, consistent, and context-aware interactions improve
-                      user engagement and reduce lost opportunities.
+                      Automation that runs silently is automation waiting to
+                      fail silently — logging and error surfacing has to be
+                      part of the build from day one.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Context Awareness Is Essential for Reliability
+                      Configurable Systems Outlast Hardcoded Ones
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      AI systems perform better when they preserve context and
-                      respond based on structured intent and conversation state.
+                      Every hardcoded threshold becomes a future maintenance
+                      ticket. Parameterizing rules means the system adapts
+                      through configuration, not redeployment.
                     </p>
                   </div>
                   <div>
                     <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Scalable AI Requires Defined Interaction Flows
+                      Classification Is the Decision That Scales
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Clear flow design improves response consistency and makes
-                      conversational systems easier to maintain at scale.
-                    </p>
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-lg mb-2 text-primary">
-                      Decision Support Improves With Structured Outputs
-                    </h4>
-                    <p className="text-foreground/90 text-sm leading-relaxed">
-                      Systems that return actionable, well-formed outputs help
-                      teams make better decisions with less manual effort.
+                      A single entry point with a routing layer is far more
+                      maintainable than separate endpoints — new workflow
+                      types plug in without touching existing ones.
                     </p>
                   </div>
                 </div>
@@ -335,11 +349,11 @@ const CaseStudyEmotionalAI = () => {
             </div>
             <div className="pt-8 border-t border-border">
               <h2 className="text-2xl font-bold mb-4">
-                Need a System That Actually Works?
+                Ready to Automate the Manual Work?
               </h2>
               <p className="text-foreground/90 leading-relaxed mb-6">
-                Need a system that can handle conversations or assist decisions?
-                Let's build one that actually works.
+                If repetitive handoffs are costing your team hours, let's
+                build a workflow system that runs itself.
               </p>
               <div className="flex gap-3">
                 <Button size="lg" className="bg-primary hover:bg-primary/90">
@@ -363,4 +377,4 @@ const CaseStudyEmotionalAI = () => {
     </div>
   );
 };
-export default CaseStudyEmotionalAI;
+export default CaseStudyIntelligentWorkflow;

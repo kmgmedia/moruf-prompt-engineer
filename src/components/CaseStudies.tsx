@@ -14,7 +14,7 @@ const caseStudies = [
     title: "Connected Systems & API Integration",
     description:
       "Connect tools, sync data, and eliminate manual handoffs across your systems.",
-    link: "/case-study/ecommerce-sales-automation",
+    link: "/case-study/connected-systems-integration",
   },
   {
     title: "Conversational & Decision Systems",

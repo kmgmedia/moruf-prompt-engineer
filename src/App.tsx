@@ -11,7 +11,9 @@ import ChatBot from "@/components/ChatBot";
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 const BookACall = lazy(() => import("./pages/BookACall"));
-const CaseStudyTeacherAI = lazy(() => import("./pages/CaseStudyTeacherAI"));
+const CaseStudyIntelligentWorkflow = lazy(
+  () => import("./pages/CaseStudyIntelligentWorkflow"),
+);
 const CaseStudyTeacherAIAssistant = lazy(
   () => import("./pages/CaseStudyTeacherAIAssistant"),
 );
@@ -43,6 +45,9 @@ const CaseStudyAIJobIntelligence = lazy(
 );
 const CaseStudyQAKnowledgeBase = lazy(
   () => import("./pages/CaseStudyQAKnowledgeBase"),
+);
+const CaseStudyConnectedSystems = lazy(
+  () => import("./pages/CaseStudyConnectedSystems"),
 );
 
 const queryClient = new QueryClient();
@@ -79,7 +84,7 @@ const router = createBrowserRouter(
         },
         {
           path: "/case-study/intelligent-workflow-systems",
-          element: withSuspense(<CaseStudyTeacherAI />),
+          element: withSuspense(<CaseStudyIntelligentWorkflow />),
         },
         {
           path: "/case-study/ai-teaching-assistant-system",
@@ -128,6 +133,10 @@ const router = createBrowserRouter(
         {
           path: "/case-study/qa-knowledge-base-assistant",
           element: withSuspense(<CaseStudyQAKnowledgeBase />),
+        },
+        {
+          path: "/case-study/connected-systems-integration",
+          element: withSuspense(<CaseStudyConnectedSystems />),
         },
         { path: "*", element: withSuspense(<NotFound />) },
       ],

@@ -91,4 +91,10 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://www.morufstackdev.com.ng/case-study/connected-systems-integration</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
