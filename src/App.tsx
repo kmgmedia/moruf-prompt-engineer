@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { AnimatedBackground } from "@/components/AnimatedBackground";
 import ChatBot from "@/components/ChatBot";
+import { RouteError } from "@/components/RouteError";
 
 const Index = lazy(() => import("./pages/Index"));
 const NotFound = lazy(() => import("./pages/NotFound"));
@@ -75,6 +76,7 @@ const router = createBrowserRouter(
     {
       path: "/",
       element: <Root />,
+      errorElement: <RouteError />,
       children: [
         { path: "/", element: withSuspense(<Index />) },
         { path: "/book-call", element: withSuspense(<BookACall />) },
