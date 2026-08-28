@@ -431,12 +431,30 @@ const CaseStudyPropertyIntelligence = () => {
                 {dashboardScreenshots.map((item) => (
                   <div
                     key={item.label}
-                    className="h-48 rounded-xl border border-primary/20 bg-primary/5 flex flex-col items-center justify-center gap-2 px-4 text-center"
+                    className="rounded-xl border border-primary/20 bg-primary/5 overflow-hidden"
                   >
-                    <Camera className="w-8 h-8 text-primary/30" />
-                    <p className="text-sm font-semibold text-foreground/60">{item.label}</p>
-                    <p className="text-xs text-foreground/40 leading-snug">{item.description}</p>
-                    <span className="text-xs text-foreground/30 mt-1">Screenshot coming soon</span>
+                    {item.image ? (
+                      <>
+                        <div className="h-48 w-full overflow-hidden">
+                          <img
+                            src={item.image}
+                            alt={item.label}
+                            className="w-full h-full object-cover object-top"
+                          />
+                        </div>
+                        <div className="px-4 py-3">
+                          <p className="text-sm font-semibold text-foreground/80">{item.label}</p>
+                          <p className="text-xs text-foreground/50 leading-snug">{item.description}</p>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="h-48 flex flex-col items-center justify-center gap-2 px-4 text-center">
+                        <Camera className="w-8 h-8 text-primary/30" />
+                        <p className="text-sm font-semibold text-foreground/60">{item.label}</p>
+                        <p className="text-xs text-foreground/40 leading-snug">{item.description}</p>
+                        <span className="text-xs text-foreground/30 mt-1">Screenshot coming soon</span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
@@ -452,16 +470,14 @@ const CaseStudyPropertyIntelligence = () => {
                 A full walkthrough of the system — from a natural language property query
                 through vector retrieval, AI response generation, and automated lead capture.
               </p>
-              <div className="w-full h-64 md:h-80 rounded-xl border border-primary/20 bg-primary/5 flex flex-col items-center justify-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Play className="w-7 h-7 text-primary ml-1" />
-                </div>
-                <div className="text-center">
-                  <p className="text-sm font-medium text-foreground/60">Demo video coming soon</p>
-                  <p className="text-xs text-foreground/40 mt-1">
-                    Full RAG pipeline walkthrough — query → retrieval → response → lead log
-                  </p>
-                </div>
+              <div className="w-full rounded-xl border border-primary/20 bg-primary/5 overflow-hidden">
+                <video
+                  src="https://res.cloudinary.com/ds2h3iwys/video/upload/v1787879853/moruf-prompt-engineer-portfolio/0828_xuggqo.mp4"
+                  controls
+                  muted={false}
+                  playsInline
+                  className="w-full h-auto max-h-[32rem]"
+                />
               </div>
             </div>
 

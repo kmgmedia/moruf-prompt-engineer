@@ -252,18 +252,26 @@ export const dashboardScreenshots = [
   {
     label: "Natural Language Property Search",
     description: "Chat interface showing a live property query and AI-matched results",
+    image:
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1787873910/moruf-prompt-engineer-portfolio/Ragchat1_ngnekb.png",
   },
   {
     label: "n8n Orchestration Workflow",
     description: "Full n8n workflow showing intent routing, RAG pipeline, and lead logging nodes",
+    image:
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1787874736/moruf-prompt-engineer-portfolio/Ragchat2_yb047n.png",
   },
   {
     label: "Pinecone Vector Dashboard",
     description: "Vector index showing embedded property documents and similarity scores",
+    image:
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1787875088/moruf-prompt-engineer-portfolio/Ragchat21_htplac.png",
   },
   {
     label: "Lead Capture & Google Sheets Log",
     description: "Automated lead entries captured from chat and synced to the agent dashboard",
+    image:
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1787875254/moruf-prompt-engineer-portfolio/Ragchat212_wopswq.png",
   },
 ];
 
