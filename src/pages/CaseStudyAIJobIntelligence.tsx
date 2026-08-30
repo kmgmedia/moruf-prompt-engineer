@@ -72,7 +72,7 @@ const CaseStudyAIJobIntelligence = () => {
             <p className="text-xl text-muted-foreground">
               An end-to-end AI pipeline that discovers job opportunities, scores role fit
               with GPT-4, generates ATS-safe resumes programmatically, and maintains a full
-              audit trail — from scheduled scrape to ready-to-submit Google Doc.
+              audit trail: from scheduled scrape to ready-to-submit Google Doc.
             </p>
           </header>
 
@@ -94,13 +94,13 @@ const CaseStudyAIJobIntelligence = () => {
               <h2 className="text-2xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
                 Job searching at volume is a data problem. Hundreds of listings go live
-                daily — most irrelevant. Tailoring a resume to each relevant role takes
+                daily, most irrelevant. Tailoring a resume to each relevant role takes
                 45–60 minutes manually, making scale impossible without automation.
               </p>
               <p className="text-foreground/90 leading-relaxed">
                 I built a fully automated intelligence pipeline: scheduled LinkedIn scraping,
                 GPT-4 relevance scoring with structured JSON output, deterministic resume
-                rewriting, Google Docs generation, and a Sheets audit log — all orchestrated
+                rewriting, Google Docs generation, and a Sheets audit log, all orchestrated
                 in n8n with operational controls for reliability at scale.
               </p>
             </div>
@@ -112,8 +112,8 @@ const CaseStudyAIJobIntelligence = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The manual job application workflow had four compounding bottlenecks —
-                    discovery, evaluation, tailoring, and tracking — each one limiting
+                    The manual job application workflow had four compounding bottlenecks:
+                    discovery, evaluation, tailoring, and tracking, each one limiting
                     throughput and introducing inconsistency.
                   </p>
                   <ul className="space-y-2">
@@ -136,7 +136,7 @@ const CaseStudyAIJobIntelligence = () => {
               </h2>
               <p className="text-foreground/90 leading-relaxed">
                 I designed a multi-stage automation pipeline in n8n that treats the job
-                application workflow as a data pipeline — each stage deterministic,
+                application workflow as a data pipeline: each stage deterministic,
                 observable, and recoverable.
               </p>
               <p className="text-foreground/90 leading-relaxed font-semibold">The pipeline enables:</p>
@@ -157,7 +157,7 @@ const CaseStudyAIJobIntelligence = () => {
                 Automation Pipeline
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Every run executes an 8-stage pipeline — triggered by the frontend dashboard,
+                Every run executes an 8-stage pipeline: triggered by the frontend dashboard,
                 instantly acknowledged, then processed fully in the background. From LinkedIn
                 URL to ready-to-submit Google Doc, each stage is observable and recoverable.
               </p>
@@ -192,7 +192,7 @@ const CaseStudyAIJobIntelligence = () => {
                 System Architecture
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The pipeline is composed of four distinct layers — each with a clear
+                The pipeline is composed of four distinct layers, each with a clear
                 responsibility boundary and no cross-layer coupling.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -226,7 +226,7 @@ const CaseStudyAIJobIntelligence = () => {
                 AI Evaluation Pipeline
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The evaluation stage is where most job search automation breaks down —
+                The evaluation stage is where most job search automation breaks down:
                 generic prompts produce generic scores. This system uses structured,
                 deterministic prompting with schema-validated output to make scoring
                 reliable enough to trust in an automated flow.
@@ -256,7 +256,7 @@ const CaseStudyAIJobIntelligence = () => {
                 Operational Controls
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Production automation fails not at the AI layer — it fails at the
+                Production automation fails not at the AI layer: it fails at the
                 infrastructure layer. These controls are what keep the pipeline running
                 reliably week after week without manual intervention.
               </p>
@@ -283,7 +283,7 @@ const CaseStudyAIJobIntelligence = () => {
               </h2>
               <p className="text-foreground/90 leading-relaxed">
                 Building this pipeline surfaced five production-level problems that don't
-                appear in tutorials — each one required diagnosing the exact failure point
+                appear in tutorials, each one required diagnosing the exact failure point
                 and applying a targeted fix without disrupting the rest of the workflow.
               </p>
               <div className="space-y-4">
@@ -330,7 +330,7 @@ const CaseStudyAIJobIntelligence = () => {
                 Business Outcomes
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The system was designed for throughput and quality — not just automation for
+                The system was designed for throughput and quality, not just automation for
                 its own sake. These are the outcomes that defined whether it worked.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -352,7 +352,7 @@ const CaseStudyAIJobIntelligence = () => {
                 Screenshots
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Key views from the system — the n8n pipeline, GPT-4 evaluation output,
+                Key views from the system: the n8n pipeline, GPT-4 evaluation output,
                 Sheets audit log, and a generated Google Doc resume.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -393,20 +393,21 @@ const CaseStudyAIJobIntelligence = () => {
                 Demo Video
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                A full pipeline walkthrough — from scheduled trigger through scraping,
+                A full pipeline walkthrough: from scheduled trigger through scraping,
                 GPT-4 evaluation, resume generation, and the final Sheets audit log entry.
               </p>
-              <div className="w-full h-64 md:h-80 rounded-xl border border-primary/20 bg-primary/5 flex flex-col items-center justify-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Play className="w-7 h-7 text-primary ml-1" />
-                </div>
-                <div className="text-center">
-                  <p className="text-sm font-medium text-foreground/60">Demo video coming soon</p>
-                  <p className="text-xs text-foreground/40 mt-1">
-                    Full pipeline walkthrough — scrape → evaluate → rewrite → generate → log
-                  </p>
-                </div>
+              <div className="w-full rounded-xl border border-primary/20 bg-primary/5 overflow-hidden">
+                <video
+                  src="https://res.cloudinary.com/ds2h3iwys/video/upload/v1788123663/moruf-prompt-engineer-portfolio/AI%20Job%20Intelligence%20Resume/0830_1_p6bdat.mp4"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="w-full max-h-[520px] bg-black"
+                />
               </div>
+              <p className="text-xs text-foreground/40">
+                Full pipeline walkthrough: scrape → evaluate → rewrite → generate → log
+              </p>
             </div>
 
             {/* RESULTS & IMPACT */}

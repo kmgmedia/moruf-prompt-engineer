@@ -15,11 +15,11 @@ import {
 } from "lucide-react";
 
 export const problemItems = [
-  "Manual job discovery consumed 3–4 hours per week — most listings irrelevant",
+  "Manual job discovery consumed 3–4 hours per week: most listings irrelevant",
   "Each resume rewrite took 45–60 minutes per application with no consistency",
   "Application tracking scattered across browser tabs, spreadsheets, and email",
   "80%+ of found listings were role mismatches with no scoring or filter",
-  "No feedback loop — couldn't identify which resume variants performed best",
+  "No feedback loop: couldn't identify which resume variants performed best",
 ];
 
 export const solutionItems = [
@@ -77,7 +77,7 @@ export const evaluationPipeline = [
     step: "01",
     title: "Structured Prompt Input",
     description:
-      "Each job listing — title, description, requirements, company — is formatted into a deterministic prompt template. Role context (target title, years of experience, core skills) is injected as static context on every call.",
+      "Each job listing, title, description, requirements, company, is formatted into a deterministic prompt template. Role context (target title, years of experience, core skills) is injected as static context on every call.",
     icon: FileText,
   },
   {
@@ -91,14 +91,14 @@ export const evaluationPipeline = [
     step: "03",
     title: "Score Threshold Routing",
     description:
-      "Listings scoring 70+ pass to the resume rewrite stage. Scores 50–69 are logged as 'monitor' for manual review. Below 50 are discarded. The threshold is a configurable parameter — not hardcoded into any node.",
+      "Listings scoring 70+ pass to the resume rewrite stage. Scores 50–69 are logged as 'monitor' for manual review. Below 50 are discarded. The threshold is a configurable parameter: not hardcoded into any node.",
     icon: Filter,
   },
   {
     step: "04",
     title: "Audit Trail Write",
     description:
-      "Every evaluated listing — pass or fail — is logged to Google Sheets with its score, rationale, matched skills, and timestamp. This creates the feedback loop for ongoing prompt tuning and threshold calibration.",
+      "Every evaluated listing, pass or fail, is logged to Google Sheets with its score, rationale, matched skills, and timestamp. This creates the feedback loop for ongoing prompt tuning and threshold calibration.",
     icon: Database,
   },
 ];
@@ -118,13 +118,13 @@ export const operationalControls = [
   },
   {
     title: "Idempotency",
-    detail: "Each listing is fingerprinted by a hash of title + company + date. Re-processing the same listing on a subsequent run is a silent no-op — duplicates never enter the pipeline.",
+    detail: "Each listing is fingerprinted by a hash of title + company + date. Re-processing the same listing on a subsequent run is a silent no-op: duplicates never enter the pipeline.",
     icon: Shield,
     color: "text-green-400",
   },
   {
     title: "Retry & Backoff",
-    detail: "3 retry attempts with exponential backoff on OpenAI or Google API failures. Failed nodes log errors without halting the full batch — partial runs recover cleanly.",
+    detail: "3 retry attempts with exponential backoff on OpenAI or Google API failures. Failed nodes log errors without halting the full batch: partial runs recover cleanly.",
     icon: RefreshCw,
     color: "text-orange-400",
   },
@@ -161,7 +161,7 @@ export const keyFeatures = [
   {
     title: "AI-Powered Relevance Scoring",
     description:
-      "GPT-4 evaluates every listing against role-fit criteria and returns a structured JSON score — matched skills, missing skills, rationale, and an apply recommendation. Not a heuristic filter. A deterministic AI evaluation.",
+      "GPT-4 evaluates every listing against role-fit criteria and returns a structured JSON score: matched skills, missing skills, rationale, and an apply recommendation. Not a heuristic filter. A deterministic AI evaluation.",
   },
   {
     title: "Deterministic Resume Customization",
@@ -171,17 +171,17 @@ export const keyFeatures = [
   {
     title: "Idempotent Scraping Pipeline",
     description:
-      "Apify actors scrape LinkedIn listings on schedule. Each listing is fingerprinted before processing — duplicates across runs are silently skipped, ensuring clean data without manual dedup checks.",
+      "Apify actors scrape LinkedIn listings on schedule. Each listing is fingerprinted before processing: duplicates across runs are silently skipped, ensuring clean data without manual dedup checks.",
   },
   {
     title: "End-to-End Audit Logging",
     description:
-      "Every stage writes structured data to Google Sheets. Score, rationale, resume variant, document link, and application status — the complete decision trail is queryable for iteration and prompt tuning.",
+      "Every stage writes structured data to Google Sheets. Score, rationale, resume variant, document link, and application status: the complete decision trail is queryable for iteration and prompt tuning.",
   },
   {
     title: "Configurable Operational Controls",
     description:
-      "Batch size, score thresholds, retry attempts, and API delays are all parameterized — not hardcoded. The pipeline adapts to different role targets or volume requirements without code changes.",
+      "Batch size, score thresholds, retry attempts, and API delays are all parameterized: not hardcoded. The pipeline adapts to different role targets or volume requirements without code changes.",
   },
 ];
 
@@ -207,26 +207,26 @@ export const tools = [
 export const realWorldChallenges = [
   {
     problem: "Apify node threw a JSON parse error on every run",
-    detail: "The custom body had `count:` with no value and `urls: [\"\"]` with an empty string — invalid JSON that prevented the actor from starting at all.",
+    detail: "The custom body had `count:` with no value and `urls: [\"\"]` with an empty string: invalid JSON that prevented the actor from starting at all.",
     fix: "Replaced with proper n8n expressions pulling from the Edit Fields node: `{{ $json.count || 50 }}` for count and `{{ $json['linkedIn Job URL'] }}` for the URL.",
   },
   {
-    problem: "Count field typed as String — only 6 jobs scraped instead of 50",
+    problem: "Count field typed as String: only 6 jobs scraped instead of 50",
     detail: "The Edit Fields node had count typed as String, sending `\"count\": \"50\"` to Apify instead of `\"count\": 50`. The actor silently fell back to a low default count.",
     fix: "Changed the field type from String to Number in the Edit Fields node. Subsequent runs scraped the full 50 listings as configured.",
   },
   {
-    problem: "Frontend timing out — pipeline showed 'Failed' after 60 seconds",
+    problem: "Frontend timing out: pipeline showed 'Failed' after 60 seconds",
     detail: "The webhook was set to 'When Last Node Finishes', so the frontend's HTTP request waited for the entire workflow. AI processing across 21 jobs took 5+ minutes, far exceeding browser timeout limits.",
     fix: "Added a Respond to Webhook node immediately after the trigger. It sends an instant acknowledgment to the frontend while the workflow continues in the background. The frontend now shows a live progress screen instead of timing out.",
   },
   {
     problem: "n8n's 5-minute execution timeout killed mid-run workflows",
-    detail: "Every execution processing more than 10 AI resume customizations was cancelled at exactly 5 minutes. The Customise Resume node would start, then get killed — rolling back all downstream data silently.",
+    detail: "Every execution processing more than 10 AI resume customizations was cancelled at exactly 5 minutes. The Customise Resume node would start, then get killed, rolling back all downstream data silently.",
     fix: "Disabled the workflow timeout in n8n Workflow Settings. The pipeline now runs to full completion regardless of duration.",
   },
   {
-    problem: "Production webhook rejected all requests — workflow was never activated",
+    problem: "Production webhook rejected all requests: workflow was never activated",
     detail: "n8n has two separate URLs: a test URL requiring 'Listen for test event' and a production URL requiring the workflow to be Published. The workflow was never activated, so every frontend request returned an error.",
     fix: "Published the workflow using the Active toggle in n8n. The production webhook now accepts requests permanently without any manual step before each run.",
   },
@@ -236,7 +236,7 @@ export const takeaways = [
   {
     title: "LLMs Need Deterministic Wrappers to Be Reliable",
     description:
-      "Raw LLM outputs are non-deterministic in production pipelines. Structured prompts, JSON schema validation, and fallback handlers are what make AI automation trustworthy — not the model. The model is just one node.",
+      "Raw LLM outputs are non-deterministic in production pipelines. Structured prompts, JSON schema validation, and fallback handlers are what make AI automation trustworthy, not the model. The model is just one node.",
   },
   {
     title: "Idempotency Is Non-Negotiable in Any Pipeline",
@@ -246,7 +246,7 @@ export const takeaways = [
   {
     title: "Audit Trails Enable Continuous Improvement",
     description:
-      "The Sheets log isn't just a record — it's a tuning instrument. Tracking scores, rationales, and downstream application outcomes creates the signal needed to improve prompt quality and threshold calibration over time.",
+      "The Sheets log isn't just a record: it's a tuning instrument. Tracking scores, rationales, and downstream application outcomes creates the signal needed to improve prompt quality and threshold calibration over time.",
   },
   {
     title: "Operational Controls Are the Architecture",
@@ -269,12 +269,12 @@ export const dashboardScreenshots = [
   {
     label: "Google Sheets Audit Log",
     description: "Live application log showing scores, statuses, document links, and timestamps",
-    src: "",
+    src: "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788119585/moruf-prompt-engineer-portfolio/AI%20Job%20Intelligence%20Resume/Screenshot_2026-08-30_205012_sqaeat.png",
   },
   {
     label: "Generated Google Doc Resume",
     description: "ATS-formatted, role-specific resume generated from master template via Docs API",
-    src: "",
+    src: "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788119720/moruf-prompt-engineer-portfolio/AI%20Job%20Intelligence%20Resume/Screenshot_2026-08-30_205452_sruzzz.png",
   },
 ];
 

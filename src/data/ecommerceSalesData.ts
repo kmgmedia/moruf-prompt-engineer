@@ -14,7 +14,7 @@ import {
 export const problemItems = [
   "Customer questions went unanswered for hours, causing cart abandonment",
   "Support team could not scale to handle demand during peak shopping periods",
-  "No 24/7 engagement capability — revenue was being lost overnight and on weekends",
+  "No 24/7 engagement capability: revenue was being lost overnight and on weekends",
   "Product recommendations were generic, not tailored to individual buyer intent",
   "High support ticket volume consumed resources that should go toward growth",
   "No system for recovering abandoned sessions or re-engaging hesitant buyers",
@@ -104,7 +104,7 @@ export const keyFeatures = [
   {
     title: "Personalized Product Recommendations",
     description:
-      "The system detects user intent from message content and purchase history, then generates product recommendations that match individual buyer goals — not generic bestseller lists.",
+      "The system detects user intent from message content and purchase history, then generates product recommendations that match individual buyer goals, not generic bestseller lists.",
   },
   {
     title: "Context-Aware Conversation Handling",
@@ -114,12 +114,12 @@ export const keyFeatures = [
   {
     title: "Automated Customer Support",
     description:
-      "Common support intents — order status, product questions, return policies — are resolved autonomously. Complex cases are escalated with the full conversation history attached for human review.",
+      "Common support intents, order status, product questions, return policies, are resolved autonomously. Complex cases are escalated with the full conversation history attached for human review.",
   },
   {
     title: "Behavioral Conversion Optimization",
     description:
-      "The system reads hesitation signals — repeated questions, long pauses, objection language — and applies structured response strategies designed to remove friction and guide toward purchase.",
+      "The system reads hesitation signals, repeated questions, long pauses, objection language, and applies structured response strategies designed to remove friction and guide toward purchase.",
   },
   {
     title: "24/7 Continuous Engagement",
@@ -179,7 +179,7 @@ export const takeaways = [
   {
     title: "AI Can Drive Revenue, Not Just Conversations",
     description:
-      "This system was not built to chat — it was built to convert. Every design decision, from intent routing to response tone, was oriented around moving customers toward a purchase decision.",
+      "This system was not built to chat: it was built to convert. Every design decision, from intent routing to response tone, was oriented around moving customers toward a purchase decision.",
   },
   {
     title: "Conversation Memory Is the Core Differentiator",

@@ -19,16 +19,16 @@ export const CONVERSATION_FLOWS: Record<string, ConversationFlow> = {
 
   CLIENT_FUNNEL: {
     step1_qualify:
-      "Nice — tell me a bit about what you're trying to build or improve.\n\nIs it:\n• Automating a workflow\n• Building a system/app\n• Connecting tools/APIs\n• Something else?",
+      "Nice, tell me a bit about what you're trying to build or improve.\n\nIs it:\n• Automating a workflow\n• Building a system/app\n• Connecting tools/APIs\n• Something else?",
     step2_understand:
       "Got it. What's the biggest challenge with this right now?\n\nIs it:\n• Taking too much time manually\n• Tools not working together\n• Scaling issues\n• Unclear how to build it?",
     step3_position:
-      "Yeah, that makes sense.\n\nFrom what you described, this sounds like something I can solve with a structured system — automation, integration, or full-stack depending on your setup.\n\nThe best next step is a quick call so I can understand your workflow and map out the right solution.\n\nWant me to guide you to book a call?",
+      "Yeah, that makes sense.\n\nFrom what you described, this sounds like something I can solve with a structured system: automation, integration, or full-stack depending on your setup.\n\nThe best next step is a quick call so I can understand your workflow and map out the right solution.\n\nWant me to guide you to book a call?",
   },
 
   RECRUITER_FLOW: {
     step1_role:
-      "Great — thanks for reaching out.\n\nAre you hiring for:\n• Software Engineering (Full-Stack / Backend)\n• AI / Automation roles\n• Contract / freelance work?",
+      "Great, thanks for reaching out.\n\nAre you hiring for:\n• Software Engineering (Full-Stack / Backend)\n• AI / Automation roles\n• Contract / freelance work?",
     step2_background:
       "Here's a quick overview of my background:\n\nI'm an AI Automation Engineer and Full-Stack Developer focused on:\n• AI automation systems\n• API integrations\n• Workflow design\n• Scalable backend + frontend applications\n\nTech stack:\nNode.js, Python, React, OpenAI, LangChain, MySQL, system design\n\nWhat type of role or project are you looking to fill?",
     step3_cta:
@@ -37,12 +37,12 @@ export const CONVERSATION_FLOWS: Record<string, ConversationFlow> = {
 
   PORTFOLIO_FLOW: {
     intro:
-      "Sure — here's what I mainly focus on:\n\n1️⃣ AI Workflow Automation\n2️⃣ System Integration & APIs\n3️⃣ Conversational AI Systems\n4️⃣ Full-Stack Applications\n\nWhich one interests you?",
+      "Sure, here's what I mainly focus on:\n\n1️⃣ AI Workflow Automation\n2️⃣ System Integration & APIs\n3️⃣ Conversational AI Systems\n4️⃣ Full-Stack Applications\n\nWhich one interests you?",
   },
 
   VAGUE_FLOW: {
     clarify:
-      "Got you — can you tell me a bit more about what you're trying to achieve?\n\nEven roughly is fine — I'll help you figure out the best direction.",
+      "Got you, can you tell me a bit more about what you're trying to achieve?\n\nEven roughly is fine: I'll help you figure out the best direction.",
   },
 
   TECHNICAL_FLOW: {
@@ -148,7 +148,7 @@ export const generateBotResponse = (
     }
     if (capturedData.name && capturedData.email) {
       return {
-        text: `Thanks! Just to make sure I understand — what best describes what you need?\n\n1. Automation system\n2. API / Integration\n3. Web app / System\n4. Not sure yet`,
+        text: `Thanks! Just to make sure I understand, what best describes what you need?\n\n1. Automation system\n2. API / Integration\n3. Web app / System\n4. Not sure yet`,
         shouldCaptureLead: true,
       };
     }
@@ -197,8 +197,8 @@ export const generateBotResponse = (
 export const getCTAVariation = (index: number): string => {
   const variations = [
     "This sounds like something I can help you build. Want to jump on a quick call?",
-    "Best way to move forward is a quick call — I can map this out for you.",
-    "Let's break this down together on a call — it'll save you a lot of trial and error.",
+    "Best way to move forward is a quick call: I can map this out for you.",
+    "Let's break this down together on a call: it'll save you a lot of trial and error.",
     "I think we should discuss this on a call - I'll have a better sense of what's needed.",
     "A quick 20-minute call would help me understand your setup better.",
   ];

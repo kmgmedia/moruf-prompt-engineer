@@ -98,7 +98,7 @@ export const keyFeatures = [
   {
     title: "Product-Centered Landing Experience",
     description:
-      "The website was structured to communicate the operational value of the GatePass System clearly to event planners — leading with the problem it solves, not just a feature list.",
+      "The website was structured to communicate the operational value of the GatePass System clearly to event planners, leading with the problem it solves, not just a feature list.",
   },
   {
     title: "Service & Pricing Presentation",
@@ -113,7 +113,7 @@ export const keyFeatures = [
   {
     title: "Mobile-Responsive Experience",
     description:
-      "The interface was optimized for mobile and desktop accessibility, designed around how event organizers actually browse — often on mobile between event preparations.",
+      "The interface was optimized for mobile and desktop accessibility, designed around how event organizers actually browse, often on mobile between event preparations.",
   },
   {
     title: "Lead Generation & Inquiry Flow",
@@ -123,7 +123,7 @@ export const keyFeatures = [
   {
     title: "Brand Positioning & Trust Building",
     description:
-      "The website positions GatePass as a structured, professional event operations solution — not just a QR code tool — through clear visual hierarchy and operational credibility signals.",
+      "The website positions GatePass as a structured, professional event operations solution, not just a QR code tool, through clear visual hierarchy and operational credibility signals.",
   },
 ];
 
@@ -183,17 +183,17 @@ export const takeaways = [
   {
     title: "Clear Service Presentation Reduces Sales Friction",
     description:
-      "When pricing, workflows, and service explanations are structured on the website, potential clients arrive at the inquiry stage already informed — shortening the sales cycle significantly.",
+      "When pricing, workflows, and service explanations are structured on the website, potential clients arrive at the inquiry stage already informed, shortening the sales cycle significantly.",
   },
   {
     title: "Digital Trust Is Part of Product Credibility",
     description:
-      "For operational products like GatePass, professional presentation and clear workflow communication are part of the product itself — clients are evaluating whether to trust this system at a live event.",
+      "For operational products like GatePass, professional presentation and clear workflow communication are part of the product itself: clients are evaluating whether to trust this system at a live event.",
   },
   {
     title: "Product Positioning Is a Design Decision",
     description:
-      "Framing GatePass as an 'event operations platform' rather than a 'QR code tool' changed how prospects perceived its value — positioning is communicated through design choices, not just copy.",
+      "Framing GatePass as an 'event operations platform' rather than a 'QR code tool' changed how prospects perceived its value: positioning is communicated through design choices, not just copy.",
   },
 ];
 

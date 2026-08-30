@@ -72,7 +72,7 @@ export const About = () => {
 
             <div className="space-y-5 text-sm leading-7 text-muted-foreground sm:text-base md:leading-8">
               <p>
-                My experience spans the full development lifecycle —
+                My experience spans the full development lifecycle:
                 designing intuitive interfaces, building scalable backend
                 services, and integrating third-party APIs. I enjoy shipping
                 production-ready applications that pair solid engineering
@@ -84,7 +84,7 @@ export const About = () => {
                   What I build:
                 </span>{" "}
                 AI-powered assistants, workflow automation systems, business
-                process integrations, and full-stack web applications —
+                process integrations, and full-stack web applications:
                 intelligent tools that connect people, data, and services
                 into seamless digital experiences.
               </p>

@@ -94,12 +94,12 @@ const CaseStudyPropertyIntelligence = () => {
               <p className="text-foreground/90 leading-relaxed">
                 NaijaRealty managed hundreds of property listings, market reports, and legal
                 documents across disconnected systems. Agents spent hours manually searching
-                for information, and client enquiries after business hours went unanswered —
+                for information, and client enquiries after business hours went unanswered,
                 directly costing the business leads and revenue.
               </p>
               <p className="text-foreground/90 leading-relaxed">
                 The goal was to build an AI system that could make all of that property
-                knowledge instantly searchable through natural conversation — and connect it
+                knowledge instantly searchable through natural conversation, and connect it
                 to an automated workflow that captured leads, notified agents, and ran 24/7
                 without manual intervention.
               </p>
@@ -112,7 +112,7 @@ const CaseStudyPropertyIntelligence = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The real estate team was operating reactively — losing hours to manual search,
+                    The real estate team was operating reactively: losing hours to manual search,
                     missing after-hours leads, and working with fragmented, unsearchable data.
                   </p>
                   <ul className="space-y-2">
@@ -135,7 +135,7 @@ const CaseStudyPropertyIntelligence = () => {
               </h2>
               <p className="text-foreground/90 leading-relaxed">
                 I designed and implemented a RAG-powered property intelligence system
-                orchestrated with n8n — combining vector search, OpenAI generation, and
+                orchestrated with n8n, combining vector search, OpenAI generation, and
                 automated lead workflows into a single operational pipeline.
               </p>
               <p className="text-foreground/90 leading-relaxed font-semibold">The system enables users to:</p>
@@ -156,7 +156,7 @@ const CaseStudyPropertyIntelligence = () => {
                 Retrieval Pipeline
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Every user query travels through an 8-stage pipeline — from raw property
+                Every user query travels through an 8-stage pipeline: from raw property
                 data to a grounded AI response. No hallucination. No guessing. Only
                 responses backed by retrieved context.
               </p>
@@ -193,7 +193,7 @@ const CaseStudyPropertyIntelligence = () => {
               <p className="text-foreground/90 leading-relaxed">
                 Property documents are transformed into 1536-dimension vectors using
                 OpenAI's <code className="text-primary text-sm bg-primary/10 px-1.5 py-0.5 rounded">text-embedding-ada-002</code> model.
-                The same model is used at both ingestion time and query time — ensuring the
+                The same model is used at both ingestion time and query time, ensuring the
                 vector space is consistent and similarity scores are meaningful.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -289,8 +289,8 @@ const CaseStudyPropertyIntelligence = () => {
                 Vector Search Architecture
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The search layer uses a two-pass approach — structured metadata filtering
-                first, then semantic similarity — to deliver both precision and speed.
+                The search layer uses a two-pass approach: structured metadata filtering
+                first, then semantic similarity, to deliver both precision and speed.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {vectorSearchSteps.map((step) => (
@@ -319,7 +319,7 @@ const CaseStudyPropertyIntelligence = () => {
               <p className="text-foreground/90 leading-relaxed">
                 The intelligence layer is orchestrated entirely in n8n. Every message
                 triggers a workflow that classifies intent, routes to the right pipeline,
-                generates a response, and handles downstream actions — all without code
+                generates a response, and handles downstream actions, all without code
                 running on a custom server.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-5 gap-3">
@@ -375,7 +375,7 @@ const CaseStudyPropertyIntelligence = () => {
               </h2>
               <p className="text-foreground/90 leading-relaxed">
                 Production AI systems fail gracefully or they fail badly. Every failure
-                scenario in this system has an explicit handler — no silent errors, no
+                scenario in this system has an explicit handler: no silent errors, no
                 confident hallucinations, no dead ends for the user.
               </p>
               <div className="space-y-3">
@@ -402,7 +402,7 @@ const CaseStudyPropertyIntelligence = () => {
                 Business Outcomes
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The system was built for measurable operational impact — not just technical
+                The system was built for measurable operational impact, not just technical
                 impressiveness. These are the outcomes that mattered to the client.
               </p>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -424,7 +424,7 @@ const CaseStudyPropertyIntelligence = () => {
                 Screenshots
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Key views from the system — the chat interface, n8n orchestration workflow,
+                Key views from the system: the chat interface, n8n orchestration workflow,
                 Pinecone vector index, and the automated lead log.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -467,7 +467,7 @@ const CaseStudyPropertyIntelligence = () => {
                 Demo Video
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                A full walkthrough of the system — from a natural language property query
+                A full walkthrough of the system: from a natural language property query
                 through vector retrieval, AI response generation, and automated lead capture.
               </p>
               <div className="w-full rounded-xl border border-primary/20 bg-primary/5 overflow-hidden">

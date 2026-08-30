@@ -16,7 +16,7 @@ import {
 export const problemItems = [
   "No structured backend to manage product reviews, ratings, and user-generated content",
   "User authentication and access control needed to be secure and scalable from day one",
-  "Role-based permissions required — regular users, moderators, and admins had different access levels",
+  "Role-based permissions required: regular users, moderators, and admins had different access levels",
   "Frontend teams needed a reliable, well-documented API to integrate against without friction",
   "Data validation was inconsistent, creating risk of malformed records entering the database",
   "No CI/CD pipeline in place, making deployment risky and manual",
@@ -100,13 +100,13 @@ export const apiEndpoints = [
   {
     method: "PUT",
     endpoint: "/api/reviews/:id",
-    description: "Update review — owner or admin permission required",
+    description: "Update review: owner or admin permission required",
     color: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
   },
   {
     method: "DELETE",
     endpoint: "/api/reviews/:id",
-    description: "Delete review — RBAC enforced at middleware level",
+    description: "Delete review: RBAC enforced at middleware level",
     color: "bg-red-500/10 text-red-400 border-red-500/20",
   },
   {
@@ -121,7 +121,7 @@ export const keyFeatures = [
   {
     title: "Full CRUD Operations",
     description:
-      "Complete Create, Read, Update, and Delete operations for products, reviews, and user accounts — each endpoint secured and validated independently.",
+      "Complete Create, Read, Update, and Delete operations for products, reviews, and user accounts, each endpoint secured and validated independently.",
   },
   {
     title: "JWT-Based Stateless Authentication",
@@ -131,12 +131,12 @@ export const keyFeatures = [
   {
     title: "Role-Based Access Control (RBAC)",
     description:
-      "Three-tier permission system: regular users can submit and edit their own reviews, moderators can manage all reviews, admins have full system access — enforced at the middleware layer.",
+      "Three-tier permission system: regular users can submit and edit their own reviews, moderators can manage all reviews, admins have full system access, enforced at the middleware layer.",
   },
   {
     title: "Mongoose Schema Validation",
     description:
-      "All data written to MongoDB passes through Mongoose schema validation — required fields, data types, string lengths, and enum values are all enforced before any database write.",
+      "All data written to MongoDB passes through Mongoose schema validation: required fields, data types, string lengths, and enum values are all enforced before any database write.",
   },
   {
     title: "Modular Architecture",
@@ -146,7 +146,7 @@ export const keyFeatures = [
   {
     title: "Postman Test Suite & CI/CD",
     description:
-      "All endpoints are covered by a Postman test collection. GitHub Actions runs tests on every push and handles deployment to Vercel — ensuring the API never ships broken endpoints.",
+      "All endpoints are covered by a Postman test collection. GitHub Actions runs tests on every push and handles deployment to Vercel, ensuring the API never ships broken endpoints.",
   },
 ];
 
@@ -208,7 +208,7 @@ export const takeaways = [
   {
     title: "Security Must Be Structural, Not Conditional",
     description:
-      "Adding auth checks inside controller functions leads to inconsistency. Building authentication and RBAC as middleware means security is enforced before any business logic runs — by design, not by discipline.",
+      "Adding auth checks inside controller functions leads to inconsistency. Building authentication and RBAC as middleware means security is enforced before any business logic runs, by design, not by discipline.",
   },
   {
     title: "Schema Validation Is the Last Line of Data Defense",
@@ -218,7 +218,7 @@ export const takeaways = [
   {
     title: "Production Readiness Requires a Pipeline, Not Just Code",
     description:
-      "An API that works locally is not production-ready. Test coverage, CI/CD automation, and deployment strategy are what separate a finished system from a prototype — and they need to be built alongside the features.",
+      "An API that works locally is not production-ready. Test coverage, CI/CD automation, and deployment strategy are what separate a finished system from a prototype, and they need to be built alongside the features.",
   },
 ];
 

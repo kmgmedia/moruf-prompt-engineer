@@ -68,8 +68,8 @@ const CaseStudyTeacherAIAssistant = () => {
             </p>
             <p className="text-lg text-foreground/80 leading-relaxed">
               A Gemini-powered AI workflow system that automates the most time-consuming
-              administrative tasks for teachers — lesson note generation, student progress
-              reports, and parent communication — saving 10+ hours per teacher monthly
+              administrative tasks for teachers: lesson note generation, student progress
+              reports, and parent communication, saving 10+ hours per teacher monthly
               without sacrificing quality or personalization.
             </p>
           </header>
@@ -92,8 +92,8 @@ const CaseStudyTeacherAIAssistant = () => {
               <h2 className="text-2xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
                 Teachers at Sandton Preparatory School were spending 4–6 hours per week
-                on administrative writing tasks — lesson notes, student progress reports,
-                and parent communications — that consumed time better spent on teaching
+                on administrative writing tasks: lesson notes, student progress reports,
+                and parent communications, that consumed time better spent on teaching
                 and student engagement.
               </p>
               <p className="text-foreground/90 leading-relaxed">
@@ -111,7 +111,7 @@ const CaseStudyTeacherAIAssistant = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The administrative writing burden was not just a time problem — it was
+                    The administrative writing burden was not just a time problem: it was
                     a quality problem. Under time pressure, reports and communications
                     became inconsistent and parent engagement suffered.
                   </p>
@@ -134,7 +134,7 @@ const CaseStudyTeacherAIAssistant = () => {
                 The Solution
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                I built a structured AI workflow system — not a general-purpose AI chat tool,
+                I built a structured AI workflow system, not a general-purpose AI chat tool,
                 but a task-specific automation pipeline designed around the exact documents
                 teachers need to produce. Each workflow takes teacher inputs, applies a
                 role-based prompt template, and returns a formatted, professional output.
@@ -157,7 +157,7 @@ const CaseStudyTeacherAIAssistant = () => {
                 AI Workflow Pipeline
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Every output follows a 6-stage pipeline — from task selection through context
+                Every output follows a 6-stage pipeline: from task selection through context
                 injection, prompt loading, AI processing, quality control, and formatted delivery.
               </p>
               <div className="relative">
@@ -191,7 +191,7 @@ const CaseStudyTeacherAIAssistant = () => {
                 System Architecture
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Four layers — interface, AI processing, data, and output — each with a
+                Four layers: interface, AI processing, data, and output, each with a
                 clearly defined role in transforming teacher inputs into professional documents.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -225,7 +225,7 @@ const CaseStudyTeacherAIAssistant = () => {
                 Workflow Types
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Three specialized workflows — each with task-specific prompt templates,
+                Three specialized workflows, each with task-specific prompt templates,
                 input requirements, and output formats designed for real classroom use.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
@@ -322,7 +322,7 @@ const CaseStudyTeacherAIAssistant = () => {
                 </div>
                 <div className="text-center">
                   <p className="text-sm font-medium text-foreground/60">Demo video coming soon</p>
-                  <p className="text-xs text-foreground/40 mt-1">Full walkthrough — task selection → input → AI generation → output</p>
+                  <p className="text-xs text-foreground/40 mt-1">Full walkthrough: task selection → input → AI generation → output</p>
                 </div>
               </div>
             </div>

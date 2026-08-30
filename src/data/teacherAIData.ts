@@ -29,7 +29,7 @@ export const solutionItems = [
   "Tone-controlled parent communication drafted in seconds, not hours",
   "Google Sheets integration reads student records directly, eliminating manual data entry",
   "Template-driven output formatting ensures consistent, professional document quality",
-  "Teachers retain control — AI generates drafts, educators refine and approve",
+  "Teachers retain control: AI generates drafts, educators refine and approve",
 ];
 
 export const pipelineStages = [
@@ -77,7 +77,7 @@ export const workflowTypes = [
     step: "01",
     title: "Lesson Note Generator",
     description:
-      "Teacher inputs grade level, subject, and topic. The system generates a structured lesson plan with learning objectives, activity sequence, classroom engagement prompts, and assessment criteria — in the school's documented format.",
+      "Teacher inputs grade level, subject, and topic. The system generates a structured lesson plan with learning objectives, activity sequence, classroom engagement prompts, and assessment criteria, in the school's documented format.",
     icon: BookOpen,
   },
   {
@@ -91,7 +91,7 @@ export const workflowTypes = [
     step: "03",
     title: "Parent Communication",
     description:
-      "Teacher describes the communication purpose and tone preference. The system drafts a professional, warm parent message — whether for a progress update, concern, event reminder, or achievement recognition — ready to copy and send.",
+      "Teacher describes the communication purpose and tone preference. The system drafts a professional, warm parent message, whether for a progress update, concern, event reminder, or achievement recognition, ready to copy and send.",
     icon: MessageSquare,
   },
 ];
@@ -105,12 +105,12 @@ export const keyFeatures = [
   {
     title: "Consistent Student Report Creation",
     description:
-      "Every report follows the same structured format, tone, and quality standard — regardless of which teacher generates it or how much time is available. Quality doesn't vary with workload.",
+      "Every report follows the same structured format, tone, and quality standard, regardless of which teacher generates it or how much time is available. Quality doesn't vary with workload.",
   },
   {
     title: "Streamlined Parent Communication",
     description:
-      "Parent messages are generated in seconds, with tone controls for formal, warm, and conversational styles. Teachers approve and send — the drafting workload is eliminated.",
+      "Parent messages are generated in seconds, with tone controls for formal, warm, and conversational styles. Teachers approve and send: the drafting workload is eliminated.",
   },
   {
     title: "Google Sheets Integration",
@@ -120,7 +120,7 @@ export const keyFeatures = [
   {
     title: "Role-Based AI Behavior",
     description:
-      "The system is prompted to behave as an experienced educator — not a general AI. Outputs consistently use appropriate educational language, professional tone, and grade-specific framing.",
+      "The system is prompted to behave as an experienced educator, not a general AI. Outputs consistently use appropriate educational language, professional tone, and grade-specific framing.",
   },
 ];
 
@@ -175,12 +175,12 @@ export const takeaways = [
   {
     title: "AI Integration Should Start With Workflow Design",
     description:
-      "The system works because we mapped the exact teacher workflow first — task selection, input context, output format — before touching any AI. Embedding AI into a clear workflow produces results. Bolting it onto unclear processes does not.",
+      "The system works because we mapped the exact teacher workflow first, task selection, input context, output format, before touching any AI. Embedding AI into a clear workflow produces results. Bolting it onto unclear processes does not.",
   },
   {
     title: "Structured Inputs Produce Reliable Outputs",
     description:
-      "Grade level, subject, student name, and performance context are not optional details — they are the prompt. When inputs are structured and consistent, AI outputs become consistent enough to trust in a professional setting.",
+      "Grade level, subject, student name, and performance context are not optional details: they are the prompt. When inputs are structured and consistent, AI outputs become consistent enough to trust in a professional setting.",
   },
   {
     title: "Adoption Depends on Simplicity",

@@ -68,7 +68,7 @@ const CaseStudyBywayBackendAPI = () => {
               Production-Ready REST API with JWT Auth, RBAC & MongoDB
             </p>
             <p className="text-lg text-foreground/80 leading-relaxed">
-              A modular RESTful API built for a product review platform — covering user
+              A modular RESTful API built for a product review platform, covering user
               authentication, role-based access control, full CRUD operations, Mongoose
               schema validation, and a CI/CD pipeline. Designed for production reliability
               and clean extensibility from day one.
@@ -100,7 +100,7 @@ const CaseStudyBywayBackendAPI = () => {
               </p>
               <p className="text-foreground/90 leading-relaxed">
                 The Byway Backend API was designed and built as a scalable, secure, and
-                maintainable REST API — with every architectural decision oriented around
+                maintainable REST API, with every architectural decision oriented around
                 reliability, extensibility, and clean separation of concerns.
               </p>
             </div>
@@ -113,7 +113,7 @@ const CaseStudyBywayBackendAPI = () => {
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     Building a backend system required solving authentication, data integrity,
-                    access control, and deployment reliability — all at once, and correctly
+                    access control, and deployment reliability, all at once, and correctly
                     from the start.
                   </p>
                   <ul className="space-y-2">
@@ -135,7 +135,7 @@ const CaseStudyBywayBackendAPI = () => {
                 The Solution
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                I designed and built a modular RESTful API using Node.js and Express — with
+                I designed and built a modular RESTful API using Node.js and Express, with
                 authentication and access control built as middleware, not afterthoughts.
                 Each concern is isolated into its own layer, making the system safe to
                 extend without modifying working code.
@@ -158,7 +158,7 @@ const CaseStudyBywayBackendAPI = () => {
                 Request Pipeline
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Every HTTP request travels through a 7-stage pipeline — route matching,
+                Every HTTP request travels through a 7-stage pipeline: route matching,
                 authentication, RBAC check, controller logic, schema validation, database
                 operation, and structured JSON response.
               </p>
@@ -193,7 +193,7 @@ const CaseStudyBywayBackendAPI = () => {
                 System Architecture
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Four clearly separated layers — API, auth, business, and data —
+                Four clearly separated layers: API, auth, business, and data,
                 each independently modifiable without risk to the others.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -228,7 +228,7 @@ const CaseStudyBywayBackendAPI = () => {
               </h2>
               <p className="text-foreground/90 leading-relaxed">
                 Seven core REST endpoints covering authentication, product management,
-                and review CRUD — each with method-specific authorization and validation.
+                and review CRUD, each with method-specific authorization and validation.
               </p>
               <div className="space-y-3">
                 {apiEndpoints.map((api) => (
@@ -321,7 +321,7 @@ const CaseStudyBywayBackendAPI = () => {
                 </div>
                 <div className="text-center">
                   <p className="text-sm font-medium text-foreground/60">Demo video coming soon</p>
-                  <p className="text-xs text-foreground/40 mt-1">API walkthrough — auth → CRUD → RBAC → Postman tests</p>
+                  <p className="text-xs text-foreground/40 mt-1">API walkthrough: auth → CRUD → RBAC → Postman tests</p>
                 </div>
               </div>
             </div>

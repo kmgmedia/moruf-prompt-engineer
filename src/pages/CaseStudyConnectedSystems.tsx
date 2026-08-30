@@ -98,7 +98,7 @@ const CaseStudyConnectedSystems = () => {
                     The Problem: Tools That Don't Talk to Each Other
                   </h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    Most businesses aren't short on tools — they're short on
+                    Most businesses aren't short on tools: they're short on
                     connections between them:
                   </p>
                   <ul className="space-y-2 text-foreground/90 ml-4">
@@ -290,7 +290,7 @@ const CaseStudyConnectedSystems = () => {
                   {
                     num: 2,
                     title: "Design the integration contract",
-                    desc: "Define how systems will exchange data — REST, webhooks, or scheduled sync",
+                    desc: "Define how systems will exchange data: REST, webhooks, or scheduled sync",
                   },
                   {
                     num: 3,
@@ -338,7 +338,7 @@ const CaseStudyConnectedSystems = () => {
                       Integration Debt Compounds Quietly
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
-                      Manual handoffs don't fail loudly — they just keep
+                      Manual handoffs don't fail loudly: they just keep
                       costing hours until someone finally automates them.
                     </p>
                   </div>
@@ -348,7 +348,7 @@ const CaseStudyConnectedSystems = () => {
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
                       An integration nobody can debug is worse than no
-                      integration — visibility into failures is part of the
+                      integration: visibility into failures is part of the
                       build, not an afterthought.
                     </p>
                   </div>

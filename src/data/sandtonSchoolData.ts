@@ -17,7 +17,7 @@ export const problemItems = [
   "No centralized digital platform representing the school's curriculum and values",
   "Difficulty attracting new families without a professional online presence",
   "Parent engagement was limited to physical communication with no digital channel",
-  "Enrollment inquiries had no structured digital pathway — all handled manually by phone",
+  "Enrollment inquiries had no structured digital pathway: all handled manually by phone",
   "School events, updates, and achievements had no accessible public communication channel",
   "Competing schools with digital platforms were capturing parents at the discovery stage",
 ];
@@ -106,32 +106,32 @@ export const keyFeatures = [
   {
     title: "Curriculum & Program Showcase",
     description:
-      "Structured pages covering every grade level, subject offering, and extracurricular program — giving parents the depth of information they need to make a confident enrollment decision.",
+      "Structured pages covering every grade level, subject offering, and extracurricular program, giving parents the depth of information they need to make a confident enrollment decision.",
   },
   {
     title: "Online Inquiry & Enrollment Flow",
     description:
-      "A conversion-optimized inquiry form captures parent information, preferred grade level, and contact preferences — routing directly to the admissions team for fast, personalized follow-up.",
+      "A conversion-optimized inquiry form captures parent information, preferred grade level, and contact preferences, routing directly to the admissions team for fast, personalized follow-up.",
   },
   {
     title: "Blog & Resource Hub",
     description:
-      "Regularly updated content keeps the school visible in search results while providing ongoing value to current parents — reinforcing engagement beyond the enrollment stage.",
+      "Regularly updated content keeps the school visible in search results while providing ongoing value to current parents, reinforcing engagement beyond the enrollment stage.",
   },
   {
     title: "Teacher Profiles & Testimonials",
     description:
-      "Dedicated teacher profile pages and parent testimonials build institutional credibility — two of the highest-impact trust signals for parents considering a school for the first time.",
+      "Dedicated teacher profile pages and parent testimonials build institutional credibility: two of the highest-impact trust signals for parents considering a school for the first time.",
   },
   {
     title: "SEO-Optimized Architecture",
     description:
-      "Page structure, metadata, internal linking, and content strategy were all designed for local education search — targeting parents actively searching for preparatory school options in the area.",
+      "Page structure, metadata, internal linking, and content strategy were all designed for local education search, targeting parents actively searching for preparatory school options in the area.",
   },
   {
     title: "Cloudinary Media Delivery",
     description:
-      "High-quality school photography and gallery content are delivered through Cloudinary's CDN with automatic optimization — maintaining fast page loads without sacrificing visual quality.",
+      "High-quality school photography and gallery content are delivered through Cloudinary's CDN with automatic optimization, maintaining fast page loads without sacrificing visual quality.",
   },
 ];
 
@@ -186,12 +186,12 @@ export const takeaways = [
   {
     title: "Digital Platform as a Growth Engine",
     description:
-      "A well-architected school website is not a brochure — it is a growth engine. SEO drives discovery, structured content builds trust, and a clear inquiry flow converts interest into enrollment conversations.",
+      "A well-architected school website is not a brochure: it is a growth engine. SEO drives discovery, structured content builds trust, and a clear inquiry flow converts interest into enrollment conversations.",
   },
   {
     title: "Information Architecture Drives Enrollment Conversion",
     description:
-      "Parents make enrollment decisions based on how easily they can find curriculum depth, teacher quality, and social proof. Information architecture — not just design — determines whether a visitor becomes an inquiry.",
+      "Parents make enrollment decisions based on how easily they can find curriculum depth, teacher quality, and social proof. Information architecture, not just design, determines whether a visitor becomes an inquiry.",
   },
   {
     title: "Trust Is Built Through Layers, Not a Single Page",
@@ -201,7 +201,7 @@ export const takeaways = [
   {
     title: "Success Metrics Must Be Educational Business Metrics",
     description:
-      "The right measure of a school platform is not page speed or bounce rate alone — it is enrollment inquiry volume, parent satisfaction, and search visibility. Those are the metrics that determine whether the platform succeeded.",
+      "The right measure of a school platform is not page speed or bounce rate alone: it is enrollment inquiry volume, parent satisfaction, and search visibility. Those are the metrics that determine whether the platform succeeded.",
   },
 ];
 

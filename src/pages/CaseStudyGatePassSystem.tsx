@@ -154,7 +154,7 @@ const CaseStudyGatePassSystem = () => {
                 How It Works
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The GatePass system follows a structured 6-step operational flow — from guest
+                The GatePass system follows a structured 6-step operational flow: from guest
                 registration before the event to post-event reporting.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -198,7 +198,7 @@ const CaseStudyGatePassSystem = () => {
                 Event Operations Flow
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Every event runs through three distinct operational phases — each with clearly defined tasks and outcomes.
+                Every event runs through three distinct operational phases, each with clearly defined tasks and outcomes.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 {operationsFlow.map((phase, index) => (
@@ -325,7 +325,7 @@ const CaseStudyGatePassSystem = () => {
                 Demo Video
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Watch the GatePass system in action — from QR code generation through live event
+                Watch the GatePass system in action: from QR code generation through live event
                 check-in and post-event reporting.
               </p>
               <div className="w-full h-64 md:h-80 rounded-xl border border-primary/20 bg-primary/5 flex flex-col items-center justify-center gap-4">
@@ -346,7 +346,7 @@ const CaseStudyGatePassSystem = () => {
                 Scalability
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                GatePass was architected to handle events of any size — from intimate private
+                GatePass was architected to handle events of any size, from intimate private
                 gatherings to large-scale public events with thousands of simultaneous check-ins.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

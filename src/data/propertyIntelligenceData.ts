@@ -19,7 +19,7 @@ import {
 export const problemItems = [
   "Agents manually searched through hundreds of property documents per enquiry",
   "Responding to repeated similar questions consumed hours of staff time daily",
-  "Client questions after business hours went unanswered — losing leads overnight",
+  "Client questions after business hours went unanswered, losing leads overnight",
   "Property information was fragmented across PDFs, spreadsheets, and email threads",
   "No system existed to qualify, log, or follow up on incoming leads automatically",
 ];
@@ -36,12 +36,12 @@ export const keyFeatures = [
   {
     title: "Natural Language Property Search",
     description:
-      'Users ask questions like "Show me 3-bedroom apartments in Lekki under ₦50M" and the system retrieves semantically matched listings — no keyword dependency required.',
+      'Users ask questions like "Show me 3-bedroom apartments in Lekki under ₦50M" and the system retrieves semantically matched listings: no keyword dependency required.',
   },
   {
     title: "Conversational Memory",
     description:
-      "The assistant retains context across turns in a conversation, enabling follow-up questions like 'What about that last one — does it have parking?' without re-specifying the property.",
+      "The assistant retains context across turns in a conversation, enabling follow-up questions like 'What about that last one, does it have parking?' without re-specifying the property.",
   },
   {
     title: "RAG-Powered Document Intelligence",
@@ -102,7 +102,7 @@ export const vectorSearchSteps = [
   {
     step: "02",
     title: "Metadata Pre-filtering",
-    description: "Before running vector similarity search, Pinecone filters by structured metadata — location, price range, bedroom count — to narrow the search space and improve precision.",
+    description: "Before running vector similarity search, Pinecone filters by structured metadata, location, price range, bedroom count, to narrow the search space and improve precision.",
     icon: Filter,
   },
   {
@@ -136,7 +136,7 @@ export const orchestrationSteps = [
     phase: "Retrieve",
     icon: Search,
     color: "bg-primary/10 border-primary/30 text-primary",
-    description: "RAG pipeline triggered — query embedded, Pinecone searched, context assembled",
+    description: "RAG pipeline triggered: query embedded, Pinecone searched, context assembled",
   },
   {
     phase: "Generate",
@@ -155,13 +155,13 @@ export const orchestrationSteps = [
 export const fallbackHandlers = [
   {
     trigger: "Low similarity score (< 0.75)",
-    response: "System responds honestly: 'I don't have an exact match for that right now' — then suggests similar properties or offers to connect the user to an agent.",
+    response: "System responds honestly: 'I don't have an exact match for that right now', then suggests similar properties or offers to connect the user to an agent.",
     icon: AlertTriangle,
     color: "text-yellow-400",
   },
   {
     trigger: "Ambiguous or incomplete query",
-    response: "Assistant asks one clarifying question: 'Are you looking to buy or rent?' or 'Which area are you focusing on?' — never leaves the user without a next step.",
+    response: "Assistant asks one clarifying question: 'Are you looking to buy or rent?' or 'Which area are you focusing on?', never leaves the user without a next step.",
     icon: MessageSquare,
     color: "text-blue-400",
   },
@@ -229,7 +229,7 @@ export const takeaways = [
   {
     title: "Chunking Strategy Determines Retrieval Quality",
     description:
-      "The most impactful design decision was not the LLM — it was how documents were chunked. Poorly designed chunks produce hallucinations. Property-level chunking with rich metadata gave the system precision that generic splitting couldn't match.",
+      "The most impactful design decision was not the LLM: it was how documents were chunked. Poorly designed chunks produce hallucinations. Property-level chunking with rich metadata gave the system precision that generic splitting couldn't match.",
   },
   {
     title: "Metadata Filtering Before Vector Search Is Non-Negotiable",
@@ -239,12 +239,12 @@ export const takeaways = [
   {
     title: "Fallback Design Is Part of the AI Experience",
     description:
-      "A system that confidently returns wrong answers is worse than one that says it doesn't know. Designing honest, helpful fallbacks — and routing to human agents when needed — is what separates production-grade AI from demos.",
+      "A system that confidently returns wrong answers is worse than one that says it doesn't know. Designing honest, helpful fallbacks, and routing to human agents when needed, is what separates production-grade AI from demos.",
   },
   {
     title: "Orchestration Logic Is Where Business Value Lives",
     description:
-      "The LLM is a commodity. The value in this system came from the n8n orchestration layer — routing intent, connecting retrieval to lead capture, and triggering notifications. That's the architecture clients pay for.",
+      "The LLM is a commodity. The value in this system came from the n8n orchestration layer: routing intent, connecting retrieval to lead capture, and triggering notifications. That's the architecture clients pay for.",
   },
 ];
 

@@ -69,7 +69,7 @@ const CaseStudySandtonSchool = () => {
             </p>
             <p className="text-lg text-foreground/80 leading-relaxed">
               A Next.js-powered school platform designed to drive enrollment inquiries,
-              build parent trust, and establish a professional digital presence — combining
+              build parent trust, and establish a professional digital presence: combining
               curriculum showcase, SEO architecture, and structured enrollment conversion flows
               to deliver 40% inquiry volume growth within 6 months.
             </p>
@@ -92,7 +92,7 @@ const CaseStudySandtonSchool = () => {
             <div className="space-y-3 pt-2">
               <h2 className="text-2xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
-                Sandton Preparatory School needed more than a basic web presence — they needed
+                Sandton Preparatory School needed more than a basic web presence: they needed
                 a platform that could compete in a local education market where digital-first
                 schools were capturing parents at the discovery stage. Without a structured
                 digital platform, the school was invisible at the most critical point in a
@@ -100,7 +100,7 @@ const CaseStudySandtonSchool = () => {
               </p>
               <p className="text-foreground/90 leading-relaxed">
                 I designed and built a full Next.js platform focused on the complete parent
-                journey — from first Google search through curriculum exploration, trust
+                journey: from first Google search through curriculum exploration, trust
                 building, and enrollment inquiry submission.
               </p>
             </div>
@@ -113,7 +113,7 @@ const CaseStudySandtonSchool = () => {
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     The school was losing prospective families at every stage of the digital
-                    discovery journey — not because the school wasn't good, but because it
+                    discovery journey, not because the school wasn't good, but because it
                     wasn't findable or credible online.
                   </p>
                   <ul className="space-y-2">
@@ -136,7 +136,7 @@ const CaseStudySandtonSchool = () => {
               </h2>
               <p className="text-foreground/90 leading-relaxed">
                 I built a full digital platform treating the school website as a conversion
-                and trust system — not just an information page. Every architectural decision
+                and trust system, not just an information page. Every architectural decision
                 was made with the parent enrollment journey in mind.
               </p>
               <p className="text-foreground/90 leading-relaxed font-semibold">The platform enables:</p>
@@ -158,7 +158,7 @@ const CaseStudySandtonSchool = () => {
               </h2>
               <p className="text-foreground/90 leading-relaxed">
                 A 6-stage build process from discovery research through architecture, design
-                system, development, SEO optimization, and launch — each stage informing the next.
+                system, development, SEO optimization, and launch, each stage informing the next.
               </p>
               <div className="relative">
                 <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-background to-transparent z-10" />
@@ -191,7 +191,7 @@ const CaseStudySandtonSchool = () => {
                 Platform Architecture
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Four layers — frontend, content, integration, and infrastructure — working
+                Four layers: frontend, content, integration, and infrastructure, working
                 together to deliver a fast, trustworthy, and conversion-optimized school platform.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -225,7 +225,7 @@ const CaseStudySandtonSchool = () => {
                 Enrollment Funnel
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The platform was designed around the 4-stage parent decision journey —
+                The platform was designed around the 4-stage parent decision journey:
                 every page and content decision mapped to a specific point in the funnel.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -322,7 +322,7 @@ const CaseStudySandtonSchool = () => {
                 </div>
                 <div className="text-center">
                   <p className="text-sm font-medium text-foreground/60">Demo video coming soon</p>
-                  <p className="text-xs text-foreground/40 mt-1">Full platform walkthrough — homepage → curriculum → inquiry</p>
+                  <p className="text-xs text-foreground/40 mt-1">Full platform walkthrough: homepage → curriculum → inquiry</p>
                 </div>
               </div>
             </div>
@@ -334,7 +334,7 @@ const CaseStudySandtonSchool = () => {
                 <div>
                   <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
-                    The platform delivered measurable outcomes within 6 months — across
+                    The platform delivered measurable outcomes within 6 months: across
                     enrollment inquiries, parent satisfaction, and search visibility.
                   </p>
                   <ul className="space-y-3">

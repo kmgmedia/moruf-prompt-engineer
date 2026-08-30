@@ -320,7 +320,7 @@ const CaseStudyIntelligentWorkflow = () => {
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
                       Automation that runs silently is automation waiting to
-                      fail silently — logging and error surfacing has to be
+                      fail silently: logging and error surfacing has to be
                       part of the build from day one.
                     </p>
                   </div>
@@ -340,7 +340,7 @@ const CaseStudyIntelligentWorkflow = () => {
                     </h4>
                     <p className="text-foreground/90 text-sm leading-relaxed">
                       A single entry point with a routing layer is far more
-                      maintainable than separate endpoints — new workflow
+                      maintainable than separate endpoints, new workflow
                       types plug in without touching existing ones.
                     </p>
                   </div>

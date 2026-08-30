@@ -33,7 +33,7 @@ export const RouteError = () => {
           </h1>
           <p className="text-muted-foreground leading-relaxed">
             {isChunkLoadError
-              ? "This page couldn't finish loading — usually a slow or dropped connection. Refresh to try again."
+              ? "This page couldn't finish loading: usually a slow or dropped connection. Refresh to try again."
               : "This page ran into an unexpected error. Refreshing usually fixes it."}
           </p>
         </div>

@@ -116,7 +116,7 @@ export const PROJECT_SCOPE_FALLBACK =
   "I'm here to help with questions about my services, projects, case studies, experience, tech stack, pricing, and how I can help your business. What would you like to know?";
 
 export const LEARNING_SCOPE_FALLBACK =
-  "I don't cover general tutorials or learning resources here — but I'm happy to talk about how I use Python, JavaScript, AI, APIs, and automation in my own projects and client work. Ask me about my tech stack, case studies, or services!";
+  "I don't cover general tutorials or learning resources here, but I'm happy to talk about how I use Python, JavaScript, AI, APIs, and automation in my own projects and client work. Ask me about my tech stack, case studies, or services!";
 
 export const PROMPT_INJECTION_FALLBACK =
   "I can't go outside my portfolio scope, but I'm happy to help with anything about my work, services, projects, or how to get started. What would you like to know?";
@@ -125,7 +125,7 @@ export const UNRELATED_TOPIC_FALLBACK =
   "That's a bit outside what I cover here. I'm best at answering questions about my services, projects, experience, pricing, and how I can help with your business. What are you looking to do?";
 
 export const RECRUITER_SCOPE_FALLBACK =
-  "Great to connect! I'm happy to share my experience, project work, availability, and what I bring to the table. Feel free to ask anything — or book a quick call at /book-call to talk directly.";
+  "Great to connect! I'm happy to share my experience, project work, availability, and what I bring to the table. Feel free to ask anything, or book a quick call at /book-call to talk directly.";
 
 // Generic learning/tutoring intent.
 export const GENERAL_LEARNING_REQUEST_REGEX =
@@ -158,7 +158,7 @@ export const SHORT_EXPLORATION_REGEX =
   /^(just exploring|just looking|just browsing|exploring|looking around|just checking|browsing)$/i;
 
 export const SHORT_EXPLORATION_REPLY =
-  "No problem — feel free to explore! Try: 'Show me your projects', 'What services do you offer?', or 'How can I book a call?'.";
+  "No problem, feel free to explore! Try: 'Show me your projects', 'What services do you offer?', or 'How can I book a call?'.";
 
 // Compliments and praise from users
 export const COMPLIMENT_REGEX =
@@ -178,7 +178,7 @@ export const FRUSTRATION_REGEX =
   /\b(useless|not helpful|not helping|waste of time|not working|broken|stupid|worst|terrible|awful|horrible|disappointing|frustrated|frustrating|you don't understand|you're not helping|you are not helping|this doesn't help|this isn't helpful|bad bot|bad chatbot)\b/i;
 
 export const FRUSTRATION_FALLBACK =
-  "I'm sorry that wasn't helpful! Let me try again — feel free to ask me anything about my services, projects, pricing, or how to get started. I'm here to help.";
+  "I'm sorry that wasn't helpful! Let me try again: feel free to ask me anything about my services, projects, pricing, or how to get started. I'm here to help.";
 
 export const FRUSTRATION_QUICK_REPLIES = [
   "What services do you offer?",

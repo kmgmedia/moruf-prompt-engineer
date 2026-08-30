@@ -93,11 +93,11 @@ const CaseStudyGatePassWebsite = () => {
                 Event service businesses often struggle to communicate their operational
                 value online. Without a structured digital presence, potential clients
                 rely entirely on referrals and direct conversations to understand what
-                a product does — limiting reach and conversion at every stage.
+                a product does, limiting reach and conversion at every stage.
               </p>
               <p className="text-foreground/90 leading-relaxed">
                 The GatePass Website was built as the public-facing product platform for
-                the GatePass event access system — designed not as a brochure, but as a
+                the GatePass event access system, designed not as a brochure, but as a
                 structured conversion and education channel for event planners and coordinators.
               </p>
             </div>
@@ -110,7 +110,7 @@ const CaseStudyGatePassWebsite = () => {
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     Without a centralized product website, every potential client required
-                    a manual explanation of the service — making scaling outreach and brand
+                    a manual explanation of the service, making scaling outreach and brand
                     credibility impossible.
                   </p>
                   <ul className="space-y-2">
@@ -133,7 +133,7 @@ const CaseStudyGatePassWebsite = () => {
               </h2>
               <p className="text-foreground/90 leading-relaxed">
                 I designed and developed a product-centered website that functions as both
-                a marketing platform and a client onboarding channel — letting visitors
+                a marketing platform and a client onboarding channel, letting visitors
                 self-educate on the GatePass system before ever contacting the team.
               </p>
               <p className="text-foreground/90 leading-relaxed font-semibold">The platform enables visitors to:</p>
@@ -154,7 +154,7 @@ const CaseStudyGatePassWebsite = () => {
                 Development Pipeline
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                The website was built through a structured 6-stage process — from requirements
+                The website was built through a structured 6-stage process: from requirements
                 through design system, component build, page architecture, conversion layer, to deployment.
               </p>
               <div className="relative">
@@ -188,7 +188,7 @@ const CaseStudyGatePassWebsite = () => {
                 Site Architecture
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Four distinct layers working together — presentation, content, conversion, and infrastructure —
+                Four distinct layers working together: presentation, content, conversion, and infrastructure,
                 each with a clear responsibility in turning a visitor into an inquiry.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -222,7 +222,7 @@ const CaseStudyGatePassWebsite = () => {
                 Page Structure
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Each page was designed with a specific conversion purpose — not just information delivery,
+                Each page was designed with a specific conversion purpose, not just information delivery,
                 but moving the visitor one step closer to an inquiry submission.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -283,7 +283,7 @@ const CaseStudyGatePassWebsite = () => {
                 Screenshots
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Key pages from the GatePass product website — homepage hero, services, workflow explainer, and inquiry flow.
+                Key pages from the GatePass product website: homepage hero, services, workflow explainer, and inquiry flow.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {dashboardScreenshots.map((item) => (

@@ -85,7 +85,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
             <p className="text-lg text-foreground/80 leading-relaxed">
               A Gemini-powered sales automation system that engages customers in real time,
               detects purchase intent, delivers personalized product recommendations, and
-              recovers abandoned sessions — generating measurable revenue lift 24/7.
+              recovers abandoned sessions, generating measurable revenue lift 24/7.
             </p>
           </header>
 
@@ -107,12 +107,12 @@ const CaseStudyEcommerceSalesAutomation = () => {
               <h2 className="text-2xl font-bold">Overview</h2>
               <p className="text-foreground/90 leading-relaxed">
                 A fast-growing dropshipping business was losing potential revenue at every
-                stage of the customer journey — unanswered questions causing cart abandonment,
+                stage of the customer journey: unanswered questions causing cart abandonment,
                 no 24/7 engagement capability, and support costs scaling unsustainably with growth.
               </p>
               <p className="text-foreground/90 leading-relaxed">
                 I designed and implemented an AI-powered sales system using Gemini API and LangChain
-                that handles the full customer conversation lifecycle — from initial product inquiry
+                that handles the full customer conversation lifecycle: from initial product inquiry
                 through purchase completion and post-sale support.
               </p>
             </div>
@@ -125,7 +125,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
                   <h2 className="text-2xl font-bold mb-3">The Problem</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     The business was losing conversions at every point where customers needed
-                    a timely, relevant response — and no manual process could scale to fix it.
+                    a timely, relevant response, and no manual process could scale to fix it.
                   </p>
                   <ul className="space-y-2">
                     {problemItems.map((item) => (
@@ -146,7 +146,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
                 The Solution
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                I built a structured conversational AI system that handles real buying scenarios —
+                I built a structured conversational AI system that handles real buying scenarios,
                 not a generic FAQ bot. Each message is classified by intent and routed to a
                 specific response strategy designed to progress the customer toward a purchase.
               </p>
@@ -168,7 +168,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
                 Conversation Pipeline
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Every customer message travels through a 6-stage pipeline — from receipt
+                Every customer message travels through a 6-stage pipeline: from receipt
                 through intent classification, context retrieval, AI generation, response
                 strategy application, and final delivery.
               </p>
@@ -203,7 +203,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
                 System Architecture
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Four distinct layers — channel, intelligence, business logic, and data —
+                Four distinct layers: channel, intelligence, business logic, and data,
                 each with a clear responsibility that separates concerns and enables
                 independent modification of any layer without breaking the others.
               </p>
@@ -238,7 +238,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
                 Conversation Flow Design
               </h2>
               <p className="text-foreground/90 leading-relaxed">
-                Four distinct conversation flows handle the core buying scenarios — each
+                Four distinct conversation flows handle the core buying scenarios, each
                 with a specific trigger, action strategy, and measured outcome.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -409,7 +409,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
                   className="w-full max-h-[520px] bg-black"
                 />
               </div>
-              <p className="text-xs text-foreground/40">Live conversation demo — product inquiry → recommendation → conversion</p>
+              <p className="text-xs text-foreground/40">Live conversation demo: product inquiry → recommendation → conversion</p>
             </div>
 
             {/* RESULTS & IMPACT */}
@@ -420,7 +420,7 @@ const CaseStudyEcommerceSalesAutomation = () => {
                   <h2 className="text-2xl font-bold mb-3">Results & Impact</h2>
                   <p className="text-foreground/90 leading-relaxed mb-4">
                     The system delivered measurable business results within the first month
-                    of deployment — not just automation, but revenue-generating automation.
+                    of deployment, not just automation, but revenue-generating automation.
                   </p>
                   <ul className="space-y-3">
                     {impactItems.map((item) => (
