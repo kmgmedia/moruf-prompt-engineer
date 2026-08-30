@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import {
   ArrowLeft,
@@ -6,10 +7,13 @@ import {
   Brain,
   Camera,
   CheckCircle2,
+  ChevronLeft,
+  ChevronRight,
   Lightbulb,
   Play,
   ShoppingCart,
   TrendingUp,
+  X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -32,6 +36,18 @@ import {
 
 const CaseStudyEcommerceSalesAutomation = () => {
   const navigate = useNavigate();
+  const [lightbox, setLightbox] = useState<{ label: string; images: string[]; index: number } | null>(null);
+
+  const showPrev = () =>
+    setLightbox((current) =>
+      current
+        ? { ...current, index: (current.index - 1 + current.images.length) % current.images.length }
+        : current
+    );
+  const showNext = () =>
+    setLightbox((current) =>
+      current ? { ...current, index: (current.index + 1) % current.images.length } : current
+    );
 
   return (
     <div className="relative min-h-screen bg-background overflow-hidden">
@@ -287,8 +303,23 @@ const CaseStudyEcommerceSalesAutomation = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {dashboardScreenshots.map((item) => (
                   <div key={item.label} className="rounded-xl border border-primary/20 bg-primary/5 overflow-hidden">
-                    {item.src ? (
-                      <img src={item.src} alt={item.label} className="w-full h-64 object-cover object-top" />
+                    {item.images.length > 0 ? (
+                      <div className="grid grid-cols-2 gap-1 p-1">
+                        {item.images.map((src, index) => (
+                          <button
+                            key={src}
+                            type="button"
+                            onClick={() => setLightbox({ label: item.label, images: item.images, index })}
+                            className="group relative aspect-video overflow-hidden rounded-lg"
+                          >
+                            <img
+                              src={src}
+                              alt={`${item.label} ${index + 1}`}
+                              className="w-full h-full object-cover object-top transition-transform duration-200 group-hover:scale-105"
+                            />
+                          </button>
+                        ))}
+                      </div>
                     ) : (
                       <div className="h-48 flex flex-col items-center justify-center gap-2 px-4 text-center">
                         <Camera className="w-8 h-8 text-primary/30" />
@@ -297,16 +328,71 @@ const CaseStudyEcommerceSalesAutomation = () => {
                         <span className="text-xs text-foreground/30 mt-1">Screenshot coming soon</span>
                       </div>
                     )}
-                    {item.src && (
-                      <div className="px-4 py-3 border-t border-primary/10">
-                        <p className="text-sm font-semibold text-foreground/80">{item.label}</p>
-                        <p className="text-xs text-foreground/50 leading-snug mt-0.5">{item.description}</p>
-                      </div>
-                    )}
+                    <div className="px-4 py-3 border-t border-primary/10">
+                      <p className="text-sm font-semibold text-foreground/80">{item.label}</p>
+                      <p className="text-xs text-foreground/50 leading-snug mt-0.5">{item.description}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
+
+            {lightbox && (
+              <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+                onClick={() => setLightbox(null)}
+              >
+                <button
+                  type="button"
+                  onClick={() => setLightbox(null)}
+                  className="absolute top-4 right-4 text-white/70 hover:text-white"
+                  aria-label="Close"
+                >
+                  <X className="w-8 h-8" />
+                </button>
+                {lightbox.images.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      showPrev();
+                    }}
+                    className="absolute left-4 text-white/70 hover:text-white"
+                    aria-label="Previous image"
+                  >
+                    <ChevronLeft className="w-10 h-10" />
+                  </button>
+                )}
+                <div className="max-w-5xl w-full" onClick={(e) => e.stopPropagation()}>
+                  <img
+                    src={lightbox.images[lightbox.index]}
+                    alt={`${lightbox.label} ${lightbox.index + 1}`}
+                    className="w-full max-h-[80vh] object-contain rounded-lg"
+                  />
+                  <div className="mt-3 text-center">
+                    <p className="text-sm font-semibold text-white/90">{lightbox.label}</p>
+                    {lightbox.images.length > 1 && (
+                      <p className="text-xs text-white/50 mt-1">
+                        {lightbox.index + 1} / {lightbox.images.length}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                {lightbox.images.length > 1 && (
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      showNext();
+                    }}
+                    className="absolute right-4 text-white/70 hover:text-white"
+                    aria-label="Next image"
+                  >
+                    <ChevronRight className="w-10 h-10" />
+                  </button>
+                )}
+              </div>
+            )}
 
             {/* DEMO VIDEO */}
             <div className="space-y-5 pt-2">
@@ -314,15 +400,16 @@ const CaseStudyEcommerceSalesAutomation = () => {
                 <Play className="w-7 h-7 text-primary" />
                 Demo Video
               </h2>
-              <div className="w-full h-64 md:h-80 rounded-xl border border-primary/20 bg-primary/5 flex flex-col items-center justify-center gap-4">
-                <div className="w-16 h-16 rounded-full bg-primary/20 flex items-center justify-center">
-                  <Play className="w-7 h-7 text-primary ml-1" />
-                </div>
-                <div className="text-center">
-                  <p className="text-sm font-medium text-foreground/60">Demo video coming soon</p>
-                  <p className="text-xs text-foreground/40 mt-1">Live conversation demo — product inquiry → recommendation → conversion</p>
-                </div>
+              <div className="w-full rounded-xl border border-primary/20 bg-primary/5 overflow-hidden">
+                <video
+                  src="https://res.cloudinary.com/ds2h3iwys/video/upload/v1788111301/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/0830_1_lmtfkm.mp4"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="w-full max-h-[520px] bg-black"
+                />
               </div>
+              <p className="text-xs text-foreground/40">Live conversation demo — product inquiry → recommendation → conversion</p>
             </div>
 
             {/* RESULTS & IMPACT */}

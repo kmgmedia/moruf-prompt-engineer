@@ -202,21 +202,35 @@ export const dashboardScreenshots = [
   {
     label: "Chatbot Conversation Interface",
     description: "Real-time AI sales conversation with product recommendations",
-    src: "/projects/ecommerce-chatbot.png",
+    images: [
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107409/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_172746_kapkpn.png",
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107409/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_172822_er0mwg.png",
+    ],
   },
   {
     label: "Intent Classification Flow",
     description: "Message routing between purchase, support, and upsell flows",
-    src: "",
+    images: [
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107017/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_163319_ahhwai.png",
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107017/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_163358_i6yudv.png",
+    ],
   },
   {
     label: "Conversation Analytics",
     description: "Session metrics, conversion rates, and intent distribution",
-    src: "",
+    images: [
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107045/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_163417_yinkad.png",
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107045/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_163441_y7znwq.png",
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107044/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_163518_bezqax.png",
+    ],
   },
   {
     label: "Product Recommendation Output",
     description: "Context-aware product suggestion with personalized framing",
-    src: "",
+    images: [
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107154/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_163536_qbmrbr.png",
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107153/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_163705_wll6mr.png",
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788107153/moruf-prompt-engineer-portfolio/E-Commerce%20Sales%20Automation%20System/Screenshot_2026-08-30_163632_u7qbwo.png",
+    ],
   },
 ];
