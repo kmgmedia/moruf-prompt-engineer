@@ -286,8 +286,30 @@ export const takeaways = [
 ];
 
 export const dashboardScreenshots = [
-  "Guest Management View",
-  "Live Check-In Dashboard",
-  "QR Scanner Interface",
-  "Attendance Report View",
+  {
+    label: "Guest Management View",
+    description: "Manage registered guests, view RSVP status, and edit guest details ahead of the event.",
+    image:
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788192399/moruf-prompt-engineer-portfolio/GatePass%20System/Screenshot_2026-08-27_234500_laan1w.png",
+  },
+  {
+    label: "Live Check-In Dashboard",
+    description: "Real-time view of gate activity, attendance counts, and check-in status across all entry points.",
+    image:
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788194256/moruf-prompt-engineer-portfolio/GatePass%20System/Screenshot_2026-08-30_224841_w4y0j2.png",
+    note: "Guest data shown is from a real event and has been blurred for privacy.",
+  },
+  {
+    label: "QR Scanner Interface",
+    description: "Scan guest QR codes at the gate for instant identity verification and entry logging.",
+    image:
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788192414/moruf-prompt-engineer-portfolio/GatePass%20System/Screenshot_2026-08-30_225041_yjuznm.png",
+  },
+  {
+    label: "Attendance Report View",
+    description: "Post-event attendance summary with check-in timestamps and an entry-point breakdown.",
+    image:
+      "https://res.cloudinary.com/ds2h3iwys/image/upload/v1788194257/moruf-prompt-engineer-portfolio/GatePass%20System/Screenshot_2026-08-30_225325_og3x3q.png",
+    note: "Guest data shown is from a real event and has been blurred for privacy.",
+  },
 ];

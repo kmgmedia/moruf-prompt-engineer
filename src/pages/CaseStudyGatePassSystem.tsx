@@ -308,11 +308,39 @@ const CaseStudyGatePassSystem = () => {
                 attendance counts, and check-in status across all entry points.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {dashboardScreenshots.map((label) => (
-                  <div key={label} className="h-48 rounded-xl border border-primary/20 bg-primary/5 flex flex-col items-center justify-center gap-3 text-muted-foreground">
-                    <Camera className="w-8 h-8 opacity-30" />
-                    <span className="text-sm font-medium opacity-60">{label}</span>
-                    <span className="text-xs opacity-40">Screenshot coming soon</span>
+                {dashboardScreenshots.map((item) => (
+                  <div
+                    key={item.label}
+                    className="rounded-xl border border-primary/20 bg-primary/5 overflow-hidden"
+                  >
+                    {item.image ? (
+                      <>
+                        <div className="h-48 w-full overflow-hidden">
+                          <img
+                            src={item.image}
+                            alt={item.label}
+                            className="w-full h-full object-cover object-top"
+                          />
+                        </div>
+                        <div className="px-4 py-3">
+                          <p className="text-sm font-semibold text-foreground/80">{item.label}</p>
+                          <p className="text-xs text-foreground/50 leading-snug">{item.description}</p>
+                          {item.note && (
+                            <p className="flex items-start gap-1.5 text-xs text-amber-500/80 leading-snug mt-2">
+                              <Shield className="w-3.5 h-3.5 flex-shrink-0 mt-0.5" />
+                              <span>{item.note}</span>
+                            </p>
+                          )}
+                        </div>
+                      </>
+                    ) : (
+                      <div className="h-48 flex flex-col items-center justify-center gap-2 px-4 text-center">
+                        <Camera className="w-8 h-8 text-primary/30" />
+                        <p className="text-sm font-semibold text-foreground/60">{item.label}</p>
+                        <p className="text-xs text-foreground/40 leading-snug">{item.description}</p>
+                        <span className="text-xs text-foreground/30 mt-1">Screenshot coming soon</span>
+                      </div>
+                    )}
                   </div>
                 ))}
               </div>
