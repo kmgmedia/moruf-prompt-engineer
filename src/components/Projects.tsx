@@ -402,7 +402,7 @@ export const Projects = () => {
                 </div>
 
                 {/* Content */}
-                <div className="p-4 md:p-6 flex-1 flex flex-col space-y-2 md:space-y-3">
+                <div className="p-4 md:p-6 flex-1 flex flex-col gap-2 md:gap-3">
                   <div>
                     <h3 className="text-lg md:text-2xl font-bold mb-1 text-foreground">
                       {project.title}
@@ -452,7 +452,7 @@ export const Projects = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 mt-3 md:mt-4 pt-2 md:pt-3 border-t border-border/30">
+                  <div className="flex gap-2 mt-auto pt-2 md:pt-3 border-t border-border/30">
                     {project.caseStudy && (
                       <button
                         onClick={(e) =>

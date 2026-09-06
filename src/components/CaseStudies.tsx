@@ -47,21 +47,21 @@ export const CaseStudies = () => {
           {caseStudies.map((study, index) => (
             <Card
               key={index}
-              className="p-6 bg-card hover:bg-card/80 border-border hover:border-primary/50 transition-all duration-300 group animate-slide-up"
+              className="p-6 bg-card hover:bg-card/80 border-border hover:border-primary/50 transition-all duration-300 group animate-slide-up flex flex-col h-full"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <h3 className="text-lg font-bold mb-3 text-foreground leading-snug">
                 {study.title}
               </h3>
 
-              <p className="text-muted-foreground text-sm mb-4 leading-relaxed">
+              <p className="text-muted-foreground text-sm mb-4 leading-relaxed flex-1">
                 {study.description}
               </p>
 
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-primary hover:text-primary hover:bg-primary/10 p-0 h-auto font-semibold group-hover:translate-x-1 transition-transform duration-300"
+                className="text-primary hover:text-primary hover:bg-primary/10 p-0 h-auto font-semibold self-start mt-auto group-hover:translate-x-1 transition-transform duration-300"
                 asChild
               >
                 <Link to={study.link}>

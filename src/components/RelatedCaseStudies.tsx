@@ -25,14 +25,14 @@ export const RelatedCaseStudies = ({ items }: RelatedCaseStudiesProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {items.map((item) => (
           <Link key={item.link} to={item.link}>
-            <Card className="h-full p-5 bg-primary/5 border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 group">
+            <Card className="h-full p-5 bg-primary/5 border-primary/20 hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 group flex flex-col">
               <h4 className="font-bold text-foreground mb-1 group-hover:text-primary transition-colors">
                 {item.title}
               </h4>
-              <p className="text-sm text-foreground/70 leading-relaxed mb-3">
+              <p className="text-sm text-foreground/70 leading-relaxed mb-3 flex-1">
                 {item.description}
               </p>
-              <span className="text-primary text-sm font-semibold inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform duration-300">
+              <span className="text-primary text-sm font-semibold inline-flex items-center gap-1 self-start mt-auto group-hover:translate-x-1 transition-transform duration-300">
                 Read Case Study <ArrowRight className="w-3.5 h-3.5" />
               </span>
             </Card>
