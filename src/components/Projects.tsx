@@ -452,13 +452,13 @@ export const Projects = () => {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2 mt-auto pt-2 md:pt-3 border-t border-border/30">
+                  <div className="grid grid-cols-2 gap-2 mt-auto pt-2 md:pt-3 border-t border-border/30">
                     {project.caseStudy && (
                       <button
                         onClick={(e) =>
                           handleCaseStudyClick(project.caseStudy, e)
                         }
-                        className="flex-1 px-3 py-2 md:px-4 md:py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-xs md:text-sm font-medium rounded-md transition-colors"
+                        className="px-3 py-2 md:px-4 md:py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-xs md:text-sm font-medium rounded-md transition-colors"
                       >
                         Read Case Study
                       </button>
@@ -466,7 +466,7 @@ export const Projects = () => {
                     {project.link && (
                       <button
                         onClick={(e) => handleProjectLinkClick(project.link, e)}
-                        className="flex-1 px-3 py-2 md:px-4 md:py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs md:text-sm font-medium rounded-md border border-primary/20 transition-colors"
+                        className="px-3 py-2 md:px-4 md:py-2 bg-primary/10 hover:bg-primary/20 text-primary text-xs md:text-sm font-medium rounded-md border border-primary/20 transition-colors"
                       >
                         View Project
                       </button>
