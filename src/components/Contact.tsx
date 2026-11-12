@@ -165,7 +165,7 @@ export const Contact = () => {
                   }}
                   required
                   placeholder="Jane Smith"
-                  className="h-12 w-full rounded-lg border border-border bg-background/35 px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/45 focus:border-primary focus:bg-background/50 sm:h-[54px]"
+                  className="h-12 w-full rounded-lg border border-border bg-background/35 px-4 text-base sm:text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/45 focus:border-primary focus:bg-background/50 sm:h-[54px]"
                 />
               </label>
 
@@ -183,7 +183,7 @@ export const Contact = () => {
                   }}
                   required
                   placeholder="jane@company.com"
-                  className="h-12 w-full rounded-lg border border-border bg-background/35 px-4 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/45 focus:border-primary focus:bg-background/50 sm:h-[54px]"
+                  className="h-12 w-full rounded-lg border border-border bg-background/35 px-4 text-base sm:text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/45 focus:border-primary focus:bg-background/50 sm:h-[54px]"
                 />
               </label>
 
@@ -201,7 +201,7 @@ export const Contact = () => {
                   required
                   rows={5}
                   placeholder="I need an AI chatbot, workflow automation, dashboard, API integration, or web system that helps us..."
-                  className="min-h-[124px] w-full resize-none rounded-lg border border-border bg-background/35 px-4 py-4 text-sm leading-6 text-foreground outline-none transition-colors placeholder:text-muted-foreground/45 focus:border-primary focus:bg-background/50 sm:min-h-[132px]"
+                  className="min-h-[124px] w-full resize-none rounded-lg border border-border bg-background/35 px-4 py-4 text-base sm:text-sm leading-6 text-foreground outline-none transition-colors placeholder:text-muted-foreground/45 focus:border-primary focus:bg-background/50 sm:min-h-[132px]"
                 />
               </label>
 

@@ -28,16 +28,17 @@ import {
 } from "@/lib/booking";
 
 const PROJECT_TYPES = [
-  { value: "chatbot", label: "AI Chatbot / Assistant" },
-  { value: "automation", label: "Automation / Workflow" },
-  { value: "integration", label: "API Integration" },
-  { value: "dashboard", label: "Dashboard / Data" },
-  { value: "webapp", label: "Web Application" },
-  { value: "other", label: "Other" },
+  { value: "chatbot", label: "AI Chatbot / Assistant", short: "AI Chatbot" },
+  { value: "automation", label: "Automation / Workflow", short: "Automation" },
+  { value: "integration", label: "API Integration", short: "API Integration" },
+  { value: "dashboard", label: "Dashboard / Data", short: "Dashboard / Data" },
+  { value: "webapp", label: "Web Application", short: "Web App" },
+  { value: "other", label: "Other", short: "Other" },
 ] as const;
 
 const inputClass =
-  "w-full px-3.5 py-2.5 rounded-lg bg-background border border-border text-sm placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition";
+  // text-base (16px) on phones stops iOS Safari from auto-zooming on focus.
+  "w-full px-3.5 py-2.5 rounded-lg bg-background border border-border text-base sm:text-sm placeholder:text-muted-foreground/60 focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none transition";
 
 const formatShortDate = (dateString: string) =>
   dateString
@@ -353,7 +354,7 @@ const BookACall = () => {
                     aria-label="Timezone"
                     value={formData.timezone}
                     onChange={(e) => handleTimezoneChange(e.target.value)}
-                    className="appearance-none rounded-md border border-border bg-background py-1 pl-2.5 pr-8 text-foreground hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="appearance-none rounded-md border border-border bg-background py-1 pl-2.5 pr-8 text-base sm:text-sm text-foreground hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/30"
                   >
                     {BOOKING_TIMEZONE_OPTIONS.map((option) => (
                       <option key={option.value} value={option.value}>
@@ -588,7 +589,7 @@ const BookACall = () => {
                   <legend className="mb-2 text-sm font-medium">
                     What do you need help with?
                   </legend>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
                     {PROJECT_TYPES.map((type) => {
                       const selected = formData.projectType === type.value;
                       return (
@@ -597,13 +598,15 @@ const BookACall = () => {
                           type="button"
                           onClick={() => updateField("projectType", type.value)}
                           aria-pressed={selected}
-                          className={`rounded-full border px-3.5 py-1.5 text-sm transition-colors ${
+                          aria-label={type.label}
+                          className={`rounded-full border px-2 py-2 text-sm leading-tight transition-colors sm:px-3.5 sm:py-1.5 sm:text-sm ${
                             selected
                               ? "border-primary bg-primary text-primary-foreground"
                               : "border-border hover:border-primary/50"
                           }`}
                         >
-                          {type.label}
+                          <span className="sm:hidden">{type.short}</span>
+                          <span className="hidden sm:inline">{type.label}</span>
                         </button>
                       );
                     })}
