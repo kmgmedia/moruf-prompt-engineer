@@ -52,7 +52,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     });
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4-turbo",
+      model: "gpt-4.1-mini",
       messages: messages as Array<{
         role: "system" | "user" | "assistant";
         content: string;
