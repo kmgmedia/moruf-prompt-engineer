@@ -211,6 +211,7 @@ export function useAIResponse(
     async (textToSend: string, updatedConversation: Message[]) => {
       const greetingRegex =
         /^(hi|hello|hey|hey there|good morning|good afternoon|good evening|yo|sup|howdy|what(?:'|’)s up|whats up|how(?:'|’)s it going|hows it going|what(?:'|’)s good|whats good|good to see you|nice to meet you|great to meet you|good to meet you|pleased to meet you|greetings|hola)\b[!.?\s]*$/i;
+      const greetingTypoRegex = /^(eh|he+y+|h+i+|helo|hllo|yoo+|su+p+)$/i;
       const networkingGreetingRegex =
         /^(nice to connect|good to connect|i came across your work|i saw your profile|i was checking out your portfolio|love your portfolio|interesting work|great work|impressive portfolio|nice portfolio|your work stood out|i liked your work|good to meet you|nice to meet you|good to see you)\b[!.?\s]*$/i;
       const recruiterGreetingRegex =
@@ -246,7 +247,8 @@ export function useAIResponse(
 
       if (
         greetingRegex.test(textToSend) ||
-        greetingRegex.test(normalizedSimple)
+        greetingRegex.test(normalizedSimple) ||
+        greetingTypoRegex.test(normalizedSimple)
       ) {
         const greetingText = pickRandom(GREETING_RESPONSES);
 
