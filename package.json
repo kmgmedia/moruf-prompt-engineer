@@ -3,6 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "allowScripts": {
+    "@swc/core@1.15.30": true,
+    "esbuild@0.14.47": true,
+    "esbuild@0.21.5": true
+  },
   "scripts": {
     "dev": "concurrently \"npm:dev:web\" \"npm:dev:api\"",
     "dev:web": "vite",
