@@ -211,7 +211,8 @@ export function useAIResponse(
     async (textToSend: string, updatedConversation: Message[]) => {
       const greetingRegex =
         /^(hi|hello|hey|hey there|good morning|good afternoon|good evening|yo|sup|howdy|what(?:'|’)s up|whats up|how(?:'|’)s it going|hows it going|what(?:'|’)s good|whats good|good to see you|nice to meet you|great to meet you|good to meet you|pleased to meet you|greetings|hola)\b[!.?\s]*$/i;
-      const greetingTypoRegex = /^(eh|he+y+|h+i+|helo|hllo|yoo+|su+p+)$/i;
+      const greetingTypoRegex =
+        /^(eh|e+y+|a+y+|h+e+y+|h+i+|h+y+|helo+|hllo|hell+o+|yoo+|su+p+)$/i;
       const networkingGreetingRegex =
         /^(nice to connect|good to connect|i came across your work|i saw your profile|i was checking out your portfolio|love your portfolio|interesting work|great work|impressive portfolio|nice portfolio|your work stood out|i liked your work|good to meet you|nice to meet you|good to see you)\b[!.?\s]*$/i;
       const recruiterGreetingRegex =
@@ -245,6 +246,109 @@ export function useAIResponse(
         }, delay);
       };
 
+      // Ask OpenAI and render its reply. Returns false if the AI is unavailable,
+      // so the caller can fall back to the rule-based replies below.
+      const replyWithAI = async (): Promise<boolean> => {
+        setIsTyping(true);
+        const scopedQuickReplies = getScopedQuickReplies(textToSend);
+        const analysis = analyzeMessage(textToSend);
+        const mergedCapturedData = {
+          ...state.capturedData,
+          ...analysis.extractedData,
+        };
+        const conversationHistory = updatedConversation
+          // The latest user message is sent separately as `message`.
+          .slice(0, -1)
+          .map((msg) => ({
+            role: (msg.role === "bot" ? "assistant" : "user") as
+              | "user"
+              | "assistant",
+            content: msg.text,
+          }));
+
+        const aiResponse = await getAIResponse(textToSend, conversationHistory);
+        if (!aiResponse) {
+          setIsTyping(false);
+          return false;
+        }
+
+        const newState: ConversationState = {
+          ...state,
+          userType: analysis.userType,
+          intent: analysis.intent as Intent,
+          messageCount: state.messageCount + 1,
+          capturedData: mergedCapturedData,
+          stage: determineNextStage(
+            state.stage,
+            analysis.userType,
+            state.messageCount + 1,
+          ) as ConversationStage,
+          captureStep: "none",
+          ctaTriggered:
+            state.ctaTriggered ||
+            shouldTriggerCTA(
+              state.messageCount + 1,
+              analysis.userType,
+              !!mergedCapturedData.problem,
+            ),
+          lastActivityAt: new Date(),
+          memoryKey: (state as ConversationState).memoryKey,
+        };
+        setState(newState);
+
+        setMessages(() => [
+          ...updatedConversation,
+          {
+            role: "bot",
+            text: aiResponse,
+            timestamp: new Date(),
+            messageId: `msg_${Date.now()}_bot`,
+          },
+        ]);
+        setIsTyping(false);
+
+        if (scopedQuickReplies && scopedQuickReplies.length > 0) {
+          setQuickReplies(scopedQuickReplies);
+          setShowQuickReplies(true);
+        } else {
+          setShowQuickReplies(false);
+        }
+
+        if (newState.ctaTriggered && !state.ctaTriggered) {
+          setTimeout(() => {
+            const cta = getCTAVariation(Math.floor(Math.random() * 5));
+            setMessages((prev) => [
+              ...prev,
+              {
+                role: "bot",
+                text: cta,
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_cta`,
+              },
+            ]);
+          }, 1500);
+        }
+        return true;
+      };
+
+      // AI-first: let the model handle typos, slang, greetings and phrasing we
+      // could never list in regexes. Skip only for the in-chat booking flow and
+      // obvious prompt-injection attempts, which stay rule-driven.
+      const inBookingFlow =
+        !!state.chatBookingStep && state.chatBookingStep !== "done";
+      const wantsChatBooking =
+        CHAT_BOOK_INTENT_REGEX.test(textToSend) ||
+        CHAT_BOOK_INTENT_REGEX.test(normalizedForMatching);
+      const isInjectionAttempt = PROMPT_INJECTION_REGEX.test(
+        normalizedForMatching,
+      );
+      let aiAttempted = false;
+      if (!inBookingFlow && !wantsChatBooking && !isInjectionAttempt) {
+        aiAttempted = true;
+        if (await replyWithAI()) return;
+      }
+
+      // --- Rule-based fallback (used when the AI is unavailable) ---
       if (
         greetingRegex.test(textToSend) ||
         greetingRegex.test(normalizedSimple) ||
@@ -1174,7 +1278,9 @@ export function useAIResponse(
           content: msg.text,
         }));
 
-        const aiResponse = await getAIResponse(textToSend, conversationHistory);
+        const aiResponse = aiAttempted
+          ? null
+          : await getAIResponse(textToSend, conversationHistory);
         const botResponse: BotResponseResult = aiResponse
           ? { text: aiResponse }
           : { text: PROJECT_SCOPE_FALLBACK };
