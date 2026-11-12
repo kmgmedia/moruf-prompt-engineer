@@ -37,6 +37,27 @@ const parseMarkdownBold = (text: string): ReactNode[] => {
   return parts.length > 0 ? parts : [text];
 };
 
+// Only meeting/calendar links are rendered as clickable external links.
+const EXTERNAL_LINK_REGEX =
+  /(https:\/\/(?:meet\.google\.com|calendar\.google\.com|www\.google\.com\/calendar)\/[^\s)]+)/g;
+
+const renderTextWithExternalLinks = (text: string, keyPrefix: string) =>
+  text.split(EXTERNAL_LINK_REGEX).map((segment, sidx) =>
+    sidx % 2 === 1 ? (
+      <a
+        key={`${keyPrefix}_ext_${sidx}`}
+        href={segment}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline text-primary hover:text-primary/80 break-all"
+      >
+        {segment}
+      </a>
+    ) : (
+      <span key={`${keyPrefix}_ext_${sidx}`}>{segment}</span>
+    ),
+  );
+
 export const renderMessageWithLinks = (
   text: string,
   onNavigate: (path: string) => void,
@@ -51,7 +72,9 @@ export const renderMessageWithLinks = (
         <span key={`msg_part_${idx}`}>
           {boldParts.map((boldPart, bidx) =>
             typeof boldPart === "string" ? (
-              <span key={`msg_bold_${idx}_${bidx}`}>{boldPart}</span>
+              <span key={`msg_bold_${idx}_${bidx}`}>
+                {renderTextWithExternalLinks(boldPart, `msg_${idx}_${bidx}`)}
+              </span>
             ) : (
               boldPart
             ),

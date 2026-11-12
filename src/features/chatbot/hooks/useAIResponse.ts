@@ -57,6 +57,8 @@ import {
   validateBookingInput,
   buildBookingSummary,
   submitChatBooking,
+  getUpcomingWeekdayOptions,
+  BOOKING_DESCRIPTION_SKIPPED,
 } from "@/features/chatbot/utils/chatBookingFlow";
 
 const GREETING_RESPONSES = [
@@ -92,6 +94,39 @@ const TECHNICAL_GREETING_RESPONSES = [
   "Glad to connect. I enjoy building practical systems that combine software engineering, automation, and AI. What are you working on?",
   "Great to connect. I can help with technical architecture, automation workflows, integrations, and product-focused builds. What are you trying to solve?",
 ] as const;
+
+// The AI (or a CTA) offered to take the booking right here in the chat.
+const BOOKING_OFFER_REGEX =
+  /\b(book (?:it|the call|one|this|that)?\s*(?:for you\s*)?(?:right )?here|here in (?:the |this )?chat|right here in chat|take your details|book (?:it|one|the call) for you)\b/i;
+// The AI reply talks about booking a call, so offer the in-chat booking button.
+const BOOKING_MENTION_REGEX =
+  /\/book-call|discovery call|book (?:a|the|it|one)\b|here in (?:the |this )?chat/i;
+const AFFIRMATIVE_REGEX =
+  /^(yes|yeah|yea|yep|yup|ya|sure|ok|okay|alright|please|go ahead|let'?s (?:do it|go|book)|book it|do it|sounds good|of course|definitely|absolutely)\b/i;
+export const BOOK_IN_CHAT_QUICK_REPLY = "Book the call here in chat";
+
+// Description sent with the booking: what they typed at the description step,
+// plus what they told the assistant before booking started.
+const buildBookingDescription = (
+  problem: string | undefined,
+  conversation: Message[],
+): string => {
+  const bookingStartIdx = conversation.findIndex((m) =>
+    /_booking_(start|summary)$/.test(m.messageId ?? ""),
+  );
+  const beforeBooking =
+    bookingStartIdx >= 0 ? conversation.slice(0, bookingStartIdx) : [];
+  const context = beforeBooking
+    .filter((m) => m.role === "user" && m.text.trim().length > 10)
+    .slice(-6)
+    .map((m) => `- ${m.text.trim()}`)
+    .join("\n");
+
+  const parts: string[] = [];
+  if (problem && problem !== BOOKING_DESCRIPTION_SKIPPED) parts.push(problem);
+  if (context) parts.push(`From the chat:\n${context}`);
+  return parts.join("\n\n");
+};
 
 const pickRandom = <T,>(items: readonly T[]): T =>
   items[Math.floor(Math.random() * items.length)];
@@ -307,7 +342,10 @@ export function useAIResponse(
         ]);
         setIsTyping(false);
 
-        if (scopedQuickReplies && scopedQuickReplies.length > 0) {
+        if (BOOKING_MENTION_REGEX.test(aiResponse)) {
+          setQuickReplies([BOOK_IN_CHAT_QUICK_REPLY, "I have more questions"]);
+          setShowQuickReplies(true);
+        } else if (scopedQuickReplies && scopedQuickReplies.length > 0) {
           setQuickReplies(scopedQuickReplies);
           setShowQuickReplies(true);
         } else {
@@ -336,9 +374,15 @@ export function useAIResponse(
       // obvious prompt-injection attempts, which stay rule-driven.
       const inBookingFlow =
         !!state.chatBookingStep && state.chatBookingStep !== "done";
+      const lastBotText =
+        [...updatedConversation].reverse().find((m) => m.role === "bot")
+          ?.text ?? "";
+      const botOfferedChatBooking = BOOKING_OFFER_REGEX.test(lastBotText);
+      const acceptsOffer = AFFIRMATIVE_REGEX.test(textToSend.trim());
       const wantsChatBooking =
         CHAT_BOOK_INTENT_REGEX.test(textToSend) ||
-        CHAT_BOOK_INTENT_REGEX.test(normalizedForMatching);
+        CHAT_BOOK_INTENT_REGEX.test(normalizedForMatching) ||
+        (botOfferedChatBooking && acceptsOffer);
       const isInjectionAttempt = PROMPT_INJECTION_REGEX.test(
         normalizedForMatching,
       );
@@ -349,6 +393,9 @@ export function useAIResponse(
       }
 
       // --- Rule-based fallback (used when the AI is unavailable) ---
+      // Skipped during booking so answers like "yes", "ok" or a name aren't
+      // mistaken for greetings, compliments or vague input.
+      if (!inBookingFlow && !wantsChatBooking) {
       if (
         greetingRegex.test(textToSend) ||
         greetingRegex.test(normalizedSimple) ||
@@ -794,6 +841,8 @@ export function useAIResponse(
         return;
       }
 
+      } // end rule-based fallback
+
       // --- CHAT BOOKING FLOW ---
       const fetchAvailableSlots = async (date: string, timezone: string): Promise<string[]> => {
         try {
@@ -815,6 +864,28 @@ export function useAIResponse(
       if (state.chatBookingStep && state.chatBookingStep !== "done") {
         const step = state.chatBookingStep as BookingField | "confirm";
 
+        if (
+          step !== "confirm" &&
+          /^(cancel|stop|exit|quit|never ?mind|forget it|cancel booking)[.!]*$/i.test(
+            textToSend.trim(),
+          )
+        ) {
+          setState((prev) => ({ ...prev, chatBookingStep: "" }));
+          showAfterTyping(() => {
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: "No problem, I've stopped the booking. Just say 'book a call' whenever you're ready, or ask me anything else.",
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_booking_cancel`,
+              },
+            ]);
+            setShowQuickReplies(false);
+          });
+          return;
+        }
+
         if (step === "confirm") {
           const confirmsYes =
             /\b(yes|yeah|yep|yup|confirm|go ahead|ok|sure|book it|looks good|correct|do it|proceed)\b/i.test(
@@ -834,7 +905,10 @@ export function useAIResponse(
                   email: state.capturedData.email!,
                   phone: state.capturedData.phone!,
                   projectType: state.capturedData.projectType!,
-                  description: state.capturedData.problem ?? "",
+                  description: buildBookingDescription(
+                    state.capturedData.problem,
+                    updatedConversation,
+                  ),
                   meetingDate: state.capturedData.meetingDate!,
                   meetingTime: state.capturedData.meetingTime!,
                   timezone: state.capturedData.timezone!,
@@ -871,12 +945,20 @@ export function useAIResponse(
                 {
                   role: "bot",
                   text: isSlotTaken
-                    ? "That time slot was just taken by someone else. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days."
+                    ? "That time slot was just taken by someone else. Please pick a different date below."
                     : `Sorry, there was a problem confirming your booking: ${errorMsg}\n\nPlease try the booking form at /book-call instead.`,
                   timestamp: new Date(),
                   messageId: `msg_${Date.now()}_booking_err`,
                 },
               ]);
+              if (isSlotTaken) {
+                setQuickReplies(getUpcomingWeekdayOptions());
+                setShowQuickReplies(true);
+              } else {
+                setShowQuickReplies(false);
+              }
+              setIsTyping(false);
+              return;
             } finally {
               setIsTyping(false);
             }
@@ -965,7 +1047,7 @@ export function useAIResponse(
                   text:
                     availableSlots.length > 0
                       ? "That time slot is already booked. Please choose from the available times below."
-                      : "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                      : "All time slots for that date are fully booked. Please pick a different date below.",
                   timestamp: new Date(),
                   messageId: `msg_${Date.now()}_slot_taken`,
                 },
@@ -974,6 +1056,7 @@ export function useAIResponse(
                 setQuickReplies(availableSlots);
                 setShowQuickReplies(true);
               } else {
+                setQuickReplies(getUpcomingWeekdayOptions());
                 setState((prev) => ({
                   ...prev,
                   chatBookingStep: "date",
@@ -982,7 +1065,7 @@ export function useAIResponse(
                     meetingDate: undefined,
                   },
                 }));
-                setShowQuickReplies(false);
+                setShowQuickReplies(true);
               }
             });
             return;
@@ -1039,12 +1122,13 @@ export function useAIResponse(
                 ...updatedConversation,
                 {
                   role: "bot",
-                  text: "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                  text: "All time slots for that date are fully booked. Please pick a different date below.",
                   timestamp: new Date(),
                   messageId: `msg_${Date.now()}_no_slots`,
                 },
               ]);
-              setShowQuickReplies(false);
+              setQuickReplies(getUpcomingWeekdayOptions());
+              setShowQuickReplies(true);
             });
             return;
           }
@@ -1096,11 +1180,8 @@ export function useAIResponse(
         return;
       }
 
-      // Detect fresh booking-in-chat intent
-      if (
-        CHAT_BOOK_INTENT_REGEX.test(textToSend) ||
-        CHAT_BOOK_INTENT_REGEX.test(normalizedForMatching)
-      ) {
+      // Detect fresh booking-in-chat intent (or acceptance of the AI's offer)
+      if (wantsChatBooking) {
         const firstField = getNextBookingField(state.capturedData);
         if (firstField === "confirm") {
           // All data already captured — go straight to summary
@@ -1137,12 +1218,13 @@ export function useAIResponse(
                 ...updatedConversation,
                 {
                   role: "bot",
-                  text: "All time slots for that date are fully booked. Please choose a different date.\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.",
+                  text: "All time slots for that date are fully booked. Please pick a different date below.",
                   timestamp: new Date(),
                   messageId: `msg_${Date.now()}_no_slots`,
                 },
               ]);
-              setShowQuickReplies(false);
+              setQuickReplies(getUpcomingWeekdayOptions());
+              setShowQuickReplies(true);
             });
           } else {
             showAfterTyping(() => {

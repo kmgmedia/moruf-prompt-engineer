@@ -19,6 +19,7 @@ export type BookingField =
   | "email"
   | "phone"
   | "project_type"
+  | "description"
   | "date"
   | "time"
   | "timezone";
@@ -30,6 +31,7 @@ export const getNextBookingField = (
   if (!data.email) return "email";
   if (!data.phone) return "phone";
   if (!data.projectType) return "project_type";
+  if (!data.problem) return "description";
   if (!data.timezone) return "timezone";
   if (!data.meetingDate) return "date";
   if (!data.meetingTime) return "time";
@@ -49,8 +51,10 @@ export const getBookingStepPrompt = (
       return "What is your phone number? (include country code, e.g. +234...)";
     case "project_type":
       return "What best describes what you need?\n\n1. AI Chatbot / Assistant\n2. Automation System / Workflow\n3. API Integration / System Connection\n4. Dashboard / Data System\n5. Web Application\n6. Other";
+    case "description":
+      return "Tell me a little about your project: your current process, the challenge, and what you'd like to achieve. (Type 'skip' if we've already covered it.)";
     case "date":
-      return "What date would you like for the call?\n\nPlease use the format YYYY-MM-DD (e.g. 2026-05-20). Weekdays only, within the next 30 days.";
+      return "What date works for the call? Pick one below, or type a date like 2026-05-20 (weekdays only, within the next 30 days).";
     case "time":
       return "What time works best? Choose one below (all times are in your selected timezone):";
     case "timezone":
@@ -62,10 +66,37 @@ export const getBookingStepQuickReplies = (
   field: BookingField,
 ): string[] | null => {
   if (field === "time") return [...BOOKING_TIME_SLOTS];
+  if (field === "date") return getUpcomingWeekdayOptions();
+  if (field === "description") return ["Skip"];
   if (field === "timezone")
     return ["Africa/Lagos (WAT)", "Africa/Johannesburg (SAST)"];
   return null;
 };
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const toIsoDate = (d: Date) =>
+  `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+/** Next few weekdays (starting tomorrow) as "YYYY-MM-DD (Mon 18 May)" options. */
+export const getUpcomingWeekdayOptions = (count = 6): string[] => {
+  const options: string[] = [];
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  while (options.length < count) {
+    d.setDate(d.getDate() + 1);
+    const day = d.getDay();
+    if (day === 0 || day === 6) continue;
+    const label = d.toLocaleDateString("en-GB", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+    });
+    options.push(`${toIsoDate(d)} (${label})`);
+  }
+  return options;
+};
+
+export const BOOKING_DESCRIPTION_SKIPPED = "(skipped)";
 
 export interface ValidationResult {
   valid: boolean;
@@ -140,13 +171,31 @@ export const validateBookingInput = (
       return { valid: true, value: matched };
     }
 
-    case "date": {
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(trimmed))
+    case "description": {
+      if (/^(skip|none|no|n\/a|na|-)$/i.test(trimmed))
+        return { valid: true, value: BOOKING_DESCRIPTION_SKIPPED };
+      if (trimmed.length < 3)
         return {
           valid: false,
-          error: "Please use the format YYYY-MM-DD (e.g. 2026-05-20).",
+          error: "Please add a short description, or type 'skip'.",
         };
-      const date = new Date(`${trimmed}T00:00:00`);
+      return { valid: true, value: trimmed };
+    }
+
+    case "date": {
+      let iso = trimmed.match(/\d{4}-\d{2}-\d{2}/)?.[0];
+      if (!iso && /\btomorrow\b/i.test(trimmed)) {
+        const t = new Date();
+        t.setDate(t.getDate() + 1);
+        iso = toIsoDate(t);
+      }
+      if (!iso)
+        return {
+          valid: false,
+          error:
+            "Please pick one of the dates below, or type it like 2026-05-20.",
+        };
+      const date = new Date(`${iso}T00:00:00`);
       if (isNaN(date.getTime()))
         return {
           valid: false,
@@ -169,7 +218,7 @@ export const validateBookingInput = (
           valid: false,
           error: "Please choose a date within the next 30 days.",
         };
-      return { valid: true, value: trimmed };
+      return { valid: true, value: iso };
     }
 
     case "time": {
@@ -222,6 +271,9 @@ export const buildBookingSummary = (data: CapturedData): string => {
     `Email: ${data.email}`,
     `Phone: ${data.phone}`,
     `Project type: ${PROJECT_TYPE_LABELS[data.projectType ?? ""] ?? data.projectType}`,
+    ...(data.problem && data.problem !== BOOKING_DESCRIPTION_SKIPPED
+      ? [`Project details: ${data.problem}`]
+      : []),
     `Date: ${data.meetingDate}`,
     `Time: ${data.meetingTime}`,
     `Timezone: ${data.timezone}`,
@@ -234,6 +286,7 @@ export const BOOKING_FIELD_TO_DATA_KEY: Record<BookingField, keyof CapturedData>
   email: "email",
   phone: "phone",
   project_type: "projectType",
+  description: "problem",
   date: "meetingDate",
   time: "meetingTime",
   timezone: "timezone",
@@ -279,11 +332,14 @@ export const submitChatBooking = async (
   }
 
   const result = (await response.json()) as {
+    meetingLink?: string;
     calendarBooking?: { meetingLink?: string; htmlLink?: string };
+    clientConfirmationWarning?: string;
   };
   const meetingLink =
-    result.calendarBooking?.meetingLink ??
-    result.calendarBooking?.htmlLink ??
+    result.meetingLink ||
+    result.calendarBooking?.meetingLink ||
+    result.calendarBooking?.htmlLink ||
     "";
 
   const lines = [
@@ -299,7 +355,9 @@ export const submitChatBooking = async (
 
   lines.push(
     "",
-    `A confirmation has been sent to ${data.email}. Looking forward to speaking with you!`,
+    result.clientConfirmationWarning
+      ? `I couldn't send the confirmation email to ${data.email}, so please save the link above. I'll follow up with you directly.`
+      : `I've also sent the meeting link and details to ${data.email}. Looking forward to speaking with you!`,
   );
 
   return { success: true, meetingLink, message: lines.join("\n") };

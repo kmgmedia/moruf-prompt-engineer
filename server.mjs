@@ -615,6 +615,9 @@ app.post("/api/book-call", async (req, res) => {
       success: true,
       message: "Submission received successfully",
       googleCalendarEnabled,
+      calendarBooking,
+      meetingLink: finalMeetingLink,
+      isRealMeetLink,
       ownerNotificationWarning,
       clientConfirmationWarning,
     });
