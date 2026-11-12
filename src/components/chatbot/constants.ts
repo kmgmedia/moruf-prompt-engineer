@@ -1,9 +1,9 @@
 export const INITIAL_BOT_GREETING =
-  "Hey! I'm Moruf.\n\nI build AI systems, automation workflows, and full-stack solutions that help businesses run more efficiently.\n\nWhat are you looking to do right now?";
+  "Hey there! I help businesses with AI systems, automation, software development, and web development that simplify operations and drive better results.\n\nWhat are you exploring right now?";
 
 export const INITIAL_QUICK_REPLIES = [
-  "Build or automate something",
-  "Learn more about my work",
-  "Hiring / job opportunity",
-  "Just exploring",
+  "What software and web services do you offer?",
+  "Show me your projects",
+  "What is your process?",
+  "How can I book a call?",
 ] as const;

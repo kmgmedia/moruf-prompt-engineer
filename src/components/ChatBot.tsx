@@ -77,24 +77,6 @@ const ChatBot = () => {
   const hasShownOfflineToastRef = useRef(false);
   const hasShownReturnGreetingRef = useRef(false);
 
-  useEffect(() => {
-    if (!isMobile) return;
-
-    const inputElement = inputRef.current;
-    if (!inputElement) return;
-
-    const handler = () => {
-      setTimeout(() => {
-        inputElement.scrollIntoView({ behavior: "smooth", block: "center" });
-      }, 200);
-    };
-
-    inputElement.addEventListener("focus", handler);
-    return () => {
-      inputElement.removeEventListener("focus", handler);
-    };
-  }, [isMobile, isOpen]);
-
   const scrollToBottom = (behavior: ScrollBehavior = "auto") => {
     const container = messagesContainerRef.current;
     if (!container) {
@@ -442,7 +424,7 @@ const ChatBot = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Type a message..."
-                className="flex-1 px-3 py-2 rounded-lg bg-background border border-border focus:border-primary focus:outline-none text-sm"
+                className="flex-1 min-w-0 px-3 py-2 rounded-lg bg-background border border-border focus:border-primary focus:outline-none text-base sm:text-sm"
                 style={isMobile ? { minWidth: 0 } : undefined}
               />
               <Button

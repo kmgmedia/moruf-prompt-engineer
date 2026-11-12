@@ -59,6 +59,73 @@ import {
   submitChatBooking,
 } from "@/features/chatbot/utils/chatBookingFlow";
 
+const GREETING_RESPONSES = [
+  "Hey there! I can help with questions about my projects, services, or portfolio. What would you like to know about my work?",
+  "Hi! I can help with questions about my projects, services, and portfolio work. What would you like to know?",
+  "Hello! I can help with my projects, services, and experience. What would you like to explore?",
+  "Hey! I help businesses with AI, automation, and custom digital solutions. What would you like to know about my work?",
+  "Hi there! I work with founders and teams on AI systems, automation, and custom digital products. What are you curious about?",
+  "Nice to meet you! I can help with questions about my work, services, and the kind of projects I build. What would you like to explore?",
+  "Hey! I build AI systems, process automation, and full-stack solutions for businesses. What would you like to know about my work?",
+] as const;
+
+const NETWORKING_GREETING_RESPONSES = [
+  "Great to connect! I appreciate you checking out my work. What part of my portfolio or projects are you curious about?",
+  "Nice to connect! I’d be happy to share more about my projects, experience, or the kind of work I do. What would you like to know?",
+  "Thanks for reaching out — I’m glad you found my work. What would you like to explore in my portfolio or services?",
+] as const;
+
+const RECRUITER_GREETING_RESPONSES = [
+  "Nice to connect! I’m happy to share my experience, background, and the kind of work I do. What would you like to know?",
+  "Glad you found my profile. I can share more about my experience, skills, and availability — what would you like to know?",
+  "Thanks for reaching out. I’m open to discussing my background, projects, and how I can contribute. What would you like to know?",
+] as const;
+
+const BUSINESS_OWNER_GREETING_RESPONSES = [
+  "Thanks for reaching out — I’d be happy to talk through your goals and the kind of solution that fits. What are you looking to build or improve?",
+  "Good to connect! I help businesses with AI automation, workflow improvements, and custom digital solutions. What are you trying to solve?",
+  "Happy to chat. I work with founders and teams to streamline operations, automate work, and build practical tools. What are you looking to do?",
+] as const;
+
+const TECHNICAL_GREETING_RESPONSES = [
+  "Nice to meet you. I work across product, backend, automation, and AI systems, so I can help with both technical and business-side problems. What are you exploring?",
+  "Glad to connect. I enjoy building practical systems that combine software engineering, automation, and AI. What are you working on?",
+  "Great to connect. I can help with technical architecture, automation workflows, integrations, and product-focused builds. What are you trying to solve?",
+] as const;
+
+const pickRandom = <T,>(items: readonly T[]): T =>
+  items[Math.floor(Math.random() * items.length)];
+
+const SERVICES_RESPONSES = [
+  "I help businesses with AI automation, workflow systems, API integrations, and custom web products. The goal is simple: turn manual work into reliable systems that save time and improve decisions.",
+  "My work focuses on AI-powered automations, internal tools, backend systems, and full-stack products that help teams move faster and work more efficiently.",
+  "I build practical digital systems: AI assistants, business automations, API integrations, dashboards, and custom software that fits real operations rather than theory.",
+] as const;
+
+const CASE_STUDY_RESPONSES = [
+  "A few strong examples are /case-study/ecommerce-sales-automation, /case-study/property-intelligence-assistant, and /case-study/teacher-ai. I can point you to the closest fit for your use case.",
+  "I have examples across automation, education, events, and AI operations. The most relevant ones are usually /case-study/ecommerce-sales-automation, /case-study/ai-job-intelligence, and /case-study/gatepass-system.",
+  "My portfolio spans AI systems, product dashboards, automation workflows, and business tools. A few examples are /case-study/teacher-ai, /case-study/property-intelligence-assistant, and /case-study/gatepass-system.",
+] as const;
+
+const BOOKING_RESPONSES = [
+  "Absolutely — the easiest next step is /book-call. It’s a short discovery conversation where I can understand your goals and suggest the right setup or next move.",
+  "Yes, I’d be happy to talk. You can book a quick discovery call at /book-call, and I’ll help you map out the best direction for your project.",
+  "That’s a great next step. Book a short discovery call at /book-call and we can talk through the problem, the scope, and the best way to move forward.",
+] as const;
+
+const IMPACT_RESPONSES = [
+  "I help businesses reduce manual work, improve operational speed, and build systems that scale with the team instead of breaking under pressure.",
+  "The work is less about flashy tools and more about practical business value: better workflows, cleaner operations, and smarter automation where it actually matters.",
+  "I focus on solving the real bottlenecks in a business — repetitive processes, slow systems, disconnected tools, and manual work that costs time and money.",
+] as const;
+
+const PROCESS_RESPONSES = [
+  "My process usually starts with understanding the problem, mapping the workflow, and identifying where the biggest bottlenecks are. From there, I design the simplest working system and iterate with feedback.",
+  "I like to keep it practical: understand the goal, simplify the workflow, test the core system quickly, then improve based on real usage and business needs.",
+  "I approach projects by clarifying the outcome, defining the workflow, building the first working version, and refining it around user feedback and operational reality.",
+] as const;
+
 export function useAIResponse(
   getAIResponse: (
     input: string,
@@ -143,7 +210,21 @@ export function useAIResponse(
   const handleAIResponse = useCallback(
     async (textToSend: string, updatedConversation: Message[]) => {
       const greetingRegex =
-        /^(hi|hello|hey|hey there|good morning|good afternoon|good evening|yo)\b[!.]?$/i;
+        /^(hi|hello|hey|hey there|good morning|good afternoon|good evening|yo|sup|howdy|what(?:'|’)s up|whats up|how(?:'|’)s it going|hows it going|what(?:'|’)s good|whats good|good to see you|nice to meet you|great to meet you|good to meet you|pleased to meet you|greetings|hola)\b[!.?\s]*$/i;
+      const networkingGreetingRegex =
+        /^(nice to connect|good to connect|i came across your work|i saw your profile|i was checking out your portfolio|love your portfolio|interesting work|great work|impressive portfolio|nice portfolio|your work stood out|i liked your work|good to meet you|nice to meet you|good to see you)\b[!.?\s]*$/i;
+      const recruiterGreetingRegex =
+        /^(hi|hello).*\b(profile|portfolio|experience|resume|cv|linkedin|github|job|role|opportunity|hiring|interview|team)\b.*$/i;
+      const businessOwnerGreetingRegex =
+        /^(hi|hello|hey).*\b(business|startup|company|founder|owner|team|ops|operations|automation|workflow|process|tool|system|website|app|website|platform|dashboard)\b.*$/i;
+      const technicalGreetingRegex =
+        /^(hi|hello|hey).*\b(technical|architecture|api|integration|backend|frontend|full stack|system design|ai|automation|developer|engineer|code|build)\b.*$/i;
+      const smallTalkRegex =
+        /^(how are you|how are you doing|how(?:'|’)s it going|hows it going|what(?:'|’)s good|whats good|nice to meet you|good to meet you|great to meet you|pleased to meet you)\b[!.?\s]*$/i;
+      const farewellRegex =
+        /^(bye|goodbye|see ya|see you later|catch you later|talk later|ttyl|good night|have a nice day|take care|until next time)\b[!.?\s]*$/i;
+      const introRegex =
+        /^(who are you|what can you do|what do you do|what are you|tell me about yourself|who is moruf|what is your background|what do you specialize in)\b.*$/i;
       const thanksRegex = /^(thanks|thank you|thx|ty)\b[!.]?$/i;
       const shortExplorationRegex = SHORT_EXPLORATION_REGEX;
       const normalize = (value: string) =>
@@ -167,12 +248,14 @@ export function useAIResponse(
         greetingRegex.test(textToSend) ||
         greetingRegex.test(normalizedSimple)
       ) {
+        const greetingText = pickRandom(GREETING_RESPONSES);
+
         showAfterTyping(() => {
           setMessages(() => [
             ...updatedConversation,
             {
               role: "bot",
-              text: "Hey there! I can help with questions about my projects, services, or portfolio. What would you like to know about my work?",
+              text: greetingText,
               timestamp: new Date(),
               messageId: `msg_${Date.now()}_greeting`,
             },
@@ -180,6 +263,272 @@ export function useAIResponse(
           setShowQuickReplies(true);
           setQuickReplies([
             "What services do you offer?",
+            "How can I book a call?",
+            "Show me your case studies",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        recruiterGreetingRegex.test(textToSend) ||
+        recruiterGreetingRegex.test(normalizedSimple)
+      ) {
+        const recruiterGreetingText = pickRandom(RECRUITER_GREETING_RESPONSES);
+
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: recruiterGreetingText,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_recruiter_greeting`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What is your experience?",
+            "What is your availability?",
+            "How can I book a call?",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        networkingGreetingRegex.test(textToSend) ||
+        networkingGreetingRegex.test(normalizedSimple)
+      ) {
+        const networkingGreetingText = pickRandom(NETWORKING_GREETING_RESPONSES);
+
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: networkingGreetingText,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_networking_greeting`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What services do you offer?",
+            "Show me your case studies",
+            "How can I book a call?",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        businessOwnerGreetingRegex.test(textToSend) ||
+        businessOwnerGreetingRegex.test(normalizedSimple)
+      ) {
+        const businessOwnerGreetingText = pickRandom(
+          BUSINESS_OWNER_GREETING_RESPONSES,
+        );
+
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: businessOwnerGreetingText,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_business_owner_greeting`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "Can you help automate my business?",
+            "What services do you offer?",
+            "How can I book a call?",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        technicalGreetingRegex.test(textToSend) ||
+        technicalGreetingRegex.test(normalizedSimple)
+      ) {
+        const technicalGreetingText = pickRandom(TECHNICAL_GREETING_RESPONSES);
+
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: technicalGreetingText,
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_technical_greeting`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What services do you offer?",
+            "How do you build AI systems?",
+            "Can you help automate my business?",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        smallTalkRegex.test(textToSend) ||
+        smallTalkRegex.test(normalizedSimple)
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: "I'm doing great, thanks for asking. I help businesses with AI, automation, and custom digital solutions. What would you like to know about my work?",
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_smalltalk`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What services do you offer?",
+            "Show me your case studies",
+            "How can I book a call?",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        /\b(what services do you offer|what do you do|what can you help me with|what are your services)\b/i.test(
+          textToSend,
+        ) ||
+        /\b(what services do you offer|what do you do|what can you help me with|what are your services)\b/i.test(
+          normalizedSimple,
+        )
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: pickRandom(SERVICES_RESPONSES),
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_services`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "Show me your case studies",
+            "How can I book a call?",
+            "Can you help automate my business?",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        /\b(show me your case studies|show me your projects|what are your examples|can you show examples|show examples)\b/i.test(
+          textToSend,
+        ) ||
+        /\b(show me your case studies|show me your projects|what are your examples|can you show examples|show examples)\b/i.test(
+          normalizedSimple,
+        )
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: pickRandom(CASE_STUDY_RESPONSES),
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_case_studies`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What services do you offer?",
+            "How can I book a call?",
+            "Can you help automate my business?",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        /\b(how can i book a call|book a call|how do i book|book me a call|how can i schedule|schedule a call)\b/i.test(
+          textToSend,
+        ) ||
+        /\b(how can i book a call|book a call|how do i book|book me a call|how can i schedule|schedule a call)\b/i.test(
+          normalizedSimple,
+        )
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: pickRandom(BOOKING_RESPONSES),
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_booking_prompt`,
+            },
+          ]);
+          setShowQuickReplies(false);
+        });
+        return;
+      }
+
+      if (
+        /\b(can you help automate my business|can you help with my project|can you work on my project|can you build my website|can you build for me|can you help me build)\b/i.test(
+          textToSend,
+        ) ||
+        /\b(can you help automate my business|can you help with my project|can you work on my project|can you build my website|can you build for me|can you help me build)\b/i.test(
+          normalizedSimple,
+        )
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: pickRandom(IMPACT_RESPONSES),
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_project_help`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What services do you offer?",
+            "How can I book a call?",
+            "Show me your case studies",
+          ]);
+        });
+        return;
+      }
+
+      if (
+        /\b(what is your process|how do you work|how do you build ai systems|how do you build systems|how do you approach projects)\b/i.test(
+          textToSend,
+        ) ||
+        /\b(what is your process|how do you work|how do you build ai systems|how do you build systems|how do you approach projects)\b/i.test(
+          normalizedSimple,
+        )
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: pickRandom(PROCESS_RESPONSES),
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_process`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What services do you offer?",
+            "Show me your case studies",
             "How can I book a call?",
           ]);
         });
@@ -223,6 +572,53 @@ export function useAIResponse(
             },
           ]);
           setShowQuickReplies(false);
+        });
+        return;
+      }
+
+      if (
+        farewellRegex.test(textToSend) ||
+        farewellRegex.test(normalizedSimple) ||
+        /^(bye|goodbye|see ya|talk soon|catch up soon)$/i.test(textToSend)
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: "Take care! Feel free to reach out anytime if you want to talk about services, projects, or a potential collaboration.",
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_farewell`,
+            },
+          ]);
+          setShowQuickReplies(false);
+        });
+        return;
+      }
+
+      if (
+        introRegex.test(textToSend) ||
+        introRegex.test(normalizedSimple) ||
+        /^(who are you|what can you do|what do you do|tell me about yourself)\b.*$/i.test(
+          textToSend,
+        )
+      ) {
+        showAfterTyping(() => {
+          setMessages(() => [
+            ...updatedConversation,
+            {
+              role: "bot",
+              text: "I'm Moruf, a software engineer and AI automation specialist helping businesses simplify operations, automate workflows, and build practical digital products. I work on web apps, APIs, AI systems, and process automation for growing teams.",
+              timestamp: new Date(),
+              messageId: `msg_${Date.now()}_introduction`,
+            },
+          ]);
+          setShowQuickReplies(true);
+          setQuickReplies([
+            "What services do you offer?",
+            "Show me your case studies",
+            "How can I book a call?",
+          ]);
         });
         return;
       }
