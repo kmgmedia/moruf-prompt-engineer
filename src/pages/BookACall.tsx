@@ -4,6 +4,7 @@ import {
   ArrowLeft,
   CalendarDays,
   Check,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Clock3,
@@ -347,18 +348,24 @@ const BookACall = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Globe className="h-4 w-4 shrink-0" />
-                <select
-                  aria-label="Timezone"
-                  value={formData.timezone}
-                  onChange={(e) => handleTimezoneChange(e.target.value)}
-                  className="-ml-1 rounded-md bg-transparent px-1 py-0.5 text-foreground hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary/30"
-                >
-                  {BOOKING_TIMEZONE_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </select>
+                <div className="relative">
+                  <select
+                    aria-label="Timezone"
+                    value={formData.timezone}
+                    onChange={(e) => handleTimezoneChange(e.target.value)}
+                    className="appearance-none rounded-md border border-border bg-background py-1 pl-2.5 pr-8 text-foreground hover:border-primary/50 focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  >
+                    {BOOKING_TIMEZONE_OPTIONS.map((option) => (
+                      <option key={option.value} value={option.value}>
+                        {option.label}
+                      </option>
+                    ))}
+                  </select>
+                  <ChevronDown
+                    aria-hidden="true"
+                    className="pointer-events-none absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-primary"
+                  />
+                </div>
               </li>
             </ul>
 
