@@ -117,6 +117,15 @@ export const validateBookingInput = (
           valid: false,
           error: "Please enter your full name (at least 2 characters).",
         };
+      // A question, email, number or long sentence isn't a name.
+      if (
+        /[?@\d]/.test(trimmed) ||
+        trimmed.split(/\s+/).length > 5
+      )
+        return {
+          valid: false,
+          error: "Please just type your full name (e.g. Jane Doe).",
+        };
       return { valid: true, value: trimmed };
     }
 

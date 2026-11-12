@@ -101,6 +101,9 @@ const BOOKING_OFFER_REGEX =
 // The AI reply talks about booking a call, so offer the in-chat booking button.
 const BOOKING_MENTION_REGEX =
   /\/book-call|discovery call|book (?:a|the|it|one)\b|here in (?:the |this )?chat/i;
+// Visitor wants out of the booking flow, phrased however they like.
+const CANCEL_INTENT_REGEX =
+  /\b(cancel|stop|quit|exit|abort|never ?mind|forget (?:it|about it)|don'?t worry|do not worry|no longer|not anymore|change(?:d)? my mind|leave it|not interested|no need|don'?t want to (?:book|continue)|not now|maybe later)\b/i;
 const AFFIRMATIVE_REGEX =
   /^(yes|yeah|yea|yep|yup|ya|sure|ok|okay|alright|please|go ahead|let'?s (?:do it|go|book)|book it|do it|sounds good|of course|definitely|absolutely)\b/i;
 export const BOOK_IN_CHAT_QUICK_REPLY = "Book the call here in chat";
@@ -864,12 +867,14 @@ export function useAIResponse(
       if (state.chatBookingStep && state.chatBookingStep !== "done") {
         const step = state.chatBookingStep as BookingField | "confirm";
 
-        if (
-          step !== "confirm" &&
-          /^(cancel|stop|exit|quit|never ?mind|forget it|cancel booking)[.!]*$/i.test(
-            textToSend.trim(),
-          )
-        ) {
+        const wordCount = textToSend.trim().split(/\s+/).length;
+        // Free-text project descriptions can legitimately mention "cancel" or
+        // "stop", so only treat short messages there as a cancel request.
+        const wantsToCancel =
+          CANCEL_INTENT_REGEX.test(textToSend) &&
+          (step !== "description" || wordCount <= 5);
+
+        if (wantsToCancel) {
           setState((prev) => ({ ...prev, chatBookingStep: "" }));
           showAfterTyping(() => {
             setMessages(() => [
@@ -1010,22 +1015,60 @@ export function useAIResponse(
 
         // Validate the current field input
         const validation = validateBookingInput(step, textToSend);
+
+        // Looks like a question or a sentence rather than an answer: let the
+        // AI respond, then repeat the booking question.
+        const looksLikeQuestion =
+          textToSend.includes("?") || wordCount >= 5;
+        if (
+          !validation.valid &&
+          looksLikeQuestion &&
+          step !== "date" &&
+          step !== "time"
+        ) {
+          setIsTyping(true);
+          const history = updatedConversation.slice(0, -1).map((msg) => ({
+            role: (msg.role === "bot" ? "assistant" : "user") as
+              | "user"
+              | "assistant",
+            content: msg.text,
+          }));
+          const aiAnswer = await getAIResponse(textToSend, history);
+          setIsTyping(false);
+          if (aiAnswer) {
+            setMessages(() => [
+              ...updatedConversation,
+              {
+                role: "bot",
+                text: `${aiAnswer}\n\nTo continue your booking: ${getBookingStepPrompt(
+                  step,
+                  state.capturedData,
+                ).replace(/^Sure! Let me take your booking details right here\.\n\n/, "")}\n\n(Or type "cancel" to stop.)`,
+                timestamp: new Date(),
+                messageId: `msg_${Date.now()}_booking_aside`,
+              },
+            ]);
+            const qr = getBookingStepQuickReplies(step);
+            setQuickReplies(qr ? [...qr, "Cancel booking"] : ["Cancel booking"]);
+            setShowQuickReplies(true);
+            return;
+          }
+        }
+
         if (!validation.valid) {
           showAfterTyping(() => {
             setMessages(() => [
               ...updatedConversation,
               {
                 role: "bot",
-                text: validation.error ?? "Invalid input. Please try again.",
+                text: `${validation.error ?? "Invalid input. Please try again."}\n\n(Type "cancel" to stop booking.)`,
                 timestamp: new Date(),
                 messageId: `msg_${Date.now()}_booking_invalid`,
               },
             ]);
             const qr = getBookingStepQuickReplies(step);
-            if (qr) {
-              setQuickReplies([...qr]);
-              setShowQuickReplies(true);
-            }
+            setQuickReplies(qr ? [...qr, "Cancel booking"] : ["Cancel booking"]);
+            setShowQuickReplies(true);
           });
           return;
         }
